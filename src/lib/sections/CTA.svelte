@@ -1,4 +1,6 @@
 <script lang="ts">
+  import ContentHighlight from '../components/ContentHighlight.svelte';
+
   const testimonials = [
     {
       quote: "I'd been paying $280 a month for a website I was terrified to touch. HostVerna built us something from scratch, walked me through everything, and I own it now. I can't overstate how different that feels.",
@@ -21,21 +23,28 @@
   ];
 </script>
 
-<section class="section testimonials-section" id="pricing">
+<section class="section testimonials-section" id="case-studies">
   <div class="container">
     <div class="t-header">
-      <span class="badge badge-gradient">Client Results</span>
       <h2 class="t-title">From business owners like you</h2>
-      <p class="t-sub">Not case studies. Not metrics. What it actually felt like to work with us.</p>
+      <p class="t-sub">
+        Not case studies. Not metrics.
+        <ContentHighlight tone="string">What it actually felt like to work with us.</ContentHighlight>
+      </p>
     </div>
     <div class="testimonials-grid">
       {#each testimonials as t}
         <div class="t-card">
           <div class="t-result">{t.result}</div>
+          <div class="t-stars" role="img" aria-label="5 out of 5 stars">
+            {#each [0, 1, 2, 3, 4] as _}
+              <span class="t-star" aria-hidden="true">★</span>
+            {/each}
+          </div>
           <p class="t-quote">{t.quote}</p>
           <div class="t-author">
-            <div class="t-avatar"></div>
-            <div>
+            <div class="t-avatar" aria-hidden="true"></div>
+            <div class="t-author-meta">
               <div class="t-name">{t.author}</div>
               <div class="t-role">{t.role}</div>
             </div>
@@ -47,8 +56,6 @@
 </section>
 
 <section class="cta-section" id="contact">
-  <div class="cta-bg-glow-1"></div>
-  <div class="cta-bg-glow-2"></div>
   <div class="container cta-content">
     <div class="cta-inner">
       <span class="cta-eyebrow">Ready to grow?</span>
@@ -56,10 +63,12 @@
         Stop renting.<br />Start owning.
       </h2>
       <p class="cta-sub">
-        If you're tired of paying for something you don't own, dealing with vendors who don't pick up, or having a site that looks like everyone else's, let's talk.
+        If you're tired of
+        <ContentHighlight tone="accent">paying for something you don't own</ContentHighlight>, dealing with vendors who
+        don't pick up, or having a site that looks like everyone else's, let's talk.
       </p>
       <div class="cta-actions">
-        <a href="#contact" class="btn btn-white btn-lg">Book a Free Call</a>
+        <a href="/contact" class="btn btn-white btn-lg">Book a Free Call</a>
         <a href="mailto:hello@hostverna.com" class="btn btn-ghost btn-lg">hello@hostverna.com</a>
       </div>
       <div class="cta-proof">
@@ -98,12 +107,12 @@
     font-size: clamp(28px, 4vw, 44px);
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #0f172a;
+    color: var(--text-primary);
   }
 
   .t-sub {
     font-size: 15px;
-    color: #475569;
+    color: var(--text-secondary);
   }
 
   .testimonials-grid {
@@ -112,12 +121,12 @@
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: var(--radius-tile);
     overflow: hidden;
   }
 
   .t-card {
-    background: #fff;
+    background: var(--bg);
     padding: 32px 28px;
     display: flex;
     flex-direction: column;
@@ -126,26 +135,40 @@
   }
 
   .t-card:hover {
-    background: #fafcff;
+    background: var(--bg-muted);
   }
 
   .t-result {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 13px;
     font-weight: 700;
-    color: #0369a1;
-    background: linear-gradient(135deg, #e0f2fe, #ccfbf1);
-    border: 1px solid #bae6fd;
-    border-radius: 2px;
+    color: var(--primary);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
     padding: 4px 10px;
     display: inline-block;
     width: fit-content;
     letter-spacing: 0.01em;
   }
 
+  .t-stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    letter-spacing: 0;
+  }
+
+  .t-star {
+    font-size: 15px;
+    line-height: 1;
+    color: #f59e0b;
+    text-shadow: 0 0 0.5px rgba(180, 83, 9, 0.35);
+  }
+
   .t-quote {
     font-size: 14.5px;
-    color: #374151;
+    color: var(--text-secondary);
     line-height: 1.7;
     font-style: italic;
     flex: 1;
@@ -154,24 +177,55 @@
   .t-author {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     padding-top: 12px;
     border-top: 1px solid #f1f5f9;
   }
 
+  /* Generic blank “profile photo” placeholder (silhouette, not an icon glyph) */
   .t-avatar {
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0369a1, #0d9488);
     flex-shrink: 0;
-    opacity: 0.25;
+    background: linear-gradient(180deg, #e8edf2 0%, #cbd5e1 100%);
+    border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .t-avatar::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #94a3b8;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .t-avatar::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 18px;
+    border-radius: 15px 15px 0 0;
+    background: #94a3b8;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .t-author-meta {
+    min-width: 0;
   }
 
   .t-name {
     font-size: 13px;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--text-primary);
     font-family: 'Space Grotesk', sans-serif;
   }
 
@@ -184,36 +238,12 @@
 
   .cta-section {
     position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #0369a1 0%, #0d9488 100%);
-    padding: 96px 0;
-  }
-
-  .cta-bg-glow-1 {
-    position: absolute;
-    top: -80px;
-    left: -80px;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .cta-bg-glow-2 {
-    position: absolute;
-    bottom: -80px;
-    right: -80px;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
+    background: var(--primary);
+    padding: 80px 0;
   }
 
   .cta-content {
     position: relative;
-    z-index: 1;
   }
 
   .cta-inner {
@@ -227,13 +257,9 @@
   .cta-eyebrow {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.65);
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 4px 12px;
-    border-radius: 2px;
+    color: rgba(255,255,255,0.7);
   }
 
   .cta-title {
@@ -266,25 +292,41 @@
     color: #0369a1;
     border-color: #fff;
     font-weight: 700;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
   }
 
-  .btn-white:hover {
-    background: #f0f9ff;
-    border-color: #f0f9ff;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  .btn-white:hover:not(:disabled):not([aria-disabled='true']) {
+    transform: translateY(-2px);
+    background: #fff;
+    border-color: #fff;
+    box-shadow:
+      0 6px 20px rgb(0 0 0 / 0.14),
+      0 2px 8px rgb(3 105 161 / 0.12);
+    filter: brightness(1.02);
+  }
+
+  .btn-white:active:not(:disabled):not([aria-disabled='true']) {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
   }
 
   .btn-ghost {
-    background: rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.88);
-    border: 1px solid rgba(255,255,255,0.22);
+    background: transparent;
+    color: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: none;
   }
 
-  .btn-ghost:hover {
-    background: rgba(255,255,255,0.15);
-    border-color: rgba(255,255,255,0.35);
-    transform: translateY(-1px);
+  .btn-ghost:hover:not(:disabled):not([aria-disabled='true']) {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.55);
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.2);
+  }
+
+  .btn-ghost:active:not(:disabled):not([aria-disabled='true']) {
+    transform: translateY(0);
+    box-shadow: none;
   }
 
   .cta-proof {
@@ -316,7 +358,7 @@
       grid-template-columns: 1fr;
     }
     .cta-section {
-      padding: 64px 0;
+      padding: 56px 0;
     }
     .cta-proof {
       flex-direction: column;

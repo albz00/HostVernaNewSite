@@ -47,21 +47,11 @@
 
 <style>
   .stats-section {
-    padding: 64px 0 0;
-    background: #fff;
+    padding: 56px 0 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     overflow: hidden;
-    position: relative;
-  }
-
-  .stats-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #0369a1 30%, #0d9488 70%, transparent);
   }
 
   .stats-grid {

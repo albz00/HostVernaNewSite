@@ -1,4 +1,6 @@
 <script lang="ts">
+  import ContentHighlight from '../components/ContentHighlight.svelte';
+
   const painPoints = [
     {
       pain: 'Paying every month for a site you don\'t own',
@@ -50,13 +52,13 @@
   <div class="container">
 
     <div class="pain-header">
-      <span class="badge badge-gradient">Who This Is For</span>
       <h2 class="pain-title">
         Built for the business owner<br />
         who has no time for this.
       </h2>
       <p class="pain-sub">
-        If you've ever thought "I just want it to work and I don't want to think about it again,"
+        If you've ever thought
+        <ContentHighlight tone="comment">"I just want it to work and I don't want to think about it again,"</ContentHighlight>
         that's exactly who we built this for.
       </p>
     </div>
@@ -69,8 +71,7 @@
             <p class="pain-text">{item.pain}</p>
           </div>
           <div class="pain-divider">
-            <div class="divider-line"></div>
-            <span class="divider-arrow">→</span>
+            <div class="divider-line-vertical"></div>
           </div>
           <div class="pain-solution">
             <span class="fix-marker">How we fix it</span>
@@ -87,13 +88,13 @@
   <div class="container">
     <div class="own-layout">
       <div class="own-left">
-        <span class="badge badge-gradient">The Ownership Model</span>
         <h2 class="own-title">
           You pay for it once.<br />
           Then it's yours.
         </h2>
         <p class="own-body">
-          Most web agencies rent you a site and keep the keys. You pay monthly, forever, for something you never actually own.
+          Most web agencies rent you a site and keep the keys.
+          <ContentHighlight tone="accent">You pay monthly, forever, for something you never actually own.</ContentHighlight>
           We don't work that way.
         </p>
         <p class="own-body">
@@ -144,18 +145,6 @@
     background: var(--bg-subtle);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    position: relative;
-  }
-
-  .pain-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #0369a1 30%, #0d9488 70%, transparent);
-    pointer-events: none;
   }
 
   .pain-header {
@@ -189,12 +178,12 @@
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: var(--radius-tile);
     overflow: hidden;
   }
 
   .pain-card {
-    background: #fff;
+    background: var(--bg);
     padding: 28px 32px;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -232,25 +221,15 @@
 
   .pain-divider {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
     flex-shrink: 0;
   }
 
-  .divider-line {
+  .divider-line-vertical {
     width: 1px;
-    height: 20px;
+    min-height: 44px;
     background: var(--border);
-  }
-
-  .divider-arrow {
-    font-size: 16px;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1;
   }
 
   .fix-marker {
@@ -269,7 +248,7 @@
   }
 
   .ownership-section {
-    background: #fff;
+    background: var(--bg);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
@@ -307,7 +286,7 @@
     background: var(--bg-subtle);
     border: 1px solid var(--border);
     border-left: 3px solid #0369a1;
-    border-radius: 0 4px 4px 0;
+    border-radius: var(--radius-tile-quote);
     padding: 20px 24px;
     display: flex;
     flex-direction: column;
@@ -348,7 +327,7 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: var(--gradient);
+    background: var(--primary);
   }
 
   .own-right {
@@ -384,19 +363,18 @@
   }
 
   .own-dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: var(--gradient);
+    background: var(--primary);
     flex-shrink: 0;
-    box-shadow: 0 0 0 3px rgba(3,105,161,0.12);
   }
 
   .own-line {
     width: 1px;
     flex: 1;
     min-height: 28px;
-    background: linear-gradient(180deg, rgba(3,105,161,0.3), rgba(13,148,136,0.1));
+    background: var(--border);
     margin-top: 4px;
   }
 
@@ -421,9 +399,9 @@
 
   .own-placeholder {
     aspect-ratio: 16/9;
-    background: linear-gradient(135deg, #e0f2fe 0%, #ccfbf1 100%);
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -460,13 +438,12 @@
       gap: 12px;
     }
 
-    .pain-divider {
-      flex-direction: row;
-    }
-
-    .divider-line {
-      width: 20px;
+    .divider-line-vertical {
+      min-height: 1px;
       height: 1px;
+      width: 100%;
+      max-width: 140px;
+      background: var(--border);
     }
   }
 </style>

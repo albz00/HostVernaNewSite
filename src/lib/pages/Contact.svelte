@@ -1,0 +1,774 @@
+<script lang="ts">
+  import Navbar from '../components/Navbar.svelte';
+  import Footer from '../components/Footer.svelte';
+
+  const phoneDisplay = '304-992-6568';
+  const phoneHref = 'tel:+13049926568';
+  const mailTo = 'hello@hostverna.com';
+
+  type Step =
+    | 'intro'
+    | 'contact'
+    | 'org'
+    | 'need'
+    | 'timeline'
+    | 'budget'
+    | 'message'
+    | 'review'
+    | 'success';
+
+  let step: Step = 'intro';
+  let animating = false;
+
+  let name = '';
+  let email = '';
+  let phone = '';
+  let organization = '';
+  let role = '';
+  let need = '';
+  let timeline = '';
+  let budget = '';
+  let details = '';
+
+  const needOptions = [
+    { id: 'website', label: 'Website design or redesign', sub: 'Custom site, launch, or overhaul' },
+    { id: 'software', label: 'Custom software or internal tools', sub: 'Portals, workflows, integrations' },
+    { id: 'crm', label: 'CRM or client management', sub: 'Setup, migration, training' },
+    { id: 'it', label: 'IT support or managed services', sub: 'Ongoing help, monitoring, fixes' },
+    { id: 'multiple', label: 'More than one of the above', sub: 'We will sort priorities on a call' },
+    { id: 'unsure', label: 'Not sure yet', sub: 'Tell us in the next step' },
+  ] as const;
+
+  const timelineOptions = [
+    { id: 'asap', label: 'As soon as possible', sub: 'Active deadline or pain point' },
+    { id: 'month', label: 'Within the next month', sub: 'Getting quotes and deciding' },
+    { id: 'quarter', label: 'This quarter', sub: 'Planning phase' },
+    { id: 'exploring', label: 'Just exploring', sub: 'No fixed timeline' },
+  ] as const;
+
+  const budgetOptions = [
+    { id: 'under-5k', label: 'Under $5,000', sub: 'Smaller scope or phased work' },
+    { id: '5-15k', label: '$5,000 – $15,000', sub: 'Typical small business project band' },
+    { id: '15-50k', label: '$15,000 – $50,000', sub: 'Larger site or custom build' },
+    { id: '50k-plus', label: '$50,000+', sub: 'Enterprise or multi-system' },
+    { id: 'discuss', label: 'Prefer to discuss', sub: 'We will talk ranges on a call' },
+  ] as const;
+
+  const totalSteps = 7;
+
+  function progressPct(): number {
+    if (step === 'intro' || step === 'success') return 0;
+    if (step === 'review') return 100;
+    const n: Record<string, number> = {
+      contact: 1,
+      org: 2,
+      need: 3,
+      timeline: 4,
+      budget: 5,
+      message: 6,
+    };
+    const i = n[step] ?? 0;
+    return Math.round((i / totalSteps) * 100);
+  }
+
+  function advance(next: Step) {
+    animating = true;
+    setTimeout(() => {
+      step = next;
+      animating = false;
+    }, 180);
+  }
+
+  function emailOk(v: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+  }
+
+  function goFromContact() {
+    if (!name.trim() || !email.trim() || !emailOk(email)) return;
+    advance('org');
+  }
+
+  function goFromOrg() {
+    if (!organization.trim()) return;
+    advance('need');
+  }
+
+  function buildBody(): string {
+    const lines = [
+      'HostVerna contact request',
+      '---',
+      `Name: ${name.trim()}`,
+      `Email: ${email.trim()}`,
+      `Phone: ${phone.trim() || '(not provided)'}`,
+      `Organization: ${organization.trim()}`,
+      `Role: ${role.trim() || '(not provided)'}`,
+      `Need: ${needLabel(need)}`,
+      `Timeline: ${timelineLabel(timeline)}`,
+      `Budget: ${budgetLabel(budget)}`,
+      '---',
+      'Details:',
+      details.trim() || '(none)',
+    ];
+    return lines.join('\n');
+  }
+
+  function needLabel(id: string): string {
+    return needOptions.find((o) => o.id === id)?.label ?? id;
+  }
+
+  function timelineLabel(id: string): string {
+    return timelineOptions.find((o) => o.id === id)?.label ?? id;
+  }
+
+  function budgetLabel(id: string): string {
+    return budgetOptions.find((o) => o.id === id)?.label ?? id;
+  }
+
+  $: mailtoHref = (() => {
+    const subject = encodeURIComponent(`Contact request — ${organization.trim() || name.trim() || 'HostVerna'}`);
+    const body = encodeURIComponent(buildBody());
+    return `mailto:${mailTo}?subject=${subject}&body=${body}`;
+  })();
+</script>
+
+<svelte:head>
+  <title>Contact &amp; get started | HostVerna</title>
+  <meta
+    name="description"
+    content="Tell us what you need in a few quick steps. We respond fast, with no pressure. Call, email, or complete this form."
+  />
+</svelte:head>
+
+<Navbar />
+
+<main class="contact-page">
+  <div class="container contact-inner">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-sep" aria-hidden="true">/</span>
+      <span class="breadcrumb-current">Contact</span>
+    </nav>
+
+    <header class="contact-header">
+      <h1 class="contact-h1">Get started</h1>
+      <p class="contact-lede">
+        A short guided form so we know who you are, what you need, and how soon you are looking to move. Same spirit as
+        our qualifier: quick for you, enough detail for us to respond with something useful.
+      </p>
+    </header>
+
+    <div class="contact-shell" class:animating>
+      {#if step === 'intro'}
+        <div class="form-card intro-card">
+          <h2 class="card-h2">Before we talk money or timelines in depth</h2>
+          <p class="card-lead">
+            This is not a contract and not a sales script. It is the fastest way to get your request to the right person
+            with context, so our first reply can actually help.
+          </p>
+          <ul class="intro-bullets">
+            <li><span class="ib-dot"></span> Takes most people under three minutes</li>
+            <li><span class="ib-dot"></span> You can still call <a href={phoneHref}>{phoneDisplay}</a> if you prefer voice</li>
+            <li><span class="ib-dot"></span> At the end we open your email app with everything filled in (you send it)</li>
+          </ul>
+          <button type="button" class="btn btn-primary btn-lg" on:click={() => advance('contact')}>Start the form</button>
+        </div>
+      {:else if step === 'contact'}
+        <div class="form-card">
+          <div class="q-progress">
+            <div class="qp-bar" style="width: {progressPct()}%"></div>
+          </div>
+          <div class="q-step-label">Step 1 of {totalSteps}</div>
+          <h2 class="q-heading">How do we reach you?</h2>
+          <div class="field-stack">
+            <label class="field">
+              <span class="field-label">Full name <span class="req">*</span></span>
+              <input class="field-input" type="text" bind:value={name} autocomplete="name" />
+            </label>
+            <label class="field">
+              <span class="field-label">Work email <span class="req">*</span></span>
+              <input class="field-input" type="email" bind:value={email} autocomplete="email" />
+            </label>
+            <label class="field">
+              <span class="field-label">Phone <span class="opt">(optional)</span></span>
+              <input class="field-input" type="tel" bind:value={phone} autocomplete="tel" />
+            </label>
+          </div>
+          <div class="card-actions">
+            <button type="button" class="btn btn-secondary" on:click={() => advance('intro')}>Back</button>
+            <button type="button" class="btn btn-primary" on:click={goFromContact} disabled={!name.trim() || !emailOk(email)}
+              >Continue</button
+            >
+          </div>
+        </div>
+      {:else if step === 'org'}
+        <div class="form-card">
+          <div class="q-progress">
+            <div class="qp-bar" style="width: {progressPct()}%"></div>
+          </div>
+          <div class="q-step-label">Step 2 of {totalSteps}</div>
+          <h2 class="q-heading">Who is this for?</h2>
+          <div class="field-stack">
+            <label class="field">
+              <span class="field-label">Business or organization <span class="req">*</span></span>
+              <input class="field-input" type="text" bind:value={organization} autocomplete="organization" />
+            </label>
+            <label class="field">
+              <span class="field-label">Your role <span class="opt">(optional)</span></span>
+              <input class="field-input" type="text" bind:value={role} autocomplete="organization-title" placeholder="e.g. Owner, Ops manager" />
+            </label>
+          </div>
+          <div class="card-actions">
+            <button type="button" class="btn btn-secondary" on:click={() => advance('contact')}>Back</button>
+            <button type="button" class="btn btn-primary" on:click={goFromOrg} disabled={!organization.trim()}>Continue</button>
+          </div>
+        </div>
+      {:else if step === 'need'}
+        <div class="form-card">
+          <div class="q-progress">
+            <div class="qp-bar" style="width: {progressPct()}%"></div>
+          </div>
+          <div class="q-step-label">Step 3 of {totalSteps}</div>
+          <h2 class="q-heading">What are you reaching out about?</h2>
+          <div class="option-grid">
+            {#each needOptions as opt}
+              <button type="button" class="opt" class:opt-active={need === opt.id} on:click={() => (need = opt.id)}>
+                <span class="opt-label">{opt.label}</span>
+                <span class="opt-sub">{opt.sub}</span>
+              </button>
+            {/each}
+          </div>
+          <div class="card-actions">
+            <button type="button" class="btn btn-secondary" on:click={() => advance('org')}>Back</button>
+            <button type="button" class="btn btn-primary" on:click={() => need && advance('timeline')} disabled={!need}
+              >Continue</button
+            >
+          </div>
+        </div>
+      {:else if step === 'timeline'}
+        <div class="form-card">
+          <div class="q-progress">
+            <div class="qp-bar" style="width: {progressPct()}%"></div>
+          </div>
+          <div class="q-step-label">Step 4 of {totalSteps}</div>
+          <h2 class="q-heading">When are you hoping to move?</h2>
+          <div class="option-list">
+            {#each timelineOptions as opt}
+              <button type="button" class="opt-row" class:opt-row-active={timeline === opt.id} on:click={() => (timeline = opt.id)}>
+                <span class="or-label">{opt.label}</span>
+                <span class="or-sub">{opt.sub}</span>
+              </button>
+            {/each}
+          </div>
+          <div class="card-actions">
+            <button type="button" class="btn btn-secondary" on:click={() => advance('need')}>Back</button>
+            <button type="button" class="btn btn-primary" on:click={() => timeline && advance('budget')} disabled={!timeline}
+              >Continue</button
+            >
+          </div>
+        </div>
+      {:else if step === 'budget'}
+        <div class="form-card">
+          <div class="q-progress">
+            <div class="qp-bar" style="width: {progressPct()}%"></div>
+          </div>
+          <div class="q-step-label">Step 5 of {totalSteps}</div>
+          <h2 class="q-heading">Rough budget or investment range</h2>
+          <p class="q-hint">Ballpark is fine. It helps us suggest realistic options.</p>
+          <div class="option-list">
+            {#each budgetOptions as opt}
+              <button type="button" class="opt-row" class:opt-row-active={budget === opt.id} on:click={() => (budget = opt.id)}>
+                <span class="or-label">{opt.label}</span>
+                <span class="or-sub">{opt.sub}</span>
+              </button>
+            {/each}
+          </div>
+          <div class="card-actions">
+            <button type="button" class="btn btn-secondary" on:click={() => advance('timeline')}>Back</button>
+            <button type="button" class="btn btn-primary" on:click={() => budget && advance('message')} disabled={!budget}
+              >Continue</button
+            >
+          </div>
+        </div>
+      {:else if step === 'message'}
+        <div class="form-card">
+          <div class="q-progress">
+            <div class="qp-bar" style="width: {progressPct()}%"></div>
+          </div>
+          <div class="q-step-label">Step 6 of {totalSteps}</div>
+          <h2 class="q-heading">Anything else we should know?</h2>
+          <p class="q-hint">Links, competitors you like, constraints, or what “done” looks like for you.</p>
+          <label class="field">
+            <span class="field-label">Details <span class="opt">(optional but helpful)</span></span>
+            <textarea class="field-textarea" rows="6" bind:value={details} placeholder="Type here…"></textarea>
+          </label>
+          <div class="card-actions">
+            <button type="button" class="btn btn-secondary" on:click={() => advance('budget')}>Back</button>
+            <button type="button" class="btn btn-primary" on:click={() => advance('review')}>Review</button>
+          </div>
+        </div>
+      {:else if step === 'review'}
+        <div class="form-card review-card">
+          <div class="q-progress">
+            <div class="qp-bar" style="width: 100%"></div>
+          </div>
+          <div class="q-step-label">Step 7 of {totalSteps}</div>
+          <h2 class="q-heading">Review and send</h2>
+          <p class="q-hint">
+            We use your email app so nothing sits on a random server. Tap the button, send the message, and we will reply at
+            <strong>{mailTo}</strong> usually within one business day (often faster).
+          </p>
+          <dl class="review-dl">
+            <dt>Name</dt><dd>{name.trim()}</dd>
+            <dt>Email</dt><dd>{email.trim()}</dd>
+            <dt>Phone</dt><dd>{phone.trim() || '—'}</dd>
+            <dt>Organization</dt><dd>{organization.trim()}</dd>
+            <dt>Role</dt><dd>{role.trim() || '—'}</dd>
+            <dt>Need</dt><dd>{needLabel(need)}</dd>
+            <dt>Timeline</dt><dd>{timelineLabel(timeline)}</dd>
+            <dt>Budget</dt><dd>{budgetLabel(budget)}</dd>
+            <dt>Details</dt><dd class="review-dd-block">{details.trim() || '—'}</dd>
+          </dl>
+          <div class="review-actions">
+            <a href={mailtoHref} class="btn btn-primary btn-lg">Open email app to send</a>
+            <button type="button" class="btn btn-secondary btn-lg" on:click={() => advance('success')}>
+              Continue to confirmation
+            </button>
+          </div>
+          <p class="review-fallback">
+            Prefer phone? <a href={phoneHref}>{phoneDisplay}</a>
+          </p>
+        </div>
+      {:else if step === 'success'}
+        <div class="form-card success-card">
+          <div class="success-badge">Next step</div>
+          <h2 class="q-heading">You are set</h2>
+          <p class="card-lead">
+            If your mail program opened, send the message when it looks right. If nothing opened, use the copy in your
+            review or email us directly at <a href="mailto:{mailTo}">{mailTo}</a>.
+          </p>
+          <p class="card-lead">
+            We read every request. Expect a human reply, not an autoresponder wall, usually within one business day.
+          </p>
+          <div class="card-actions card-actions-center">
+            <a href="/" class="btn btn-primary btn-lg">Back to home</a>
+            <a href="/support" class="btn btn-secondary btn-lg">Support</a>
+          </div>
+        </div>
+      {/if}
+    </div>
+  </div>
+</main>
+
+<Footer />
+
+<style>
+  .contact-page {
+    padding-top: calc(120px + var(--hv-promo-h));
+    padding-bottom: 80px;
+    min-height: 60vh;
+    background: var(--bg-subtle);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 901px) {
+    .contact-page {
+      padding-top: calc(152px + var(--hv-promo-h));
+    }
+  }
+
+  .contact-inner {
+    max-width: 720px;
+  }
+
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .breadcrumb-sep {
+    margin: 0 8px;
+    opacity: 0.5;
+  }
+
+  .breadcrumb-current {
+    color: var(--text-muted);
+  }
+
+  .contact-header {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .contact-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+
+  .contact-lede {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .contact-shell {
+    max-width: 720px;
+    margin: 0 auto;
+    transition: opacity 0.18s ease;
+  }
+
+  .contact-shell.animating {
+    opacity: 0;
+  }
+
+  .form-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
+    padding: 40px 48px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .intro-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .card-h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .card-lead {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .card-lead a {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .intro-bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .intro-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .ib-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .q-progress {
+    height: 3px;
+    background: var(--bg-muted);
+    border-radius: 2px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .qp-bar {
+    height: 100%;
+    background: var(--gradient);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  .q-step-label {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .q-heading {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .q-hint {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: -12px 0 18px;
+    line-height: 1.5;
+  }
+
+  .field-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .req {
+    color: var(--primary);
+  }
+
+  .opt {
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .field-input,
+  .field-textarea {
+    font: inherit;
+    font-size: 15px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg);
+    color: var(--text-primary);
+    width: 100%;
+  }
+
+  .field-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .field-input:focus,
+  .field-textarea:focus {
+    outline: 2px solid rgb(3 105 161 / 0.25);
+    border-color: var(--primary);
+  }
+
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .opt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 16px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: border-color 0.12s ease, background 0.12s ease;
+  }
+
+  .opt:hover {
+    border-color: #cbd5e1;
+  }
+
+  .opt-active {
+    border-color: var(--primary);
+    background: rgb(3 105 161 / 0.06);
+  }
+
+  .opt-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+  }
+
+  .opt-sub {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .opt-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 14px 18px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: border-color 0.12s ease;
+  }
+
+  .opt-row:hover {
+    border-color: #cbd5e1;
+  }
+
+  .opt-row-active {
+    border-color: var(--primary);
+    background: rgb(3 105 161 / 0.06);
+  }
+
+  .or-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+  }
+
+  .or-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+    align-items: center;
+  }
+
+  .card-actions-center {
+    justify-content: center;
+  }
+
+  .review-dl {
+    display: grid;
+    grid-template-columns: minmax(100px, 140px) 1fr;
+    gap: 10px 20px;
+    font-size: 14px;
+    margin: 0 0 24px;
+  }
+
+  .review-dl dt {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .review-dl dd {
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .review-dd-block {
+    white-space: pre-wrap;
+    grid-column: 2;
+  }
+
+  .review-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  @media (min-width: 480px) {
+    .review-actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  .review-fallback {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .review-fallback a {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .success-card {
+    text-align: left;
+  }
+
+  .success-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--teal);
+    background: rgb(13 148 136 / 0.12);
+    border: 1px solid rgb(13 148 136 / 0.25);
+    padding: 5px 10px;
+    border-radius: var(--radius-tile-sm);
+    margin-bottom: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .form-card {
+      padding: 28px 22px;
+    }
+    .option-grid {
+      grid-template-columns: 1fr;
+    }
+    .review-dl {
+      grid-template-columns: 1fr;
+    }
+    .review-dl dt {
+      margin-top: 8px;
+    }
+    .review-dl dt:first-child {
+      margin-top: 0;
+    }
+    .review-dd-block {
+      grid-column: 1;
+    }
+  }
+</style>

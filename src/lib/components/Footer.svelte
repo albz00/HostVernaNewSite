@@ -1,31 +1,32 @@
 <script lang="ts">
   const footerLinks = {
     Services: [
-      { label: 'Web Development', href: '#services' },
-      { label: 'Business Software', href: '#services' },
-      { label: 'CRM Setup', href: '#services' },
-      { label: 'IT Support', href: '#services' },
-      { label: 'Managed Hosting', href: '#services' },
+      { label: 'Web Development', href: '/#services' },
+      { label: 'Business Software', href: '/#services' },
+      { label: 'CRM Setup', href: '/#services' },
+      { label: 'IT Support', href: '/#services' },
+      { label: 'Managed Hosting', href: '/#services' },
     ],
     Company: [
-      { label: 'About Us', href: '#about' },
-      { label: 'Our Process', href: '#solutions' },
-      { label: 'Careers', href: '#contact' },
-      { label: 'Blog', href: '#blog' },
-      { label: 'Press', href: '#contact' },
+      { label: 'About Us', href: '/about' },
+      { label: 'Our Process', href: '/#use-cases' },
+      { label: 'Careers', href: '/contact' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Press', href: '/contact' },
     ],
     Resources: [
-      { label: 'Case Studies', href: '#about' },
-      { label: 'Documentation', href: '#contact' },
-      { label: 'FAQ', href: '#contact' },
-      { label: 'Status', href: '#contact' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'Resources hub', href: '/resources' },
+      { label: 'Case Studies', href: '/#case-studies' },
+      { label: 'Documentation', href: '/learn' },
+      { label: 'FAQ', href: '/contact' },
+      { label: 'Status', href: '/contact' },
+      { label: 'Contact', href: '/contact' },
     ],
     Legal: [
-      { label: 'Privacy Policy', href: '#contact' },
-      { label: 'Terms of Service', href: '#contact' },
-      { label: 'Cookie Policy', href: '#contact' },
-      { label: 'SLA', href: '#contact' },
+      { label: 'Privacy Policy', href: '/contact' },
+      { label: 'Terms of Service', href: '/contact' },
+      { label: 'Cookie Policy', href: '/contact' },
+      { label: 'SLA', href: '/contact' },
     ],
   };
 </script>
@@ -43,6 +44,12 @@
         </p>
         <div class="brand-contact">
           <a href="mailto:hello@hostverna.com" class="contact-link">hello@hostverna.com</a>
+          <a
+            href="https://www.facebook.com/hostverna"
+            class="contact-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Facebook</a>
         </div>
       </div>
 
@@ -125,6 +132,13 @@
     color: #64748b;
     line-height: 1.65;
     max-width: 240px;
+  }
+
+  .brand-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
   .contact-link {

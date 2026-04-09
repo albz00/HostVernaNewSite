@@ -1,4 +1,6 @@
 <script lang="ts">
+  import ContentHighlight from '../components/ContentHighlight.svelte';
+
   const points = [
     {
       heading: 'Sub-second load times',
@@ -23,17 +25,16 @@
   ];
 </script>
 
-<section class="tech-section">
-  <div class="tech-gradient-bar"></div>
+<section class="tech-section" id="how-we-build">
   <div class="container">
     <div class="tech-header">
-      <span class="badge badge-gradient">Why it performs</span>
       <h2 class="tech-title">
         The fastest site you've ever had.<br />
         <span class="gradient-text">without you lifting a finger.</span>
       </h2>
       <p class="tech-sub">
-        We won't bore you with framework names. Here's what it means for your business in plain language.
+        We won't bore you with framework names.
+        <ContentHighlight tone="string">Here's what it means for your business in plain language.</ContentHighlight>
       </p>
     </div>
 
@@ -44,48 +45,33 @@
           <div class="tc-number">{String(i + 1).padStart(2, '0')}</div>
           <h3 class="tc-heading">{p.heading}</h3>
           <p class="tc-body">{p.body}</p>
-          <div class="tc-glow"></div>
         </div>
       {/each}
     </div>
 
     <div class="tech-callout">
-      <div class="callout-gradient"></div>
       <div class="callout-content">
         <div class="callout-text">
           <span class="callout-label">The result</span>
           <p class="callout-statement">
-            A site that loads instantly, ranks well, costs nothing extra to run once you own it, and doesn't depend on a subscription to keep existing.
+            A site that loads instantly, ranks well,
+            <ContentHighlight tone="keyword">costs nothing extra to run once you own it</ContentHighlight>, and doesn't
+            depend on a subscription to keep existing.
           </p>
         </div>
-        <a href="#contact" class="btn btn-white-outline">Ask us about it</a>
+        <a href="/contact" class="btn btn-white-outline">Ask us about it</a>
       </div>
     </div>
   </div>
-  <div class="tech-gradient-bar bottom"></div>
 </section>
 
 <style>
   .tech-section {
-    background: #0a1628;
-    padding: 96px 0;
+    background: #0f172a;
+    padding: 80px 0;
     position: relative;
-    overflow: hidden;
-  }
-
-  .tech-gradient-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #0369a1, #0d9488, transparent);
-  }
-
-  .tech-gradient-bar.bottom {
-    top: auto;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, #0d9488, #0369a1, transparent);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
   .tech-header {
@@ -119,7 +105,7 @@
     gap: 1px;
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 6px;
+    border-radius: var(--radius-tile);
     overflow: hidden;
     margin-bottom: 32px;
   }
@@ -145,17 +131,8 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-  }
-
-  .tc-glow {
-    position: absolute;
-    top: -40px;
-    left: -40px;
-    width: 160px;
-    height: 160px;
-    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 15%, transparent) 0%, transparent 70%);
-    pointer-events: none;
+    background: var(--accent);
+    opacity: 0.85;
   }
 
   .tc-number {
@@ -183,21 +160,14 @@
 
   .tech-callout {
     position: relative;
-    border-radius: 4px;
+    border-radius: var(--radius-tile);
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .callout-gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(3,105,161,0.18) 0%, rgba(13,148,136,0.14) 100%);
-    pointer-events: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
   }
 
   .callout-content {
     position: relative;
-    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -238,19 +208,33 @@
     color: #e2e8f0;
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 8px 0 8px 0;
+    border-radius: var(--radius-tile);
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
-    transition: all 0.15s ease;
+    transform: translateY(0);
+    transition:
+      transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.2s ease,
+      border-color 0.2s ease,
+      filter 0.2s ease;
     flex-shrink: 0;
     letter-spacing: 0.01em;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
   }
 
   .btn-white-outline:hover {
+    transform: translateY(-2px);
     background: rgba(255,255,255,0.12);
-    border-color: rgba(255,255,255,0.3);
-    transform: translateY(-1px);
+    border-color: rgba(255,255,255,0.38);
+    box-shadow: 0 6px 22px rgb(0 0 0 / 0.25);
+    filter: brightness(1.05);
+  }
+
+  .btn-white-outline:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
   }
 
   @media (max-width: 768px) {

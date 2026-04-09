@@ -1,4 +1,6 @@
 <script lang="ts">
+  import ContentHighlight from '../components/ContentHighlight.svelte';
+
   const steps = [
     {
       num: '01',
@@ -50,15 +52,15 @@
   ];
 </script>
 
-<section class="section process-section" id="solutions">
+<section class="section process-section" id="use-cases">
   <div class="container">
     <div class="split-header">
       <div>
-        <span class="badge badge-gradient">How It Works</span>
         <h2 class="section-title">Simple process.<br />Real results.</h2>
       </div>
       <p class="split-sub">
-        You shouldn't have to become a web expert to have a good website. Here's how we handle the whole thing, start to finish.
+        You shouldn't have to become a web expert to have a good website.
+        <ContentHighlight tone="keyword">Here's how we handle the whole thing, start to finish.</ContentHighlight>
       </p>
     </div>
 
@@ -82,11 +84,10 @@
   </div>
 </section>
 
-<section class="section whyus-section" id="about">
+<section class="section whyus-section">
   <div class="container">
     <div class="whyus-layout">
       <div class="whyus-left">
-        <span class="badge badge-gradient">Why HostVerna</span>
         <h2 class="section-title">Why businesses<br />stay with us</h2>
         <p class="why-sub">
           We built HostVerna for business owners who are too busy, too stretched, or too new to this to want to manage a tech vendor relationship. We handle it, and we do it without making you feel out of the loop.
@@ -94,7 +95,7 @@
         <div class="why-image-placeholder">
           <span class="ph-label">Team at Work, HostVerna HQ</span>
         </div>
-        <a href="#contact" class="btn btn-primary">Talk to us</a>
+        <a href="/contact" class="btn btn-primary">Talk to us</a>
       </div>
 
       <div class="whyus-right">
@@ -119,7 +120,7 @@
 
 <style>
   .process-section {
-    background: #fff;
+    background: var(--bg);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
@@ -172,20 +173,19 @@
   }
 
   .step-dot {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: var(--gradient);
+    background: var(--primary);
     flex-shrink: 0;
     position: relative;
     z-index: 1;
-    box-shadow: 0 0 0 3px rgba(3,105,161,0.12);
   }
 
   .step-line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, rgba(3,105,161,0.3), rgba(13,148,136,0.15));
+    background: var(--border);
     margin-left: 0;
     position: absolute;
     left: 14px;
@@ -251,9 +251,9 @@
 
   .why-image-placeholder {
     aspect-ratio: 4/3;
-    background: linear-gradient(135deg, #e0f2fe 0%, #ccfbf1 100%);
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -315,10 +315,10 @@
   .inline-quote {
     margin-top: 24px;
     padding: 20px 24px;
-    background: #fff;
+    background: var(--bg);
     border: 1px solid #e2e8f0;
     border-left: 3px solid #0d9488;
-    border-radius: 0 4px 4px 0;
+    border-radius: var(--radius-tile-quote);
     display: flex;
     flex-direction: column;
     gap: 8px;

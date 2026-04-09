@@ -1,4 +1,7 @@
 <script lang="ts">
+  import ContentHighlight from '../components/ContentHighlight.svelte';
+  import { markInlineFitEngaged } from '../fitQualifierStorage';
+
   type Step = 'intro' | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'result';
   type Fit = 'great' | 'maybe' | 'no';
 
@@ -8,6 +11,9 @@
   let animating = false;
 
   function advance(nextStep: Step, key?: string, value?: string) {
+    if (step === 'intro' && nextStep !== 'intro') {
+      markInlineFitEngaged();
+    }
     if (key && value) answers[key] = value;
     animating = true;
     setTimeout(() => {
@@ -57,35 +63,35 @@
     great: {
       title: "You're exactly who we built this for.",
       sub: "Based on what you told us, your business is a strong fit. We work with businesses like yours every week. Let's have a quick call and see if we can help.",
-      cta: '#contact',
+      cta: '/contact',
       ctaLabel: 'Book a Free Call',
     },
     maybe: {
       title: "We might be a fit. Let's find out.",
       sub: "Your business isn't a perfect mold, but that doesn't mean we can't help. Reach out and we'll be straight with you about whether it makes sense.",
-      cta: '#contact',
+      cta: '/contact',
       ctaLabel: 'Talk to Us First',
     },
     no: {
       title: "We're probably not the right call right now.",
       sub: "Based on your answers, we'd likely be a poor fit at this stage. That's not a judgment, it's just honest. We'd rather tell you now than waste your time.",
-      cta: '#about',
+      cta: '/about',
       ctaLabel: 'Learn What We Do',
     },
   };
 </script>
 
-<section class="fit-section" id="fit">
-  <div class="fit-bg-glow"></div>
+<section class="fit-section" id="who-we-serve">
   <div class="container">
     <div class="fit-header">
-      <span class="badge badge-gradient">Are We a Fit?</span>
       <h2 class="fit-title">
         We're selective about who we work with.<br />
         <span class="gradient-text">Here's why that's good for you.</span>
       </h2>
       <p class="fit-sub">
-        We don't take every project. Answer five quick questions and we'll tell you honestly whether we think we can help.
+        We don't take every project.
+        <ContentHighlight tone="keyword">Answer five quick questions</ContentHighlight>
+        and we'll tell you honestly whether we think we can help.
       </p>
     </div>
 
@@ -93,16 +99,12 @@
 
       {#if step === 'intro'}
         <div class="form-card intro-card">
-          <div class="intro-icon">
-            <div class="icon-ring">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-          </div>
-          <h3 class="intro-heading">Quick qualifier. 5 questions. No fluff.</h3>
-          <p class="intro-body">We've turned down projects that weren't right. This helps both of us save time. Takes under a minute.</p>
+          <h3 class="intro-heading">Quick qualifier. Five questions.</h3>
+          <p class="intro-body">
+            We've turned down projects that weren't right.
+            <ContentHighlight tone="comment">This helps both of us save time.</ContentHighlight>
+            Takes under a minute.
+          </p>
           <div class="intro-bullets">
             <div class="ib"><div class="ib-dot"></div><span>We'll tell you straight if we're not the right fit</span></div>
             <div class="ib"><div class="ib-dot"></div><span>No sales pressure from this form</span></div>
@@ -120,32 +122,26 @@
           <h3 class="q-heading">What best describes your business?</h3>
           <div class="option-grid">
             <button class="opt" on:click={() => advance('q2', 'bizType', 'trades')}>
-              <span class="opt-icon">🔨</span>
               <span class="opt-label">Trades / Construction / Excavating</span>
               <span class="opt-sub">Contractors, builders, landscapers, excavators, HVAC, plumbing, etc.</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'local')}>
-              <span class="opt-icon">🏪</span>
               <span class="opt-label">Local Service Business</span>
               <span class="opt-sub">High traffic area, small to medium, service focused, not heavy inventory</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'dental')}>
-              <span class="opt-icon">🦷</span>
               <span class="opt-label">Dental / Medical / Brochure</span>
               <span class="opt-sub">Professional services, practices, informational or appointment-based sites</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'government')}>
-              <span class="opt-icon">🏛</span>
               <span class="opt-label">Government / Municipal</span>
               <span class="opt-sub">Government sectors, municipalities, school districts</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'education')}>
-              <span class="opt-icon">🎓</span>
               <span class="opt-label">School / University / Medical School</span>
               <span class="opt-sub">Larger educational institutions, associated medical programs</span>
             </button>
             <button class="opt opt-caution" on:click={() => advance('q2', 'bizType', 'heavy-inventory')}>
-              <span class="opt-icon">📦</span>
               <span class="opt-label">Heavy Inventory / E-commerce</span>
               <span class="opt-sub">Large product catalogs, fulfilment, stock management</span>
             </button>
@@ -258,20 +254,10 @@
         <div class="form-card result-card result-{fit}">
           <div class="result-indicator result-ind-{fit}">
             {#if fit === 'great'}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
               Strong fit
             {:else if fit === 'maybe'}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
               Possible fit
             {:else}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
               Not the right fit
             {/if}
           </div>
@@ -305,19 +291,8 @@
     background: var(--bg-subtle);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    padding: 96px 0;
+    padding: 80px 0;
     position: relative;
-    overflow: hidden;
-  }
-
-  .fit-bg-glow {
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(3,105,161,0.05) 0%, transparent 70%);
-    pointer-events: none;
   }
 
   .fit-header {
@@ -356,11 +331,11 @@
   }
 
   .form-card {
-    background: #fff;
+    background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 6px 0 6px 0;
+    border-radius: var(--radius-tile);
     padding: 40px 48px;
-    box-shadow: 0 4px 24px rgba(15,23,42,0.05);
+    box-shadow: var(--shadow-sm);
   }
 
   .intro-card {
@@ -368,22 +343,6 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-  }
-
-  .intro-icon {
-    margin-bottom: 4px;
-  }
-
-  .icon-ring {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(3,105,161,0.1), rgba(13,148,136,0.1));
-    border: 1px solid rgba(3,105,161,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #0369a1;
   }
 
   .intro-heading {
@@ -420,7 +379,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0369a1, #0d9488);
+    background: var(--primary);
     flex-shrink: 0;
   }
 
@@ -434,7 +393,7 @@
 
   .qp-bar {
     height: 100%;
-    background: linear-gradient(90deg, #0369a1, #0d9488);
+    background: var(--primary);
     border-radius: 2px;
     transition: width 0.3s ease;
   }
@@ -480,34 +439,26 @@
     padding: 16px;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 4px 0 4px 0;
+    border-radius: var(--radius-tile);
     cursor: pointer;
     text-align: left;
-    transition: all 0.12s ease;
+    transition: border-color 0.12s ease, background 0.12s ease;
     font-family: inherit;
   }
 
   .opt:hover {
-    background: #f0f9ff;
-    border-color: #7dd3fc;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(3,105,161,0.08);
+    background: #f8fafc;
+    border-color: #cbd5e1;
   }
 
   .opt-caution {
     background: #fafafa;
-    border-color: #fde68a;
+    border-color: #e5e7eb;
   }
 
   .opt-caution:hover {
-    background: #fffbeb;
-    border-color: #fbbf24;
-    box-shadow: 0 4px 12px rgba(251,191,36,0.1);
-  }
-
-  .opt-icon {
-    font-size: 20px;
-    margin-bottom: 2px;
+    background: #f9fafb;
+    border-color: #d1d5db;
   }
 
   .opt-label {
@@ -537,22 +488,21 @@
     padding: 14px 18px;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 4px 0 4px 0;
+    border-radius: var(--radius-tile);
     cursor: pointer;
     text-align: left;
     font-family: inherit;
-    transition: all 0.12s ease;
+    transition: border-color 0.12s ease, background 0.12s ease;
   }
 
   .opt-row:hover {
-    background: #f0f9ff;
-    border-color: #7dd3fc;
-    transform: translateX(3px);
+    background: #f8fafc;
+    border-color: #cbd5e1;
   }
 
   .opt-row-highlight {
-    background: linear-gradient(135deg, #f0f9ff, #f0fdfa);
-    border-color: #bae6fd;
+    background: #f8fafc;
+    border-color: #cbd5e1;
   }
 
   .opt-row-caution {
@@ -561,9 +511,8 @@
   }
 
   .opt-row-caution:hover {
-    background: #fff7f7;
-    border-color: #fca5a5;
-    transform: translateX(3px);
+    background: #fafafa;
+    border-color: #d1d5db;
   }
 
   .or-label {
@@ -589,13 +538,13 @@
   }
 
   .result-great {
-    border-color: #bbf7d0;
-    background: linear-gradient(135deg, #f0fdf4, #fff);
+    border-color: #d1fae5;
+    background: #fafafa;
   }
 
   .result-maybe {
-    border-color: #bae6fd;
-    background: linear-gradient(135deg, #f0f9ff, #fff);
+    border-color: #e2e8f0;
+    background: #fafafa;
   }
 
   .result-no {
@@ -608,7 +557,7 @@
     align-items: center;
     gap: 7px;
     padding: 5px 12px;
-    border-radius: 2px 0 2px 0;
+    border-radius: var(--radius-tile-sm);
     font-size: 12px;
     font-weight: 700;
     font-family: 'Space Grotesk', sans-serif;
@@ -652,7 +601,7 @@
   .result-summary {
     background: rgba(0,0,0,0.02);
     border: 1px solid var(--border);
-    border-radius: 3px;
+    border-radius: var(--radius-tile-sm);
     padding: 14px 18px;
     width: 100%;
   }
@@ -677,7 +626,7 @@
     color: #0369a1;
     background: rgba(3,105,161,0.07);
     border: 1px solid rgba(3,105,161,0.15);
-    border-radius: 2px 0 2px 0;
+    border-radius: var(--radius-tile-sm);
     padding: 3px 8px;
     font-family: 'DM Mono', monospace;
   }

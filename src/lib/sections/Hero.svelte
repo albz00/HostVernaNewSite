@@ -1,5 +1,9 @@
 <script lang="ts">
-  import USMap from '../components/USMap.svelte';
+  import ContentHighlight from '../components/ContentHighlight.svelte';
+
+  /** LCP candidate: preloaded in index.html + fetchpriority="high" on the img */
+  const founderPortraitUrl =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/895c60d8-8b2b-4b97-96d9-add7a9432300/public';
 
   const trustedBy = ['Apex Realty', 'NorthTide Co.', 'GridFlow', 'Beacon Labs', 'Harrow & Co.'];
 
@@ -12,71 +16,68 @@
   ];
 
   const activity = [
-    { label: 'SSL renewed', time: '2m ago', icon: 'shield' },
-    { label: 'Deploy pushed', time: '1h ago', icon: 'upload' },
-    { label: 'Ticket closed', time: '3h ago', icon: 'check' },
+    { label: 'SSL renewed', time: '2m ago' },
+    { label: 'Deploy pushed', time: '1h ago' },
+    { label: 'Ticket closed', time: '3h ago' },
   ];
 </script>
 
 <section class="hero">
-  <div class="hero-map">
-    <USMap opacity={0.13} />
-  </div>
+  <!-- Soft brand “spots” only; no grids/maps; stays behind copy -->
+  <div class="hero-spots" aria-hidden="true"></div>
+
   <div class="hero-stripe"></div>
-  <div class="hero-glow-1"></div>
-  <div class="hero-glow-2"></div>
 
   <div class="container hero-content">
-    <h1 class="hero-title">
-      Your site. Your software.<br />
-      <span class="gradient-text">Actually yours.</span>
-    </h1>
+    <div class="hero-top">
+      <div class="hero-copy">
+        <h1 class="hero-title">
+          Your site. Your software.<br />
+          <span class="gradient-text">Actually yours.</span>
+        </h1>
 
-    <p class="hero-sub">
-      We design and build everything from scratch. No templates, no locked subscriptions.
-      You own your site outright, get the tools to manage it, and have a team you can actually reach.
-    </p>
+        <p class="hero-sub">
+          We design and build everything from scratch.
+          <ContentHighlight tone="keyword">No templates, no locked subscriptions.</ContentHighlight>
+          You <ContentHighlight tone="string">own your site outright</ContentHighlight>, get the tools to manage it, and have
+          <ContentHighlight tone="comment">a team you can actually reach</ContentHighlight>.
+        </p>
 
-    <div class="trust-bar">
-      <div class="tb-item">
-        <div class="tb-dot"></div>
-        <span class="tb-label">WV Licensed &amp; Insured</span>
+        <div class="hero-actions">
+          <a href="/contact" class="btn btn-primary btn-lg">Get a Free Consultation</a>
+          <a href="/solutions/own-your-site" class="btn btn-secondary btn-lg">How Ownership Works</a>
+        </div>
       </div>
-      <div class="tb-sep"></div>
-      <div class="tb-item">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" class="tb-icon">
-          <rect x="3" y="8" width="18" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
-          <path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="tb-label">Financing Available</span>
-      </div>
-      <div class="tb-sep"></div>
-      <div class="tb-item">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" class="tb-icon">
-          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="tb-label">You Own It Outright</span>
-      </div>
-      <div class="tb-sep"></div>
-      <div class="tb-item">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" class="tb-icon">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" stroke-width="2"/>
-        </svg>
-        <span class="tb-label">Nationwide</span>
-      </div>
-    </div>
 
-    <div class="hero-actions">
-      <a href="#contact" class="btn btn-primary btn-lg">Get a Free Consultation</a>
-      <a href="#ownership" class="btn btn-secondary btn-lg">How Ownership Works</a>
-    </div>
+      <figure class="hero-portrait">
+        <div
+          class="hero-portrait-frame"
+          style="--hero-portrait-mask: url({founderPortraitUrl})"
+        >
+          <!-- Filled masked layers behind the photo (original effect); img pulse uses drop-shadow on top -->
+          <span class="hero-shock hero-shock--1" aria-hidden="true"></span>
+          <span class="hero-shock hero-shock--2" aria-hidden="true"></span>
+          <span class="hero-shock hero-shock--3" aria-hidden="true"></span>
+          <img
+            src={founderPortraitUrl}
+            width="640"
+            height="640"
+            alt="HostVerna founder with brand logo"
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+            class="hero-portrait-img"
+          />
+        </div>
+      </figure>
 
-    <div class="hero-proof">
-      <span class="proof-label">Trusted by business owners across the US</span>
-      <div class="proof-list">
-        {#each trustedBy as brand}
-          <span class="proof-brand">{brand}</span>
-        {/each}
+      <div class="hero-proof">
+        <span class="proof-label">Trusted by business owners across the US</span>
+        <div class="proof-list">
+          {#each trustedBy as brand}
+            <span class="proof-brand">{brand}</span>
+          {/each}
+        </div>
       </div>
     </div>
   </div>
@@ -85,9 +86,6 @@
     <div class="hero-visual-row">
       <div class="hero-mockup">
         <div class="mockup-bar">
-          <div class="dot red"></div>
-          <div class="dot yellow"></div>
-          <div class="dot green"></div>
           <span class="mockup-url">hostverna.com/dashboard</span>
           <div class="mockup-bar-right">
             <div class="live-badge">
@@ -101,19 +99,15 @@
             <div class="sb-logo"></div>
             <div class="sb-nav">
               <div class="snav active">
-                <div class="snav-icon filled"></div>
                 <div class="snav-label"></div>
               </div>
               <div class="snav">
-                <div class="snav-icon"></div>
                 <div class="snav-label short"></div>
               </div>
               <div class="snav">
-                <div class="snav-icon"></div>
                 <div class="snav-label"></div>
               </div>
               <div class="snav">
-                <div class="snav-icon"></div>
                 <div class="snav-label short"></div>
               </div>
             </div>
@@ -262,19 +256,30 @@
 <style>
   .hero {
     position: relative;
-    padding-top: 140px;
+    padding-top: calc(140px + var(--hv-promo-h));
     padding-bottom: 0;
-    overflow: hidden;
-    background: #fff;
+    /* visible so portrait shockwaves / drop-shadow aren’t clipped */
+    overflow: visible;
+    background: var(--bg);
   }
 
-  .hero-map {
+  .hero-spots {
     position: absolute;
     inset: 0;
+    z-index: 0;
     pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background:
+      radial-gradient(ellipse 58% 48% at 10% 16%, rgb(3 105 161 / 0.09), transparent 58%),
+      radial-gradient(ellipse 52% 44% at 92% 20%, rgb(13 148 136 / 0.075), transparent 56%),
+      radial-gradient(ellipse 72% 58% at 82% 78%, rgb(3 105 161 / 0.055), transparent 62%),
+      radial-gradient(ellipse 46% 40% at 18% 82%, rgb(13 148 136 / 0.065), transparent 55%),
+      radial-gradient(ellipse 90% 70% at 48% 42%, rgb(3 105 161 / 0.035), transparent 68%);
+  }
+
+  @media (min-width: 901px) {
+    .hero {
+      padding-top: calc(172px + var(--hv-promo-h));
+    }
   }
 
   .hero-stripe {
@@ -282,31 +287,10 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent 0%, #0369a1 30%, #0d9488 70%, transparent 100%);
+    height: 1px;
+    background: var(--border);
     pointer-events: none;
-  }
-
-  .hero-glow-1 {
-    position: absolute;
-    top: -80px;
-    left: -80px;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(3,105,161,0.10) 0%, rgba(13,148,136,0.04) 50%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .hero-glow-2 {
-    position: absolute;
-    top: 60px;
-    right: -80px;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(13,148,136,0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
+    z-index: 2;
   }
 
   .hero-content {
@@ -316,80 +300,198 @@
     padding-bottom: 56px;
   }
 
+  .hero > .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, min(40vw, 380px));
+    grid-template-rows: auto auto;
+    column-gap: clamp(32px, 5.5vw, 64px);
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .hero-copy {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    padding-top: clamp(0px, 0.8vw, 8px);
+  }
+
+  .hero-portrait {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    justify-self: end;
+    align-self: start;
+    width: 100%;
+    max-width: 380px;
+    /* Optical nudge: sit slightly below headline cap for balance with left column */
+    margin-top: clamp(10px, 2.5vw, 28px);
+    overflow: visible;
+  }
+
+  .hero-portrait-frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+
+  /*
+   * Shockwaves: filled + masked shapes behind the photo (shows in transparent areas of the PNG).
+   * Animated drop-shadow on the img follows the alpha silhouette so something always reads, even on a solid card.
+   */
+  .hero-shock {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, rgb(3 105 161 / 0.58), rgb(13 148 136 / 0.46));
+    -webkit-mask-image: var(--hero-portrait-mask);
+    mask-image: var(--hero-portrait-mask);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    mask-mode: alpha;
+    transform-origin: center center;
+    will-change: transform, opacity;
+    /* ease-out tail: smooth dissipation like fizz dying (no glitch pops) */
+    animation: hero-shockwave-fill 4.25s cubic-bezier(0.2, 0.75, 0.28, 1) infinite;
+  }
+
+  .hero-shock--1 {
+    animation-delay: 0s;
+  }
+
+  .hero-shock--2 {
+    animation-delay: 1.42s;
+    background: linear-gradient(135deg, rgb(13 148 136 / 0.5), rgb(3 105 161 / 0.38));
+  }
+
+  .hero-shock--3 {
+    animation-delay: 2.84s;
+    background: linear-gradient(135deg, rgb(3 105 161 / 0.42), rgb(13 148 136 / 0.34));
+  }
+
+  @keyframes hero-shockwave-fill {
+    0% {
+      transform: scale(1);
+      opacity: 0.56;
+    }
+    32% {
+      transform: scale(1.07);
+      opacity: 0.38;
+    }
+    58% {
+      transform: scale(1.14);
+      opacity: 0.22;
+    }
+    /* outer expansion then fizzles out smoothly (opacity only eases down to 0) */
+    72% {
+      transform: scale(1.2);
+      opacity: 0.1;
+    }
+    100% {
+      transform: scale(1.24);
+      opacity: 0;
+    }
+  }
+
+  @keyframes hero-portrait-pulse {
+    0% {
+      filter: drop-shadow(0 0 0 rgb(3 105 161 / 0.55)) drop-shadow(0 0 0 rgb(13 148 136 / 0.35));
+    }
+    40% {
+      filter: drop-shadow(0 0 12px rgb(3 105 161 / 0.22)) drop-shadow(0 0 18px rgb(13 148 136 / 0.14));
+    }
+    62% {
+      filter: drop-shadow(0 0 18px rgb(3 105 161 / 0.12)) drop-shadow(0 0 26px rgb(13 148 136 / 0.08));
+    }
+    72% {
+      filter: drop-shadow(0 0 20px rgb(3 105 161 / 0.07)) drop-shadow(0 0 28px rgb(13 148 136 / 0.05));
+    }
+    100% {
+      filter: drop-shadow(0 0 26px rgb(3 105 161 / 0)) drop-shadow(0 0 36px rgb(13 148 136 / 0));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-shock {
+      animation: none;
+      opacity: 0;
+    }
+
+    .hero-portrait-img {
+      animation: none;
+    }
+  }
+
+  .hero-portrait-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    display: block;
+    animation: hero-portrait-pulse 4.25s cubic-bezier(0.2, 0.75, 0.28, 1) infinite;
+    will-change: filter;
+    /* No radius/shadow; asset already has hex frame; box effects read as a flat “card” */
+  }
+
+  @media (max-width: 920px) {
+    .hero-top {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      row-gap: 24px;
+    }
+
+    .hero-copy {
+      grid-column: 1;
+      grid-row: auto;
+      padding-top: 0;
+      order: 0;
+    }
+
+    .hero-portrait {
+      grid-column: 1;
+      grid-row: auto;
+      justify-self: center;
+      max-width: min(300px, 78vw);
+      margin-top: 4px;
+      order: 2;
+    }
+
+    .hero-proof {
+      grid-column: 1;
+      grid-row: auto;
+      order: 1;
+    }
+  }
+
   .hero-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(44px, 7vw, 80px);
     font-weight: 700;
     letter-spacing: -0.04em;
     line-height: 1.05;
-    color: #0f172a;
+    color: var(--text-primary);
     margin-bottom: 20px;
   }
 
   .hero-sub {
     font-size: clamp(15px, 1.8vw, 18px);
-    color: #475569;
+    color: var(--text-secondary);
     max-width: 520px;
     margin: 0 auto 28px;
     line-height: 1.7;
     font-weight: 400;
-  }
-
-  .trust-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 28px;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, rgba(3,105,161,0.04), rgba(13,148,136,0.04));
-    border: 1px solid rgba(3,105,161,0.12);
-    border-radius: 2px 0 2px 0;
-    max-width: 560px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .tb-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .tb-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #0d9488;
-    box-shadow: 0 0 0 2px rgba(13,148,136,0.25);
-    animation: pulse 2.5s ease infinite;
-    flex-shrink: 0;
-  }
-
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 2px rgba(13,148,136,0.25); }
-    50% { box-shadow: 0 0 0 4px rgba(13,148,136,0.1); }
-  }
-
-  .tb-icon {
-    color: #0369a1;
-    flex-shrink: 0;
-  }
-
-  .tb-label {
-    font-size: 11.5px;
-    font-weight: 600;
-    color: #0f172a;
-    font-family: 'Space Grotesk', sans-serif;
-    white-space: nowrap;
-  }
-
-  .tb-sep {
-    width: 1px;
-    height: 14px;
-    background: rgba(3,105,161,0.15);
-    flex-shrink: 0;
   }
 
   .hero-actions {
@@ -397,14 +499,21 @@
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 48px;
+    margin-bottom: 0;
   }
 
   .hero-proof {
+    grid-column: 1 / -1;
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    margin-top: clamp(28px, 4vw, 44px);
+    padding-top: clamp(24px, 3.5vw, 36px);
+    border-top: 1px solid rgb(226 232 240 / 0.85);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .proof-label {
@@ -443,10 +552,10 @@
 
   .hero-mockup {
     flex: 1;
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px 6px 0 0;
-    box-shadow: 0 -4px 48px rgba(3,105,161,0.08), 0 0 0 1px rgba(226,232,240,0.5);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
   }
 
@@ -458,17 +567,6 @@
     background: #f8fafc;
     border-bottom: 1px solid #e2e8f0;
   }
-
-  .dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #e2e8f0;
-  }
-
-  .dot.red { background: #fc8181; }
-  .dot.yellow { background: #f6c344; }
-  .dot.green { background: #68d391; }
 
   .mockup-url {
     font-size: 10px;
@@ -492,7 +590,7 @@
     color: #0d9488;
     background: rgba(13,148,136,0.08);
     border: 1px solid rgba(13,148,136,0.18);
-    border-radius: 10px;
+    border-radius: var(--radius-tile-sm);
     padding: 2px 8px;
     letter-spacing: 0.04em;
   }
@@ -502,7 +600,6 @@
     height: 5px;
     border-radius: 50%;
     background: #0d9488;
-    animation: pulse 2s ease infinite;
   }
 
   .mockup-body {
@@ -522,8 +619,8 @@
   .sb-logo {
     width: 28px;
     height: 28px;
-    border-radius: 4px;
-    background: linear-gradient(135deg, #0369a1, #0d9488);
+    border-radius: var(--radius-tile-sm);
+    background: var(--primary);
     margin: 0 auto 10px;
   }
 
@@ -546,17 +643,6 @@
 
   .snav.active {
     background: rgba(255,255,255,0.1);
-  }
-
-  .snav-icon {
-    width: 16px;
-    height: 16px;
-    border-radius: 2px;
-    background: rgba(255,255,255,0.2);
-  }
-
-  .snav-icon.filled {
-    background: linear-gradient(135deg, #0369a1, #0d9488);
   }
 
   .snav-label {
@@ -598,7 +684,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #fff;
+    background: var(--bg);
     border: 1px solid #e2e8f0;
     border-radius: 3px;
     padding: 8px 12px;
@@ -625,7 +711,7 @@
   }
 
   .mm-btn.filled {
-    background: linear-gradient(90deg, #0369a1, #0d9488);
+    background: var(--primary);
   }
 
   .kpi-row {
@@ -635,7 +721,7 @@
   }
 
   .kpi {
-    background: #fff;
+    background: var(--bg);
     border: 1px solid #e2e8f0;
     border-radius: 3px;
     padding: 10px;
@@ -671,7 +757,7 @@
   }
 
   .kpi-delta.neutral {
-    background: #fff7ed;
+    background: var(--bg)7ed;
     color: #c2410c;
   }
 
@@ -709,7 +795,7 @@
   }
 
   .chart-panel {
-    background: #fff;
+    background: var(--bg);
     border: 1px solid #e2e8f0;
     border-radius: 3px;
     padding: 10px 12px 6px;
@@ -841,7 +927,7 @@
 
   .projects-panel,
   .activity-panel {
-    background: #fff;
+    background: var(--bg);
     border: 1px solid #e2e8f0;
     border-radius: 3px;
     padding: 8px 10px;
@@ -953,13 +1039,7 @@
 
   @media (max-width: 760px) {
     .hero {
-      padding-top: 110px;
-    }
-    .trust-bar {
-      gap: 10px;
-    }
-    .tb-sep {
-      display: none;
+      padding-top: calc(110px + var(--hv-promo-h));
     }
   }
 </style>
