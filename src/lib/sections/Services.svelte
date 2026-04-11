@@ -85,8 +85,8 @@
       iconUrl:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/bd24b10b-266a-4306-9ec0-3249b8afc300/public',
       visualUrl:
-        'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/4e69c626-021f-4c54-08b5-659b28258800/public',
-      visualLabel: 'IT professional at work',
+        'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a01968f3-730e-4a92-27aa-8b9eb15c0100/public',
+      visualLabel: 'IT collaboration and support',
       description: `You shouldn't need a computer science degree to run your business. But you also shouldn't be on hold for 40 minutes every time something breaks.\n\nWe act as your IT department: monitoring, responding, and fixing things before you notice them. You call, we answer. No ticket queue. No outsourced support desk.`,
       placeholder: 'Infrastructure Overview',
       quote:
