@@ -7,6 +7,7 @@
   import Support from './lib/pages/Support.svelte';
   import SolutionPage from './lib/pages/SolutionPage.svelte';
   import Contact from './lib/pages/Contact.svelte';
+  import QuickContact from './lib/pages/QuickContact.svelte';
   import About from './lib/pages/About.svelte';
   import Resources from './lib/pages/Resources.svelte';
   import Blog from './lib/pages/Blog.svelte';
@@ -66,6 +67,8 @@
   <ServeSegment slug={path === '/trades' ? 'trades' : 'professional-services'} />
 {:else if path === '/support'}
   <Support />
+{:else if path === '/quick-contact'}
+  <QuickContact />
 {:else if path === '/contact'}
   <Contact />
 {:else if path === '/events/free-website-july'}

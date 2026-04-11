@@ -1,24 +1,28 @@
 <script lang="ts">
   import ContentHighlight from '../components/ContentHighlight.svelte';
 
+  /** 3D avatar illustration, shared across testimonial cards */
+  const testimonialAvatarUrl =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/52207b03-2a80-4d87-9cff-0e3ea8315700/public';
+
   const testimonials = [
     {
-      quote: "I'd been paying $280 a month for a website I was terrified to touch. HostVerna built us something from scratch, walked me through everything, and I own it now. I can't overstate how different that feels.",
-      author: "Sarah M.",
-      role: "Founder, Meridian Consulting",
-      result: "Owns her site outright",
+      quote:
+        "I was at about two-eighty a month for a site I was scared to touch. I wasn't even sure who held the login. They rebuilt it from scratch, sat with me in the admin until I could change copy and photos without breaking layout, and the recurring line item actually ends when we hit the milestone we signed. That's a different conversation than I'd had before.",
+      author: 'Sarah M.',
+      result: 'Owns her site outright',
     },
     {
-      quote: "I'm not a tech person. I've never been a tech person. They never once made me feel that way. Every question I had, even the dumb ones, got a real answer.",
-      author: "James T.",
-      role: "Operations Director, Pinnacle Group",
-      result: "No IT background required",
+      quote:
+        "I run the business. I'm not the person who fixes DNS. I asked a lot of questions I thought were embarrassing. They answered every one without making me feel like I was wasting their time. That shouldn't feel rare.",
+      author: 'James T.',
+      result: 'No IT background required',
     },
     {
-      quote: "We had a different agency for the website, a different one for software, and IT was handled by whoever picked up the phone that day. Now it's one team. One email. One call.",
-      author: "Layla K.",
-      role: "CEO, BrightPath Realty",
-      result: "One partner, everything handled",
+      quote:
+        "We had one shop on the website, another on the internal tool, and if something broke after hours it was whoever answered. Now it's the same people. They know our hosting, our app, and our staff actually has one place to go when something's wrong.",
+      author: 'Layla K.',
+      result: 'One partner, everything handled',
     },
   ];
 </script>
@@ -43,10 +47,19 @@
           </div>
           <p class="t-quote">{t.quote}</p>
           <div class="t-author">
-            <div class="t-avatar" aria-hidden="true"></div>
+            <div class="t-avatar">
+              <img
+                src={testimonialAvatarUrl}
+                width="88"
+                height="88"
+                alt=""
+                class="t-avatar-img"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
             <div class="t-author-meta">
               <div class="t-name">{t.author}</div>
-              <div class="t-role">{t.role}</div>
             </div>
           </div>
         </div>
@@ -118,11 +131,7 @@
   .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-tile);
-    overflow: hidden;
+    gap: 16px;
   }
 
   .t-card {
@@ -131,11 +140,14 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    transition: background 0.15s;
+    border-radius: var(--radius-tile);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-tile);
+    transition: box-shadow 0.22s ease;
   }
 
   .t-card:hover {
-    background: var(--bg-muted);
+    box-shadow: var(--shadow-tile-hover);
   }
 
   .t-result {
@@ -182,40 +194,24 @@
     border-top: 1px solid #f1f5f9;
   }
 
-  /* Generic blank “profile photo” placeholder (silhouette, not an icon glyph) */
   .t-avatar {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     flex-shrink: 0;
-    background: linear-gradient(180deg, #e8edf2 0%, #cbd5e1 100%);
-    border: 1px solid #e2e8f0;
-    position: relative;
+    border: 1px solid var(--border);
+    background: var(--bg-muted);
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .t-avatar::before {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: #94a3b8;
-    top: 9px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .t-avatar::after {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 18px;
-    border-radius: 15px 15px 0 0;
-    background: #94a3b8;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+  .t-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
   }
 
   .t-author-meta {
@@ -227,13 +223,6 @@
     font-weight: 700;
     color: var(--text-primary);
     font-family: 'Space Grotesk', sans-serif;
-  }
-
-  .t-role {
-    font-size: 11px;
-    color: #94a3b8;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.03em;
   }
 
   .cta-section {

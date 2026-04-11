@@ -6,7 +6,7 @@
     markScrollPromptShown,
   } from '../fitQualifierStorage';
 
-  /** Fraction of page scroll (0–1) before we may show the prompt */
+  /** Fraction of page scroll (0 to 1) before we may show the prompt */
   const SCROLL_THRESHOLD = 0.72;
 
   let open = false;

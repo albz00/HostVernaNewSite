@@ -1,6 +1,11 @@
 <script lang="ts">
   import ContentHighlight from '../components/ContentHighlight.svelte';
+  import QualifierIcon from '../components/QualifierIcon.svelte';
   import { markInlineFitEngaged } from '../fitQualifierStorage';
+
+  /** 3D phone illustration, intro column only */
+  const qualifierIconUrl =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/63de609e-76d4-43f2-8290-42735a3cfb00/public';
 
   type Step = 'intro' | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'result';
   type Fit = 'great' | 'maybe' | 'no';
@@ -100,15 +105,22 @@
       {#if step === 'intro'}
         <div class="form-card intro-card">
           <h3 class="intro-heading">Quick qualifier. Five questions.</h3>
-          <p class="intro-body">
-            We've turned down projects that weren't right.
-            <ContentHighlight tone="comment">This helps both of us save time.</ContentHighlight>
-            Takes under a minute.
-          </p>
-          <div class="intro-bullets">
-            <div class="ib"><div class="ib-dot"></div><span>We'll tell you straight if we're not the right fit</span></div>
-            <div class="ib"><div class="ib-dot"></div><span>No sales pressure from this form</span></div>
-            <div class="ib"><div class="ib-dot"></div><span>Financing available if budget is a concern</span></div>
+          <div class="intro-split">
+            <div class="intro-copy">
+              <p class="intro-body">
+                We've turned down projects that weren't right.
+                <ContentHighlight tone="comment">This helps both of us save time.</ContentHighlight>
+                Takes under a minute.
+              </p>
+              <div class="intro-bullets">
+                <div class="ib"><div class="ib-dot"></div><span>We'll tell you straight if we're not the right fit</span></div>
+                <div class="ib"><div class="ib-dot"></div><span>No sales pressure from this form</span></div>
+                <div class="ib"><div class="ib-dot"></div><span>Financing available if budget is a concern</span></div>
+              </div>
+            </div>
+            <aside class="intro-qualifier-panel">
+              <QualifierIcon src={qualifierIconUrl} />
+            </aside>
           </div>
           <button class="btn btn-primary btn-lg" on:click={() => advance('q1')}>Start the Qualifier</button>
         </div>
@@ -331,18 +343,50 @@
   }
 
   .form-card {
+    position: relative;
+    overflow: visible;
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-tile);
     padding: 40px 48px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-tile);
   }
 
   .intro-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 20px;
+  }
+
+  .intro-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(152px, 228px);
+    gap: clamp(20px, 4vw, 36px);
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .intro-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* No extra tile behind the art; just centers the icon in the column */
+  .intro-qualifier-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    min-width: 0;
+  }
+
+  @media (max-width: 560px) {
+    .intro-split {
+      grid-template-columns: 1fr;
+    }
   }
 
   .intro-heading {

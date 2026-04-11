@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Chunky white arrow + black outline (early-web / Win9x energy). Hotspot at tip ~ (5,5). -->
+  <path
+    fill="#ffffff"
+    stroke="#0f172a"
+    stroke-width="1.35"
+    stroke-linejoin="round"
+    d="M5 4 L5 24 L12 19 L16 27 L19 25 L15 17 L23 13 L5 4z"
+  />
+  <path fill="#e2e8f0" d="M7 7 L7 20 L12 17 L15 23 L16 22 L12 15 L18 13 L7 7z" />
+</svg>

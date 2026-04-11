@@ -131,7 +131,7 @@ export const solutionPages: SolutionPageData[] = [
     title: 'Customer confirmations that actually reassure',
     metaTitle: 'Customer confirmations | HostVerna',
     lede:
-      'After someone submits a form, they should know their message was received—not stare at a spinner, get dumped on the homepage, or wonder if it vanished. We build confirmation experiences we would stand behind for our own clients.',
+      'After someone submits a form, they should know their message was received. They should not stare at a spinner, get dumped on the homepage, or wonder if it vanished. We build confirmation experiences we would stand behind for our own clients.',
     sections: [
       {
         heading: 'On the page and in the inbox',
@@ -143,7 +143,7 @@ export const solutionPages: SolutionPageData[] = [
       {
         heading: 'Why it is part of the product',
         body: [
-          'Trust breaks when the UI goes silent. Confirmation messaging is not an afterthought—it is part of the conversion story and the relationship. We treat it that way in scope and in QA.',
+          'Trust breaks when the UI goes silent. Confirmation messaging is not an afterthought; it is part of the conversion story and the relationship. We treat it that way in scope and in QA.',
         ],
       },
     ],
@@ -160,7 +160,7 @@ export const solutionPages: SolutionPageData[] = [
         heading: 'What “solid” means here',
         body: [
           'Sensible protections against automated abuse on contact paths, careful handling of user input, and infrastructure choices that do not paint a target on your back.',
-          'We are not selling fear—we are matching the risk to what you actually run: public forms, third-party scripts, and the reality that small sites get scanned constantly.',
+          'We are not selling fear. We are matching the risk to what you actually run: public forms, third-party scripts, and the reality that small sites get scanned constantly.',
         ],
       },
       {
@@ -177,7 +177,7 @@ export const solutionPages: SolutionPageData[] = [
     title: 'How we work together (without pretending we run your business)',
     metaTitle: 'How we work together | HostVerna',
     lede:
-      'We are not a marketing agency. We build professional web presence, credible email, and solid tech—and we help you understand how the digital world fits your business. You still steer the ship: we do our part so you can do yours.',
+      'We are not a marketing agency. We build professional web presence, credible email, and solid tech, and we help you understand how the digital world fits your business. You still steer the ship: we do our part so you can do yours.',
     sections: [
       {
         heading: 'Real guidance, honest limits',
@@ -195,8 +195,8 @@ export const solutionPages: SolutionPageData[] = [
       {
         heading: 'Many doors, one lobby',
         body: [
-          'Think of a bowling alley: you would not expect one lane. You expect enough lanes for people to play. Your marketing touchpoints work the same way—you might mention the business on TikTok, Facebook, Instagram, in email, and on Google. Each of those is a door.',
-          'What you need is one proper place where all of that traffic can land: hours, story, proof, contact, and the details people ask for. Without a real site, you still might win work—but you also might lose someone who needed a single trustworthy page and never found it.',
+          'Think of a bowling alley: you would not expect one lane. You expect enough lanes for people to play. Your marketing touchpoints work the same way. You might mention the business on TikTok, Facebook, Instagram, in email, and on Google. Each of those is a door.',
+          'What you need is one proper place where all of that traffic can land: hours, story, proof, contact, and the details people ask for. Without a real site, you still might win work, but you also might lose someone who needed a single trustworthy page and never found it.',
         ],
       },
       {

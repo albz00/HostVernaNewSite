@@ -48,8 +48,8 @@
 
   const budgetOptions = [
     { id: 'under-5k', label: 'Under $5,000', sub: 'Smaller scope or phased work' },
-    { id: '5-15k', label: '$5,000 – $15,000', sub: 'Typical small business project band' },
-    { id: '15-50k', label: '$15,000 – $50,000', sub: 'Larger site or custom build' },
+    { id: '5-15k', label: '$5,000 to $15,000', sub: 'Typical small business project band' },
+    { id: '15-50k', label: '$15,000 to $50,000', sub: 'Larger site or custom build' },
     { id: '50k-plus', label: '$50,000+', sub: 'Enterprise or multi-system' },
     { id: 'discuss', label: 'Prefer to discuss', sub: 'We will talk ranges on a call' },
   ] as const;
@@ -96,7 +96,7 @@
   function buildBody(): string {
     const lines = [
       'HostVerna contact request',
-      '---',
+      '***',
       `Name: ${name.trim()}`,
       `Email: ${email.trim()}`,
       `Phone: ${phone.trim() || '(not provided)'}`,
@@ -105,7 +105,7 @@
       `Need: ${needLabel(need)}`,
       `Timeline: ${timelineLabel(timeline)}`,
       `Budget: ${budgetLabel(budget)}`,
-      '---',
+      '***',
       'Details:',
       details.trim() || '(none)',
     ];
@@ -125,7 +125,7 @@
   }
 
   $: mailtoHref = (() => {
-    const subject = encodeURIComponent(`Contact request — ${organization.trim() || name.trim() || 'HostVerna'}`);
+    const subject = encodeURIComponent(`Contact request: ${organization.trim() || name.trim() || 'HostVerna'}`);
     const body = encodeURIComponent(buildBody());
     return `mailto:${mailTo}?subject=${subject}&body=${body}`;
   })();
@@ -320,13 +320,13 @@
           <dl class="review-dl">
             <dt>Name</dt><dd>{name.trim()}</dd>
             <dt>Email</dt><dd>{email.trim()}</dd>
-            <dt>Phone</dt><dd>{phone.trim() || '—'}</dd>
+            <dt>Phone</dt><dd>{phone.trim() || '(not provided)'}</dd>
             <dt>Organization</dt><dd>{organization.trim()}</dd>
-            <dt>Role</dt><dd>{role.trim() || '—'}</dd>
+            <dt>Role</dt><dd>{role.trim() || '(not provided)'}</dd>
             <dt>Need</dt><dd>{needLabel(need)}</dd>
             <dt>Timeline</dt><dd>{timelineLabel(timeline)}</dd>
             <dt>Budget</dt><dd>{budgetLabel(budget)}</dd>
-            <dt>Details</dt><dd class="review-dd-block">{details.trim() || '—'}</dd>
+            <dt>Details</dt><dd class="review-dd-block">{details.trim() || '(not provided)'}</dd>
           </dl>
           <div class="review-actions">
             <a href={mailtoHref} class="btn btn-primary btn-lg">Open email app to send</a>

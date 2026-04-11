@@ -6,7 +6,6 @@
   import Services from '../sections/Services.svelte';
   import Ownership from '../sections/Ownership.svelte';
   import WhyUs from '../sections/WhyUs.svelte';
-  import TechStrip from '../sections/TechStrip.svelte';
   import CTA from '../sections/CTA.svelte';
   import Footer from '../components/Footer.svelte';
   import FinancingBubble from '../components/FinancingBubble.svelte';
@@ -20,7 +19,6 @@
 <Services />
 <Ownership />
 <WhyUs />
-<TechStrip />
 <CTA />
 <Footer />
 <FinancingBubble />

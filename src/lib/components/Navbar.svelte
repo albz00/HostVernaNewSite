@@ -5,8 +5,6 @@
   import { solutionNavItems } from '../data/solutionNav';
   import { resourcesNavItems } from '../data/learnPages';
   import { whoWeServeNavItems } from '../data/whoWeServeNav';
-  import PromoBanner from './PromoBanner.svelte';
-
   let scrolled = false;
   let mobileOpen = false;
 
@@ -189,10 +187,6 @@
       </div>
     {/if}
   </nav>
-
-  <div class="promo-wrap" class:promo-wrap--hidden={scrolled}>
-    <PromoBanner />
-  </div>
 </header>
 
 <style>
@@ -208,21 +202,6 @@
 
   .nav-wrapper.scrolled {
     padding: 8px 20px;
-  }
-
-  /* Full-bleed strip under nav (cancels .nav-wrapper horizontal padding) */
-  .promo-wrap {
-    position: relative;
-    z-index: 0;
-    width: calc(100% + 40px);
-    max-width: none;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding: 0 0 4px;
-  }
-
-  .promo-wrap--hidden {
-    display: none;
   }
 
   .nav-utility {
@@ -293,7 +272,6 @@
     }
   }
 
-  /* position/z-index: dropdowns must paint above the promo strip (promo follows nav in DOM). */
   .nav-bar {
     position: relative;
     z-index: 2;

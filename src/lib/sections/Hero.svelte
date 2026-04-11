@@ -5,26 +5,69 @@
   const founderPortraitUrl =
     'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/895c60d8-8b2b-4b97-96d9-add7a9432300/public';
 
-  const trustedBy = ['Apex Realty', 'NorthTide Co.', 'GridFlow', 'Beacon Labs', 'Harrow & Co.'];
+  /** Logos (Cloudflare Images); two partners are wordmarks only until assets exist */
+  const trustedPartners: { name: string; logo?: string }[] = [
+    {
+      name: 'Apex Realty',
+      logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/60f04972-9d0d-4956-dba4-8fc50b856300/public',
+    },
+    {
+      name: 'NorthTide Co.',
+      logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/b7f51357-985c-40fc-d9bd-e469493d7500/public',
+    },
+    {
+      name: 'GridFlow',
+      logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/06557119-caa7-46fc-04ec-17af5ee6a600/public',
+    },
+    {
+      name: 'Beacon Labs',
+      logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a3a20ac0-a25f-411d-e6c8-d17b1971ac00/public',
+    },
+    {
+      name: 'Harrow & Co.',
+      logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/7b3fece0-f62b-4504-d3c3-83397b333200/public',
+    },
+  ];
 
-  const chartBars = [38, 52, 44, 67, 55, 78, 62, 85, 71, 90, 76, 94];
+  const chartPresets: number[][] = [
+    [38, 52, 44, 67, 55, 78, 62, 85, 71, 90, 76, 94],
+    [22, 28, 35, 42, 48, 55, 62, 70, 78, 82, 86, 91],
+    [72, 74, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85],
+  ];
 
-  const projects = [
-    { name: 'Apex Realty', type: 'Website', status: 'Live', uptime: '99.9%', ping: 12 },
-    { name: 'GridFlow Inc.', type: 'Software', status: 'Live', uptime: '100%', ping: 8 },
-    { name: 'NorthTide HVAC', type: 'Website', status: 'Live', uptime: '99.7%', ping: 24 },
+  const chartTabLabels = ['Fees', 'Control', 'Clarity'];
+
+  const sidebarPages = ['Overview', 'Analytics', 'Clients', 'Settings'];
+
+  let chartTabI = 0;
+  let sidebarI = 0;
+  let barHover: number | null = null;
+  let projHover: number | null = null;
+
+  $: chartBars = chartPresets[chartTabI];
+
+  /** Pain → how we fix it (mock list, not client names) */
+  const painOutcomes = [
+    { pain: 'Rent, never own it', fix: 'Title + code → you' },
+    { pain: 'Ticket roulette', fix: 'Same team answers' },
+    { pain: 'Can’t edit a word alone', fix: 'You control content' },
   ];
 
   const activity = [
-    { label: 'SSL renewed', time: '2m ago' },
-    { label: 'Deploy pushed', time: '1h ago' },
-    { label: 'Ticket closed', time: '3h ago' },
+    { label: 'Scope & price locked in writing', time: 'Before build' },
+    { label: 'Walkthrough: your admin, your keys', time: 'At launch' },
+    { label: 'Ownership milestone reached', time: 'On schedule' },
   ];
 </script>
 
 <section class="hero">
   <!-- Soft brand “spots” only; no grids/maps; stays behind copy -->
   <div class="hero-spots" aria-hidden="true"></div>
+  <div class="hero-dot-wave" aria-hidden="true">
+    <div class="hero-grid-3d-scene">
+      <div class="hero-grid-3d"></div>
+    </div>
+  </div>
 
   <div class="hero-stripe"></div>
 
@@ -74,8 +117,22 @@
       <div class="hero-proof">
         <span class="proof-label">Trusted by business owners across the US</span>
         <div class="proof-list">
-          {#each trustedBy as brand}
-            <span class="proof-brand">{brand}</span>
+          {#each trustedPartners as p}
+            <div class="proof-partner">
+              {#if p.logo}
+                <img
+                  class="proof-logo"
+                  src={p.logo}
+                  alt={`${p.name} logo`}
+                  width="176"
+                  height="52"
+                  loading="lazy"
+                  decoding="async"
+                />
+              {:else}
+                <span class="proof-brand">{p.name}</span>
+              {/if}
+            </div>
           {/each}
         </div>
       </div>
@@ -84,40 +141,37 @@
 
   <div class="container">
     <div class="hero-visual-row">
-      <div class="hero-mockup">
+      <div class="hero-mock-stack">
+      <div class="hero-mockup" aria-label="Interactive dashboard preview">
         <div class="mockup-bar">
           <span class="mockup-url">hostverna.com/dashboard</span>
-          <div class="mockup-bar-right">
-            <div class="live-badge">
-              <div class="live-dot"></div>
-              <span>All systems live</span>
-            </div>
-          </div>
         </div>
         <div class="mockup-body">
           <div class="mockup-sidebar">
             <div class="sb-logo"></div>
-            <div class="sb-nav">
-              <div class="snav active">
-                <div class="snav-label"></div>
-              </div>
-              <div class="snav">
-                <div class="snav-label short"></div>
-              </div>
-              <div class="snav">
-                <div class="snav-label"></div>
-              </div>
-              <div class="snav">
-                <div class="snav-label short"></div>
-              </div>
-            </div>
+            <nav class="sb-nav" aria-label="Preview navigation">
+              {#each sidebarPages as label, i}
+                <button
+                  type="button"
+                  class="snav"
+                  class:active={sidebarI === i}
+                  on:click={() => (sidebarI = i)}
+                  aria-current={sidebarI === i ? 'page' : undefined}
+                  aria-label={label}
+                >
+                  <span class="snav-glyph" aria-hidden="true">
+                    <span class="snav-label" class:short={i % 2 === 1}></span>
+                  </span>
+                </button>
+              {/each}
+            </nav>
             <div class="sb-footer">
               <div class="sb-avatar"></div>
             </div>
           </div>
           <div class="mockup-main">
             <div class="mm-topbar">
-              <div class="mm-page-title"></div>
+              <span class="mm-page-title-text">{sidebarPages[sidebarI]}</span>
               <div class="mm-actions">
                 <div class="mm-btn"></div>
                 <div class="mm-btn filled"></div>
@@ -127,48 +181,48 @@
             <div class="kpi-row">
               <div class="kpi">
                 <div class="kpi-top">
-                  <span class="kpi-val gradient-text">24</span>
-                  <div class="kpi-delta up">+2</div>
+                  <span class="kpi-val gradient-text">$0</span>
+                  <div class="kpi-delta up">Target</div>
                 </div>
-                <span class="kpi-label">Active Sites</span>
+                <span class="kpi-label">Rent after you own it</span>
                 <div class="kpi-sparkline">
-                  {#each [30,45,38,52,44,60] as h}
+                  {#each [55, 48, 40, 32, 22, 0] as h}
                     <div class="sp-bar" style="height:{h}%"></div>
                   {/each}
                 </div>
               </div>
               <div class="kpi">
                 <div class="kpi-top">
-                  <span class="kpi-val gradient-text">99.9%</span>
-                  <div class="kpi-delta up">Stable</div>
+                  <span class="kpi-val gradient-text">1</span>
+                  <div class="kpi-delta up">Direct</div>
                 </div>
-                <span class="kpi-label">Avg Uptime</span>
+                <span class="kpi-label">Team you reach first</span>
                 <div class="kpi-sparkline">
-                  {#each [85,90,88,92,95,99] as h}
+                  {#each [22, 22, 22, 22, 22, 22] as h}
                     <div class="sp-bar" style="height:{h}%"></div>
                   {/each}
                 </div>
               </div>
               <div class="kpi">
                 <div class="kpi-top">
-                  <span class="kpi-val" style="color:#0f172a">2</span>
-                  <div class="kpi-delta neutral">Open</div>
+                  <span class="kpi-val" style="color:#0f172a">0</span>
+                  <div class="kpi-delta neutral">Scoped</div>
                 </div>
-                <span class="kpi-label">Tickets</span>
+                <span class="kpi-label">Surprise invoices</span>
                 <div class="kpi-sparkline">
-                  {#each [8,5,6,3,4,2] as h}
-                    <div class="sp-bar amber" style="height:{h * 10}%"></div>
+                  {#each [48, 38, 28, 18, 8, 2] as h}
+                    <div class="sp-bar alt" style="height:{h}%"></div>
                   {/each}
                 </div>
               </div>
               <div class="kpi">
                 <div class="kpi-top">
-                  <span class="kpi-val" style="color:#16a34a">$0</span>
-                  <div class="kpi-delta up">Saved</div>
+                  <span class="kpi-val kpi-val--tight" style="color:#16a34a">You</span>
+                  <div class="kpi-delta up">Ship copy</div>
                 </div>
-                <span class="kpi-label">Subscription Fees</span>
+                <span class="kpi-label">Who updates the site</span>
                 <div class="kpi-sparkline">
-                  {#each [0,0,0,0,0,0] as h}
+                  {#each [0, 0, 0, 0, 0, 0] as _}
                     <div class="sp-bar green" style="height: 4px"></div>
                   {/each}
                 </div>
@@ -180,11 +234,19 @@
                 <div class="cp-title-block">
                   <div class="cp-title-line"></div>
                   <div class="cp-sub-line"></div>
+                  <span class="cp-chart-label">{chartTabLabels[chartTabI]}</span>
                 </div>
-                <div class="cp-tabs">
-                  <div class="cp-tab active"></div>
-                  <div class="cp-tab"></div>
-                  <div class="cp-tab"></div>
+                <div class="cp-tabs" role="tablist" aria-label="Chart range">
+                  {#each chartTabLabels as _, t}
+                    <button
+                      type="button"
+                      role="tab"
+                      class="cp-tab"
+                      class:active={chartTabI === t}
+                      aria-selected={chartTabI === t}
+                      on:click={() => (chartTabI = t)}
+                    ></button>
+                  {/each}
                 </div>
               </div>
               <div class="chart-area">
@@ -201,7 +263,15 @@
                   </div>
                   <div class="chart-bars">
                     {#each chartBars as h, i}
-                      <div class="bar" style="height:{h}%" class:highlight={i === chartBars.length - 1}></div>
+                    <div
+                        class="bar"
+                        class:highlight={i === chartBars.length - 1}
+                        class:bar--hover={barHover === i}
+                        style="height:{h}%"
+                        on:mouseenter={() => (barHover = i)}
+                        on:mouseleave={() => (barHover = null)}
+                        role="presentation"
+                      ></div>
                     {/each}
                   </div>
                 </div>
@@ -218,15 +288,20 @@
                 <div class="panel-header">
                   <div class="ph-title"></div>
                 </div>
-                {#each projects as p}
-                  <div class="proj-row">
+                {#each painOutcomes as row, pi}
+                  <div
+                    class="proj-row"
+                    class:proj-row--hover={projHover === pi}
+                    on:mouseenter={() => (projHover = pi)}
+                    on:mouseleave={() => (projHover = null)}
+                    role="presentation"
+                  >
                     <div class="proj-avatar"></div>
                     <div class="proj-info">
-                      <div class="proj-name">{p.name}</div>
-                      <div class="proj-type">{p.type}</div>
+                      <div class="proj-name">{row.pain}</div>
+                      <div class="proj-type">{row.fix}</div>
                     </div>
-                    <div class="proj-ping">{p.ping}ms</div>
-                    <div class="proj-status live">{p.status}</div>
+                    <div class="proj-outcome" aria-hidden="true">→</div>
                   </div>
                 {/each}
               </div>
@@ -248,6 +323,7 @@
 
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -274,6 +350,54 @@
       radial-gradient(ellipse 72% 58% at 82% 78%, rgb(3 105 161 / 0.055), transparent 62%),
       radial-gradient(ellipse 46% 40% at 18% 82%, rgb(13 148 136 / 0.065), transparent 55%),
       radial-gradient(ellipse 90% 70% at 48% 42%, rgb(3 105 161 / 0.035), transparent 68%);
+  }
+
+  /* Perspective floor grid (static, no motion) */
+  .hero-dot-wave {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    -webkit-mask-image: radial-gradient(ellipse 125% 92% at 50% 14%, rgb(0 0 0 / 0.98) 0%, rgb(0 0 0 / 0.42) 48%, transparent 76%);
+    mask-image: radial-gradient(ellipse 125% 92% at 50% 14%, rgb(0 0 0 / 0.98) 0%, rgb(0 0 0 / 0.42) 48%, transparent 76%);
+  }
+
+  .hero-grid-3d-scene {
+    position: absolute;
+    inset: 0;
+    perspective: min(1200px, 140vw);
+    perspective-origin: 50% 26%;
+    transform-style: preserve-3d;
+  }
+
+  .hero-grid-3d {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    width: 320%;
+    height: 160%;
+    margin-left: -160%;
+    transform-origin: 50% 0%;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    background-repeat: repeat;
+    /* Lines + node dots: reads as a 3D lattice receding toward the horizon */
+    background-image:
+      linear-gradient(to right, rgb(3 105 161 / 0.38) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(13 148 136 / 0.28) 1px, transparent 1px),
+      radial-gradient(circle, rgb(3 105 161 / 0.42) 1.15px, transparent 1.75px);
+    background-size: 56px 56px, 56px 56px, 56px 56px;
+    background-position: 0 0, 0 0, 28px 28px;
+    opacity: 0.52;
+    transform: rotateX(70deg) translate3d(0, 0, -50px);
+  }
+
+  :global([data-theme='dark']) .hero-grid-3d {
+    background-image:
+      linear-gradient(to right, rgb(56 189 248 / 0.22) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(45 212 191 / 0.16) 1px, transparent 1px),
+      radial-gradient(circle, rgb(56 189 248 / 0.28) 1.1px, transparent 1.65px);
   }
 
   @media (min-width: 901px) {
@@ -527,17 +651,44 @@
 
   .proof-list {
     display: flex;
-    gap: 28px;
+    gap: clamp(20px, 4vw, 36px);
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+  }
+
+  .proof-partner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+  }
+
+  .proof-logo {
+    display: block;
+    height: clamp(34px, 4.2vw, 44px);
+    width: auto;
+    max-width: min(168px, 34vw);
+    object-fit: contain;
+    object-position: center;
+    opacity: 0.92;
   }
 
   .proof-brand {
     font-size: 13px;
     font-weight: 600;
-    color: #cbd5e1;
+    color: #94a3b8;
     letter-spacing: 0.02em;
     font-family: 'Space Grotesk', sans-serif;
+  }
+
+  :global([data-theme='dark']) .proof-logo {
+    opacity: 0.88;
+    filter: brightness(1.08);
+  }
+
+  :global([data-theme='dark']) .proof-brand {
+    color: #cbd5e1;
   }
 
   .hero-visual-row {
@@ -548,15 +699,78 @@
     align-items: flex-end;
     max-width: 980px;
     margin: 0 auto;
+    padding: 0 4px 18px 0;
+  }
+
+  /* Layered “stack” behind the dashboard mock (depth without changing palette) */
+  .hero-mock-stack {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hero-mock-stack::before,
+  .hero-mock-stack::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    border-radius: var(--radius-tile);
+    border: 1px solid var(--border);
+    background: var(--bg-subtle);
+    pointer-events: none;
+  }
+
+  .hero-mock-stack::before {
+    inset: 0;
+    transform: translate(7px, 9px);
+    box-shadow: var(--shadow-sm);
+    opacity: 0.95;
+  }
+
+  .hero-mock-stack::after {
+    inset: 0;
+    transform: translate(14px, 17px);
+    opacity: 0.55;
+    background: var(--bg);
   }
 
   .hero-mockup {
-    flex: 1;
+    position: relative;
+    z-index: 1;
+    width: 100%;
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-tile);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-tile-stack);
     overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mock-stack::before,
+    .hero-mock-stack::after {
+      display: none;
+    }
+
+    .hero-mockup {
+      box-shadow: var(--shadow-tile);
+    }
+
+    .bar {
+      transition: none;
+    }
+
+    .kpi:hover {
+      transform: none;
+    }
+
+    .snav:active,
+    .cp-tab:active {
+      transform: none;
+    }
+
+    .proj-row--hover {
+      transform: none;
+    }
   }
 
   .mockup-bar {
@@ -574,32 +788,6 @@
     margin-left: 6px;
     font-family: 'DM Mono', monospace;
     flex: 1;
-  }
-
-  .mockup-bar-right {
-    display: flex;
-    align-items: center;
-  }
-
-  .live-badge {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 9px;
-    font-family: 'DM Mono', monospace;
-    color: #0d9488;
-    background: rgba(13,148,136,0.08);
-    border: 1px solid rgba(13,148,136,0.18);
-    border-radius: var(--radius-tile-sm);
-    padding: 2px 8px;
-    letter-spacing: 0.04em;
-  }
-
-  .live-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #0d9488;
   }
 
   .mockup-body {
@@ -635,24 +823,60 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 3px;
     padding: 6px 4px;
     border-radius: 3px;
     cursor: pointer;
+    border: none;
+    background: transparent;
+    font: inherit;
+    width: 100%;
+    color: inherit;
+    transition:
+      background 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .snav:focus-visible {
+    outline: 2px solid rgb(56 189 248 / 0.55);
+    outline-offset: 1px;
+  }
+
+  .snav:hover {
+    background: rgba(255, 255, 255, 0.06);
   }
 
   .snav.active {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .snav:active {
+    transform: scale(0.97);
+  }
+
+  .snav-glyph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
   }
 
   .snav-label {
     width: 24px;
     height: 3px;
     border-radius: 1px;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
+    transition: background 0.18s ease;
   }
 
-  .snav-label.short { width: 16px; }
+  .snav.active .snav-label {
+    background: rgba(255, 255, 255, 0.42);
+  }
+
+  .snav-label.short {
+    width: 16px;
+  }
 
   .sb-footer {
     display: flex;
@@ -690,12 +914,14 @@
     padding: 8px 12px;
   }
 
-  .mm-page-title {
-    width: 90px;
-    height: 8px;
-    border-radius: 2px;
-    background: #0f172a;
-    opacity: 0.7;
+  .mm-page-title-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+    line-height: 1.2;
+    transition: opacity 0.2s ease;
   }
 
   .mm-actions {
@@ -708,10 +934,23 @@
     height: 20px;
     border-radius: 2px;
     background: #e2e8f0;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease,
+      background 0.15s ease;
+  }
+
+  .mm-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgb(15 23 42 / 0.08);
   }
 
   .mm-btn.filled {
     background: var(--primary);
+  }
+
+  .mm-btn.filled:hover {
+    filter: brightness(1.06);
   }
 
   .kpi-row {
@@ -728,6 +967,17 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+    cursor: default;
+  }
+
+  .kpi:hover {
+    transform: translateY(-2px);
+    border-color: rgb(3 105 161 / 0.22);
+    box-shadow: 0 6px 16px rgb(15 23 42 / 0.07);
   }
 
   .kpi-top {
@@ -744,6 +994,11 @@
     letter-spacing: -0.03em;
   }
 
+  .kpi-val--tight {
+    font-size: 13px;
+    letter-spacing: -0.04em;
+  }
+
   .kpi-delta {
     font-size: 8px;
     font-family: 'DM Mono', monospace;
@@ -757,16 +1012,23 @@
   }
 
   .kpi-delta.neutral {
-    background: var(--bg)7ed;
-    color: #c2410c;
+    background: #f1f5f9;
+    color: #64748b;
   }
 
   .kpi-label {
-    font-size: 8px;
+    font-size: 7px;
     font-family: 'DM Mono', monospace;
-    color: #94a3b8;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.02em;
+    line-height: 1.35;
+    text-transform: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 18px;
   }
 
   .kpi-sparkline {
@@ -785,8 +1047,10 @@
     min-height: 2px;
   }
 
-  .sp-bar.amber {
-    background: linear-gradient(180deg, #f59e0b, #f97316);
+  /* Second sparkline series: cyan emphasis (same brand family as keyword/string bars) */
+  .sp-bar.alt {
+    background: linear-gradient(180deg, #0891b2, #0e7490);
+    opacity: 0.85;
   }
 
   .sp-bar.green {
@@ -829,9 +1093,21 @@
     border-radius: 1px;
   }
 
+  .cp-chart-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-top: 2px;
+    transition: color 0.2s ease;
+  }
+
   .cp-tabs {
     display: flex;
     gap: 4px;
+    align-items: center;
   }
 
   .cp-tab {
@@ -840,11 +1116,33 @@
     border-radius: 2px;
     background: #f1f5f9;
     border: 1px solid #e2e8f0;
+    padding: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease,
+      filter 0.15s ease;
+  }
+
+  .cp-tab:hover {
+    border-color: rgb(3 105 161 / 0.25);
+    box-shadow: 0 1px 4px rgb(15 23 42 / 0.06);
+  }
+
+  .cp-tab:focus-visible {
+    outline: 2px solid rgb(3 105 161 / 0.45);
+    outline-offset: 1px;
   }
 
   .cp-tab.active {
     background: linear-gradient(90deg, #0369a1, #0d9488);
     border-color: transparent;
+    box-shadow: 0 1px 6px rgb(3 105 161 / 0.25);
+  }
+
+  .cp-tab:active {
+    transform: scale(0.96);
   }
 
   .chart-area {
@@ -895,15 +1193,34 @@
   }
 
   .bar {
+    position: relative;
     flex: 1;
-    background: linear-gradient(180deg, rgba(3,105,161,0.4), rgba(13,148,136,0.3));
+    background: linear-gradient(180deg, rgba(3, 105, 161, 0.4), rgba(13, 148, 136, 0.3));
     border-radius: 2px 2px 0 0;
     min-height: 3px;
+    cursor: crosshair;
+    transform-origin: bottom center;
+    transition:
+      height 0.45s cubic-bezier(0.33, 1, 0.68, 1),
+      transform 0.18s ease,
+      filter 0.18s ease,
+      opacity 0.18s ease;
+  }
+
+  .bar:hover,
+  .bar.bar--hover {
+    transform: scaleX(1.12);
+    filter: saturate(1.15) brightness(1.05);
+    z-index: 1;
   }
 
   .bar.highlight {
     background: linear-gradient(180deg, #0369a1, #0d9488);
     opacity: 1;
+  }
+
+  .bar.highlight.bar--hover {
+    box-shadow: 0 -2px 10px rgb(3 105 161 / 0.35);
   }
 
   .chart-x-labels {
@@ -955,6 +1272,22 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    padding: 4px 5px;
+    margin: 0 -5px;
+    border-radius: 3px;
+    cursor: default;
+    transition:
+      background 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .proj-row--hover {
+    background: rgb(241 245 249);
+    transform: translateX(2px);
+  }
+
+  .proj-row--hover .proj-avatar {
+    box-shadow: 0 0 0 1px rgb(3 105 161 / 0.15);
   }
 
   .proj-avatar {
@@ -963,6 +1296,7 @@
     border-radius: 3px;
     background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
     flex-shrink: 0;
+    transition: box-shadow 0.18s ease;
   }
 
   .proj-info {
@@ -985,22 +1319,18 @@
     color: #94a3b8;
   }
 
-  .proj-ping {
-    font-size: 7.5px;
-    font-family: 'DM Mono', monospace;
-    color: #64748b;
+  .proj-outcome {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 700;
+    color: #94a3b8;
+    line-height: 1;
+    opacity: 0.85;
   }
 
-  .proj-status {
-    font-size: 7px;
-    font-family: 'DM Mono', monospace;
-    padding: 2px 5px;
-    border-radius: 2px;
-  }
-
-  .proj-status.live {
-    background: #dcfce7;
-    color: #16a34a;
+  .proj-row--hover .proj-outcome {
+    color: #0d9488;
+    opacity: 1;
   }
 
   .act-row {

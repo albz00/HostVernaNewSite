@@ -47,7 +47,7 @@
 </script>
 
 <svelte:head>
-  <title>Free website offer — Summer event | HostVerna</title>
+  <title>Free website offer, Summer event | HostVerna</title>
   <meta
     name="description"
     content="Apply for HostVerna's limited free website offer (ends July 1). Submit your details and community proof: a public share plus comments on three local businesses."
@@ -70,7 +70,7 @@
       <p class="event-lede">
         We are running a small number of <strong>no-cost website builds</strong> for qualifying businesses. This page is the
         official application. Tell us who you are, then show us you have spread the word and supported three other
-        businesses in public — that is how we keep this fair and community-rooted.
+        businesses in public. That is how we keep this fair and community-rooted.
       </p>
     </header>
 
@@ -79,7 +79,7 @@
         <div class="success-badge">Preview only</div>
         <h2 class="event-h2">We received your application (mockup)</h2>
         <p class="event-p">
-          Nothing was sent to a server yet — this flow is a working preview so you can review fields and copy. When we go
+          Nothing was sent to a server yet. This flow is a working preview so you can review fields and copy. When we go
           live, submissions will route to our team for review.
         </p>
         <p class="event-p event-p--tight">
@@ -92,15 +92,15 @@
         <h2 id="rules-heading" class="event-h2">What you need to qualify</h2>
         <ul class="rules-list">
           <li>
-            <strong>Your details</strong> — Legal or preferred name, email, and how we can reach you. Organization is
+            <strong>Your details.</strong> Legal or preferred name, email, and how we can reach you. Organization is
             optional but helps.
           </li>
           <li>
-            <strong>One public share</strong> — A link to a post where you shared this offer or HostVerna openly (same
+            <strong>One public share.</strong> A link to a post where you shared this offer or HostVerna openly (same
             rules apply when we enable real submissions).
           </li>
           <li>
-            <strong>Three local businesses</strong> — For each, the business name, a link to the post you commented on, and
+            <strong>Three local businesses.</strong> For each, the business name, a link to the post you commented on, and
             proof of your comment (paste text, a link to the thread, or a link to a screenshot). Comments should be
             genuine and on-topic, not spam.
           </li>
@@ -136,7 +136,7 @@
         </fieldset>
 
         <fieldset class="fieldset">
-          <legend class="legend">Social proof — your share</legend>
+          <legend class="legend">Social proof: your share</legend>
           <p class="field-hint">
             Paste a public URL to a post where you shared this offer or HostVerna. The post must be visible without a
             private follow.
