@@ -1,12 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import ThemeToggle from './ThemeToggle.svelte';
   import { serviceNavItems } from '../data/servicePages';
   import { solutionNavItems } from '../data/solutionNav';
   import { resourcesNavItems } from '../data/learnPages';
   import { whoWeServeNavItems } from '../data/whoWeServeNav';
   let scrolled = false;
   let mobileOpen = false;
+  let menuToggleLabel = 'OPEN';
+  let labelAnimToken = 0;
+  let prefersReducedMotion = false;
 
   const navLinksRest = [
     { label: 'About', href: '/about' },
@@ -16,7 +18,50 @@
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
 
+  const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+  async function playLabelTransition(to: string) {
+    const id = ++labelAnimToken;
+    const from = menuToggleLabel;
+    if (from === to) return;
+
+    const backspaceMs = 36;
+    const typeMs = 42;
+
+    for (let i = from.length; i > 0; i--) {
+      if (id !== labelAnimToken) return;
+      menuToggleLabel = from.slice(0, i - 1);
+      await delay(backspaceMs);
+    }
+    for (let j = 1; j <= to.length; j++) {
+      if (id !== labelAnimToken) return;
+      menuToggleLabel = to.slice(0, j);
+      await delay(typeMs);
+    }
+  }
+
+  function onMobileToggleClick() {
+    const next = !mobileOpen;
+    mobileOpen = next;
+    if (prefersReducedMotion) {
+      menuToggleLabel = next ? 'CLOSE' : 'OPEN';
+      return;
+    }
+    void playLabelTransition(next ? 'CLOSE' : 'OPEN');
+  }
+
+  function closeMobileMenu() {
+    mobileOpen = false;
+    if (prefersReducedMotion) {
+      menuToggleLabel = 'OPEN';
+      return;
+    }
+    void playLabelTransition('OPEN');
+  }
+
   onMount(() => {
+    prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const handler = () => {
       scrolled = window.scrollY > 24;
     };
@@ -112,37 +157,39 @@
       </ul>
 
       <div class="nav-actions">
-        <!-- Mockup: stays here (not in utility bar) so it remains visible when the top strip hides on scroll -->
-        <ThemeToggle />
         <a href="/portal" class="btn btn-secondary nav-btn">Portal</a>
         <a href="/contact" class="btn btn-primary nav-btn">Get Started</a>
       </div>
 
       <button
+        type="button"
         class="mobile-toggle"
-        on:click={() => mobileOpen = !mobileOpen}
-        aria-label="Toggle menu"
+        class:mobile-toggle--open={mobileOpen}
+        on:click={onMobileToggleClick}
+        aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={mobileOpen}
+        aria-controls="site-mobile-nav"
       >
-        <span class="toggle-bar" class:open={mobileOpen}></span>
-        <span class="toggle-bar" class:open={mobileOpen}></span>
-        <span class="toggle-bar" class:open={mobileOpen}></span>
+        <span class="mobile-toggle__surface" aria-hidden="true"></span>
+        <span class="mobile-toggle__text" aria-hidden="true">
+          <span class="mobile-toggle__label">{menuToggleLabel}</span>
+        </span>
       </button>
     </div>
 
     {#if mobileOpen}
-      <div class="mobile-menu">
-        <a href="/support" class="mobile-link mobile-support-first" on:click={() => mobileOpen = false}>Support</a>
-        <a href={phoneHref} class="mobile-phone" on:click={() => mobileOpen = false}>{phoneDisplay}</a>
+      <div id="site-mobile-nav" class="mobile-menu">
+        <a href="/support" class="mobile-link mobile-support-first" on:click={closeMobileMenu}>Support</a>
+        <a href={phoneHref} class="mobile-phone" on:click={closeMobileMenu}>{phoneDisplay}</a>
 
         <div class="mobile-group">
           <span class="mobile-group-label">Services</span>
           {#each serviceNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={() => mobileOpen = false}
+            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
               >{item.title}</a
             >
           {/each}
-          <a href="/#services" class="mobile-link mobile-sublink mobile-sublink-all" on:click={() => mobileOpen = false}
+          <a href="/#services" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
             >All services overview</a
           >
         </div>
@@ -150,11 +197,11 @@
         <div class="mobile-group">
           <span class="mobile-group-label">Use Cases</span>
           {#each solutionNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={() => mobileOpen = false}
+            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
               >{item.title}</a
             >
           {/each}
-          <a href="/#use-cases" class="mobile-link mobile-sublink mobile-sublink-all" on:click={() => mobileOpen = false}
+          <a href="/#use-cases" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
             >How we work</a
           >
         </div>
@@ -162,7 +209,7 @@
         <div class="mobile-group">
           <span class="mobile-group-label">Who we serve</span>
           {#each whoWeServeNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={() => mobileOpen = false}
+            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
               >{item.title}</a
             >
           {/each}
@@ -171,18 +218,22 @@
         <div class="mobile-group">
           <span class="mobile-group-label">Resources</span>
           {#each resourcesNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={() => mobileOpen = false}
+            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
               >{item.title}</a
             >
           {/each}
         </div>
 
         {#each navLinksRest as link}
-          <a href={link.href} class="mobile-link" on:click={() => mobileOpen = false}>{link.label}</a>
+          <a href={link.href} class="mobile-link" on:click={closeMobileMenu}>{link.label}</a>
         {/each}
         <div class="mobile-actions">
-          <a href="/portal" class="btn btn-secondary" style="width:100%;justify-content:center">Portal</a>
-          <a href="/contact" class="btn btn-primary" style="width:100%;justify-content:center">Get Started</a>
+          <a href="/portal" class="btn btn-secondary" style="width:100%;justify-content:center" on:click={closeMobileMenu}
+            >Portal</a
+          >
+          <a href="/contact" class="btn btn-primary" style="width:100%;justify-content:center" on:click={closeMobileMenu}
+            >Get Started</a
+          >
         </div>
       </div>
     {/if}
@@ -491,23 +542,101 @@
     font-size: 12.5px;
   }
 
+  /* Chamfered tile (top-left + bottom-right) to match site's button/card language */
   .mobile-toggle {
     display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 12px;
+    margin: 0;
     border: none;
+    border-radius: var(--radius-tile-sm);
     cursor: pointer;
-    padding: 4px;
+    flex-shrink: 0;
+    color: var(--text-primary);
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.15s ease;
   }
 
-  .toggle-bar {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--text-primary);
-    border-radius: 1px;
-    transition: all 0.2s ease;
+  .mobile-toggle__surface {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: var(--bg);
+    border: 1.5px solid var(--primary);
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .mobile-toggle__text {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+    user-select: none;
+    transition: color 0.18s ease;
+  }
+
+  .mobile-toggle__label {
+    display: inline-block;
+    width: 5ch;
+    min-width: 5ch;
+    text-align: center;
+  }
+
+  .mobile-toggle:hover .mobile-toggle__surface {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 4px 14px rgb(3 105 161 / 0.22);
+  }
+
+  .mobile-toggle:hover .mobile-toggle__text {
+    color: #fff;
+  }
+
+  .mobile-toggle:active {
+    transform: translateY(1px);
+  }
+
+  .mobile-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  .mobile-toggle--open .mobile-toggle__surface {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 4px 14px rgb(3 105 161 / 0.22);
+  }
+
+  .mobile-toggle--open .mobile-toggle__text {
+    color: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-toggle,
+    .mobile-toggle__surface {
+      transition-duration: 0.01ms !important;
+    }
+
+    .mobile-toggle:active {
+      transform: none;
+    }
   }
 
   .mobile-menu {
@@ -681,5 +810,26 @@
 
   :global([data-theme='dark']) .nav-utility {
     border-bottom-color: var(--border);
+  }
+
+  :global([data-theme='dark']) .mobile-toggle__surface {
+    background: transparent;
+    border-color: var(--primary);
+  }
+
+  :global([data-theme='dark']) .mobile-toggle__text {
+    color: var(--primary);
+  }
+
+  :global([data-theme='dark']) .mobile-toggle:hover .mobile-toggle__surface,
+  :global([data-theme='dark']) .mobile-toggle--open .mobile-toggle__surface {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 4px 14px rgb(56 189 248 / 0.22);
+  }
+
+  :global([data-theme='dark']) .mobile-toggle:hover .mobile-toggle__text,
+  :global([data-theme='dark']) .mobile-toggle--open .mobile-toggle__text {
+    color: #0f172a;
   }
 </style>

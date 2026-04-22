@@ -252,9 +252,21 @@
           {/each}
         </div>
 
-        <div class="own-placeholder">
-          <span class="ph-label">Site Ownership Transfer</span>
-        </div>
+        <figure class="own-transfer-fig">
+          <img
+            class="own-transfer-img"
+            src="/images/site-ownership-handshake.jpg"
+            width="1400"
+            height="935"
+            alt="Two business people shaking hands across a table after agreeing on next steps"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption class="own-transfer-cap">
+            Partnership and a documented handoff—clear terms, not a vague “we’ll send you a link.”
+            <span class="own-transfer-lic">Photo: Unsplash (royalty-free; replace anytime).</span>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </div>
@@ -1081,25 +1093,41 @@
     }
   }
 
-  .own-placeholder {
-    aspect-ratio: 16/9;
-    background: var(--bg-muted);
+  .own-transfer-fig {
+    margin: 0;
     border: 1px solid var(--border);
     border-radius: var(--radius-tile);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
     box-shadow: var(--shadow-tile);
+    background: var(--bg-subtle);
   }
 
-  .ph-label {
-    font-size: 11px;
-    font-family: 'DM Mono', monospace;
-    color: #0369a1;
+  .own-transfer-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    vertical-align: top;
+  }
+
+  .own-transfer-cap {
+    margin: 0;
+    padding: 12px 14px 14px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #475569;
     text-align: center;
-    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--bg);
+  }
+
+  .own-transfer-lic {
+    display: block;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
     letter-spacing: 0.04em;
-    opacity: 0.7;
+    color: #94a3b8;
   }
 
   @media (max-width: 900px) {

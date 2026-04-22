@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount, onDestroy } from 'svelte';
   import ContentHighlight from '../components/ContentHighlight.svelte';
   import QualifierIcon from '../components/QualifierIcon.svelte';
   import { markInlineFitEngaged } from '../fitQualifierStorage';
@@ -14,6 +15,35 @@
   let answers: Record<string, string> = {};
   let fit: Fit = 'great';
   let animating = false;
+
+  // Scroll-linked "flood": dark gradient pours down from the top of the section as you scroll,
+  // with an animated wave crest at its leading edge.
+  let sectionEl: HTMLElement | null = null;
+  let floodProgress = 0; // 0..1 — how filled the section is
+  let rafId: number | null = null;
+
+  function updateFlood() {
+    rafId = null;
+    if (!sectionEl) return;
+    const rect = sectionEl.getBoundingClientRect();
+    const vh = window.innerHeight || 1;
+    // Stretch the flood across the section's full scroll traversal so there's real
+    // runway for the wave to crash through — the user reaches halfway through the
+    // section with the wave still actively mid-fall.
+    //   rect.top = vh       (section just entered bottom)  -> progress 0 (pure white)
+    //   rect.top = 0        (section fully in view)        -> progress ~ vh / (H + vh)
+    //   rect.bottom = 0     (section fully scrolled past)  -> progress 1 (fully flooded)
+    const denom = rect.height + vh;
+    const raw = denom > 0 ? (vh - rect.top) / denom : 0;
+    const c = Math.max(0, Math.min(1, raw));
+    // Gentle easeInOut so the water starts/settles smoothly without feeling laggy mid-scroll.
+    floodProgress = c * c * (3 - 2 * c);
+  }
+
+  function onScroll() {
+    if (rafId != null) return;
+    rafId = requestAnimationFrame(updateFlood);
+  }
 
   function advance(nextStep: Step, key?: string, value?: string) {
     if (step === 'intro' && nextStep !== 'intro') {
@@ -64,6 +94,20 @@
     advance('intro');
   }
 
+  onMount(() => {
+    updateFlood();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  });
+
+  onDestroy(() => {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+    if (rafId != null) cancelAnimationFrame(rafId);
+  });
+
   const resultCopy: Record<Fit, { title: string; sub: string; cta: string; ctaLabel: string }> = {
     great: {
       title: "You're exactly who we built this for.",
@@ -86,7 +130,77 @@
   };
 </script>
 
-<section class="fit-section" id="who-we-serve">
+<section
+  class="fit-section"
+  id="who-we-serve"
+  bind:this={sectionEl}
+  class:is-flooding={floodProgress > 0.02 && floodProgress < 0.99}
+  class:is-flooded={floodProgress >= 0.99}
+  style="--flood: {floodProgress}"
+>
+  <div class="flood" aria-hidden="true">
+    <div class="flood-body"></div>
+    <svg
+      class="flood-wave"
+      viewBox="0 0 1440 220"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="flood-foam-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(148,197,255,0)" />
+          <stop offset="20%" stop-color="rgba(148,197,255,0.85)" />
+          <stop offset="50%" stop-color="rgba(196,220,255,1)" />
+          <stop offset="80%" stop-color="rgba(148,197,255,0.85)" />
+          <stop offset="100%" stop-color="rgba(148,197,255,0)" />
+        </linearGradient>
+      </defs>
+
+      <!-- Deepest wave: broad swell, slow -->
+      <path
+        class="wave-path wave-deep"
+        d="M0,70 C240,30 480,110 720,70 C960,30 1200,110 1440,70 L1440,220 L0,220 Z"
+      />
+
+      <!-- Mid wave: medium amplitude, different phase -->
+      <path
+        class="wave-path wave-mid"
+        d="M0,100 C180,65 360,135 540,100 C720,65 900,135 1080,100 C1260,65 1440,135 1440,100 L1440,220 L0,220 Z"
+      />
+
+      <!-- Front crest: sharper, faster -->
+      <path
+        class="wave-path wave-crest"
+        d="M0,130 C120,100 240,160 360,130 C480,100 600,160 720,130 C840,100 960,160 1080,130 C1200,100 1320,160 1440,130 L1440,220 L0,220 Z"
+      />
+
+      <!-- Bright foam highlight along the crest -->
+      <path
+        class="wave-foam wave-foam-main"
+        d="M0,130 C120,100 240,160 360,130 C480,100 600,160 720,130 C840,100 960,160 1080,130 C1200,100 1320,160 1440,130"
+      />
+
+      <!-- Secondary thinner foam line, offset for parallax depth -->
+      <path
+        class="wave-foam wave-foam-thin"
+        d="M0,100 C180,65 360,135 540,100 C720,65 900,135 1080,100 C1260,65 1440,135 1440,100"
+      />
+
+      <!-- Scattered droplets / bubbles for water texture -->
+      <g class="bubbles">
+        <circle cx="120" cy="85" r="2.4" />
+        <circle cx="260" cy="110" r="1.6" />
+        <circle cx="410" cy="75" r="2.8" />
+        <circle cx="545" cy="118" r="1.8" />
+        <circle cx="690" cy="92" r="2.2" />
+        <circle cx="820" cy="118" r="1.4" />
+        <circle cx="955" cy="80" r="2.6" />
+        <circle cx="1090" cy="115" r="1.8" />
+        <circle cx="1220" cy="88" r="2.4" />
+        <circle cx="1340" cy="108" r="1.6" />
+      </g>
+    </svg>
+  </div>
   <div class="container">
     <div class="fit-header">
       <h2 class="fit-title">
@@ -300,11 +414,178 @@
 
 <style>
   .fit-section {
-    background: var(--bg-subtle);
+    /* Literal white base so the section reads identical to the ones above/below
+       until the flood actually arrives. */
+    background: var(--bg);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    padding: 80px 0;
+    padding: 120px 0;
     position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ----- Scroll-driven flood + wave crest ----- */
+
+  .flood {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* Grows as you scroll. Goes slightly past 100% so the wave can clear out. */
+    height: calc(var(--flood, 0) * 108%);
+    pointer-events: none;
+    z-index: 0;
+    will-change: height;
+    transition: height 0.08s linear;
+    /* Thin, natural feather at the very bottom — just enough to kill the hard
+       cutoff line while keeping the wave detail crisp. */
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - 56px),
+      rgba(0, 0, 0, 0.85) calc(100% - 32px),
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - 56px),
+      rgba(0, 0, 0, 0.85) calc(100% - 32px),
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .flood-body {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        1000px 520px at 50% 35%,
+        rgba(59, 130, 246, 0.22),
+        rgba(59, 130, 246, 0) 65%
+      ),
+      radial-gradient(
+        1200px 700px at 85% 10%,
+        rgba(99, 102, 241, 0.16),
+        rgba(99, 102, 241, 0) 60%
+      ),
+      linear-gradient(180deg, #050914 0%, #0b1324 40%, #0b1324 75%, #050914 100%);
+  }
+
+  /* Wave crest sits straddling the bottom edge of the flood — its top half is
+     transparent (rising curves) and the lower body is the same dark tone,
+     so it reads as a fluid, textured leading edge with real motion. */
+  .flood-wave {
+    position: absolute;
+    left: -8%;
+    right: -8%;
+    width: 116%;
+    bottom: -72px;
+    height: 200px;
+    pointer-events: none;
+    filter: drop-shadow(0 -6px 20px rgba(7, 12, 28, 0.5));
+  }
+
+  .wave-path {
+    fill: #0b1324;
+  }
+
+  .wave-deep {
+    opacity: 0.5;
+    fill: #020617;
+    transform-origin: center;
+    animation: wave-drift-deep 11s ease-in-out infinite alternate;
+  }
+
+  .wave-mid {
+    opacity: 0.85;
+    fill: #091021;
+    animation: wave-drift-mid 7.5s ease-in-out infinite alternate;
+  }
+
+  .wave-crest {
+    opacity: 1;
+    fill: #0b1324;
+    animation: wave-drift-crest 4.5s ease-in-out infinite alternate;
+  }
+
+  /* Foam highlights along the crest lines — bright, glowing ribbons. */
+  .wave-foam {
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  .wave-foam-main {
+    stroke: url(#flood-foam-grad);
+    stroke-width: 2;
+    filter: drop-shadow(0 0 8px rgba(148, 197, 255, 0.6))
+            drop-shadow(0 0 18px rgba(99, 130, 255, 0.35));
+    animation: wave-drift-crest 4.5s ease-in-out infinite alternate;
+  }
+
+  .wave-foam-thin {
+    stroke: rgba(148, 197, 255, 0.45);
+    stroke-width: 1;
+    stroke-dasharray: 6 12;
+    filter: drop-shadow(0 0 4px rgba(148, 197, 255, 0.4));
+    animation: wave-drift-mid 7.5s ease-in-out infinite alternate;
+  }
+
+  /* Floating bubbles/droplets — texture along the wave crest. */
+  .bubbles circle {
+    fill: rgba(196, 220, 255, 0.75);
+    filter: drop-shadow(0 0 4px rgba(148, 197, 255, 0.6));
+    transform-origin: center;
+    animation: bubble-bob 6s ease-in-out infinite;
+  }
+  .bubbles circle:nth-child(2n)  { animation-duration: 7.5s; animation-delay: -1.2s; opacity: 0.85; }
+  .bubbles circle:nth-child(3n)  { animation-duration: 9s;   animation-delay: -2.4s; opacity: 0.6;  }
+  .bubbles circle:nth-child(5n)  { animation-duration: 5.5s; animation-delay: -3.1s; }
+
+  @keyframes wave-drift-deep {
+    from { transform: translate3d(-4%, 0, 0) scaleY(1); }
+    to   { transform: translate3d(4%, -3px, 0) scaleY(1.04); }
+  }
+
+  @keyframes wave-drift-mid {
+    from { transform: translate3d(3%, 0, 0) scaleY(1); }
+    to   { transform: translate3d(-3%, -5px, 0) scaleY(1.05); }
+  }
+
+  @keyframes wave-drift-crest {
+    from { transform: translate3d(-2%, 0, 0) scaleY(1); }
+    to   { transform: translate3d(2%, -7px, 0) scaleY(1.08); }
+  }
+
+  @keyframes bubble-bob {
+    0%   { transform: translate3d(0, 0, 0)    scale(1);    opacity: 0.9; }
+    50%  { transform: translate3d(2px, -4px, 0) scale(1.15); opacity: 1;   }
+    100% { transform: translate3d(-2px, 0, 0) scale(0.9);  opacity: 0.7; }
+  }
+
+  /* Hide the wave crest entirely when fully submerged — no seam inside a solid block. */
+  .fit-section.is-flooded .flood-wave {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave-deep,
+    .wave-mid,
+    .wave-crest,
+    .wave-foam,
+    .bubbles circle {
+      animation: none;
+    }
+    .flood {
+      transition: none;
+    }
+  }
+
+  /* Content above the flood. */
+  .fit-section > .container {
+    position: relative;
+    z-index: 2;
   }
 
   .fit-header {
@@ -323,6 +604,7 @@
     letter-spacing: -0.03em;
     color: #0f172a;
     line-height: 1.15;
+    transition: color 0.35s ease, text-shadow 0.35s ease;
   }
 
   .fit-sub {
@@ -330,6 +612,30 @@
     color: #475569;
     max-width: 480px;
     line-height: 1.65;
+    transition: color 0.35s ease;
+  }
+
+  /* Flip header text colors once the flood has started — the title area is the
+     first thing to submerge, so as soon as the wave breaks into the section we
+     switch to light text for contrast. */
+  .fit-section.is-flooding .fit-title,
+  .fit-section.is-flooded .fit-title {
+    color: #f8fafc;
+    text-shadow: 0 1px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  .fit-section.is-flooding .fit-sub,
+  .fit-section.is-flooded .fit-sub {
+    color: #cbd5e1;
+  }
+
+  .fit-section.is-flooding .fit-title :global(.gradient-text),
+  .fit-section.is-flooded .fit-title :global(.gradient-text) {
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 
   .form-shell {
@@ -349,7 +655,10 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-tile);
     padding: 40px 48px;
-    box-shadow: var(--shadow-tile);
+    box-shadow:
+      0 20px 60px -20px rgba(0, 0, 0, 0.55),
+      0 8px 24px -12px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.04);
   }
 
   .intro-card {

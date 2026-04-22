@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   type Stat = {
     id: string;
     value: string;
@@ -42,29 +40,6 @@
     },
   ];
 
-  let openId: string | null = null;
-
-  function toggleStat(id: string, e: MouseEvent) {
-    e.stopPropagation();
-    openId = openId === id ? null : id;
-  }
-
-  function onDocClick(e: MouseEvent) {
-    if (openId === null) return;
-    const root = document.querySelector(`[data-stat-root="${openId}"]`);
-    if (root?.contains(e.target as Node)) return;
-    openId = null;
-  }
-
-  function onKeydown(e: KeyboardEvent) {
-    if (e.key === 'Escape') openId = null;
-  }
-
-  onMount(() => {
-    document.addEventListener('click', onDocClick);
-    return () => document.removeEventListener('click', onDocClick);
-  });
-
   const marqueeQuotes = [
     {
       text: '"I called on a Saturday. I didn’t expect an answer. Someone actually picked up."',
@@ -99,41 +74,20 @@
   const doubled = [...marqueeQuotes, ...marqueeQuotes];
 </script>
 
-<svelte:window on:keydown={onKeydown} />
-
 <section class="stats-section">
   <div class="container">
     <div class="stats-grid">
       {#each stats as stat}
-        <div class="stat-item" data-stat-root={stat.id}>
+        <div class="stat-item">
           <div class="stat-value gradient-text">{stat.value}</div>
-          <div class="stat-label-row">
-            <span class="stat-label">{stat.label}</span>
-            <button
-              type="button"
-              class="stat-help"
-              aria-label={`More about ${stat.label}`}
-              aria-expanded={openId === stat.id}
-              aria-controls={`stat-detail-${stat.id}`}
-              id={`stat-help-${stat.id}`}
-              on:click={(e) => toggleStat(stat.id, e)}
-            >
-              ?
-            </button>
-          </div>
-          <div class="stat-sub">{stat.sub}</div>
+          <p class="stat-label">{stat.label}</p>
+          <p class="stat-sub">{stat.sub}</p>
+          <details class="stat-more">
+            <summary class="stat-more-btn">What this means</summary>
+            <p class="stat-more-text">{stat.detail}</p>
+          </details>
           {#if stat.id === 'response'}
             <a href="/quick-contact" class="btn btn-outline-primary stat-prove-it">Prove it</a>
-          {/if}
-          {#if openId === stat.id}
-            <div
-              class="stat-popover"
-              id={`stat-detail-${stat.id}`}
-              role="region"
-              aria-labelledby={`stat-help-${stat.id}`}
-            >
-              <p class="stat-popover-text">{stat.detail}</p>
-            </div>
           {/if}
         </div>
       {/each}
@@ -159,7 +113,6 @@
     background: var(--bg);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    overflow: visible;
   }
 
   .stats-grid {
@@ -173,7 +126,11 @@
   .stat-item {
     position: relative;
     text-align: center;
-    padding: 16px 32px;
+    padding: 16px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
   }
 
   .stat-item:not(:last-child)::after {
@@ -195,89 +152,13 @@
     margin-bottom: 8px;
   }
 
-  .stat-label-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 3px;
-    flex-wrap: wrap;
-  }
-
   .stat-label {
     font-size: 14px;
     font-weight: 600;
     color: #0f172a;
     font-family: 'Space Grotesk', sans-serif;
-  }
-
-  .stat-help {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1px solid var(--border, #e2e8f0);
-    background: var(--bg-subtle, #f8fafc);
-    color: var(--text-muted, #64748b);
-    font-size: 12px;
-    font-weight: 700;
-    font-family: 'Space Grotesk', sans-serif;
-    line-height: 1;
-    padding: 0;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .stat-help:hover,
-  .stat-help:focus-visible {
-    background: var(--bg, #fff);
-    color: var(--primary, #0ea5e9);
-    border-color: var(--primary, #0ea5e9);
-    outline: none;
-  }
-
-  .stat-popover {
-    position: absolute;
-    left: 50%;
-    top: calc(100% - 8px);
-    transform: translateX(-50%);
-    z-index: 20;
-    width: max-content;
-    max-width: min(300px, calc(100vw - 48px));
-    padding: 12px 14px;
-    text-align: left;
-    border-radius: 10px;
-    border: 1px solid var(--border, #e2e8f0);
-    background: var(--bg, #fff);
-    box-shadow: 0 12px 40px rgb(15 23 42 / 0.12);
-  }
-
-  .stat-popover-text {
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.45;
-    color: #334155;
-    font-family: system-ui, sans-serif;
-  }
-
-  :global([data-theme='dark']) .stat-label {
-    color: #f1f5f9;
-  }
-
-  :global([data-theme='dark']) .stat-help {
-    border-color: rgb(51 65 85);
-    background: rgb(15 23 42 / 0.8);
-    color: #94a3b8;
-  }
-
-  :global([data-theme='dark']) .stat-popover {
-    background: rgb(15 23 42);
-    border-color: rgb(51 65 85);
-    box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
-  }
-
-  :global([data-theme='dark']) .stat-popover-text {
-    color: #e2e8f0;
+    margin: 0 0 3px;
+    line-height: 1.3;
   }
 
   .stat-sub {
@@ -285,6 +166,83 @@
     color: #94a3b8;
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .stat-more {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .stat-more-btn {
+    list-style: none;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border, #e2e8f0);
+    background: var(--bg-subtle, #f8fafc);
+    color: var(--text-muted, #64748b);
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .stat-more-btn::-webkit-details-marker {
+    display: none;
+  }
+
+  .stat-more-btn::marker {
+    content: '';
+  }
+
+  .stat-more[open] .stat-more-btn {
+    background: var(--bg, #fff);
+    color: var(--primary, #0ea5e9);
+    border-color: var(--primary, #0ea5e9);
+  }
+
+  .stat-more-btn:hover,
+  .stat-more-btn:focus-visible {
+    color: var(--primary, #0ea5e9);
+    border-color: rgb(14 165 233 / 0.45);
+    outline: none;
+  }
+
+  .stat-more-text {
+    margin: 10px 0 0;
+    padding: 0 2px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #334155;
+    font-family: system-ui, sans-serif;
+    text-align: center;
+  }
+
+  :global([data-theme='dark']) .stat-label {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme='dark']) .stat-more-btn {
+    border-color: rgb(51 65 85);
+    background: rgb(15 23 42 / 0.8);
+    color: #94a3b8;
+  }
+
+  :global([data-theme='dark']) .stat-more[open] .stat-more-btn {
+    background: rgb(30 41 59);
+  }
+
+  :global([data-theme='dark']) .stat-more-text {
+    color: #e2e8f0;
   }
 
   .stat-prove-it {
@@ -313,8 +271,12 @@
   }
 
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 
   .marquee-item {
@@ -362,7 +324,7 @@
       border-bottom: none;
     }
     .stat-item {
-      padding: 20px 16px;
+      padding: 20px 16px 22px;
     }
   }
 </style>

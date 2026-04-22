@@ -1,9 +1,18 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import ContentHighlight from '../components/ContentHighlight.svelte';
 
   /** LCP candidate: preloaded in index.html + fetchpriority="high" on the img */
   const founderPortraitUrl =
     'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/895c60d8-8b2b-4b97-96d9-add7a9432300/public';
+
+  /** Process reel — 3D icons (Cloudflare Images) for discovery → email → site */
+  const phaseIconPhoneUrl =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/980b5974-7dc6-44e7-5cf0-d3ef7e1c2d00/public';
+  const phaseIconEmailUrl =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/054d1a3f-3ccf-4f24-9242-c12e4277ba00/public';
+  const phaseIconSiteUrl =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/6fc0be21-6272-4038-37dc-7a4327a6be00/public';
 
   /** Logos (Cloudflare Images); two partners are wordmarks only until assets exist */
   const trustedPartners: { name: string; logo?: string }[] = [
@@ -24,40 +33,390 @@
       logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a3a20ac0-a25f-411d-e6c8-d17b1971ac00/public',
     },
     {
-      name: 'Harrow & Co.',
+      name: 'Hillcrest Builders',
       logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/7b3fece0-f62b-4504-d3c3-83397b333200/public',
+    },
+    {
+      name: 'Vista Moving',
+      logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/00aa7e65-bd0c-44a7-6804-e01027d48a00/public',
+    },
+    {
+      name: 'Sweet Grass Meadows',
+      logo: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/7364054b-c69c-4ecb-9e2d-23836883f700/public',
     },
   ];
 
-  const chartPresets: number[][] = [
-    [38, 52, 44, 67, 55, 78, 62, 85, 71, 90, 76, 94],
-    [22, 28, 35, 42, 48, 55, 62, 70, 78, 82, 86, 91],
-    [72, 74, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85],
+  /*
+   * Monitor reel: cycles through 3 mock client sites. Each cycle shows the
+   * full HostVerna process — brief intake → finished site with an animated
+   * cursor browsing through it. All phase timings below are driven by CSS
+   * keyframes synced to CYCLE_MS; bumping it re-paces everything in lockstep.
+   */
+  /*
+   * The intake phase shows a discovery-briefing email we send from HostVerna
+   * back to the client after the first call. It doubles as the pitch for
+   * how we work: clear scope, an ownership line ("you own the site"), and
+   * the reassurance that someone on our end actually listened.
+   */
+  type Brief = {
+    toName: string;
+    toEmail: string;
+    subject: string;
+    greeting: string;
+    intro: string;
+    objectives: string[];
+    outro: string;
+    signoff: string;
+  };
+
+  type GridCard = { title: string; meta: string; price: string };
+  type ServiceCard = { title: string; blurb: string };
+  type Review = { author: string; quote: string };
+
+  type Section =
+    | { kind: 'hero' }
+    | { kind: 'grid'; cols: number; cards: GridCard[] }
+    | { kind: 'services'; cards: ServiceCard[] }
+    | { kind: 'reviews'; items: Review[] }
+    | { kind: 'cta'; title: string; sub: string; button: string }
+    | { kind: 'footer'; columns: { title: string; links: string[] }[] };
+
+  type SitePalette = {
+    bg: string;
+    surface: string;
+    primary: string;
+    accent: string;
+    text: string;
+    muted: string;
+  };
+
+  type Hero = {
+    title: string;
+    titleEmphasis?: string;
+    sub: string;
+    cta: string;
+  };
+
+  type Logo = {
+    mark: string;
+    tag?: string;
+    style: 'serif' | 'sans' | 'script';
+  };
+
+  type Site = {
+    name: string;
+    url: string;
+    logo: Logo;
+    nav: string[];
+    palette: SitePalette;
+    brief: Brief;
+    hero: Hero;
+    sections: Section[];
+  };
+
+  const sites: Site[] = [
+    {
+      name: 'Pacific Aviation',
+      url: 'pacificaviation.com',
+      logo: { mark: 'PACIFIC', tag: 'Aviation', style: 'serif' },
+      nav: ['Fleet', 'Charters', 'Training', 'Contact'],
+      palette: {
+        bg: '#eef2f7',
+        surface: '#ffffff',
+        primary: '#0b2239',
+        accent: '#38bdf8',
+        text: '#0f172a',
+        muted: '#94a3b8',
+      },
+      brief: {
+        toName: 'Marcus Alder',
+        toEmail: 'marcus@pacificaviation.com',
+        subject: 'Pacific Aviation \u2014 launch scope',
+        greeting: 'Hi Marcus,',
+        intro: "Great call today. Scope for launch:",
+        objectives: [
+          'Fleet showcase + pilot bios',
+          'Quote requests to dispatch',
+          'Mobile-first booking',
+        ],
+        outro: "Site, domain, content \u2014 all yours. Preview tomorrow.",
+        signoff: '\u2014 Alex, HostVerna',
+      },
+      hero: {
+        title: 'Charter flights with',
+        titleEmphasis: 'a steadier hand.',
+        sub: 'West Coast private charters and type-rated pilots with 20+ years in the left seat.',
+        cta: 'Request a Quote',
+      },
+      sections: [
+        { kind: 'hero' },
+        {
+          kind: 'grid',
+          cols: 3,
+          cards: [
+            { title: 'Cessna Citation X', meta: '8 seats · 3,200nm', price: 'Charter' },
+            { title: 'King Air 350', meta: '9 seats · 1,800nm', price: 'Charter' },
+            { title: 'Pilatus PC-12', meta: '6 seats · 1,600nm', price: 'Charter' },
+            { title: 'Cirrus SR22', meta: '4 seats · Training', price: 'Train' },
+            { title: 'Diamond DA40', meta: '4 seats · Training', price: 'Train' },
+            { title: 'Piper Seminole', meta: 'Multi · Training', price: 'Train' },
+          ],
+        },
+        {
+          kind: 'services',
+          cards: [
+            { title: 'Private charter', blurb: 'Door-to-door, West Coast wide' },
+            { title: 'Flight training', blurb: 'Private, instrument, commercial' },
+            { title: 'Aircraft mgmt', blurb: 'We fly & maintain yours' },
+          ],
+        },
+        {
+          kind: 'cta',
+          title: 'Need a lift next week?',
+          sub: 'Most quotes come back within the hour.',
+          button: 'Get a Quote',
+        },
+        {
+          kind: 'footer',
+          columns: [
+            { title: 'Fleet', links: ['Jets', 'Turboprops', 'Trainers'] },
+            { title: 'Services', links: ['Charter', 'Training', 'Mgmt'] },
+            { title: 'Operations', links: ['Safety', 'Crews', 'Routes'] },
+            { title: 'Contact', links: ['Boeing Field', 'Dispatch', 'Email'] },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Ironcrest Mechanical',
+      url: 'ironcrestmech.com',
+      logo: { mark: 'IRONCREST', tag: 'Mechanical Co.', style: 'sans' },
+      nav: ['Services', 'Projects', 'Estimates', '24/7'],
+      palette: {
+        bg: '#f1f2f4',
+        surface: '#ffffff',
+        primary: '#27313d',
+        accent: '#f97316',
+        text: '#1f2937',
+        muted: '#94a3b8',
+      },
+      brief: {
+        toName: 'Dave Halverson',
+        toEmail: 'dave@ironcrestmech.com',
+        subject: 'Ironcrest \u2014 phase-one scope',
+        greeting: 'Hi Dave,',
+        intro: "Good walk-through today. Phase one:",
+        objectives: [
+          'Sticky 24/7 phone CTA',
+          'Residential + commercial splits',
+          'Online estimates to dispatch',
+        ],
+        outro: "Hosted under your account \u2014 take it anywhere. Estimate Thursday.",
+        signoff: '\u2014 Alex, HostVerna',
+      },
+      hero: {
+        title: '24/7 mechanical work,',
+        titleEmphasis: 'done right.',
+        sub: 'HVAC, plumbing, and electrical for Minneapolis/St. Paul — homes and commercial buildings.',
+        cta: 'Request an Estimate',
+      },
+      sections: [
+        { kind: 'hero' },
+        {
+          kind: 'services',
+          cards: [
+            { title: 'Heating', blurb: 'Install, repair, maintain' },
+            { title: 'Cooling', blurb: 'AC tune-ups & replacements' },
+            { title: 'Plumbing', blurb: 'Repipes to water heaters' },
+            { title: 'Electrical', blurb: 'Panels, EV chargers, wiring' },
+          ],
+        },
+        {
+          kind: 'grid',
+          cols: 3,
+          cards: [
+            { title: 'Riverside Plaza HVAC', meta: 'Commercial · 2024', price: 'Done' },
+            { title: 'Warehouse Retrofit', meta: 'Industrial · 2024', price: 'Done' },
+            { title: 'Uptown Apartments', meta: 'Multifamily · 2023', price: 'Done' },
+            { title: 'Capitol Building', meta: 'Civic · 2023', price: 'Done' },
+            { title: 'North Loop Office', meta: 'Commercial · 2023', price: 'Done' },
+            { title: 'Eagan Community Ctr.', meta: 'Civic · 2023', price: 'Done' },
+          ],
+        },
+        {
+          kind: 'cta',
+          title: "Emergency? We're open right now.",
+          sub: '24/7 dispatch across the Twin Cities.',
+          button: 'Call 24/7 Line',
+        },
+        {
+          kind: 'footer',
+          columns: [
+            { title: 'Services', links: ['HVAC', 'Plumbing', 'Electric'] },
+            { title: 'Projects', links: ['Residential', 'Commercial', 'Civic'] },
+            { title: 'Company', links: ['About', 'Crew', 'Careers'] },
+            { title: 'Contact', links: ['24/7 Line', 'Estimates', 'Address'] },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Northline Dental',
+      url: 'northlinedental.com',
+      logo: { mark: 'Northline', tag: 'Dental Care', style: 'sans' },
+      nav: ['Services', 'Team', 'Reviews', 'Book'],
+      palette: {
+        bg: '#f1f8fb',
+        surface: '#ffffff',
+        primary: '#0e7490',
+        accent: '#10b981',
+        text: '#0f172a',
+        muted: '#94a3b8',
+      },
+      brief: {
+        toName: 'Dr. Priya Rao',
+        toEmail: 'priya@northlinedental.com',
+        subject: 'Northline Dental \u2014 launch scope',
+        greeting: 'Hi Dr. Rao,',
+        intro: "Thanks for the tour today. Launch scope:",
+        objectives: [
+          'Two-click online booking',
+          'Transparent pricing page',
+          'HIPAA-friendly contact form',
+        ],
+        outro: "All assets under your account \u2014 site is yours. Preview Wednesday.",
+        signoff: '\u2014 Alex, HostVerna',
+      },
+      hero: {
+        title: 'Modern dentistry with',
+        titleEmphasis: 'a softer touch.',
+        sub: 'Same-day appointments, honest pricing, and a team that remembers you.',
+        cta: 'Book an Appointment',
+      },
+      sections: [
+        { kind: 'hero' },
+        {
+          kind: 'services',
+          cards: [
+            { title: 'Cleanings', blurb: 'Comfortable 30-minute visits' },
+            { title: 'Whitening', blurb: 'In-office, enamel-safe' },
+            { title: 'Invisalign', blurb: 'Free consult + 3D scan' },
+            { title: 'Emergencies', blurb: 'Same-day urgent care' },
+          ],
+        },
+        {
+          kind: 'reviews',
+          items: [
+            { author: 'Sarah K.', quote: 'Actually looked forward to going back.' },
+            { author: 'Jamal T.', quote: 'Easy booking, honest about the cost.' },
+            { author: 'Andrea R.', quote: 'They remembered my kids\u2019 names.' },
+          ],
+        },
+        {
+          kind: 'cta',
+          title: 'New patient?',
+          sub: 'Your first cleaning is on us.',
+          button: 'Book Free Cleaning',
+        },
+        {
+          kind: 'footer',
+          columns: [
+            { title: 'Care', links: ['Services', 'Pricing', 'Insurance'] },
+            { title: 'Practice', links: ['Team', 'Office', 'Tech'] },
+            { title: 'Patients', links: ['Forms', 'Reviews', 'Blog'] },
+            { title: 'Visit', links: ['Book', 'Hours', 'Directions'] },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Town of Branford',
+      url: 'branford.ma.gov',
+      logo: { mark: 'BRANFORD, MA', tag: 'Official Town Site', style: 'serif' },
+      nav: ['Services', 'Departments', 'News', 'Events'],
+      palette: {
+        bg: '#f6f4ea',
+        surface: '#ffffff',
+        primary: '#14532d',
+        accent: '#ca8a04',
+        text: '#1c1917',
+        muted: '#a8a29e',
+      },
+      brief: {
+        toName: 'Alicia Brennan, Town Clerk',
+        toEmail: 'a.brennan@branford.ma.gov',
+        subject: 'Town of Branford \u2014 launch scope',
+        greeting: 'Dear Ms. Brennan,',
+        intro: "Thanks for hosting us today. Launch scope:",
+        objectives: [
+          'Pay bills + file permits online',
+          'WCAG 2.1 AA accessibility',
+          'Emergency alerts banner',
+        ],
+        outro: "Hosted under the Town\u2019s account \u2014 full export anytime. Draft Friday.",
+        signoff: '\u2014 Alex, HostVerna',
+      },
+      hero: {
+        title: 'Your town,',
+        titleEmphasis: 'clearly online.',
+        sub: 'Pay bills, file permits, and find what you need \u2014 without the runaround.',
+        cta: 'Pay a Bill',
+      },
+      sections: [
+        { kind: 'hero' },
+        {
+          kind: 'services',
+          cards: [
+            { title: 'Permits & licenses', blurb: 'Apply, renew, and track' },
+            { title: 'Bill pay', blurb: 'Water, trash, and taxes' },
+            { title: 'Town meetings', blurb: 'Agendas, minutes, video' },
+            { title: 'Parks & rec', blurb: 'Register for programs' },
+          ],
+        },
+        {
+          kind: 'grid',
+          cols: 3,
+          cards: [
+            { title: 'Public Works', meta: 'Roads · Water · Snow', price: 'Dept' },
+            { title: 'Health Department', meta: 'Inspections · Records', price: 'Dept' },
+            { title: 'Police', meta: 'Non-emergency · Records', price: 'Dept' },
+            { title: 'Fire & EMS', meta: 'Permits · Inspections', price: 'Dept' },
+            { title: 'Schools', meta: 'K\u201312 · Enrollment', price: 'Dept' },
+            { title: 'Library', meta: 'Hours · Catalog', price: 'Dept' },
+          ],
+        },
+        {
+          kind: 'cta',
+          title: 'Moving to Branford?',
+          sub: "Here's what you need in your first week.",
+          button: 'New Resident Guide',
+        },
+        {
+          kind: 'footer',
+          columns: [
+            { title: 'Services', links: ['Permits', 'Pay bills', 'Forms'] },
+            { title: 'Departments', links: ['Public Works', 'Police', 'Fire'] },
+            { title: 'Government', links: ['Meetings', 'Elections', 'Budget'] },
+            { title: 'Contact', links: ['Town Hall', 'Hours', 'Email'] },
+          ],
+        },
+      ],
+    },
   ];
 
-  const chartTabLabels = ['Fees', 'Control', 'Clarity'];
+  const CYCLE_MS = 15000;
+  let siteI = 0;
 
-  const sidebarPages = ['Overview', 'Analytics', 'Clients', 'Settings'];
+  $: site = sites[siteI];
 
-  let chartTabI = 0;
-  let sidebarI = 0;
-  let barHover: number | null = null;
-  let projHover: number | null = null;
-
-  $: chartBars = chartPresets[chartTabI];
-
-  /** Pain → how we fix it (mock list, not client names) */
-  const painOutcomes = [
-    { pain: 'Rent, never own it', fix: 'Title + code → you' },
-    { pain: 'Ticket roulette', fix: 'Same team answers' },
-    { pain: 'Can’t edit a word alone', fix: 'You control content' },
-  ];
-
-  const activity = [
-    { label: 'Scope & price locked in writing', time: 'Before build' },
-    { label: 'Walkthrough: your admin, your keys', time: 'At launch' },
-    { label: 'Ownership milestone reached', time: 'On schedule' },
-  ];
+  onMount(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches) return;
+    const id = window.setInterval(() => {
+      siteI = (siteI + 1) % sites.length;
+    }, CYCLE_MS);
+    return () => window.clearInterval(id);
+  });
 </script>
 
 <section class="hero">
@@ -142,186 +501,297 @@
   <div class="container">
     <div class="hero-visual-row">
       <div class="hero-mock-stack">
-      <div class="hero-mockup" aria-label="Interactive dashboard preview">
+      <div class="hero-mockup" aria-label="Site showcase preview">
         <div class="mockup-bar">
-          <span class="mockup-url">hostverna.com/dashboard</span>
+          <div class="browser-controls" aria-hidden="true">
+            <button class="browser-btn" type="button" tabindex="-1" disabled>
+              <svg viewBox="0 0 16 16" width="11" height="11"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="browser-btn" type="button" tabindex="-1" disabled>
+              <svg viewBox="0 0 16 16" width="11" height="11"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="browser-btn" type="button" tabindex="-1" disabled>
+              <svg viewBox="0 0 16 16" width="11" height="11"><path d="M3 8a5 5 0 1 1 1.6 3.66M3 12v-2.5h2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="browser-address" aria-hidden="true">
+            <svg class="browser-lock" viewBox="0 0 16 16" width="9" height="9"><path d="M4.5 7V5a3.5 3.5 0 0 1 7 0v2M3.5 7h9v6h-9z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {#key siteI}
+              <span class="browser-url">{site.url}</span>
+            {/key}
+          </div>
+          <div class="browser-tab-actions" aria-hidden="true">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+          </div>
         </div>
-        <div class="mockup-body">
-          <div class="mockup-sidebar">
-            <div class="sb-logo"></div>
-            <nav class="sb-nav" aria-label="Preview navigation">
-              {#each sidebarPages as label, i}
-                <button
-                  type="button"
-                  class="snav"
-                  class:active={sidebarI === i}
-                  on:click={() => (sidebarI = i)}
-                  aria-current={sidebarI === i ? 'page' : undefined}
-                  aria-label={label}
-                >
-                  <span class="snav-glyph" aria-hidden="true">
-                    <span class="snav-label" class:short={i % 2 === 1}></span>
-                  </span>
-                </button>
-              {/each}
-            </nav>
-            <div class="sb-footer">
-              <div class="sb-avatar"></div>
-            </div>
-          </div>
-          <div class="mockup-main">
-            <div class="mm-topbar">
-              <span class="mm-page-title-text">{sidebarPages[sidebarI]}</span>
-              <div class="mm-actions">
-                <div class="mm-btn"></div>
-                <div class="mm-btn filled"></div>
-              </div>
-            </div>
 
-            <div class="kpi-row">
-              <div class="kpi">
-                <div class="kpi-top">
-                  <span class="kpi-val gradient-text">$0</span>
-                  <div class="kpi-delta up">Target</div>
-                </div>
-                <span class="kpi-label">Rent after you own it</span>
-                <div class="kpi-sparkline">
-                  {#each [55, 48, 40, 32, 22, 0] as h}
-                    <div class="sp-bar" style="height:{h}%"></div>
-                  {/each}
-                </div>
-              </div>
-              <div class="kpi">
-                <div class="kpi-top">
-                  <span class="kpi-val gradient-text">1</span>
-                  <div class="kpi-delta up">Direct</div>
-                </div>
-                <span class="kpi-label">Team you reach first</span>
-                <div class="kpi-sparkline">
-                  {#each [22, 22, 22, 22, 22, 22] as h}
-                    <div class="sp-bar" style="height:{h}%"></div>
-                  {/each}
-                </div>
-              </div>
-              <div class="kpi">
-                <div class="kpi-top">
-                  <span class="kpi-val" style="color:#0f172a">0</span>
-                  <div class="kpi-delta neutral">Scoped</div>
-                </div>
-                <span class="kpi-label">Surprise invoices</span>
-                <div class="kpi-sparkline">
-                  {#each [48, 38, 28, 18, 8, 2] as h}
-                    <div class="sp-bar alt" style="height:{h}%"></div>
-                  {/each}
-                </div>
-              </div>
-              <div class="kpi">
-                <div class="kpi-top">
-                  <span class="kpi-val kpi-val--tight" style="color:#16a34a">You</span>
-                  <div class="kpi-delta up">Ship copy</div>
-                </div>
-                <span class="kpi-label">Who updates the site</span>
-                <div class="kpi-sparkline">
-                  {#each [0, 0, 0, 0, 0, 0] as _}
-                    <div class="sp-bar green" style="height: 4px"></div>
-                  {/each}
-                </div>
-              </div>
-            </div>
-
-            <div class="chart-panel">
-              <div class="cp-header">
-                <div class="cp-title-block">
-                  <div class="cp-title-line"></div>
-                  <div class="cp-sub-line"></div>
-                  <span class="cp-chart-label">{chartTabLabels[chartTabI]}</span>
-                </div>
-                <div class="cp-tabs" role="tablist" aria-label="Chart range">
-                  {#each chartTabLabels as _, t}
-                    <button
-                      type="button"
-                      role="tab"
-                      class="cp-tab"
-                      class:active={chartTabI === t}
-                      aria-selected={chartTabI === t}
-                      on:click={() => (chartTabI = t)}
-                    ></button>
-                  {/each}
-                </div>
-              </div>
-              <div class="chart-area">
-                <div class="chart-y-labels">
-                  {#each ['100', '75', '50', '25'] as l}
-                    <span class="cy-label">{l}</span>
-                  {/each}
-                </div>
-                <div class="chart-bars-wrap">
-                  <div class="chart-grid">
-                    {#each [0,1,2,3] as _}
-                      <div class="grid-line"></div>
-                    {/each}
+        <div class="mockup-screen" aria-hidden="true">
+          {#key siteI}
+            <div
+              class="reel"
+              style="--site-bg:{site.palette.bg}; --site-surface:{site.palette.surface}; --site-primary:{site.palette.primary}; --site-accent:{site.palette.accent}; --site-text:{site.palette.text}; --site-muted:{site.palette.muted};"
+            >
+              <!-- Phase 1: Intake — the briefing email we send after a discovery call.
+                   A small process timeline sits to the left of the email showing the
+                   three phases: Discovery call → Email brief → Build. -->
+              <div class="reel-intake">
+                <div class="phase-track" aria-hidden="true">
+                  <div class="phase-node phase-node--done">
+                    <span class="phase-icon">
+                      <img
+                        src={phaseIconPhoneUrl}
+                        alt=""
+                        width="26"
+                        height="26"
+                        class="phase-icon-img"
+                        decoding="async"
+                      />
+                    </span>
+                    <span class="phase-label">Discovery<br/>call</span>
                   </div>
-                  <div class="chart-bars">
-                    {#each chartBars as h, i}
-                    <div
-                        class="bar"
-                        class:highlight={i === chartBars.length - 1}
-                        class:bar--hover={barHover === i}
-                        style="height:{h}%"
-                        on:mouseenter={() => (barHover = i)}
-                        on:mouseleave={() => (barHover = null)}
-                        role="presentation"
-                      ></div>
-                    {/each}
+
+                  <svg class="phase-arrow" viewBox="0 0 14 16" width="10" height="12" aria-hidden="true">
+                    <path d="M7 1v12m0 0l-3.5-3.5M7 13l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+
+                  <div class="phase-node phase-node--current">
+                    <span class="phase-icon">
+                      <img
+                        src={phaseIconEmailUrl}
+                        alt=""
+                        width="26"
+                        height="26"
+                        class="phase-icon-img"
+                        decoding="async"
+                      />
+                    </span>
+                    <span class="phase-label">Email<br/>brief</span>
+                  </div>
+
+                  <svg class="phase-arrow" viewBox="0 0 14 16" width="10" height="12" aria-hidden="true">
+                    <path d="M7 1v12m0 0l-3.5-3.5M7 13l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+
+                  <div class="phase-node phase-node--next">
+                    <span class="phase-icon">
+                      <img
+                        src={phaseIconSiteUrl}
+                        alt=""
+                        width="26"
+                        height="26"
+                        class="phase-icon-img"
+                        decoding="async"
+                      />
+                    </span>
+                    <span class="phase-label">Your<br/>site</span>
                   </div>
                 </div>
-              </div>
-              <div class="chart-x-labels">
-                {#each ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'] as m}
-                  <span class="cx-label">{m}</span>
-                {/each}
-              </div>
-            </div>
 
-            <div class="bottom-panels">
-              <div class="projects-panel">
-                <div class="panel-header">
-                  <div class="ph-title"></div>
-                </div>
-                {#each painOutcomes as row, pi}
-                  <div
-                    class="proj-row"
-                    class:proj-row--hover={projHover === pi}
-                    on:mouseenter={() => (projHover = pi)}
-                    on:mouseleave={() => (projHover = null)}
-                    role="presentation"
-                  >
-                    <div class="proj-avatar"></div>
-                    <div class="proj-info">
-                      <div class="proj-name">{row.pain}</div>
-                      <div class="proj-type">{row.fix}</div>
+                <div class="email-card">
+                  <div class="email-toolbar">
+                    <span class="email-toolbar-title">New Message</span>
+                    <span class="email-toolbar-actions" aria-hidden="true">
+                      <span class="email-toolbar-btn"><svg viewBox="0 0 16 16" width="9" height="9"><path d="M3 10h10M3 10L6 7M3 10l3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                      <span class="email-toolbar-btn"><svg viewBox="0 0 16 16" width="9" height="9"><rect x="3" y="3" width="10" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span>
+                      <span class="email-toolbar-btn"><svg viewBox="0 0 16 16" width="9" height="9"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+                    </span>
+                  </div>
+                  <div class="email-headers">
+                    <div class="email-row">
+                      <span class="email-label">From</span>
+                      <span class="email-value">
+                        <span class="email-from-name">Alex Zimmerman</span>
+                        <span class="email-from-addr">&lt;alex@hostverna.com&gt;</span>
+                      </span>
                     </div>
-                    <div class="proj-outcome" aria-hidden="true">→</div>
-                  </div>
-                {/each}
-              </div>
-              <div class="activity-panel">
-                <div class="panel-header">
-                  <div class="ph-title"></div>
-                </div>
-                {#each activity as a}
-                  <div class="act-row">
-                    <div class="act-dot"></div>
-                    <div class="act-info">
-                      <div class="act-label">{a.label}</div>
-                      <div class="act-time">{a.time}</div>
+                    <div class="email-row">
+                      <span class="email-label">To</span>
+                      <span class="email-value">
+                        <span class="email-from-name">{site.brief.toName}</span>
+                        <span class="email-from-addr">&lt;{site.brief.toEmail}&gt;</span>
+                      </span>
+                    </div>
+                    <div class="email-row email-row--subject">
+                      <span class="email-label">Subject</span>
+                      <span class="email-value email-subject">{site.brief.subject}</span>
                     </div>
                   </div>
+                  <div class="email-body">
+                    <p class="email-greeting">{site.brief.greeting}</p>
+                    <p class="email-intro">{site.brief.intro}</p>
+                    <ul class="email-list">
+                      {#each site.brief.objectives as obj, oi}
+                        <li style="--oi:{oi}">
+                          <span class="email-bullet" aria-hidden="true"></span>
+                          <span>{obj}</span>
+                        </li>
+                      {/each}
+                    </ul>
+                    <p class="email-outro">{site.brief.outro}</p>
+                    <p class="email-signoff">{site.brief.signoff}</p>
+                  </div>
+                  <div class="email-footer">
+                    <span class="email-send">
+                      <svg viewBox="0 0 16 16" width="10" height="10" aria-hidden="true"><path d="M1.5 8L14.5 2.5 12 14l-4-5-6.5-1z" fill="currentColor"/></svg>
+                      Send
+                    </span>
+                    <span class="email-sent-indicator" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" width="9" height="9"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      Sent
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phase 2: Finished site that the cursor browses -->
+              <div class="reel-page">
+                {#each site.sections as section, sI}
+                  {#if section.kind === 'hero'}
+                    <div class="sec sec-hero">
+                      <nav class="site-nav">
+                        <span class="site-logo site-logo--{site.logo.style}">
+                          <span class="site-logo-mark">{site.logo.mark}</span>
+                          {#if site.logo.tag}
+                            <span class="site-logo-tag">{site.logo.tag}</span>
+                          {/if}
+                        </span>
+                        <ul class="site-nav-links">
+                          {#each site.nav as link}
+                            <li>{link}</li>
+                          {/each}
+                        </ul>
+                      </nav>
+                      <div class="sec-hero-body">
+                        <h2 class="sec-hero-title">
+                          {site.hero.title}
+                          {#if site.hero.titleEmphasis}
+                            <em>{site.hero.titleEmphasis}</em>
+                          {/if}
+                        </h2>
+                        <p class="sec-hero-sub">{site.hero.sub}</p>
+                        <span class="sec-hero-cta">{site.hero.cta}</span>
+                      </div>
+                    </div>
+                  {:else if section.kind === 'grid'}
+                    <div class="sec sec-grid" style="--cols:{section.cols};">
+                      {#each section.cards as card, gi}
+                        <div class="grid-card" style="--gi:{gi}">
+                          <div class="grid-card-photo"></div>
+                          <div class="grid-card-body">
+                            <span class="grid-card-title">{card.title}</span>
+                            <div class="grid-card-meta">
+                              <span class="grid-card-sub">{card.meta}</span>
+                              <span class="grid-card-price">{card.price}</span>
+                            </div>
+                          </div>
+                        </div>
+                      {/each}
+                    </div>
+                  {:else if section.kind === 'services'}
+                    <div class="sec sec-services" style="--count:{section.cards.length};">
+                      {#each section.cards as card, ci}
+                        <div class="service-card" style="--ci:{ci}">
+                          <span class="service-icon" aria-hidden="true"></span>
+                          <span class="service-title">{card.title}</span>
+                          <span class="service-blurb">{card.blurb}</span>
+                        </div>
+                      {/each}
+                    </div>
+                  {:else if section.kind === 'reviews'}
+                    <div class="sec sec-reviews">
+                      {#each section.items as item, ri}
+                        <figure class="review-row" style="--ri:{ri}">
+                          <span class="review-avatar">{item.author[0]}</span>
+                          <figcaption>
+                            <span class="review-stars" aria-hidden="true">
+                              {#each Array.from({ length: 5 }) as _, _sI}
+                                <svg
+                                  class="review-star"
+                                  viewBox="0 0 24 24"
+                                  width="10"
+                                  height="10"
+                                  focusable="false"
+                                >
+                                  <path
+                                    fill="currentColor"
+                                    d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                  />
+                                </svg>
+                              {/each}
+                            </span>
+                            <blockquote class="review-quote">&ldquo;{item.quote}&rdquo;</blockquote>
+                            <span class="review-author">— {item.author}</span>
+                          </figcaption>
+                        </figure>
+                      {/each}
+                    </div>
+                  {:else if section.kind === 'cta'}
+                    <div class="sec sec-cta">
+                      <div class="cta-text">
+                        <h3 class="cta-title">{section.title}</h3>
+                        <p class="cta-sub">{section.sub}</p>
+                      </div>
+                      <span class="cta-btn">{section.button}</span>
+                    </div>
+                  {:else if section.kind === 'footer'}
+                    <div class="sec sec-footer">
+                      <div class="footer-brand">
+                        <span class="site-logo site-logo--{site.logo.style} site-logo--footer">
+                          <span class="site-logo-mark">{site.logo.mark}</span>
+                        </span>
+                      </div>
+                      <div class="footer-cols">
+                        {#each section.columns as col, fi}
+                          <div class="footer-col" style="--fi:{fi}">
+                            <span class="footer-title">{col.title}</span>
+                            {#each col.links as link}
+                              <span class="footer-link">{link}</span>
+                            {/each}
+                          </div>
+                        {/each}
+                      </div>
+                    </div>
+                  {/if}
                 {/each}
               </div>
-            </div>
 
-          </div>
+              <!-- Phase 3: Animated pointer that browses the built site -->
+              <div class="reel-cursor" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path
+                    d="M5 3 L5 19 L9.2 15.5 L11.7 21 L14 20 L11.5 14.5 L17 14.2 Z"
+                    fill="#ffffff"
+                    stroke="#0f172a"
+                    stroke-width="1.2"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+
+              <!--
+                Reel annotations + CTA: small coach-mark bubbles that pop up
+                over the site explaining what the prospect is seeing. The
+                final one is a real anchor so prospects can actually start
+                a brief without calling.
+              -->
+              <div class="reel-annot reel-annot--a" aria-hidden="true">
+                This could be yours &mdash; written for <em>your</em> business.
+              </div>
+              <div class="reel-annot reel-annot--b" aria-hidden="true">
+                Own every asset. No lock-in. Ever.
+              </div>
+              <a
+                class="reel-cta"
+                href="/contact"
+                aria-label="Start your brief with HostVerna"
+              >
+                <span class="reel-cta-label">Get a site like this</span>
+                <span class="reel-cta-arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          {/key}
         </div>
       </div>
       </div>
@@ -755,616 +1225,1223 @@
       box-shadow: var(--shadow-tile);
     }
 
-    .bar {
-      transition: none;
+    .reel-intake,
+    .reel-cursor,
+    .reel-annot {
+      display: none !important;
     }
 
-    .kpi:hover {
-      transform: none;
+    .reel-page {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
     }
 
-    .snav:active,
-    .cp-tab:active {
-      transform: none;
-    }
-
-    .proj-row--hover {
-      transform: none;
+    .reel-cta {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
     }
   }
+
+  /* ============================================================
+     Monitor reel — cycles through 3 mock client sites.
+     Phases per 15s cycle:
+       0–20%   Intake brief (client + checklist of objectives)
+       20–26%  Cross-fade into the finished site
+       26–90%  Cursor browses the site while page scrolls
+       90–100% Fade to next site (siteI rotates via Svelte)
+     ============================================================ */
+
+  /* ---- Browser chrome (Chrome/Edge-style address bar) ---- */
 
   .mockup-bar {
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 9px 14px;
-    background: #f8fafc;
+    gap: 8px;
+    padding: 7px 10px;
+    background: #f1f5f9;
     border-bottom: 1px solid #e2e8f0;
   }
 
-  .mockup-url {
-    font-size: 10px;
-    color: #94a3b8;
-    margin-left: 6px;
-    font-family: 'DM Mono', monospace;
-    flex: 1;
+  .browser-controls {
+    display: inline-flex;
+    gap: 1px;
+    flex-shrink: 0;
+    color: #64748b;
   }
 
-  .mockup-body {
-    display: flex;
-    height: 380px;
-  }
-
-  .mockup-sidebar {
-    width: 52px;
-    background: #0f172a;
-    padding: 12px 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .sb-logo {
-    width: 28px;
-    height: 28px;
-    border-radius: var(--radius-tile-sm);
-    background: var(--primary);
-    margin: 0 auto 10px;
-  }
-
-  .sb-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-  }
-
-  .snav {
-    display: flex;
-    flex-direction: column;
+  .browser-btn {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    padding: 6px 4px;
-    border-radius: 3px;
-    cursor: pointer;
-    border: none;
+    border-radius: 50%;
+    border: 0;
     background: transparent;
-    font: inherit;
-    width: 100%;
     color: inherit;
-    transition:
-      background 0.18s ease,
-      transform 0.18s ease;
+    padding: 0;
+    cursor: default;
+    opacity: 0.7;
   }
 
-  .snav:focus-visible {
-    outline: 2px solid rgb(56 189 248 / 0.55);
-    outline-offset: 1px;
+  .browser-btn:disabled {
+    color: #94a3b8;
+    opacity: 0.7;
   }
 
-  .snav:hover {
-    background: rgba(255, 255, 255, 0.06);
+  .browser-btn:first-child {
+    color: #0f172a;
+    opacity: 0.85;
   }
 
-  .snav.active {
-    background: rgba(255, 255, 255, 0.12);
+  .browser-address {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 24px;
+    padding: 0 10px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: #0f172a;
+    min-width: 0;
   }
 
-  .snav:active {
-    transform: scale(0.97);
+  .browser-lock {
+    color: #15803d;
+    flex-shrink: 0;
   }
 
-  .snav-glyph {
+  .browser-url {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .browser-tab-actions {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+    padding: 2px;
+  }
+
+  .browser-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #94a3b8;
+  }
+
+  /* ---- Screen container ---- */
+
+  .mockup-screen {
+    position: relative;
+    height: 380px;
+    background: #0f172a;
+    overflow: hidden;
+  }
+
+  .reel {
+    position: absolute;
+    inset: 0;
+    font-family: 'Inter', 'Space Grotesk', sans-serif;
+    color: var(--site-text, #0f172a);
+  }
+
+  /* ============================================================
+     Phase 1: Intake brief — "we talk, gather your details"
+     ============================================================ */
+
+  .reel-intake {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 14px 18px;
+    background:
+      radial-gradient(ellipse 72% 60% at 50% 48%, rgb(30 41 59 / 0.2), transparent 72%),
+      linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    opacity: 0;
+    animation: reel-intake-show 15s ease forwards;
+  }
+
+  @media (max-width: 680px) {
+    /* On narrow screens the phase track wouldn't fit next to the email
+       without crushing it, so we collapse the track out of the layout. */
+    .phase-track {
+      display: none;
+    }
+  }
+
+  @keyframes reel-intake-show {
+    0% { opacity: 0; }
+    3% { opacity: 1; }
+    20% { opacity: 1; }
+    26% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* ---- Phase track (Discovery call → Email brief → Build) ----
+     Sits to the left of the email during intake. Visualizes the process
+     so prospects understand the email is step two, not a cold pitch. */
+
+  .phase-track {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+    width: 74px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: email-card-in 15s cubic-bezier(0.2, 0.85, 0.3, 1) forwards;
+  }
+
+  .phase-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 0;
+  }
+
+  .phase-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .phase-icon-img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    display: block;
     pointer-events: none;
   }
 
-  .snav-label {
-    width: 24px;
-    height: 3px;
-    border-radius: 1px;
-    background: rgba(255, 255, 255, 0.15);
-    transition: background 0.18s ease;
+  .phase-node--done .phase-icon {
+    background: rgb(16 185 129 / 0.12);
+    border-color: rgb(16 185 129 / 0.35);
   }
 
-  .snav.active .snav-label {
-    background: rgba(255, 255, 255, 0.42);
+  .phase-node--current .phase-icon {
+    background: var(--gradient, linear-gradient(135deg, #0369a1, #0d9488));
+    border-color: rgb(255 255 255 / 0.2);
+    box-shadow:
+      0 0 0 3px rgb(13 148 136 / 0.22),
+      0 6px 18px rgb(3 105 161 / 0.35);
+    animation: phase-current-pulse 2.4s ease-in-out infinite;
   }
 
-  .snav-label.short {
-    width: 16px;
+  @keyframes phase-current-pulse {
+    0%, 100% {
+      box-shadow:
+        0 0 0 3px rgb(13 148 136 / 0.22),
+        0 6px 18px rgb(3 105 161 / 0.35);
+    }
+    50% {
+      box-shadow:
+        0 0 0 7px rgb(13 148 136 / 0.04),
+        0 6px 18px rgb(3 105 161 / 0.4);
+    }
   }
 
-  .sb-footer {
-    display: flex;
-    justify-content: center;
-    padding-top: 8px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    margin-top: auto;
+  .phase-arrow {
+    color: rgb(255 255 255 / 0.32);
+    margin: 1px 0;
   }
 
-  .sb-avatar {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    border: 1.5px solid rgba(255,255,255,0.2);
+  .phase-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.55);
+    line-height: 1.25;
+    text-align: center;
   }
 
-  .mockup-main {
-    flex: 1;
-    padding: 14px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .phase-node--done .phase-label {
+    color: rgb(255 255 255 / 0.78);
+  }
+
+  .phase-node--current .phase-label {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* ---- Email client card ----
+     Mimics a Gmail/Outlook compose window: toolbar, headers, body with a
+     bulleted objectives list, and a Send button that pulses right before
+     the email "sends" and the site reveals itself. */
+
+  .email-card {
+    width: 100%;
+    max-width: 440px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid rgb(226 232 240 / 0.6);
+    box-shadow:
+      0 24px 56px rgb(0 0 0 / 0.45),
+      0 0 0 1px rgb(56 189 248 / 0.1);
     overflow: hidden;
-    background: #f8fafc;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: email-card-in 15s cubic-bezier(0.2, 0.85, 0.3, 1) forwards;
   }
 
-  .mm-topbar {
+  @keyframes email-card-in {
+    0% { opacity: 0; transform: translateY(12px) scale(0.98); }
+    4% { opacity: 1; transform: translateY(0) scale(1); }
+    20% { opacity: 1; transform: translateY(0) scale(1); }
+    22% { opacity: 1; transform: translateY(-2px) scale(0.99); }
+    26% { opacity: 0; transform: translateY(-14px) scale(0.97); }
+    100% { opacity: 0; transform: translateY(-14px) scale(0.97); }
+  }
+
+  .email-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--bg);
-    border: 1px solid #e2e8f0;
-    border-radius: 3px;
     padding: 8px 12px;
+    background: #0f172a;
+    color: #ffffff;
   }
 
-  .mm-page-title-text {
+  .email-toolbar-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: #0f172a;
-    line-height: 1.2;
-    transition: opacity 0.2s ease;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
   }
 
-  .mm-actions {
-    display: flex;
-    gap: 5px;
+  .email-toolbar-actions {
+    display: inline-flex;
+    gap: 4px;
+    color: rgb(255 255 255 / 0.75);
   }
 
-  .mm-btn {
-    width: 40px;
-    height: 20px;
-    border-radius: 2px;
-    background: #e2e8f0;
-    transition:
-      transform 0.15s ease,
-      box-shadow 0.15s ease,
-      background 0.15s ease;
-  }
-
-  .mm-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgb(15 23 42 / 0.08);
-  }
-
-  .mm-btn.filled {
-    background: var(--primary);
-  }
-
-  .mm-btn.filled:hover {
-    filter: brightness(1.06);
-  }
-
-  .kpi-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-
-  .kpi {
-    background: var(--bg);
-    border: 1px solid #e2e8f0;
+  .email-toolbar-btn {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 3px;
-    padding: 10px;
+    background: rgb(255 255 255 / 0.08);
+  }
+
+  .email-headers {
+    padding: 8px 12px 6px;
+    border-bottom: 1px solid #f1f5f9;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease,
-      border-color 0.2s ease;
+    gap: 3px;
+  }
+
+  .email-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  .email-label {
+    flex-shrink: 0;
+    width: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+  }
+
+  .email-value {
+    flex: 1;
+    color: #0f172a;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .email-from-name {
+    font-weight: 600;
+  }
+
+  .email-from-addr {
+    color: #64748b;
+    margin-left: 4px;
+    font-size: 10px;
+  }
+
+  .email-subject {
+    font-weight: 600;
+  }
+
+  .email-body {
+    padding: 10px 12px 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: #1f2937;
+  }
+
+  .email-body p {
+    margin: 0 0 6px;
+    white-space: pre-line;
+  }
+
+  .email-greeting {
+    font-weight: 500;
+  }
+
+  .email-list {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .email-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10.5px;
+    color: #1f2937;
+    opacity: 0;
+    transform: translateX(-4px);
+    animation: email-obj-in 15s ease forwards;
+    /* Stagger: each bullet lands ~180ms after the previous, beginning once
+       the email has settled (~0.9s into the cycle). */
+    animation-delay: calc(0.9s + var(--oi, 0) * 0.18s);
+  }
+
+  @keyframes email-obj-in {
+    0% { opacity: 0; transform: translateX(-4px); }
+    2% { opacity: 1; transform: translateX(0); }
+    20% { opacity: 1; transform: translateX(0); }
+    26% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .email-bullet {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #10b981;
+    flex-shrink: 0;
+  }
+
+  .email-outro {
+    margin-top: 2px !important;
+    padding: 4px 0 4px 10px;
+    border-left: 2px solid #cbd5e1;
+    color: #334155;
+    font-size: 10px;
+  }
+
+  .email-signoff {
+    margin-top: 2px;
+    color: #475569;
+  }
+
+  .email-footer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 6px 12px 10px;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .email-send {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    background: #2563eb;
+    color: #ffffff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgb(37 99 235 / 0.3);
+    /* Send button pulses right before the email "sends" (~18–22% of cycle) */
+    animation: email-send-pulse 15s ease forwards;
+  }
+
+  @keyframes email-send-pulse {
+    0%, 17% { transform: scale(1); box-shadow: 0 2px 8px rgb(37 99 235 / 0.3); }
+    18% { transform: scale(1.06); box-shadow: 0 4px 18px rgb(37 99 235 / 0.6); }
+    20% { transform: scale(0.94); box-shadow: 0 1px 4px rgb(37 99 235 / 0.4); }
+    21% { transform: scale(1); box-shadow: 0 2px 8px rgb(37 99 235 / 0.3); }
+    22% { opacity: 0; transform: scale(0.9); }
+    26%, 100% { opacity: 0; transform: scale(0.9); }
+  }
+
+  .email-sent-indicator {
+    position: absolute;
+    right: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #ecfdf5;
+    color: #059669;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: email-sent-in 15s ease forwards;
+  }
+
+  @keyframes email-sent-in {
+    0%, 21% { opacity: 0; transform: scale(0.9); }
+    22% { opacity: 1; transform: scale(1); }
+    25% { opacity: 1; transform: scale(1); }
+    26% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 0; }
+  }
+
+  /* ============================================================
+     Phase 2: Built site — scrolls through sections while cursor browses
+     Content height ~720px in a 380px viewport; translates up to -340px.
+     ============================================================ */
+
+  .reel-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: var(--site-bg, #f8fafc);
+    color: var(--site-text, #0f172a);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation:
+      reel-page-show 15s ease forwards,
+      reel-page-scroll 15s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+  }
+
+  @keyframes reel-page-show {
+    0%, 22% { opacity: 0; }
+    28% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes reel-page-scroll {
+    0%, 32% { transform: translateY(0); }
+    /* Cursor hovers hero/nav first, then page starts scrolling under it.
+       Content totals ~620–650px; -270px brings the footer into view. */
+    42% { transform: translateY(-20px); }
+    52% { transform: translateY(-90px); }
+    62% { transform: translateY(-160px); }
+    72% { transform: translateY(-220px); }
+    82% { transform: translateY(-270px); }
+    92%, 100% { transform: translateY(-270px); }
+  }
+
+  .reel-page .sec {
+    flex: none;
+  }
+
+  /* ---- Logo wordmarks ---- */
+
+  .site-logo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    color: inherit;
+  }
+
+  .site-logo-mark {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .site-logo-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    opacity: 0.7;
+  }
+
+  .site-logo--serif .site-logo-mark {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+  }
+
+  .site-logo--sans .site-logo-mark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+  }
+
+  .site-logo--script .site-logo-mark {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-style: italic;
+    font-size: 16px;
+    letter-spacing: 0;
+  }
+
+  .site-logo--footer .site-logo-mark {
+    color: rgb(255 255 255 / 0.92);
+  }
+
+  .site-logo--footer .site-logo-tag {
+    color: rgb(255 255 255 / 0.6);
+  }
+
+  /* ---- Section: hero (nav + real copy + CTA) ----
+     Sized like a real website hero — readable, not a splash screen. */
+
+  .sec-hero {
+    min-height: 175px;
+    background:
+      linear-gradient(
+        165deg,
+        var(--site-primary, #0f2a44) 0%,
+        color-mix(in srgb, var(--site-primary, #0f2a44) 86%, #000) 100%
+      );
+    color: #fff;
+    padding: 12px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 22px;
+    color: #fff;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  .site-nav .site-logo-mark {
+    color: #fff;
+    font-size: 12px;
+  }
+
+  .site-nav .site-logo-tag {
+    color: rgb(255 255 255 / 0.55);
+    font-size: 6.5px;
+  }
+
+  .site-nav-links {
+    display: inline-flex;
+    gap: 18px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: rgb(255 255 255 / 0.78);
+  }
+
+  .site-nav-links li {
     cursor: default;
   }
 
-  .kpi:hover {
-    transform: translateY(-2px);
-    border-color: rgb(3 105 161 / 0.22);
-    box-shadow: 0 6px 16px rgb(15 23 42 / 0.07);
+  .site-nav-links li:last-child {
+    color: var(--site-accent, #c79d5a);
+    font-weight: 600;
   }
 
-  .kpi-top {
+  .sec-hero-body {
+    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2px;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    max-width: 76%;
   }
 
-  .kpi-val {
+  .sec-hero-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 15px;
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0;
+    color: #fff;
   }
 
-  .kpi-val--tight {
-    font-size: 13px;
-    letter-spacing: -0.04em;
+  .sec-hero-title em {
+    font-style: normal;
+    color: var(--site-accent, #c79d5a);
   }
 
-  .kpi-delta {
-    font-size: 8px;
-    font-family: 'DM Mono', monospace;
-    border-radius: 2px;
-    padding: 1px 4px;
+  .sec-hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    line-height: 1.5;
+    color: rgb(255 255 255 / 0.68);
+    margin: 0;
+    max-width: 92%;
   }
 
-  .kpi-delta.up {
-    background: #dcfce7;
-    color: #16a34a;
-  }
-
-  .kpi-delta.neutral {
-    background: #f1f5f9;
-    color: #64748b;
-  }
-
-  .kpi-label {
-    font-size: 7px;
-    font-family: 'DM Mono', monospace;
-    color: #64748b;
-    letter-spacing: 0.02em;
-    line-height: 1.35;
-    text-transform: none;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 18px;
-  }
-
-  .kpi-sparkline {
-    display: flex;
-    gap: 2px;
-    align-items: flex-end;
-    height: 18px;
-    margin-top: 5px;
-  }
-
-  .sp-bar {
-    flex: 1;
-    background: linear-gradient(180deg, #0369a1, #0d9488);
-    border-radius: 1px 1px 0 0;
-    opacity: 0.5;
-    min-height: 2px;
-  }
-
-  /* Second sparkline series: cyan emphasis (same brand family as keyword/string bars) */
-  .sp-bar.alt {
-    background: linear-gradient(180deg, #0891b2, #0e7490);
-    opacity: 0.85;
-  }
-
-  .sp-bar.green {
-    background: #16a34a;
-    height: 4px !important;
-  }
-
-  .chart-panel {
-    background: var(--bg);
-    border: 1px solid #e2e8f0;
-    border-radius: 3px;
-    padding: 10px 12px 6px;
-  }
-
-  .cp-header {
-    display: flex;
+  .sec-hero-cta {
+    align-self: flex-start;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-  }
-
-  .cp-title-block {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .cp-title-line {
-    width: 80px;
-    height: 6px;
-    background: #0f172a;
-    opacity: 0.7;
-    border-radius: 1px;
-  }
-
-  .cp-sub-line {
-    width: 50px;
-    height: 4px;
-    background: #e2e8f0;
-    border-radius: 1px;
-  }
-
-  .cp-chart-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 7px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #64748b;
-    margin-top: 2px;
-    transition: color 0.2s ease;
-  }
-
-  .cp-tabs {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-  }
-
-  .cp-tab {
-    width: 28px;
-    height: 16px;
-    border-radius: 2px;
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
-    padding: 0;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition:
-      transform 0.15s ease,
-      box-shadow 0.15s ease,
-      filter 0.15s ease;
-  }
-
-  .cp-tab:hover {
-    border-color: rgb(3 105 161 / 0.25);
-    box-shadow: 0 1px 4px rgb(15 23 42 / 0.06);
-  }
-
-  .cp-tab:focus-visible {
-    outline: 2px solid rgb(3 105 161 / 0.45);
-    outline-offset: 1px;
-  }
-
-  .cp-tab.active {
-    background: linear-gradient(90deg, #0369a1, #0d9488);
-    border-color: transparent;
-    box-shadow: 0 1px 6px rgb(3 105 161 / 0.25);
-  }
-
-  .cp-tab:active {
-    transform: scale(0.96);
-  }
-
-  .chart-area {
-    display: flex;
-    gap: 6px;
-    height: 68px;
-  }
-
-  .chart-y-labels {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-bottom: 2px;
-  }
-
-  .cy-label {
-    font-size: 7px;
-    font-family: 'DM Mono', monospace;
-    color: #cbd5e1;
-  }
-
-  .chart-bars-wrap {
-    flex: 1;
-    position: relative;
-  }
-
-  .chart-grid {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    pointer-events: none;
-  }
-
-  .grid-line {
-    width: 100%;
-    height: 1px;
-    background: #f1f5f9;
-  }
-
-  .chart-bars {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    gap: 3px;
-    align-items: flex-end;
-  }
-
-  .bar {
-    position: relative;
-    flex: 1;
-    background: linear-gradient(180deg, rgba(3, 105, 161, 0.4), rgba(13, 148, 136, 0.3));
-    border-radius: 2px 2px 0 0;
-    min-height: 3px;
-    cursor: crosshair;
-    transform-origin: bottom center;
-    transition:
-      height 0.45s cubic-bezier(0.33, 1, 0.68, 1),
-      transform 0.18s ease,
-      filter 0.18s ease,
-      opacity 0.18s ease;
-  }
-
-  .bar:hover,
-  .bar.bar--hover {
-    transform: scaleX(1.12);
-    filter: saturate(1.15) brightness(1.05);
-    z-index: 1;
-  }
-
-  .bar.highlight {
-    background: linear-gradient(180deg, #0369a1, #0d9488);
-    opacity: 1;
-  }
-
-  .bar.highlight.bar--hover {
-    box-shadow: 0 -2px 10px rgb(3 105 161 / 0.35);
-  }
-
-  .chart-x-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 4px;
-  }
-
-  .cx-label {
-    font-size: 6.5px;
-    font-family: 'DM Mono', monospace;
-    color: #cbd5e1;
-  }
-
-  .bottom-panels {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 8px;
-    flex: 1;
-  }
-
-  .projects-panel,
-  .activity-panel {
-    background: var(--bg);
-    border: 1px solid #e2e8f0;
-    border-radius: 3px;
-    padding: 8px 10px;
-    display: flex;
-    flex-direction: column;
     gap: 5px;
-    overflow: hidden;
+    margin-top: 2px;
+    padding: 5px 11px;
+    border-radius: 3px;
+    background: var(--site-accent, #c79d5a);
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: default;
   }
 
-  .panel-header {
-    padding-bottom: 5px;
-    border-bottom: 1px solid #f1f5f9;
+  /* ---- Section: grid (listings / projects / directory) ----
+     Compact horizontal cards (small thumb + text) instead of big photo tiles.
+     Reads like a normal site's list of items rather than a gallery. */
+
+  .sec-grid {
+    padding: 14px 18px 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 14px;
+    background: var(--site-bg);
+  }
+
+  .sec-grid::before {
+    content: '';
+    grid-column: 1 / -1;
+    height: 1px;
+    background: rgb(148 163 184 / 0.2);
     margin-bottom: 2px;
   }
 
-  .ph-title {
-    width: 60px;
-    height: 5px;
-    border-radius: 1px;
-    background: #0f172a;
-    opacity: 0.5;
-  }
-
-  .proj-row {
+  .grid-card {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 4px 5px;
-    margin: 0 -5px;
-    border-radius: 3px;
-    cursor: default;
-    transition:
-      background 0.18s ease,
-      transform 0.18s ease;
+    gap: 10px;
+    padding: 6px 4px;
+    border-bottom: 1px solid rgb(148 163 184 / 0.14);
   }
 
-  .proj-row--hover {
-    background: rgb(241 245 249);
-    transform: translateX(2px);
-  }
-
-  .proj-row--hover .proj-avatar {
-    box-shadow: 0 0 0 1px rgb(3 105 161 / 0.15);
-  }
-
-  .proj-avatar {
-    width: 18px;
-    height: 18px;
-    border-radius: 3px;
-    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+  .grid-card-photo {
     flex-shrink: 0;
-    transition: box-shadow 0.18s ease;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background:
+      linear-gradient(135deg,
+        color-mix(in srgb, var(--site-primary, #0f2a44) 30%, var(--site-surface, #fff)) 0%,
+        color-mix(in srgb, var(--site-accent, #c79d5a) 50%, var(--site-surface, #fff)) 100%
+      );
   }
 
-  .proj-info {
+  .grid-card-body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 2px;
+    min-width: 0;
   }
 
-  .proj-name {
-    font-size: 8px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    color: #0f172a;
-  }
-
-  .proj-type {
-    font-size: 7px;
-    font-family: 'DM Mono', monospace;
-    color: #94a3b8;
-  }
-
-  .proj-outcome {
-    flex-shrink: 0;
+  .grid-card-title {
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
-    font-weight: 700;
-    color: #94a3b8;
-    line-height: 1;
-    opacity: 0.85;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--site-text, #0f172a);
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .proj-row--hover .proj-outcome {
-    color: #0d9488;
-    opacity: 1;
-  }
-
-  .act-row {
+  .grid-card-meta {
     display: flex;
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: baseline;
     gap: 6px;
   }
 
-  .act-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #0369a1, #0d9488);
-    flex-shrink: 0;
-    margin-top: 3px;
+  .grid-card-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: var(--site-muted, #94a3b8);
+    letter-spacing: 0.01em;
   }
 
-  .act-info {
+  .grid-card-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--site-accent, #c79d5a);
+    letter-spacing: -0.01em;
+  }
+
+  /* ---- Section: services (flat inline features, no boxes) ---- */
+
+  .sec-services {
+    padding: 14px 18px 16px;
+    display: grid;
+    grid-template-columns: repeat(var(--count, 3), 1fr);
+    gap: 14px;
+    background: var(--site-bg);
+  }
+
+  .service-card {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 4px;
+    padding-left: 10px;
+    border-left: 2px solid color-mix(in srgb, var(--site-primary, #0e7490) 50%, transparent);
   }
 
-  .act-label {
-    font-size: 8px;
+  .service-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    background: color-mix(in srgb, var(--site-accent, #10b981) 85%, transparent);
+  }
+
+  .service-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    color: #0f172a;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--site-text, #0f172a);
   }
 
-  .act-time {
-    font-size: 7px;
-    font-family: 'DM Mono', monospace;
-    color: #94a3b8;
+  .service-blurb {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    line-height: 1.4;
+    color: var(--site-muted, #94a3b8);
+  }
+
+  /* ---- Section: reviews ---- */
+
+  .sec-reviews {
+    padding: 14px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--site-bg);
+  }
+
+  .review-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 6px 0;
+    margin: 0;
+    border-bottom: 1px solid rgb(148 163 184 / 0.14);
+  }
+
+  .review-row:last-child {
+    border-bottom: 0;
+  }
+
+  .review-avatar {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--site-primary, #0e7490) 16%, var(--site-surface, #fff));
+    color: var(--site-primary, #0e7490);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .review-row figcaption {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .review-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    color: var(--site-accent, #10b981);
+  }
+
+  .review-star {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .review-quote {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    line-height: 1.4;
+    color: var(--site-text, #0f172a);
+    margin: 0;
+  }
+
+  .review-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: var(--site-muted, #94a3b8);
+    letter-spacing: 0.01em;
+  }
+
+  /* ---- Section: CTA (restrained band, not a splash) ---- */
+
+  .sec-cta {
+    padding: 18px 22px 20px;
+    background: color-mix(in srgb, var(--site-bg, #f8fafc) 60%, var(--site-primary, #0f2a44));
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border-top: 1px solid rgb(0 0 0 / 0.04);
+  }
+
+  .cta-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 2px;
+    color: #fff;
+  }
+
+  .cta-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: rgb(255 255 255 / 0.7);
+    margin: 0;
+  }
+
+  .cta-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 3px;
+    background: var(--site-accent, #c79d5a);
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---- Section: footer ---- */
+
+  .sec-footer {
+    padding: 14px 18px 16px;
+    background: color-mix(in srgb, var(--site-text, #0f172a) 96%, #000);
+    color: rgb(255 255 255 / 0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .footer-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+
+  .footer-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: rgb(255 255 255 / 0.5);
+  }
+
+  /* ============================================================
+     Phase 3: Animated cursor browsing the page.
+     Coordinates are in screen pixels (container is ~900x380).
+     ============================================================ */
+
+  /*
+   * Cursor uses percentage left/top so it tracks meaningful screen regions
+   * regardless of mockup width. The scale pulse (click feedback) is applied
+   * via a separate keyframe animation on transform to avoid fighting with
+   * position animations.
+   */
+  .reel-cursor {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.35));
+    animation:
+      cursor-show 15s ease forwards,
+      cursor-path 15s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+  }
+
+  @keyframes cursor-show {
+    0%, 24% { opacity: 0; }
+    28% { opacity: 1; }
+    88% { opacity: 1; }
+    94%, 100% { opacity: 0; }
+  }
+
+  /*
+   * Cursor choreography across the 15s cycle:
+   *   0–26%   waits bottom-right (intake is showing)
+   *   28%     visible at bottom-right corner
+   *   32%     hovering the hero CTA (left side of hero body)
+   *   35%     micro-click pulse (handled by cursor-click)
+   *   46%     up to a nav link
+   *   54–78%  drifting over content as the page scrolls under it
+   *   84%     micro-click on the CTA band button
+   *   94%     drifts off-screen bottom-right
+   */
+  @keyframes cursor-path {
+    0%, 24% { left: 82%; top: 84%; }
+    28% { left: 82%; top: 84%; }
+    32% { left: 28%; top: 45%; }
+    38% { left: 28%; top: 45%; }
+    46% { left: 75%; top: 14%; }
+    54% { left: 52%; top: 68%; }
+    62% { left: 36%; top: 54%; }
+    70% { left: 62%; top: 46%; }
+    78% { left: 50%; top: 60%; }
+    84% { left: 50%; top: 60%; }
+    88% { left: 50%; top: 60%; }
+    96%, 100% { left: 88%; top: 92%; }
+  }
+
+  /* Scale pulses layered on top of the path translation */
+  .reel-cursor svg {
+    display: block;
+    animation: cursor-click 15s linear forwards;
+    transform-origin: 4px 4px;
+  }
+
+  @keyframes cursor-click {
+    0%, 33% { transform: scale(1); }
+    35% { transform: scale(0.82); }
+    37% { transform: scale(1); }
+    82% { transform: scale(1); }
+    84% { transform: scale(0.82); }
+    86% { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+
+  /* ============================================================
+     Reel annotations + CTA.
+     Two small coach-mark bubbles pop up over the built site
+     pointing out that the design is tailored to the prospect.
+     The final element is the real HostVerna CTA linking to
+     /contact so prospects can reach out without calling.
+     ============================================================ */
+
+  .reel-annot {
+    position: absolute;
+    z-index: 6;
+    max-width: 220px;
+    padding: 7px 11px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid rgb(15 23 42 / 0.08);
+    box-shadow:
+      0 1px 2px rgb(15 23 42 / 0.08),
+      0 8px 24px rgb(15 23 42 / 0.18);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    line-height: 1.35;
+    color: #0f172a;
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+    pointer-events: none;
+  }
+
+  .reel-annot em {
+    font-style: normal;
+    font-weight: 700;
+    background: var(--gradient, linear-gradient(135deg, #0369a1, #0d9488));
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+
+  /* Tail: a tiny triangle pointing back toward the content */
+  .reel-annot::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: inherit;
+    border: inherit;
+    border-top: 0;
+    border-left: 0;
+    transform: rotate(45deg);
+  }
+
+  /* Annotation A — near the hero body (appears 32–46% of cycle) */
+  .reel-annot--a {
+    left: 6%;
+    top: 40%;
+    animation: annot-a-pop 15s ease forwards;
+  }
+
+  .reel-annot--a::after {
+    left: 20px;
+    top: -5px;
+    transform: rotate(225deg);
+  }
+
+  @keyframes annot-a-pop {
+    0%, 30% { opacity: 0; transform: translateY(4px) scale(0.96); }
+    33% { opacity: 1; transform: translateY(0) scale(1); }
+    44% { opacity: 1; transform: translateY(0) scale(1); }
+    48% { opacity: 0; transform: translateY(-2px) scale(0.97); }
+    100% { opacity: 0; }
+  }
+
+  /* Annotation B — near mid-content (appears 50–66% of cycle) */
+  .reel-annot--b {
+    right: 4%;
+    top: 32%;
+    animation: annot-b-pop 15s ease forwards;
+  }
+
+  .reel-annot--b::after {
+    right: 22px;
+    top: -5px;
+    transform: rotate(225deg);
+  }
+
+  @keyframes annot-b-pop {
+    0%, 50% { opacity: 0; transform: translateY(4px) scale(0.96); }
+    53% { opacity: 1; transform: translateY(0) scale(1); }
+    64% { opacity: 1; transform: translateY(0) scale(1); }
+    68% { opacity: 0; transform: translateY(-2px) scale(0.97); }
+    100% { opacity: 0; }
+  }
+
+  /* Real CTA — appears late, persists, is clickable.
+     Bottom-right so it doesn't block the scrolling content. */
+  .reel-cta {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    z-index: 7;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 15px 9px 16px;
+    border-radius: 999px;
+    background: var(--gradient, linear-gradient(135deg, #0369a1, #0d9488));
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow:
+      0 2px 4px rgb(3 105 161 / 0.28),
+      0 10px 28px rgb(13 148 136 / 0.24);
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    animation: reel-cta-pop 15s ease forwards;
+  }
+
+  .reel-cta:hover {
+    transform: translateY(-1px) scale(1);
+    box-shadow:
+      0 4px 10px rgb(3 105 161 / 0.34),
+      0 14px 34px rgb(13 148 136 / 0.32);
+    filter: brightness(1.05);
+  }
+
+  .reel-cta:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .reel-cta-arrow {
+    display: inline-flex;
+    transition: transform 0.2s ease;
+  }
+
+  .reel-cta:hover .reel-cta-arrow {
+    transform: translateX(2px);
+  }
+
+  @keyframes reel-cta-pop {
+    0%, 70% { opacity: 0; transform: translateY(6px) scale(0.96); }
+    74% { opacity: 1; transform: translateY(0) scale(1); }
+    92% { opacity: 1; transform: translateY(0) scale(1); }
+    96%, 100% { opacity: 0; transform: translateY(-2px) scale(0.98); }
   }
 
   @media (max-width: 760px) {
