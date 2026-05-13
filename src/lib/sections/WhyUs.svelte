@@ -1,49 +1,30 @@
 <script lang="ts">
   import ContentHighlight from '../components/ContentHighlight.svelte';
 
-  const steps = [
-    {
-      title: 'Discovery Call',
-      desc: 'A focused 30-minute conversation about your business, what you need, and what\'s been frustrating you. No pitch. No pressure.',
-    },
-    {
-      title: 'Clear Proposal',
-      desc: 'You get scope, timeline, and pricing in plain language before any work starts. No moving goalposts.',
-    },
-    {
-      title: 'Build & Launch',
-      desc: 'We build it, you get check-ins along the way. When it launches, we walk you through everything so you\'re never left guessing.',
-    },
-    {
-      title: 'Handoff & Support',
-      desc: 'You leave with your site, your tools, and your documentation. We stay available without ever being required.',
-    },
-  ];
-
   const pillars = [
     {
       title: 'We answer the phone',
-      desc: 'Not a ticket system. Not a chatbot. A real person who knows your account picks up. We\'re genuinely easy to get ahold of.',
+      desc: 'A real person who knows your account picks up.',
     },
     {
       title: 'We\'re not a marketing company',
-      desc: 'We won\'t talk you into conversion hacks or SEO packages. We build real, properly designed things that work for your specific business. Not generic funnels.',
+      desc: 'We build useful sites and tools, not generic funnels.',
     },
     {
       title: 'You own what you paid for',
-      desc: 'After a set number of months, the site transfers to you completely. No subscriptions. No fees for something you\'ve already bought.',
+      desc: 'After a set number of months, the site transfers to you.',
     },
     {
       title: 'We guide, not overwhelm',
-      desc: 'We walk you through your own site until you\'re confident. You should never feel like a stranger on your own web property.',
+      desc: 'We walk you through your site until you feel comfortable.',
     },
     {
       title: 'No surprises, ever',
-      desc: 'Scope, pricing, and timeline are agreed before anything starts. If something changes, we tell you immediately. No bill shock, no silent scope creep.',
+      desc: 'Scope, pricing, and timeline are agreed before anything starts.',
     },
     {
       title: 'Proactive communication',
-      desc: 'You won\'t be chasing us for updates. We check in, flag issues before they become problems, and stay in your corner without needing to be asked.',
+      desc: 'We check in, flag issues early, and keep you updated.',
     },
   ];
 </script>
@@ -55,23 +36,22 @@
         <h2 class="section-title">A clear path, start to finish</h2>
       </div>
       <p class="split-sub">
-        You shouldn't have to become a web expert to have a good website.
-        <ContentHighlight tone="keyword">Here is the flow we use, without the gimmicks.</ContentHighlight>
+        You shouldn't have to become a web expert.
+        <ContentHighlight tone="keyword">Here is the simple flow.</ContentHighlight>
       </p>
     </div>
 
-    <ol class="process-list" aria-label="How we work with you">
-      {#each steps as step, i}
-        <li class="process-item" data-step={i + 1}>
-          <div class="process-item-top">
-            <span class="process-step-label">Step {i + 1} of 4</span>
-            <span class="process-step-num" aria-hidden="true">{i + 1}</span>
-          </div>
-          <h3 class="process-item-title">{step.title}</h3>
-          <p class="process-item-desc">{step.desc}</p>
-        </li>
-      {/each}
-    </ol>
+    <figure class="process-figure">
+      <img
+        class="process-image"
+        src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/c20a0bfc-fb40-4b90-c639-5e816a73aa00/public"
+        width="1024"
+        height="341"
+        alt="Four-step HostVerna process: discovery call, clear proposal, build and launch, handoff and support"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
   </div>
 </section>
 
@@ -81,7 +61,7 @@
       <div class="whyus-left">
         <h2 class="section-title">Why businesses<br />stay with us</h2>
         <p class="why-sub">
-          We built HostVerna for business owners who are too busy, too stretched, or too new to this to want to manage a tech vendor relationship. We handle it, and we do it without making you feel out of the loop.
+          We handle the technical work without leaving you out of the loop.
         </p>
         <figure class="why-team-fig">
           <img
@@ -93,10 +73,6 @@
             loading="lazy"
             decoding="async"
           />
-          <figcaption class="why-team-cap">
-            The kind of direct, in-room collaboration we bring to a project.
-            <span class="why-team-lic">Photo: Unsplash (royalty-free).</span>
-          </figcaption>
         </figure>
         <a href="/contact" class="btn btn-primary">Talk to us</a>
       </div>
@@ -113,7 +89,7 @@
 
         <div class="inline-quote">
           <p class="iq-text">
-            "I didn't know a thing about DNS or hosting. They walked through what we'd built in plain language, handed over access, and I left knowing what I was paying for and what I'd own. I hadn't gotten that level of clarity from anyone before."
+            "They walked me through the handoff, and I knew what I owned before launch."
           </p>
           <span class="iq-cite">L. Kwan</span>
         </div>
@@ -155,90 +131,199 @@
     align-self: end;
   }
 
+  .process-figure {
+    margin: 0;
+    border-radius: var(--radius-tile);
+    overflow: hidden;
+    background: var(--bg-subtle);
+    box-shadow: var(--shadow-tile);
+  }
+
+  .process-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /*
+   * Process path: four steps connected by a drawn line through numbered nodes,
+   * sitting above card bodies. On desktop the line runs horizontally across
+   * all four; on narrow screens it flips to a vertical spine so the steps
+   * read top-to-bottom instead of side-by-side.
+   */
+
   .process-list {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
+    gap: 0 24px;
+    position: relative;
   }
 
   .process-item {
     display: flex;
     flex-direction: column;
+    gap: 16px;
     align-items: stretch;
-    gap: 10px;
-    padding: 18px 16px 20px;
-    border-radius: var(--radius-tile);
-    border: 1px solid var(--border);
-    background: var(--bg);
-    box-shadow: var(--shadow-tile);
+    position: relative;
     min-height: 100%;
-    transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease,
-      transform 0.2s ease;
   }
 
-  .process-item:hover {
-    box-shadow: var(--shadow-tile-hover);
-    transform: translateY(-2px);
-  }
-
-  .process-item-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .process-step-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .process-step-num {
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
+  /* Track holds the connector line + the numbered node on one row. */
+  .process-track {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    color: #fff;
-    line-height: 1;
+    height: 44px;
   }
 
-  .process-item[data-step='1'] .process-step-num {
+  .process-connector {
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    width: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(
+      90deg,
+      rgb(3 105 161 / 0.18),
+      rgb(13 148 136 / 0.35)
+    );
+    border-radius: 2px;
+  }
+
+  .process-connector--in {
+    left: 0;
+  }
+
+  .process-connector--out {
+    right: 0;
+  }
+
+  /* Hide the incoming connector on the first step and the outgoing on the last. */
+  .process-item[data-step='1'] .process-connector--in,
+  .process-item[data-step='4'] .process-connector--out {
+    background: transparent;
+  }
+
+  /* Tint the connectors with a gradient that shifts across the path. */
+  .process-item[data-step='1'] .process-connector--out,
+  .process-item[data-step='2'] .process-connector--in {
+    background: linear-gradient(90deg, rgb(14 165 233 / 0.45), rgb(6 182 212 / 0.5));
+  }
+
+  .process-item[data-step='2'] .process-connector--out,
+  .process-item[data-step='3'] .process-connector--in {
+    background: linear-gradient(90deg, rgb(6 182 212 / 0.5), rgb(20 184 166 / 0.5));
+  }
+
+  .process-item[data-step='3'] .process-connector--out,
+  .process-item[data-step='4'] .process-connector--in {
+    background: linear-gradient(90deg, rgb(20 184 166 / 0.5), rgb(16 185 129 / 0.5));
+  }
+
+  .process-node {
+    position: relative;
+    z-index: 1;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    border: 1.5px solid rgb(3 105 161 / 0.2);
+    box-shadow: 0 2px 6px rgb(15 23 42 / 0.06), 0 0 0 4px var(--bg);
+  }
+
+  .process-node::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
     background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    z-index: 0;
   }
 
-  .process-item[data-step='2'] .process-step-num {
+  .process-item[data-step='2'] .process-node::after {
     background: linear-gradient(135deg, #06b6d4, #0e7490);
   }
 
-  .process-item[data-step='3'] .process-step-num {
+  .process-item[data-step='3'] .process-node::after {
     background: linear-gradient(135deg, #14b8a6, #0f766e);
   }
 
-  .process-item[data-step='4'] .process-step-num {
+  .process-item[data-step='4'] .process-node::after {
     background: linear-gradient(135deg, #10b981, #047857);
+  }
+
+  .process-node-num {
+    position: relative;
+    z-index: 1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* Card body sits under the node. No hard card frame, just a subtle bed
+     with a short bracket line so it reads as a moment on the path, not a
+     free-standing tile. */
+  .process-body {
+    position: relative;
+    padding: 4px 2px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .process-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .process-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #0369a1;
+    opacity: 0.8;
+  }
+
+  .process-role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    position: relative;
+    padding-left: 14px;
+  }
+
+  .process-role::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 8px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.4;
   }
 
   .process-item-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     line-height: 1.25;
     margin: 0;
   }
@@ -250,23 +335,35 @@
     margin: 0;
   }
 
-  :global([data-theme='dark']) .process-item {
-    background: rgb(15 23 42 / 0.35);
-    border-color: rgb(51 65 85 / 0.85);
+  .process-duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    margin-top: 2px;
+    padding: 4px 10px 4px 9px;
+    border-radius: 999px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
   }
 
-  :global([data-theme='dark']) .process-item:hover {
-    border-color: rgb(71 85 105 / 0.95);
+  .process-duration svg {
+    flex-shrink: 0;
+    opacity: 0.7;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .process-item {
-      transition: none;
-    }
+  :global([data-theme='dark']) .process-node {
+    background: #0b1322;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.35), 0 0 0 4px var(--bg);
+    border-color: rgb(56 189 248 / 0.24);
+  }
 
-    .process-item:hover {
-      transform: none;
-    }
+  :global([data-theme='dark']) .process-kicker {
+    color: #7dd3fc;
   }
 
   .whyus-section {
@@ -310,27 +407,6 @@
     display: block;
     width: 100%;
     height: auto;
-    vertical-align: top;
-  }
-
-  .why-team-cap {
-    margin: 0;
-    padding: 10px 12px 12px;
-    font-size: 12.5px;
-    line-height: 1.5;
-    color: #475569;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    background: var(--bg);
-  }
-
-  .why-team-lic {
-    display: block;
-    font-size: 10px;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.04em;
-    color: #94a3b8;
   }
 
   .whyus-right {
@@ -399,7 +475,14 @@
 
     .process-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px 18px;
+      gap: 28px 18px;
+    }
+
+    /* Kill the horizontal rail between pairs when they wrap to two rows,
+       since the line would cross empty vertical space awkwardly. */
+    .process-item[data-step='2'] .process-connector--out,
+    .process-item[data-step='3'] .process-connector--in {
+      background: transparent;
     }
 
     .whyus-layout {
@@ -413,9 +496,105 @@
   }
 
   @media (max-width: 600px) {
+    .split-header {
+      margin-bottom: 34px;
+    }
+
     .process-list {
       grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    /* Flip to a vertical path: each step sits below the last, connected by
+       a vertical spine that runs through the numbered nodes. */
+    .process-item {
+      flex-direction: row;
+      align-items: stretch;
       gap: 16px;
+      padding-bottom: 24px;
+    }
+
+    .process-track {
+      flex-direction: column;
+      width: 44px;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    .process-connector {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 50%;
+    }
+
+    .process-connector--in {
+      top: 0;
+      bottom: auto;
+    }
+
+    .process-connector--out {
+      top: auto;
+      bottom: 0;
+    }
+
+    .process-body {
+      flex: 1;
+      padding-top: 8px;
+    }
+
+    .process-meta {
+      flex-wrap: wrap;
+      row-gap: 4px;
+    }
+
+    .process-item-title {
+      font-size: 16px;
+    }
+
+    .process-item-desc {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .whyus-layout {
+      gap: 34px;
+    }
+
+    .why-sub {
+      max-width: none;
+      font-size: 14.5px;
+      line-height: 1.65;
+    }
+
+    .pillar {
+      padding: 20px 0;
+    }
+
+    .inline-quote {
+      padding: 18px 16px;
+    }
+
+    .whyus-left .btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .process-item {
+      gap: 12px;
+    }
+
+    .process-track {
+      width: 38px;
+    }
+
+    .process-node {
+      width: 38px;
+      height: 38px;
     }
   }
 </style>

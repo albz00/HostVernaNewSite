@@ -6,7 +6,7 @@
   const founderPortraitUrl =
     'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/895c60d8-8b2b-4b97-96d9-add7a9432300/public';
 
-  /** Process reel — 3D icons (Cloudflare Images) for discovery → email → site */
+  /** Process reel: 3D icons (Cloudflare Images) for discovery → email → site */
   const phaseIconPhoneUrl =
     'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/980b5974-7dc6-44e7-5cf0-d3ef7e1c2d00/public';
   const phaseIconEmailUrl =
@@ -48,7 +48,7 @@
 
   /*
    * Monitor reel: cycles through 3 mock client sites. Each cycle shows the
-   * full HostVerna process — brief intake → finished site with an animated
+   * full HostVerna process: brief intake → finished site with an animated
    * cursor browsing through it. All phase timings below are driven by CSS
    * keyframes synced to CYCLE_MS; bumping it re-paces everything in lockstep.
    */
@@ -69,15 +69,22 @@
     signoff: string;
   };
 
-  type GridCard = { title: string; meta: string; price: string };
+  type GridCard = { title: string; meta: string; tag?: string };
   type ServiceCard = { title: string; blurb: string };
   type Review = { author: string; quote: string };
 
   type Section =
     | { kind: 'hero' }
-    | { kind: 'grid'; cols: number; cards: GridCard[] }
-    | { kind: 'services'; cards: ServiceCard[] }
-    | { kind: 'reviews'; items: Review[] }
+    | {
+        kind: 'grid';
+        cols: number;
+        eyebrow?: string;
+        heading?: string;
+        sub?: string;
+        cards: GridCard[];
+      }
+    | { kind: 'services'; eyebrow?: string; heading?: string; sub?: string; cards: ServiceCard[] }
+    | { kind: 'reviews'; eyebrow?: string; heading?: string; items: Review[] }
     | { kind: 'cta'; title: string; sub: string; button: string }
     | { kind: 'footer'; columns: { title: string; links: string[] }[] };
 
@@ -131,7 +138,7 @@
       brief: {
         toName: 'Marcus Alder',
         toEmail: 'marcus@pacificaviation.com',
-        subject: 'Pacific Aviation \u2014 launch scope',
+        subject: 'Pacific Aviation: launch scope',
         greeting: 'Hi Marcus,',
         intro: "Great call today. Scope for launch:",
         objectives: [
@@ -139,8 +146,8 @@
           'Quote requests to dispatch',
           'Mobile-first booking',
         ],
-        outro: "Site, domain, content \u2014 all yours. Preview tomorrow.",
-        signoff: '\u2014 Alex, HostVerna',
+        outro: "Site, domain, content: all yours. Preview tomorrow.",
+        signoff: '- Alex, HostVerna',
       },
       hero: {
         title: 'Charter flights with',
@@ -153,17 +160,22 @@
         {
           kind: 'grid',
           cols: 3,
+          eyebrow: 'Our Fleet',
+          heading: 'Aircraft you can book today',
+          sub: 'Operated and maintained in-house from Boeing Field.',
           cards: [
-            { title: 'Cessna Citation X', meta: '8 seats · 3,200nm', price: 'Charter' },
-            { title: 'King Air 350', meta: '9 seats · 1,800nm', price: 'Charter' },
-            { title: 'Pilatus PC-12', meta: '6 seats · 1,600nm', price: 'Charter' },
-            { title: 'Cirrus SR22', meta: '4 seats · Training', price: 'Train' },
-            { title: 'Diamond DA40', meta: '4 seats · Training', price: 'Train' },
-            { title: 'Piper Seminole', meta: 'Multi · Training', price: 'Train' },
+            { title: 'Cessna Citation X', meta: '8 seats \u00b7 3,200 nm range' },
+            { title: 'King Air 350', meta: '9 seats \u00b7 1,800 nm range' },
+            { title: 'Pilatus PC-12', meta: '6 seats \u00b7 1,600 nm range' },
+            { title: 'Cirrus SR22', meta: '4 seats \u00b7 For training' },
+            { title: 'Diamond DA40', meta: '4 seats \u00b7 For training' },
+            { title: 'Piper Seminole', meta: 'Multi-engine \u00b7 Training' },
           ],
         },
         {
           kind: 'services',
+          eyebrow: 'What we do',
+          heading: 'Three ways we fly',
           cards: [
             { title: 'Private charter', blurb: 'Door-to-door, West Coast wide' },
             { title: 'Flight training', blurb: 'Private, instrument, commercial' },
@@ -203,7 +215,7 @@
       brief: {
         toName: 'Dave Halverson',
         toEmail: 'dave@ironcrestmech.com',
-        subject: 'Ironcrest \u2014 phase-one scope',
+        subject: 'Ironcrest: phase-one scope',
         greeting: 'Hi Dave,',
         intro: "Good walk-through today. Phase one:",
         objectives: [
@@ -211,19 +223,21 @@
           'Residential + commercial splits',
           'Online estimates to dispatch',
         ],
-        outro: "Hosted under your account \u2014 take it anywhere. Estimate Thursday.",
-        signoff: '\u2014 Alex, HostVerna',
+        outro: "Hosted under your account; take it anywhere. Estimate Thursday.",
+        signoff: '- Alex, HostVerna',
       },
       hero: {
         title: '24/7 mechanical work,',
         titleEmphasis: 'done right.',
-        sub: 'HVAC, plumbing, and electrical for Minneapolis/St. Paul — homes and commercial buildings.',
+        sub: 'HVAC, plumbing, and electrical for Minneapolis/St. Paul homes and commercial buildings.',
         cta: 'Request an Estimate',
       },
       sections: [
         { kind: 'hero' },
         {
           kind: 'services',
+          eyebrow: 'Trades',
+          heading: 'What we fix, install, and maintain',
           cards: [
             { title: 'Heating', blurb: 'Install, repair, maintain' },
             { title: 'Cooling', blurb: 'AC tune-ups & replacements' },
@@ -234,13 +248,16 @@
         {
           kind: 'grid',
           cols: 3,
+          eyebrow: 'Recent projects',
+          heading: 'A snapshot of jobs we just wrapped',
+          sub: 'Residential, commercial, and civic, Twin Cities wide.',
           cards: [
-            { title: 'Riverside Plaza HVAC', meta: 'Commercial · 2024', price: 'Done' },
-            { title: 'Warehouse Retrofit', meta: 'Industrial · 2024', price: 'Done' },
-            { title: 'Uptown Apartments', meta: 'Multifamily · 2023', price: 'Done' },
-            { title: 'Capitol Building', meta: 'Civic · 2023', price: 'Done' },
-            { title: 'North Loop Office', meta: 'Commercial · 2023', price: 'Done' },
-            { title: 'Eagan Community Ctr.', meta: 'Civic · 2023', price: 'Done' },
+            { title: 'Riverside Plaza HVAC', meta: 'Commercial retrofit', tag: '2024' },
+            { title: 'Warehouse Retrofit', meta: 'Industrial \u00b7 40,000 sq ft', tag: '2024' },
+            { title: 'Uptown Apartments', meta: 'Multifamily \u00b7 120 units', tag: '2023' },
+            { title: 'Capitol Building', meta: 'Civic \u00b7 HVAC upgrade', tag: '2023' },
+            { title: 'North Loop Office', meta: 'Commercial \u00b7 Build-out', tag: '2023' },
+            { title: 'Eagan Community Ctr.', meta: 'Civic \u00b7 Replacement', tag: '2023' },
           ],
         },
         {
@@ -276,7 +293,7 @@
       brief: {
         toName: 'Dr. Priya Rao',
         toEmail: 'priya@northlinedental.com',
-        subject: 'Northline Dental \u2014 launch scope',
+        subject: 'Northline Dental: launch scope',
         greeting: 'Hi Dr. Rao,',
         intro: "Thanks for the tour today. Launch scope:",
         objectives: [
@@ -284,8 +301,8 @@
           'Transparent pricing page',
           'HIPAA-friendly contact form',
         ],
-        outro: "All assets under your account \u2014 site is yours. Preview Wednesday.",
-        signoff: '\u2014 Alex, HostVerna',
+        outro: "All assets under your account; site is yours. Preview Wednesday.",
+        signoff: '- Alex, HostVerna',
       },
       hero: {
         title: 'Modern dentistry with',
@@ -297,6 +314,8 @@
         { kind: 'hero' },
         {
           kind: 'services',
+          eyebrow: 'Services',
+          heading: 'Care that fits your schedule',
           cards: [
             { title: 'Cleanings', blurb: 'Comfortable 30-minute visits' },
             { title: 'Whitening', blurb: 'In-office, enamel-safe' },
@@ -306,10 +325,12 @@
         },
         {
           kind: 'reviews',
+          eyebrow: 'What patients say',
+          heading: 'Reviews from the neighborhood',
           items: [
-            { author: 'Sarah K.', quote: 'Actually looked forward to going back.' },
-            { author: 'Jamal T.', quote: 'Easy booking, honest about the cost.' },
-            { author: 'Andrea R.', quote: 'They remembered my kids\u2019 names.' },
+            { author: 'Sarah K.', quote: 'They got me in the same day.' },
+            { author: 'Jamal T.', quote: 'Booking took two minutes.' },
+            { author: 'Andrea R.', quote: 'Clear pricing before I sat down.' },
           ],
         },
         {
@@ -345,7 +366,7 @@
       brief: {
         toName: 'Alicia Brennan, Town Clerk',
         toEmail: 'a.brennan@branford.ma.gov',
-        subject: 'Town of Branford \u2014 launch scope',
+        subject: 'Town of Branford: launch scope',
         greeting: 'Dear Ms. Brennan,',
         intro: "Thanks for hosting us today. Launch scope:",
         objectives: [
@@ -353,19 +374,21 @@
           'WCAG 2.1 AA accessibility',
           'Emergency alerts banner',
         ],
-        outro: "Hosted under the Town\u2019s account \u2014 full export anytime. Draft Friday.",
-        signoff: '\u2014 Alex, HostVerna',
+        outro: "Hosted under the Town\u2019s account; full export anytime. Draft Friday.",
+        signoff: '- Alex, HostVerna',
       },
       hero: {
         title: 'Your town,',
         titleEmphasis: 'clearly online.',
-        sub: 'Pay bills, file permits, and find what you need \u2014 without the runaround.',
+        sub: 'Pay bills, file permits, and find what you need without the runaround.',
         cta: 'Pay a Bill',
       },
       sections: [
         { kind: 'hero' },
         {
           kind: 'services',
+          eyebrow: 'Online services',
+          heading: 'Handle town business from home',
           cards: [
             { title: 'Permits & licenses', blurb: 'Apply, renew, and track' },
             { title: 'Bill pay', blurb: 'Water, trash, and taxes' },
@@ -376,13 +399,16 @@
         {
           kind: 'grid',
           cols: 3,
+          eyebrow: 'Directory',
+          heading: 'Departments',
+          sub: 'Find who handles what, and reach them directly.',
           cards: [
-            { title: 'Public Works', meta: 'Roads · Water · Snow', price: 'Dept' },
-            { title: 'Health Department', meta: 'Inspections · Records', price: 'Dept' },
-            { title: 'Police', meta: 'Non-emergency · Records', price: 'Dept' },
-            { title: 'Fire & EMS', meta: 'Permits · Inspections', price: 'Dept' },
-            { title: 'Schools', meta: 'K\u201312 · Enrollment', price: 'Dept' },
-            { title: 'Library', meta: 'Hours · Catalog', price: 'Dept' },
+            { title: 'Public Works', meta: 'Roads \u00b7 Water \u00b7 Snow' },
+            { title: 'Health Department', meta: 'Inspections \u00b7 Records' },
+            { title: 'Police', meta: 'Non-emergency \u00b7 Records' },
+            { title: 'Fire & EMS', meta: 'Permits \u00b7 Inspections' },
+            { title: 'Schools', meta: 'K\u201312 \u00b7 Enrollment' },
+            { title: 'Library', meta: 'Hours \u00b7 Catalog' },
           ],
         },
         {
@@ -533,7 +559,7 @@
               class="reel"
               style="--site-bg:{site.palette.bg}; --site-surface:{site.palette.surface}; --site-primary:{site.palette.primary}; --site-accent:{site.palette.accent}; --site-text:{site.palette.text}; --site-muted:{site.palette.muted};"
             >
-              <!-- Phase 1: Intake — the briefing email we send after a discovery call.
+              <!-- Phase 1: Intake, the briefing email we send after a discovery call.
                    A small process timeline sits to the left of the email showing the
                    three phases: Discovery call → Email brief → Build. -->
               <div class="reel-intake">
@@ -603,7 +629,7 @@
                       <span class="email-label">From</span>
                       <span class="email-value">
                         <span class="email-from-name">Alex Zimmerman</span>
-                        <span class="email-from-addr">&lt;alex@hostverna.com&gt;</span>
+                        <span class="email-from-addr">&lt;info@hostverna.com&gt;</span>
                       </span>
                     </div>
                     <div class="email-row">
@@ -675,32 +701,75 @@
                       </div>
                     </div>
                   {:else if section.kind === 'grid'}
-                    <div class="sec sec-grid" style="--cols:{section.cols};">
-                      {#each section.cards as card, gi}
-                        <div class="grid-card" style="--gi:{gi}">
-                          <div class="grid-card-photo"></div>
-                          <div class="grid-card-body">
-                            <span class="grid-card-title">{card.title}</span>
-                            <div class="grid-card-meta">
-                              <span class="grid-card-sub">{card.meta}</span>
-                              <span class="grid-card-price">{card.price}</span>
-                            </div>
-                          </div>
+                    <div class="sec sec-grid">
+                      {#if section.eyebrow || section.heading}
+                        <div class="sec-head">
+                          {#if section.eyebrow}
+                            <span class="sec-eyebrow">{section.eyebrow}</span>
+                          {/if}
+                          {#if section.heading}
+                            <h3 class="sec-heading">{section.heading}</h3>
+                          {/if}
+                          {#if section.sub}
+                            <p class="sec-sub">{section.sub}</p>
+                          {/if}
                         </div>
-                      {/each}
+                      {/if}
+                      <div class="sec-grid-body" style="--cols:{section.cols};">
+                        {#each section.cards as card, gi}
+                          <div class="grid-card" style="--gi:{gi}">
+                            <div class="grid-card-photo" aria-hidden="true">
+                              <span class="grid-card-photo-shimmer"></span>
+                            </div>
+                            <div class="grid-card-body">
+                              <span class="grid-card-title">{card.title}</span>
+                              <span class="grid-card-sub">{card.meta}</span>
+                            </div>
+                            {#if card.tag}
+                              <span class="grid-card-tag">{card.tag}</span>
+                            {/if}
+                          </div>
+                        {/each}
+                      </div>
                     </div>
                   {:else if section.kind === 'services'}
-                    <div class="sec sec-services" style="--count:{section.cards.length};">
-                      {#each section.cards as card, ci}
-                        <div class="service-card" style="--ci:{ci}">
-                          <span class="service-icon" aria-hidden="true"></span>
-                          <span class="service-title">{card.title}</span>
-                          <span class="service-blurb">{card.blurb}</span>
+                    <div class="sec sec-services">
+                      {#if section.eyebrow || section.heading}
+                        <div class="sec-head">
+                          {#if section.eyebrow}
+                            <span class="sec-eyebrow">{section.eyebrow}</span>
+                          {/if}
+                          {#if section.heading}
+                            <h3 class="sec-heading">{section.heading}</h3>
+                          {/if}
+                          {#if section.sub}
+                            <p class="sec-sub">{section.sub}</p>
+                          {/if}
                         </div>
-                      {/each}
+                      {/if}
+                      <div class="sec-services-body" style="--count:{section.cards.length};">
+                        {#each section.cards as card, ci}
+                          <div class="service-card" style="--ci:{ci}">
+                            <span class="service-icon" aria-hidden="true"></span>
+                            <span class="service-title">{card.title}</span>
+                            <span class="service-blurb">{card.blurb}</span>
+                          </div>
+                        {/each}
+                      </div>
                     </div>
                   {:else if section.kind === 'reviews'}
                     <div class="sec sec-reviews">
+                      {#if section.eyebrow || section.heading}
+                        <div class="sec-head">
+                          {#if section.eyebrow}
+                            <span class="sec-eyebrow">{section.eyebrow}</span>
+                          {/if}
+                          {#if section.heading}
+                            <h3 class="sec-heading">{section.heading}</h3>
+                          {/if}
+                        </div>
+                      {/if}
+                      <div class="sec-reviews-body">
                       {#each section.items as item, ri}
                         <figure class="review-row" style="--ri:{ri}">
                           <span class="review-avatar">{item.author[0]}</span>
@@ -722,10 +791,11 @@
                               {/each}
                             </span>
                             <blockquote class="review-quote">&ldquo;{item.quote}&rdquo;</blockquote>
-                            <span class="review-author">— {item.author}</span>
+                            <span class="review-author">- {item.author}</span>
                           </figcaption>
                         </figure>
                       {/each}
+                      </div>
                     </div>
                   {:else if section.kind === 'cta'}
                     <div class="sec sec-cta">
@@ -777,7 +847,7 @@
                 a brief without calling.
               -->
               <div class="reel-annot reel-annot--a" aria-hidden="true">
-                This could be yours &mdash; written for <em>your</em> business.
+                This could be yours, written for <em>your</em> business.
               </div>
               <div class="reel-annot reel-annot--b" aria-hidden="true">
                 Own every asset. No lock-in. Ever.
@@ -1246,12 +1316,12 @@
   }
 
   /* ============================================================
-     Monitor reel — cycles through 3 mock client sites.
+     Monitor reel cycles through 3 mock client sites.
      Phases per 15s cycle:
-       0–20%   Intake brief (client + checklist of objectives)
-       20–26%  Cross-fade into the finished site
-       26–90%  Cursor browses the site while page scrolls
-       90–100% Fade to next site (siteI rotates via Svelte)
+       0-20%   Intake brief (client + checklist of objectives)
+       20-26%  Cross-fade into the finished site
+       26-90%  Cursor browses the site while page scrolls
+       90-100% Fade to next site (siteI rotates via Svelte)
      ============================================================ */
 
   /* ---- Browser chrome (Chrome/Edge-style address bar) ---- */
@@ -1357,7 +1427,7 @@
   }
 
   /* ============================================================
-     Phase 1: Intake brief — "we talk, gather your details"
+     Phase 1: Intake brief, "we talk, gather your details"
      ============================================================ */
 
   .reel-intake {
@@ -1690,7 +1760,7 @@
     font-weight: 600;
     letter-spacing: 0.01em;
     box-shadow: 0 2px 8px rgb(37 99 235 / 0.3);
-    /* Send button pulses right before the email "sends" (~18–22% of cycle) */
+    /* Send button pulses right before the email "sends" (~18-22% of cycle) */
     animation: email-send-pulse 15s ease forwards;
   }
 
@@ -1731,7 +1801,7 @@
   }
 
   /* ============================================================
-     Phase 2: Built site — scrolls through sections while cursor browses
+     Phase 2: Built site scrolls through sections while cursor browses
      Content height ~720px in a 380px viewport; translates up to -340px.
      ============================================================ */
 
@@ -1762,13 +1832,14 @@
   @keyframes reel-page-scroll {
     0%, 32% { transform: translateY(0); }
     /* Cursor hovers hero/nav first, then page starts scrolling under it.
-       Content totals ~620–650px; -270px brings the footer into view. */
-    42% { transform: translateY(-20px); }
-    52% { transform: translateY(-90px); }
-    62% { transform: translateY(-160px); }
-    72% { transform: translateY(-220px); }
-    82% { transform: translateY(-270px); }
-    92%, 100% { transform: translateY(-270px); }
+       Content now totals ~780 to 820px thanks to real section headers;
+       -400px brings the footer into view without clipping. */
+    42% { transform: translateY(-30px); }
+    52% { transform: translateY(-130px); }
+    62% { transform: translateY(-230px); }
+    72% { transform: translateY(-320px); }
+    82% { transform: translateY(-400px); }
+    92%, 100% { transform: translateY(-400px); }
   }
 
   .reel-page .sec {
@@ -1827,7 +1898,7 @@
   }
 
   /* ---- Section: hero (nav + real copy + CTA) ----
-     Sized like a real website hero — readable, not a splash screen. */
+     Sized like a real website hero: readable, not a splash screen. */
 
   .sec-hero {
     min-height: 175px;
@@ -1938,44 +2009,121 @@
     cursor: default;
   }
 
-  /* ---- Section: grid (listings / projects / directory) ----
-     Compact horizontal cards (small thumb + text) instead of big photo tiles.
-     Reads like a normal site's list of items rather than a gallery. */
+  /* ---- Shared section header (eyebrow + heading + optional sub) ----
+     Every section inside the mockup reads like a real website section:
+     a small category eyebrow, a title, and an optional one-line intro.
+     This is the bit that made the grid feel like real content instead
+     of stand-alone tiles with gimmicky pill tags. */
 
-  .sec-grid {
-    padding: 14px 18px 16px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px 14px;
+  .sec-head {
+    padding: 13px 18px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     background: var(--site-bg);
   }
 
-  .sec-grid::before {
-    content: '';
-    grid-column: 1 / -1;
-    height: 1px;
-    background: rgb(148 163 184 / 0.2);
-    margin-bottom: 2px;
+  .sec-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--site-accent, #c79d5a);
+    opacity: 0.95;
+  }
+
+  .sec-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.22;
+    color: var(--site-text, #0f172a);
+    margin: 0;
+  }
+
+  .sec-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    line-height: 1.5;
+    color: var(--site-muted, #94a3b8);
+    margin: 0;
+    max-width: 82%;
+  }
+
+  /* ---- Section: grid (listings / projects / directory) ----
+     Reads like a real "Our Fleet / Recent Projects / Departments" block:
+     a titled section header, then cards with a photo slot, a title, and a
+     subtitle. No price pills, no "Done" labels, just content. */
+
+  .sec-grid {
+    background: var(--site-bg);
+  }
+
+  .sec-grid-body {
+    padding: 4px 18px 16px;
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 3), 1fr);
+    gap: 10px;
   }
 
   .grid-card {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 6px 4px;
-    border-bottom: 1px solid rgb(148 163 184 / 0.14);
+    gap: 9px;
+    padding: 8px 9px 8px 8px;
+    background: var(--site-surface, #ffffff);
+    border: 1px solid rgb(148 163 184 / 0.18);
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.85) inset,
+                0 1px 2px rgb(15 23 42 / 0.04);
+    overflow: hidden;
   }
 
+  /* Photo slot: diagonal color wash with a subtle shimmer strip so each card
+     reads as having imagery, like a real project tile would. */
   .grid-card-photo {
+    position: relative;
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 4px;
+    overflow: hidden;
     background:
-      linear-gradient(135deg,
-        color-mix(in srgb, var(--site-primary, #0f2a44) 30%, var(--site-surface, #fff)) 0%,
-        color-mix(in srgb, var(--site-accent, #c79d5a) 50%, var(--site-surface, #fff)) 100%
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--site-primary, #0f2a44) 74%, #000) 0%,
+        color-mix(in srgb, var(--site-primary, #0f2a44) 38%, var(--site-accent, #c79d5a) 50%) 55%,
+        color-mix(in srgb, var(--site-accent, #c79d5a) 80%, #fff) 100%
       );
+  }
+
+  .grid-card-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 28% 22%,
+        rgb(255 255 255 / 0.42),
+        transparent 48%
+      );
+  }
+
+  .grid-card-photo-shimmer {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: linear-gradient(
+      115deg,
+      transparent 38%,
+      rgb(255 255 255 / 0.18) 48%,
+      transparent 58%
+    );
   }
 
   .grid-card-body {
@@ -1998,36 +2146,43 @@
     white-space: nowrap;
   }
 
-  .grid-card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 6px;
-  }
-
   .grid-card-sub {
     font-family: 'Inter', sans-serif;
     font-size: 8.5px;
     color: var(--site-muted, #94a3b8);
     letter-spacing: 0.01em;
+    line-height: 1.35;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .grid-card-price {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 9px;
+  /* Optional year/chip tag on project cards reads as a caption, not a
+     category pill or button. */
+  .grid-card-tag {
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
     font-weight: 600;
-    color: var(--site-accent, #c79d5a);
-    letter-spacing: -0.01em;
+    letter-spacing: 0.08em;
+    color: var(--site-muted, #94a3b8);
+    padding: 2px 5px;
+    border: 1px solid rgb(148 163 184 / 0.28);
+    border-radius: 3px;
+    align-self: center;
   }
 
   /* ---- Section: services (flat inline features, no boxes) ---- */
 
   .sec-services {
-    padding: 14px 18px 16px;
+    background: var(--site-bg);
+  }
+
+  .sec-services-body {
+    padding: 4px 18px 16px;
     display: grid;
     grid-template-columns: repeat(var(--count, 3), 1fr);
     gap: 14px;
-    background: var(--site-bg);
   }
 
   .service-card {
@@ -2063,11 +2218,14 @@
   /* ---- Section: reviews ---- */
 
   .sec-reviews {
-    padding: 14px 18px 16px;
+    background: var(--site-bg);
+  }
+
+  .sec-reviews-body {
+    padding: 4px 18px 16px;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    background: var(--site-bg);
   }
 
   .review-row {
@@ -2255,12 +2413,12 @@
 
   /*
    * Cursor choreography across the 15s cycle:
-   *   0–26%   waits bottom-right (intake is showing)
+   *   0-26%   waits bottom-right (intake is showing)
    *   28%     visible at bottom-right corner
    *   32%     hovering the hero CTA (left side of hero body)
    *   35%     micro-click pulse (handled by cursor-click)
    *   46%     up to a nav link
-   *   54–78%  drifting over content as the page scrolls under it
+   *   54-78%  drifting over content as the page scrolls under it
    *   84%     micro-click on the CTA band button
    *   94%     drifts off-screen bottom-right
    */
@@ -2346,7 +2504,7 @@
     transform: rotate(45deg);
   }
 
-  /* Annotation A — near the hero body (appears 32–46% of cycle) */
+  /* Annotation A near the hero body (appears 32-46% of cycle) */
   .reel-annot--a {
     left: 6%;
     top: 40%;
@@ -2367,7 +2525,7 @@
     100% { opacity: 0; }
   }
 
-  /* Annotation B — near mid-content (appears 50–66% of cycle) */
+  /* Annotation B near mid-content (appears 50-66% of cycle) */
   .reel-annot--b {
     right: 4%;
     top: 32%;
@@ -2388,7 +2546,7 @@
     100% { opacity: 0; }
   }
 
-  /* Real CTA — appears late, persists, is clickable.
+  /* Real CTA appears late, persists, is clickable.
      Bottom-right so it doesn't block the scrolling content. */
   .reel-cta {
     position: absolute;
@@ -2447,6 +2605,148 @@
   @media (max-width: 760px) {
     .hero {
       padding-top: calc(110px + var(--hv-promo-h));
+    }
+
+    .hero-content {
+      padding-bottom: 36px;
+    }
+
+    .hero-title {
+      font-size: clamp(34px, 11vw, 44px);
+      line-height: 1.08;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      line-height: 1.62;
+      margin-bottom: 22px;
+    }
+
+    .hero-actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
+      white-space: normal;
+      min-height: 48px;
+    }
+
+    .hero-proof {
+      margin-top: 18px;
+      padding-top: 20px;
+      gap: 12px;
+    }
+
+    .proof-label {
+      max-width: 260px;
+      line-height: 1.45;
+    }
+
+    .proof-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 18px;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .proof-logo {
+      max-width: min(142px, 38vw);
+      height: clamp(28px, 9vw, 38px);
+    }
+
+    .hero-visual-row {
+      padding: 0 0 12px;
+    }
+
+    .hero-mock-stack::before,
+    .hero-mock-stack::after {
+      display: none;
+    }
+
+    .mockup-screen {
+      height: clamp(280px, 76vw, 340px);
+    }
+
+    .reel-annot {
+      display: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .mockup-bar {
+      gap: 6px;
+      padding: 6px 8px;
+    }
+
+    .browser-controls {
+      display: none;
+    }
+
+    .browser-address {
+      height: 24px;
+      padding: 0 9px;
+    }
+
+    .site-nav-links {
+      gap: 8px;
+      max-width: 55%;
+      overflow: hidden;
+      font-size: 8px;
+    }
+
+    .sec-hero {
+      padding: 11px 14px 16px;
+    }
+
+    .sec-hero-body {
+      max-width: 90%;
+    }
+
+    .sec-grid-body {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .sec-services-body {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .footer-cols {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .reel-cta {
+      right: 10px;
+      bottom: 10px;
+      padding: 8px 12px;
+      font-size: 10.5px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hero {
+      padding-top: calc(98px + var(--hv-promo-h));
+    }
+
+    .hero-title {
+      font-size: 32px;
+    }
+
+    .hero-portrait {
+      max-width: min(240px, 76vw);
     }
   }
 </style>

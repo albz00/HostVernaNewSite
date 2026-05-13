@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import { serviceNavItems } from '../data/servicePages';
   import { solutionNavItems } from '../data/solutionNav';
   import { resourcesNavItems } from '../data/learnPages';
@@ -9,6 +9,8 @@
   let menuToggleLabel = 'OPEN';
   let labelAnimToken = 0;
   let prefersReducedMotion = false;
+  let navInnerElement: HTMLElement;
+  let mobileMenuMaxHeight = 'calc(100dvh - 88px - env(safe-area-inset-bottom))';
 
   const navLinksRest = [
     { label: 'About', href: '/about' },
@@ -17,8 +19,20 @@
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
+  const howWeWorkTogetherHref = '/solutions/how-we-work-together';
 
   const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+  function updateMobileMenuHeight() {
+    if (typeof window === 'undefined' || !navInnerElement) return;
+
+    const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+    const navBottom = navInnerElement.getBoundingClientRect().bottom;
+    const bottomGutter = 12;
+    const availableHeight = Math.max(80, viewportHeight - navBottom - bottomGutter);
+
+    mobileMenuMaxHeight = `${availableHeight}px`;
+  }
 
   async function playLabelTransition(to: string) {
     const id = ++labelAnimToken;
@@ -43,6 +57,9 @@
   function onMobileToggleClick() {
     const next = !mobileOpen;
     mobileOpen = next;
+    if (next) {
+      void tick().then(updateMobileMenuHeight);
+    }
     if (prefersReducedMotion) {
       menuToggleLabel = next ? 'CLOSE' : 'OPEN';
       return;
@@ -64,10 +81,26 @@
 
     const handler = () => {
       scrolled = window.scrollY > 24;
+      if (mobileOpen) {
+        void tick().then(updateMobileMenuHeight);
+      }
     };
+    const resizeHandler = () => {
+      if (mobileOpen) updateMobileMenuHeight();
+    };
+
     handler();
     window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    window.addEventListener('resize', resizeHandler, { passive: true });
+    window.visualViewport?.addEventListener('resize', resizeHandler, { passive: true });
+    window.visualViewport?.addEventListener('scroll', resizeHandler, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handler);
+      window.removeEventListener('resize', resizeHandler);
+      window.visualViewport?.removeEventListener('resize', resizeHandler);
+      window.visualViewport?.removeEventListener('scroll', resizeHandler);
+    };
   });
 </script>
 
@@ -83,9 +116,18 @@
   </div>
 
   <nav class="nav-bar" class:scrolled>
-    <div class="nav-inner">
-      <a href="/" class="logo">
-        <span class="logo-host">Host</span><span class="logo-verna">Verna</span>
+    <div class="nav-inner" bind:this={navInnerElement}>
+      <a href="/" class="logo" aria-label="HostVerna home">
+        <img
+          src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/520d3037-a29a-41e4-b52e-93dd51a9e700/public"
+          width="64"
+          height="58"
+          alt=""
+          class="logo-mark"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <span class="logo-word"><span class="logo-host">Host</span><span class="logo-verna">Verna</span></span>
       </a>
 
       <ul class="nav-links">
@@ -107,33 +149,42 @@
             </li>
           </ul>
         </li>
-        <li class="nav-dropdown nav-dropdown--end">
+        <li class="nav-dropdown">
           <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
-            Use Cases
+            Solutions
             <span class="nav-dropdown-caret" aria-hidden="true"></span>
           </button>
           <ul class="nav-dropdown-menu nav-dropdown-menu--solutions-cols" role="menu">
             {#each solutionNavItems as item}
               <li role="none" class="nav-dropdown-solution-cell">
-                <a href={item.href} class="nav-dropdown-link" role="menuitem">{item.title}</a>
+                <a href={item.href} class="nav-dropdown-link" role="menuitem">
+                  {#if item.href === howWeWorkTogetherHref}
+                    <span class="nav-solution-starred">
+                      <svg
+                        class="nav-solution-star"
+                        viewBox="0 0 16 16"
+                        width="12"
+                        height="12"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+                        />
+                      </svg>
+                      <span>{item.title}</span>
+                    </span>
+                  {:else}
+                    {item.title}
+                  {/if}
+                </a>
               </li>
             {/each}
             <li role="none" class="nav-dropdown-footer nav-dropdown-footer--span-cols">
-              <a href="/#use-cases" class="nav-dropdown-link nav-dropdown-all" role="menuitem">How we work</a>
+              <a href="/#use-cases" class="nav-dropdown-link nav-dropdown-all" role="menuitem"
+                >How we work overview</a
+              >
             </li>
-          </ul>
-        </li>
-        <li class="nav-dropdown">
-          <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
-            Resources
-            <span class="nav-dropdown-caret" aria-hidden="true"></span>
-          </button>
-          <ul class="nav-dropdown-menu nav-dropdown-menu--solutions-cols" role="menu">
-            {#each resourcesNavItems as item}
-              <li role="none" class="nav-dropdown-solution-cell">
-                <a href={item.href} class="nav-dropdown-link" role="menuitem">{item.title}</a>
-              </li>
-            {/each}
           </ul>
         </li>
         <li class="nav-dropdown">
@@ -149,6 +200,19 @@
             {/each}
           </ul>
         </li>
+        <li class="nav-dropdown">
+          <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+            Resources
+            <span class="nav-dropdown-caret" aria-hidden="true"></span>
+          </button>
+          <ul class="nav-dropdown-menu nav-dropdown-menu--solutions-cols" role="menu">
+            {#each resourcesNavItems as item}
+              <li role="none" class="nav-dropdown-solution-cell">
+                <a href={item.href} class="nav-dropdown-link" role="menuitem">{item.title}</a>
+              </li>
+            {/each}
+          </ul>
+        </li>
         {#each navLinksRest as link}
           <li>
             <a href={link.href} class="nav-link">{link.label}</a>
@@ -157,6 +221,13 @@
       </ul>
 
       <div class="nav-actions">
+        <a
+          href={phoneHref}
+          class="nav-phone-compact"
+          aria-label={`Call HostVerna at ${phoneDisplay}`}
+        >
+          <span class="nav-phone-compact-text">{phoneDisplay}</span>
+        </a>
         <a href="/portal" class="btn btn-secondary nav-btn">Portal</a>
         <a href="/contact" class="btn btn-primary nav-btn">Get Started</a>
       </div>
@@ -178,7 +249,7 @@
     </div>
 
     {#if mobileOpen}
-      <div id="site-mobile-nav" class="mobile-menu">
+      <div id="site-mobile-nav" class="mobile-menu" style:max-height={mobileMenuMaxHeight}>
         <a href="/support" class="mobile-link mobile-support-first" on:click={closeMobileMenu}>Support</a>
         <a href={phoneHref} class="mobile-phone" on:click={closeMobileMenu}>{phoneDisplay}</a>
 
@@ -195,14 +266,32 @@
         </div>
 
         <div class="mobile-group">
-          <span class="mobile-group-label">Use Cases</span>
+          <span class="mobile-group-label">Solutions</span>
           {#each solutionNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
-              >{item.title}</a
-            >
+            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}>
+              {#if item.href === howWeWorkTogetherHref}
+                <span class="nav-solution-starred">
+                  <svg
+                    class="nav-solution-star"
+                    viewBox="0 0 16 16"
+                    width="12"
+                    height="12"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+                    />
+                  </svg>
+                  <span>{item.title}</span>
+                </span>
+              {:else}
+                {item.title}
+              {/if}
+            </a>
           {/each}
           <a href="/#use-cases" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
-            >How we work</a
+            >How we work overview</a
           >
         </div>
 
@@ -360,11 +449,31 @@
   }
 
   .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-size: 17px;
     font-weight: 800;
     letter-spacing: -0.03em;
     text-decoration: none;
     flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .logo-mark {
+    width: 28px;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  :global([data-theme='dark']) .logo-mark {
+    filter: invert(1);
+  }
+
+  .logo-word {
+    display: inline-flex;
+    align-items: baseline;
   }
 
   .logo-host {
@@ -442,9 +551,16 @@
     transform: rotate(180deg);
   }
 
-  .nav-dropdown--end .nav-dropdown-menu {
-    left: auto;
-    right: 0;
+  .nav-solution-starred {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+  }
+
+  .nav-solution-star {
+    flex-shrink: 0;
+    color: var(--primary, #0369a1);
   }
 
   .nav-dropdown-menu {
@@ -540,6 +656,34 @@
   .nav-btn {
     padding: 5px 13px;
     font-size: 12.5px;
+  }
+
+  /* Compact phone text shown on the nav bar itself for tablet + mobile.
+     Hidden on desktop (phone lives in the utility strip instead). */
+  .nav-phone-compact {
+    display: none;
+    align-items: center;
+    padding: 4px 2px;
+    color: var(--primary);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    transition: color 0.15s ease;
+  }
+
+  .nav-phone-compact:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+  }
+
+  :global([data-theme='dark']) .nav-phone-compact {
+    color: #7dd3fc;
+  }
+
+  :global([data-theme='dark']) .nav-phone-compact:hover {
+    color: #bae6fd;
   }
 
   /* Chamfered tile (top-left + bottom-right) to match site's button/card language */
@@ -640,11 +784,15 @@
   }
 
   .mobile-menu {
-    padding: 12px 16px 16px;
+    padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
     border-top: 1px solid #e2e8f0;
     display: flex;
     flex-direction: column;
     gap: 2px;
+    max-height: calc(100dvh - 88px - env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .mobile-support-first {
@@ -672,7 +820,7 @@
 
   .mobile-phone {
     display: block;
-    padding: 10px 12px;
+    padding: 6px 12px 10px;
     margin-bottom: 4px;
     font-size: 15px;
     font-weight: 700;
@@ -680,20 +828,18 @@
     letter-spacing: 0.04em;
     color: var(--primary);
     text-decoration: none;
-    border-radius: var(--radius-tile-sm);
-    border: 1px solid rgba(3, 105, 161, 0.2);
-    background: rgba(3, 105, 161, 0.04);
-    text-align: center;
-    transition: background 0.15s ease;
+    transition: color 0.15s ease;
   }
 
   .mobile-phone:hover {
-    background: rgba(3, 105, 161, 0.08);
+    color: var(--primary-dark);
+    text-decoration: underline;
   }
 
   .mobile-link {
     display: block;
-    padding: 10px 12px;
+    min-height: 44px;
+    padding: 11px 12px;
     font-size: 14px;
     font-weight: 500;
     color: var(--text-secondary);
@@ -708,7 +854,8 @@
 
   .mobile-sublink {
     font-size: 13.5px;
-    padding: 8px 12px 8px 18px;
+    min-height: 40px;
+    padding: 9px 12px 9px 18px;
     color: #64748b;
   }
 
@@ -725,6 +872,13 @@
     flex-direction: column;
     gap: 8px;
     margin-top: 12px;
+  }
+
+  /* Tablet + mobile: show the phone on the nav bar itself. */
+  @media (max-width: 1180px) {
+    .nav-phone-compact {
+      display: inline-flex;
+    }
   }
 
   /* Tablet / small laptop: logo + actions on row 1, nav links wrap on row 2 */
@@ -760,10 +914,6 @@
       transform: translate(-50%, 0);
     }
 
-    .nav-dropdown--end .nav-dropdown-menu {
-      left: 50%;
-      right: auto;
-    }
   }
 
   @media (max-width: 900px) {
@@ -791,6 +941,27 @@
   @media (max-width: 600px) {
     .nav-wrapper {
       padding: 12px 12px;
+    }
+
+    .nav-wrapper.scrolled {
+      padding: 8px 12px;
+    }
+
+    .nav-inner {
+      padding: 0 10px;
+    }
+
+    .mobile-menu {
+      padding-left: 12px;
+      padding-right: 12px;
+      max-height: calc(100dvh - 80px - env(safe-area-inset-bottom));
+    }
+  }
+
+  /* Very small phones: hide the compact phone link so the bar does not crowd the menu toggle. */
+  @media (max-width: 460px) {
+    .nav-phone-compact {
+      display: none;
     }
   }
 

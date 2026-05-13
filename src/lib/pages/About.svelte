@@ -52,7 +52,7 @@
         users.
       </p>
       <p class="about-p about-p--tight">
-        Every build still runs through structured QA, security-minded review, and tooling we keep current—so “faster” does
+        Every build still runs through structured QA, security-minded review, and tooling we keep current, so “faster” does
         not mean cutting corners on quality or safety.
       </p>
     </section>

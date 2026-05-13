@@ -36,7 +36,7 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-sep" aria-hidden="true">/</span>
-        <a href="/#use-cases">Use Cases</a>
+        <a href="/#use-cases">Solutions</a>
         <span class="breadcrumb-sep" aria-hidden="true">/</span>
         <span class="breadcrumb-current">{page.title}</span>
       </nav>

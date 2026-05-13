@@ -8,19 +8,19 @@
   const testimonials = [
     {
       quote:
-        "I was at about two-eighty a month for a site I was scared to touch. I wasn't even sure who held the login. They rebuilt it from scratch, sat with me in the admin until I could change copy and photos without breaking layout, and the recurring line item actually ends when we hit the milestone we signed. That's a different conversation than I'd had before.",
+        "They rebuilt the site, showed me how to edit it, and put the ownership terms in writing.",
       author: 'Sarah M.',
       result: 'Owns her site outright',
     },
     {
       quote:
-        "I run the business. I'm not the person who fixes DNS. I asked a lot of questions I thought were embarrassing. They answered every one without making me feel like I was wasting their time. That shouldn't feel rare.",
+        "They answered my hosting questions plainly and handled the technical parts.",
       author: 'James T.',
       result: 'No IT background required',
     },
     {
       quote:
-        "We had one shop on the website, another on the internal tool, and if something broke after hours it was whoever answered. Now it's the same people. They know our hosting, our app, and our staff actually has one place to go when something's wrong.",
+        "Now one team knows the setup, and our staff has one place to go.",
       author: 'Layla K.',
       result: 'One partner, everything handled',
     },
@@ -32,8 +32,8 @@
     <div class="t-header">
       <h2 class="t-title">From business owners like you</h2>
       <p class="t-sub">
-        Not case studies. Not metrics.
-        <ContentHighlight tone="string">What it actually felt like to work with us.</ContentHighlight>
+        Short notes on
+        <ContentHighlight tone="string">what it felt like to work with us.</ContentHighlight>
       </p>
     </div>
     <div class="testimonials-grid">
@@ -77,19 +77,19 @@
       </h2>
       <p class="cta-sub">
         If you're tired of
-        <ContentHighlight tone="accent">paying for something you don't own</ContentHighlight>, dealing with vendors who
-        don't pick up, or having a site that looks like everyone else's, let's talk.
+        <ContentHighlight tone="accent">paying for something you don't own</ContentHighlight>,
+        let's talk.
       </p>
       <div class="cta-actions">
         <a href="/contact" class="btn btn-white btn-lg">Book a Free Call</a>
-        <a href="mailto:hello@hostverna.com" class="btn btn-ghost btn-lg">hello@hostverna.com</a>
+        <a href="mailto:info@hostverna.com" class="btn btn-ghost btn-lg">info@hostverna.com</a>
       </div>
       <div class="cta-proof">
         <span class="cp-item">No commitment required</span>
         <span class="cp-dot"></span>
-        <span class="cp-item">Response within 24 hours</span>
+        <span class="cp-item">24-hour response</span>
         <span class="cp-dot"></span>
-        <span class="cp-item">Free discovery call</span>
+        <span class="cp-item">Free call</span>
         <span class="cp-dot"></span>
         <span class="cp-item">Financing available</span>
         <span class="cp-dot"></span>
@@ -355,6 +355,41 @@
     }
     .cp-dot {
       display: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .t-header {
+      margin-bottom: 34px;
+    }
+
+    .t-card {
+      padding: 24px 18px;
+    }
+
+    .t-quote {
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .cta-inner {
+      gap: 16px;
+    }
+
+    .cta-sub {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .cta-actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cta-actions .btn {
+      width: 100%;
+      white-space: normal;
     }
   }
 </style>

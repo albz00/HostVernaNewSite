@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Locked / non-public surfaces (see site routing)
+Disallow: /portal
+Disallow: /privacy
+Disallow: /terms
+Disallow: /cookies
+Disallow: /sla
+Disallow: /blog
+
+Sitemap: https://hostverna.com/sitemap.xml

@@ -11,7 +11,7 @@ export type SolutionPageData = {
   sections: SolutionSection[];
 };
 
-/** Order matches Use Cases dropdown */
+/** Page data for the Solutions dropdown. */
 export const solutionPages: SolutionPageData[] = [
   {
     slug: 'own-your-site',
@@ -195,7 +195,7 @@ export const solutionPages: SolutionPageData[] = [
       {
         heading: 'Many doors, one lobby',
         body: [
-          'Think of a bowling alley: you would not expect one lane. You expect enough lanes for people to play. Your marketing touchpoints work the same way. You might mention the business on TikTok, Facebook, Instagram, in email, and on Google. Each of those is a door.',
+          'Think of a business center with multiple front doors: one for walk-ins, one from the parking lot, one from the street, and one from a shared directory. Your marketing touchpoints work the same way. You might mention the business on TikTok, Facebook, Instagram, in email, and on Google. Each of those is a door.',
           'What you need is one proper place where all of that traffic can land: hours, story, proof, contact, and the details people ask for. Without a real site, you still might win work, but you also might lose someone who needed a single trustworthy page and never found it.',
         ],
       },
@@ -215,7 +215,23 @@ export function getSolutionPage(slug: string): SolutionPageData | undefined {
   return bySlug.get(slug.replace(/\/$/, ''));
 }
 
-export const solutionNavItems = solutionPages.map((p) => ({
-  title: p.navTitle,
-  href: `/solutions/${p.slug}`,
-}));
+const solutionNavOrder = [
+  'how-we-work-together',
+  'own-your-site',
+  'beyond-templates',
+  'speed-without-lock-in',
+  'security-built-in',
+  'customer-confirmations',
+  'workflow-fit-software',
+  'reachable-it-support',
+] as const;
+
+export const solutionNavItems = solutionNavOrder.map((slug) => {
+  const page = bySlug.get(slug);
+  if (!page) throw new Error(`Missing solution page for nav slug: ${slug}`);
+
+  return {
+    title: page.navTitle,
+    href: `/solutions/${page.slug}`,
+  };
+});

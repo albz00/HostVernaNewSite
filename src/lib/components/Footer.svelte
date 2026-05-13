@@ -16,6 +16,7 @@
     ],
     Resources: [
       { label: 'Resources hub', href: '/resources' },
+      { label: 'Connect', href: '/connect' },
       { label: 'Case Studies', href: '/#case-studies' },
       { label: 'Documentation', href: '/learn' },
       { label: 'FAQ', href: '/contact' },
@@ -23,10 +24,10 @@
       { label: 'Contact', href: '/contact' },
     ],
     Legal: [
-      { label: 'Privacy Policy', href: '/contact' },
-      { label: 'Terms of Service', href: '/contact' },
-      { label: 'Cookie Policy', href: '/contact' },
-      { label: 'SLA', href: '/contact' },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Cookie Policy', href: '/cookies' },
+      { label: 'SLA', href: '/sla' },
     ],
   };
 </script>
@@ -43,7 +44,7 @@
           One partner, everything digital.
         </p>
         <div class="brand-contact">
-          <a href="mailto:hello@hostverna.com" class="contact-link">hello@hostverna.com</a>
+          <a href="mailto:info@hostverna.com" class="contact-link">info@hostverna.com</a>
           <a
             href="https://www.facebook.com/hostverna"
             class="contact-link"

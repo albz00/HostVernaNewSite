@@ -1,42 +1,44 @@
 <script lang="ts">
+  export let documentTitle: string;
+  export let metaDescription: string;
+  export let heading: string;
+  export let lead: string;
+
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
 </script>
 
 <svelte:head>
-  <title>Portal (locked) | HostVerna</title>
-  <meta
-    name="description"
-    content="The HostVerna client portal is not available for public access right now."
-  />
+  <title>{documentTitle}</title>
+  <meta name="description" content={metaDescription} />
   <meta name="robots" content="noindex, follow" />
 </svelte:head>
 
-<div class="portal">
-  <header class="portal-header">
+<div class="locked-placeholder">
+  <header class="locked-placeholder-header">
     <a href="/" class="logo">
       <span class="logo-host">Host</span><span class="logo-verna">Verna</span>
     </a>
-    <a href={phoneHref} class="portal-phone">{phoneDisplay}</a>
+    <a href={phoneHref} class="locked-placeholder-phone">{phoneDisplay}</a>
   </header>
 
-  <main class="portal-main">
-    <div class="portal-locked" role="status">
-      <h1 class="portal-title">Portal is locked</h1>
-      <p class="portal-lead">This page isn’t open to visitors. If you’re a client and need access, call or email us and we’ll point you the right way.</p>
-      <a href="/" class="btn btn-primary portal-cta">Return to site</a>
+  <main class="locked-placeholder-main">
+    <div class="locked-placeholder-inner" role="status">
+      <h1 class="locked-placeholder-title">{heading}</h1>
+      <p class="locked-placeholder-lead">{lead}</p>
+      <a href="/" class="btn btn-primary locked-placeholder-cta">Return to site</a>
     </div>
   </main>
 </div>
 
 <style>
-  .portal {
+  .locked-placeholder {
     min-height: 100vh;
     background: var(--bg);
     color: var(--text-primary);
   }
 
-  .portal-header {
+  .locked-placeholder-header {
     position: sticky;
     top: 0;
     z-index: 10;
@@ -66,7 +68,7 @@
     color: #0d9488;
   }
 
-  .portal-phone {
+  .locked-placeholder-phone {
     font-size: 13px;
     font-weight: 600;
     font-family: var(--font-mono);
@@ -78,17 +80,17 @@
     transition: background 0.15s ease;
   }
 
-  .portal-phone:hover {
+  .locked-placeholder-phone:hover {
     background: rgba(3, 105, 161, 0.08);
   }
 
-  .portal-main {
+  .locked-placeholder-main {
     max-width: 520px;
     margin: 0 auto;
     padding: clamp(40px, 10vh, 80px) 20px 48px;
   }
 
-  .portal-locked {
+  .locked-placeholder-inner {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -96,7 +98,7 @@
     gap: 16px;
   }
 
-  .portal-title {
+  .locked-placeholder-title {
     font-family: var(--font-display);
     font-size: clamp(26px, 5vw, 36px);
     font-weight: 700;
@@ -105,14 +107,14 @@
     color: var(--text-primary);
   }
 
-  .portal-lead {
+  .locked-placeholder-lead {
     margin: 0;
     font-size: 15px;
     color: var(--text-secondary);
     line-height: 1.65;
   }
 
-  .portal-cta {
+  .locked-placeholder-cta {
     margin-top: 8px;
   }
 </style>

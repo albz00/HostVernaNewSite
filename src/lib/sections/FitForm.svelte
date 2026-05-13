@@ -19,7 +19,7 @@
   // Scroll-linked "flood": dark gradient pours down from the top of the section as you scroll,
   // with an animated wave crest at its leading edge.
   let sectionEl: HTMLElement | null = null;
-  let floodProgress = 0; // 0..1 — how filled the section is
+  let floodProgress = 0; // 0..1, how filled the section is
   let rafId: number | null = null;
 
   function updateFlood() {
@@ -28,7 +28,7 @@
     const rect = sectionEl.getBoundingClientRect();
     const vh = window.innerHeight || 1;
     // Stretch the flood across the section's full scroll traversal so there's real
-    // runway for the wave to crash through — the user reaches halfway through the
+    // runway for the wave to crash through. The user reaches halfway through the
     // section with the wave still actively mid-fall.
     //   rect.top = vh       (section just entered bottom)  -> progress 0 (pure white)
     //   rect.top = 0        (section fully in view)        -> progress ~ vh / (H + vh)
@@ -71,6 +71,7 @@
       type === 'trades' ||
       type === 'local' ||
       type === 'dental' ||
+      type === 'aviation' ||
       type === 'government' ||
       type === 'education'
     ) {
@@ -111,19 +112,19 @@
   const resultCopy: Record<Fit, { title: string; sub: string; cta: string; ctaLabel: string }> = {
     great: {
       title: "You're exactly who we built this for.",
-      sub: "Based on what you told us, your business is a strong fit. We work with businesses like yours every week. Let's have a quick call and see if we can help.",
+      sub: "Your business looks like a strong fit. Let's have a quick call.",
       cta: '/contact',
       ctaLabel: 'Book a Free Call',
     },
     maybe: {
       title: "We might be a fit. Let's find out.",
-      sub: "Your business isn't a perfect mold, but that doesn't mean we can't help. Reach out and we'll be straight with you about whether it makes sense.",
+      sub: "Reach out and we'll be straight about whether it makes sense.",
       cta: '/contact',
       ctaLabel: 'Talk to Us First',
     },
     no: {
       title: "We're probably not the right call right now.",
-      sub: "Based on your answers, we'd likely be a poor fit at this stage. That's not a judgment, it's just honest. We'd rather tell you now than waste your time.",
+      sub: "Based on your answers, we'd likely be a poor fit right now.",
       cta: '/about',
       ctaLabel: 'Learn What We Do',
     },
@@ -140,64 +141,43 @@
 >
   <div class="flood" aria-hidden="true">
     <div class="flood-body"></div>
+    <!-- Single, gentle waterline. One long curve with a slow, seamless phase
+         shift. A soft highlight band sits on top to give the edge a sheen
+         without piling on multiple competing animations. -->
     <svg
       class="flood-wave"
-      viewBox="0 0 1440 220"
+      viewBox="0 0 1440 180"
       preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <linearGradient id="flood-foam-grad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="rgba(148,197,255,0)" />
-          <stop offset="20%" stop-color="rgba(148,197,255,0.85)" />
-          <stop offset="50%" stop-color="rgba(196,220,255,1)" />
-          <stop offset="80%" stop-color="rgba(148,197,255,0.85)" />
-          <stop offset="100%" stop-color="rgba(148,197,255,0)" />
+        <linearGradient id="flood-crest-glow" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(186, 216, 255, 0)" />
+          <stop offset="35%" stop-color="rgba(186, 216, 255, 0.42)" />
+          <stop offset="100%" stop-color="rgba(186, 216, 255, 0)" />
         </linearGradient>
       </defs>
 
-      <!-- Deepest wave: broad swell, slow -->
-      <path
-        class="wave-path wave-deep"
-        d="M0,70 C240,30 480,110 720,70 C960,30 1200,110 1440,70 L1440,220 L0,220 Z"
-      />
-
-      <!-- Mid wave: medium amplitude, different phase -->
-      <path
-        class="wave-path wave-mid"
-        d="M0,100 C180,65 360,135 540,100 C720,65 900,135 1080,100 C1260,65 1440,135 1440,100 L1440,220 L0,220 Z"
-      />
-
-      <!-- Front crest: sharper, faster -->
-      <path
-        class="wave-path wave-crest"
-        d="M0,130 C120,100 240,160 360,130 C480,100 600,160 720,130 C840,100 960,160 1080,130 C1200,100 1320,160 1440,130 L1440,220 L0,220 Z"
-      />
-
-      <!-- Bright foam highlight along the crest -->
-      <path
-        class="wave-foam wave-foam-main"
-        d="M0,130 C120,100 240,160 360,130 C480,100 600,160 720,130 C840,100 960,160 1080,130 C1200,100 1320,160 1440,130"
-      />
-
-      <!-- Secondary thinner foam line, offset for parallax depth -->
-      <path
-        class="wave-foam wave-foam-thin"
-        d="M0,100 C180,65 360,135 540,100 C720,65 900,135 1080,100 C1260,65 1440,135 1440,100"
-      />
-
-      <!-- Scattered droplets / bubbles for water texture -->
-      <g class="bubbles">
-        <circle cx="120" cy="85" r="2.4" />
-        <circle cx="260" cy="110" r="1.6" />
-        <circle cx="410" cy="75" r="2.8" />
-        <circle cx="545" cy="118" r="1.8" />
-        <circle cx="690" cy="92" r="2.2" />
-        <circle cx="820" cy="118" r="1.4" />
-        <circle cx="955" cy="80" r="2.6" />
-        <circle cx="1090" cy="115" r="1.8" />
-        <circle cx="1220" cy="88" r="2.4" />
-        <circle cx="1340" cy="108" r="1.6" />
+      <!-- Long, low-amplitude single wave. Drawn twice end-to-end so the
+           phase shift animation can loop seamlessly across its full width. -->
+      <g class="wave-group">
+        <path
+          class="wave-fill"
+          d="M0,80
+             C240,56 480,104 720,80
+             C960,56 1200,104 1440,80
+             C1680,56 1920,104 2160,80
+             C2400,56 2640,104 2880,80
+             L2880,180 L0,180 Z"
+        />
+        <path
+          class="wave-sheen"
+          d="M0,80
+             C240,56 480,104 720,80
+             C960,56 1200,104 1440,80
+             C1680,56 1920,104 2160,80
+             C2400,56 2640,104 2880,80"
+        />
       </g>
     </svg>
   </div>
@@ -210,7 +190,7 @@
       <p class="fit-sub">
         We don't take every project.
         <ContentHighlight tone="keyword">Answer five quick questions</ContentHighlight>
-        and we'll tell you honestly whether we think we can help.
+        and we'll be honest about fit.
       </p>
     </div>
 
@@ -222,9 +202,8 @@
           <div class="intro-split">
             <div class="intro-copy">
               <p class="intro-body">
-                We've turned down projects that weren't right.
-                <ContentHighlight tone="comment">This helps both of us save time.</ContentHighlight>
-                Takes under a minute.
+                A quick check before we talk.
+                <ContentHighlight tone="comment">Takes under a minute.</ContentHighlight>
               </p>
               <div class="intro-bullets">
                 <div class="ib"><div class="ib-dot"></div><span>We'll tell you straight if we're not the right fit</span></div>
@@ -249,27 +228,31 @@
           <div class="option-grid">
             <button class="opt" on:click={() => advance('q2', 'bizType', 'trades')}>
               <span class="opt-label">Trades / Construction / Excavating</span>
-              <span class="opt-sub">Contractors, builders, landscapers, excavators, HVAC, plumbing, etc.</span>
+              <span class="opt-sub">Contractors, builders, HVAC, plumbing, landscaping</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'local')}>
               <span class="opt-label">Local Service Business</span>
-              <span class="opt-sub">High traffic area, small to medium, service focused, not heavy inventory</span>
+              <span class="opt-sub">Service-focused, small to medium, not heavy inventory</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'dental')}>
               <span class="opt-label">Dental / Medical / Brochure</span>
-              <span class="opt-sub">Professional services, practices, informational or appointment-based sites</span>
+              <span class="opt-sub">Professional or appointment-based sites</span>
+            </button>
+            <button class="opt" on:click={() => advance('q2', 'bizType', 'aviation')}>
+              <span class="opt-label">Aviation / Flight</span>
+              <span class="opt-sub">Charters, schools, airports, FBOs, maintenance</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'government')}>
               <span class="opt-label">Government / Municipal</span>
-              <span class="opt-sub">Government sectors, municipalities, school districts</span>
+              <span class="opt-sub">Municipalities and public-sector teams</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'education')}>
               <span class="opt-label">School / University / Medical School</span>
-              <span class="opt-sub">Larger educational institutions, associated medical programs</span>
+              <span class="opt-sub">Educational institutions and programs</span>
             </button>
             <button class="opt opt-caution" on:click={() => advance('q2', 'bizType', 'heavy-inventory')}>
               <span class="opt-label">Heavy Inventory / E-commerce</span>
-              <span class="opt-sub">Large product catalogs, fulfilment, stock management</span>
+              <span class="opt-sub">Large catalogs, fulfillment, or stock management</span>
             </button>
           </div>
         </div>
@@ -284,19 +267,19 @@
           <div class="option-list">
             <button class="opt-row" on:click={() => advance('q3', 'bizSize', 'solo')}>
               <span class="or-label">Just me / Solo operator</span>
-              <span class="or-sub">Owner-operated, no staff or 1-2 helpers</span>
+              <span class="or-sub">Owner-operated or 1-2 helpers</span>
             </button>
             <button class="opt-row" on:click={() => advance('q3', 'bizSize', 'small')}>
               <span class="or-label">Small team (2-15 people)</span>
-              <span class="or-sub">Small business with some staff, growing</span>
+              <span class="or-sub">Small but growing</span>
             </button>
             <button class="opt-row" on:click={() => advance('q3', 'bizSize', 'medium')}>
               <span class="or-label">Medium (15-100 people)</span>
-              <span class="or-sub">Established operation, multiple departments or crews</span>
+              <span class="or-sub">Established, with teams or crews</span>
             </button>
             <button class="opt-row" on:click={() => advance('q3', 'bizSize', 'large')}>
               <span class="or-label">Large / Enterprise (100+)</span>
-              <span class="or-sub">Larger organizations, institutional, school districts</span>
+              <span class="or-sub">Larger organization or institution</span>
             </button>
           </div>
         </div>
@@ -312,15 +295,15 @@
           <div class="option-list">
             <button class="opt-row opt-row-highlight" on:click={() => advance('q4', 'mindset', 'investment')}>
               <span class="or-label">It's an investment that should return value</span>
-              <span class="or-sub">I understand good work costs money and I'm willing to pay for something that actually performs</span>
+              <span class="or-sub">I want something that performs</span>
             </button>
             <button class="opt-row" on:click={() => advance('q4', 'mindset', 'unsure')}>
               <span class="or-label">I'm not sure yet. I need to understand the value first</span>
-              <span class="or-sub">I need to be convinced it's worth it before committing</span>
+              <span class="or-sub">I need clarity before committing</span>
             </button>
             <button class="opt-row opt-row-caution" on:click={() => advance('q4', 'mindset', 'risk')}>
               <span class="or-label">I see it as a risk more than an investment</span>
-              <span class="or-sub">I've been burned before or I'm skeptical about spending this kind of money</span>
+              <span class="or-sub">I've been burned before</span>
             </button>
           </div>
         </div>
@@ -335,23 +318,23 @@
           <div class="option-list">
             <button class="opt-row" on:click={() => advance('q5', 'need', 'website')}>
               <span class="or-label">A website that actually represents my business</span>
-              <span class="or-sub">Custom design, something I own outright, fast and professional</span>
+              <span class="or-sub">Custom, professional, and owned by me</span>
             </button>
             <button class="opt-row" on:click={() => advance('q5', 'need', 'software')}>
               <span class="or-label">Custom software or internal tools</span>
-              <span class="or-sub">Client portal, job management, bidding tools, ops platform</span>
+              <span class="or-sub">Portals, job tools, dashboards</span>
             </button>
             <button class="opt-row" on:click={() => advance('q5', 'need', 'crm')}>
               <span class="or-label">CRM or client management system</span>
-              <span class="or-sub">Pipeline, follow-up automation, team tracking</span>
+              <span class="or-sub">Pipeline, follow-up, team tracking</span>
             </button>
             <button class="opt-row" on:click={() => advance('q5', 'need', 'it')}>
               <span class="or-label">Ongoing IT support or managed services</span>
-              <span class="or-sub">Someone to call when things break, proactive monitoring</span>
+              <span class="or-sub">Support when things break</span>
             </button>
             <button class="opt-row" on:click={() => advance('q5', 'need', 'all')}>
               <span class="or-label">Honestly, probably more than one of these</span>
-              <span class="or-sub">My digital infrastructure needs a proper overhaul</span>
+              <span class="or-sub">I need a broader cleanup</span>
             </button>
           </div>
         </div>
@@ -363,15 +346,15 @@
           </div>
           <div class="q-step-label">Question 5 of 5</div>
           <h3 class="q-heading">Are you looking for custom software or tools specifically?</h3>
-          <p class="q-context">We build complex internal systems for heavy bidders, job management, and institutional clients. Not every business needs this.</p>
+          <p class="q-context">Not every business needs custom software. This helps us sort that out.</p>
           <div class="option-list">
             <button class="opt-row" on:click={() => { answers.software = 'yes'; calcResult(); }}>
               <span class="or-label">Yes, I need custom software or tools</span>
-              <span class="or-sub">Bidding systems, job platforms, portals, ops dashboards</span>
+              <span class="or-sub">Systems, portals, platforms, dashboards</span>
             </button>
             <button class="opt-row" on:click={() => { answers.software = 'no'; calcResult(); }}>
               <span class="or-label">No, a website or CRM is what I need</span>
-              <span class="or-sub">I'm not looking for custom-built software right now</span>
+              <span class="or-sub">No custom software right now</span>
             </button>
           </div>
         </div>
@@ -432,26 +415,32 @@
     top: 0;
     left: 0;
     right: 0;
-    /* Grows as you scroll. Goes slightly past 100% so the wave can clear out. */
     height: calc(var(--flood, 0) * 108%);
     pointer-events: none;
     z-index: 0;
     will-change: height;
-    transition: height 0.08s linear;
-    /* Thin, natural feather at the very bottom — just enough to kill the hard
-       cutoff line while keeping the wave detail crisp. */
+    /* Slightly longer transition smooths out the scroll-driven growth so
+       the leading edge never strobes when frames arrive close together. */
+    transition: height 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Generous feather at the leading edge; the wave itself supplies the
+       shape; the mask just eases the dark tone into the white below it so
+       there's never a hard horizontal seam as the flood grows. */
     -webkit-mask-image: linear-gradient(
       to bottom,
       #000 0%,
-      #000 calc(100% - 56px),
-      rgba(0, 0, 0, 0.85) calc(100% - 32px),
+      #000 calc(100% - 140px),
+      rgba(0, 0, 0, 0.92) calc(100% - 100px),
+      rgba(0, 0, 0, 0.7) calc(100% - 60px),
+      rgba(0, 0, 0, 0.3) calc(100% - 24px),
       rgba(0, 0, 0, 0) 100%
     );
     mask-image: linear-gradient(
       to bottom,
       #000 0%,
-      #000 calc(100% - 56px),
-      rgba(0, 0, 0, 0.85) calc(100% - 32px),
+      #000 calc(100% - 140px),
+      rgba(0, 0, 0, 0.92) calc(100% - 100px),
+      rgba(0, 0, 0, 0.7) calc(100% - 60px),
+      rgba(0, 0, 0, 0.3) calc(100% - 24px),
       rgba(0, 0, 0, 0) 100%
     );
   }
@@ -459,122 +448,85 @@
   .flood-body {
     position: absolute;
     inset: 0;
+    /* Softer, richer gradient with more tonal stops so there's no banding
+       against the wave and the depth reads like water rather than a flat
+       dark panel. */
     background:
       radial-gradient(
-        1000px 520px at 50% 35%,
-        rgba(59, 130, 246, 0.22),
-        rgba(59, 130, 246, 0) 65%
+        1200px 640px at 50% 30%,
+        rgba(56, 132, 224, 0.22),
+        rgba(56, 132, 224, 0) 70%
       ),
       radial-gradient(
-        1200px 700px at 85% 10%,
-        rgba(99, 102, 241, 0.16),
-        rgba(99, 102, 241, 0) 60%
+        1300px 820px at 85% 8%,
+        rgba(99, 102, 241, 0.14),
+        rgba(99, 102, 241, 0) 65%
       ),
-      linear-gradient(180deg, #050914 0%, #0b1324 40%, #0b1324 75%, #050914 100%);
+      radial-gradient(
+        900px 520px at 15% 85%,
+        rgba(13, 148, 136, 0.12),
+        rgba(13, 148, 136, 0) 70%
+      ),
+      linear-gradient(
+        180deg,
+        #05091a 0%,
+        #0a1528 30%,
+        #0c1a30 65%,
+        #081224 100%
+      );
   }
 
-  /* Wave crest sits straddling the bottom edge of the flood — its top half is
-     transparent (rising curves) and the lower body is the same dark tone,
-     so it reads as a fluid, textured leading edge with real motion. */
+  /* The waterline: one long, gentle wave with a faint sheen at the crest.
+     Positioned so the leading edge of the curve overlaps the mask feather;
+     the transparent crest dissolves into white instead of looking stamped. */
   .flood-wave {
     position: absolute;
-    left: -8%;
-    right: -8%;
-    width: 116%;
-    bottom: -72px;
-    height: 200px;
+    left: 0;
+    right: 0;
+    width: 200%;
+    bottom: -36px;
+    height: 150px;
     pointer-events: none;
-    filter: drop-shadow(0 -6px 20px rgba(7, 12, 28, 0.5));
+    /* Subtle ambient glow above the waterline sells "depth" without foam. */
+    filter: drop-shadow(0 -8px 24px rgba(12, 26, 48, 0.55));
   }
 
-  .wave-path {
-    fill: #0b1324;
-  }
-
-  .wave-deep {
-    opacity: 0.5;
-    fill: #020617;
+  .wave-group {
     transform-origin: center;
-    animation: wave-drift-deep 11s ease-in-out infinite alternate;
+    animation: wave-slide 18s linear infinite;
   }
 
-  .wave-mid {
-    opacity: 0.85;
-    fill: #091021;
-    animation: wave-drift-mid 7.5s ease-in-out infinite alternate;
+  .wave-fill {
+    fill: #0a1528;
   }
 
-  .wave-crest {
-    opacity: 1;
-    fill: #0b1324;
-    animation: wave-drift-crest 4.5s ease-in-out infinite alternate;
-  }
-
-  /* Foam highlights along the crest lines — bright, glowing ribbons. */
-  .wave-foam {
+  .wave-sheen {
     fill: none;
-    stroke-linecap: round;
+    stroke: url(#flood-crest-glow);
+    stroke-width: 1.25;
+    opacity: 0.85;
   }
 
-  .wave-foam-main {
-    stroke: url(#flood-foam-grad);
-    stroke-width: 2;
-    filter: drop-shadow(0 0 8px rgba(148, 197, 255, 0.6))
-            drop-shadow(0 0 18px rgba(99, 130, 255, 0.35));
-    animation: wave-drift-crest 4.5s ease-in-out infinite alternate;
+  /* Seamless horizontal phase shift: the path is drawn twice end-to-end in
+     viewBox space (0 -> 2880), so translating exactly half the width loops
+     back to the starting phase with no jump. */
+  @keyframes wave-slide {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 
-  .wave-foam-thin {
-    stroke: rgba(148, 197, 255, 0.45);
-    stroke-width: 1;
-    stroke-dasharray: 6 12;
-    filter: drop-shadow(0 0 4px rgba(148, 197, 255, 0.4));
-    animation: wave-drift-mid 7.5s ease-in-out infinite alternate;
-  }
-
-  /* Floating bubbles/droplets — texture along the wave crest. */
-  .bubbles circle {
-    fill: rgba(196, 220, 255, 0.75);
-    filter: drop-shadow(0 0 4px rgba(148, 197, 255, 0.6));
-    transform-origin: center;
-    animation: bubble-bob 6s ease-in-out infinite;
-  }
-  .bubbles circle:nth-child(2n)  { animation-duration: 7.5s; animation-delay: -1.2s; opacity: 0.85; }
-  .bubbles circle:nth-child(3n)  { animation-duration: 9s;   animation-delay: -2.4s; opacity: 0.6;  }
-  .bubbles circle:nth-child(5n)  { animation-duration: 5.5s; animation-delay: -3.1s; }
-
-  @keyframes wave-drift-deep {
-    from { transform: translate3d(-4%, 0, 0) scaleY(1); }
-    to   { transform: translate3d(4%, -3px, 0) scaleY(1.04); }
-  }
-
-  @keyframes wave-drift-mid {
-    from { transform: translate3d(3%, 0, 0) scaleY(1); }
-    to   { transform: translate3d(-3%, -5px, 0) scaleY(1.05); }
-  }
-
-  @keyframes wave-drift-crest {
-    from { transform: translate3d(-2%, 0, 0) scaleY(1); }
-    to   { transform: translate3d(2%, -7px, 0) scaleY(1.08); }
-  }
-
-  @keyframes bubble-bob {
-    0%   { transform: translate3d(0, 0, 0)    scale(1);    opacity: 0.9; }
-    50%  { transform: translate3d(2px, -4px, 0) scale(1.15); opacity: 1;   }
-    100% { transform: translate3d(-2px, 0, 0) scale(0.9);  opacity: 0.7; }
-  }
-
-  /* Hide the wave crest entirely when fully submerged — no seam inside a solid block. */
+  /* Hide the wave entirely when fully submerged, with no seam inside a solid block. */
   .fit-section.is-flooded .flood-wave {
     opacity: 0;
+    transition: opacity 0.4s ease;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .wave-deep,
-    .wave-mid,
-    .wave-crest,
-    .wave-foam,
-    .bubbles circle {
+    .wave-group {
       animation: none;
     }
     .flood {
@@ -615,7 +567,7 @@
     transition: color 0.35s ease;
   }
 
-  /* Flip header text colors once the flood has started — the title area is the
+  /* Flip header text colors once the flood has started. The title area is the
      first thing to submerge, so as soon as the wave breaks into the section we
      switch to light text for contrast. */
   .fit-section.is-flooding .fit-title,
@@ -977,8 +929,12 @@
   .rs-tag {
     font-size: 12px;
     color: #0369a1;
-    background: rgba(3,105,161,0.07);
-    border: 1px solid rgba(3,105,161,0.15);
+    background: linear-gradient(
+      135deg,
+      rgba(3, 105, 161, 0.04) 0%,
+      rgba(3, 105, 161, 0.12) 100%
+    );
+    border: 1px solid rgba(3, 105, 161, 0.15);
     border-radius: var(--radius-tile-sm);
     padding: 3px 8px;
     font-family: 'DM Mono', monospace;
@@ -991,11 +947,72 @@
   }
 
   @media (max-width: 640px) {
+    .fit-section {
+      padding: 72px 0;
+    }
+
+    .fit-header {
+      margin-bottom: 34px;
+      gap: 12px;
+    }
+
+    .fit-title {
+      font-size: clamp(26px, 8.5vw, 34px);
+    }
+
+    .fit-sub {
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+
     .form-card {
       padding: 28px 24px;
     }
     .option-grid {
       grid-template-columns: 1fr;
+    }
+
+    .result-actions {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .result-actions .btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .form-card {
+      padding: 24px 16px;
+    }
+
+    .intro-heading,
+    .q-heading,
+    .result-title {
+      font-size: 20px;
+    }
+
+    .intro-body,
+    .result-body {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .ib {
+      align-items: flex-start;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .opt,
+    .opt-row {
+      padding: 14px;
+    }
+
+    .or-label,
+    .opt-label {
+      font-size: 13px;
     }
   }
 </style>

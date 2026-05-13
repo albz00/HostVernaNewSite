@@ -30,8 +30,6 @@ export const learnDocs: LearnDocData[] = [
         body: [
           'We confirm who owns the domain, where it is registered today, and whether email or DNS depends on it. If you are not sure, we walk you through finding that in your current registrar’s panel.',
         ],
-        mediaSlots: 1,
-        mediaLabels: ['Registrar / DNS overview (your screenshot here)'],
       },
       {
         heading: 'Auth codes and unlock',
@@ -39,15 +37,12 @@ export const learnDocs: LearnDocData[] = [
           'Most transfers need the domain unlocked and an authorization code from the losing registrar. We tell you exactly what to click; you paste codes to us in a secure channel when we ask.',
           'Timing matters: some registrars add a waiting period after you request a code.',
         ],
-        mediaSlots: 2,
-        mediaLabels: ['Unlock + auth code flow', 'Our checklist for your records'],
       },
       {
         heading: 'After transfer starts',
         body: [
           'DNS can stay stable during many transfers if we plan it. We coordinate cutovers so your site and email do not disappear in the middle of the night unless you want that window.',
         ],
-        mediaSlots: 1,
       },
     ],
   },
@@ -64,8 +59,6 @@ export const learnDocs: LearnDocData[] = [
         body: [
           'A content delivery network caches copies of your assets in many places. First visit might fetch from origin; repeat visits and global traffic benefit from shorter paths and fewer round trips.',
         ],
-        mediaSlots: 1,
-        mediaLabels: ['Edge / POP diagram'],
       },
       {
         heading: 'Cloudflare Images in our stack',
@@ -73,8 +66,6 @@ export const learnDocs: LearnDocData[] = [
           'When we wire your project for Cloudflare Images, variants can be served for different layouts and densities so phones are not downloading desktop-sized originals.',
           'Exact setup depends on your plan and how your site is built; we document what we enabled for your project in handoff.',
         ],
-        mediaSlots: 2,
-        mediaLabels: ['Variant examples', 'Your real metrics (Lighthouse, etc.)'],
       },
     ],
   },

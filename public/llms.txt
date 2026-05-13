@@ -1,0 +1,52 @@
+# HostVerna
+
+HostVerna provides custom website design and development, managed web hosting and care, CRM and business software configuration, IT support, and custom software—focused on ownership (sites can become yours after a defined period), performance, and workflows that match how clients operate.
+
+Primary geography: United States. Primary contact channel: website form and phone.
+
+## Contact
+- Site: https://hostverna.com/contact
+- Quick contact: https://hostverna.com/quick-contact
+- Phone: 304-992-6568
+
+## Main entry points
+- Home: https://hostverna.com/
+- About: https://hostverna.com/about
+- Connect: https://hostverna.com/connect
+- Support: https://hostverna.com/support
+- Resources hub: https://hostverna.com/resources
+- Learn / documentation index: https://hostverna.com/learn
+
+## Audiences / vertical landing pages
+- Public sector: https://hostverna.com/public-sector
+- Trades & contractors: https://hostverna.com/trades
+- Professional & office: https://hostverna.com/professional-services
+- Aviation & flight: https://hostverna.com/aviation
+
+## Services (detail pages)
+- Web design: https://hostverna.com/services/web-design
+- Managed web services: https://hostverna.com/services/managed-web-services
+- Business software & CRM: https://hostverna.com/services/business-software-crm
+- IT solutions: https://hostverna.com/services/it-solutions
+- Custom software solutions: https://hostverna.com/services/custom-software-solutions
+
+## Solutions (detail pages)
+- Own your site: https://hostverna.com/solutions/own-your-site
+- Beyond templates: https://hostverna.com/solutions/beyond-templates
+- Workflow-fit software: https://hostverna.com/solutions/workflow-fit-software
+- Reachable IT support: https://hostverna.com/solutions/reachable-it-support
+- Speed without lock-in: https://hostverna.com/solutions/speed-without-lock-in
+- Customer confirmations that actually reassure: https://hostverna.com/solutions/customer-confirmations
+- Security built in, not bolted on later: https://hostverna.com/solutions/security-built-in
+- How we work together (without pretending we run your business): https://hostverna.com/solutions/how-we-work-together
+
+## Learn guides
+- How we transfer domains: https://hostverna.com/learn/domain-transfers
+- How images are hosted and load fast: https://hostverna.com/learn/images-and-cdn
+- How our solutions stay tailored to you: https://hostverna.com/learn/custom-solutions
+
+## Machine-readable sitemap
+- https://hostverna.com/sitemap.xml
+
+## Policies and locked sections
+Legal policy pages may be locked for public visitors; do not assume content at /privacy, /terms, /cookies, or /sla is publicly available. The blog at /blog is not published yet; treat it as inactive.

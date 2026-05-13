@@ -13,60 +13,58 @@
       value: '100+',
       label: 'Businesses Served',
       sub: '3 years and counting',
-      detail:
-        'That is around 33 businesses a year and counting, and we are growing every year.',
+      detail: 'Steady work with real business owners.',
     },
     {
       id: 'experience',
       value: '12+',
       label: 'Years Experience',
       sub: 'in digital services',
-      detail:
-        'Real years of experience: Alex earned this depth across many projects like yours.',
+      detail: 'Hands-on experience across web, tools, and support.',
     },
     {
       id: 'retention',
       value: '98%',
       label: 'Client Retention',
       sub: 'year over year',
-      detail: 'This number is real. Our customers love us and we take care of them.',
+      detail: 'Clients tend to stick with us.',
     },
     {
       id: 'response',
       value: '< 4hr',
       label: 'Support Response',
       sub: 'average time',
-      detail: 'We typically respond faster. Under four hours is the worst case.',
+      detail: 'Most replies are faster.',
     },
   ];
 
   const marqueeQuotes = [
     {
-      text: '"I called on a Saturday. I didn’t expect an answer. Someone actually picked up."',
+      text: '"I called expecting voicemail. Someone picked up and helped."',
       author: 'R. Patel',
     },
     {
-      text: '"Eight months after handoff I’m not writing another check for hosting on that site. That was the point."',
+      text: '"The ownership terms were clear from day one."',
       author: 'J. Harrow',
     },
     {
-      text: '"They walked me through the admin once. I can change hours and photos myself. I don’t have to open a ticket for every typo."',
+      text: '"I can change hours and photos myself now."',
       author: 'L. Kwan',
     },
     {
-      text: '"We had four different logins for stuff that should talk to each other. Now it’s one workflow we actually trained people on."',
+      text: '"We went from four logins to one workflow the team understands."',
       author: 'M. Torres',
     },
     {
-      text: '"I’m not technical. They didn’t talk down to me when I asked basic questions. That shouldn’t be unusual, but it was."',
+      text: '"They explained the basics without making me feel dumb."',
       author: 'A. Chen',
     },
     {
-      text: '"I was at three hundred a month for something I still didn’t feel like I owned. The arrangement now is what we agreed on on paper."',
+      text: '"The terms matched what we signed. No surprise monthly add-ons."',
       author: 'D. Ross',
     },
     {
-      text: '"When something in the CRM breaks I’m not opening a generic help desk ticket. I get a person who knows our build."',
+      text: '"When the CRM acts up, I talk to someone who knows our setup."',
       author: 'S. Okafor',
     },
   ];
@@ -325,6 +323,38 @@
     }
     .stat-item {
       padding: 20px 16px 22px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      margin-bottom: 32px;
+    }
+
+    .stat-item:nth-child(odd) {
+      border-right: 0;
+    }
+
+    .stat-item:nth-last-child(2) {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .marquee-item {
+      padding: 6px 20px;
+    }
+
+    .mq-text {
+      max-width: 72vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 </style>

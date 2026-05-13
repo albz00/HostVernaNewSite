@@ -55,6 +55,30 @@ export const audienceSegments: AudienceSegmentData[] = [
       },
     ],
   },
+  {
+    slug: 'aviation',
+    navTitle: 'Aviation & flight',
+    title: 'Aviation & flight',
+    metaTitle: 'Aviation websites and software | HostVerna',
+    lede:
+      'Charter operators, flight schools, airports, FBOs, and maintenance teams need digital tools that feel credible, current, and easy to act on. We build sites and systems for aviation businesses that cannot afford confusing information or stale first impressions.',
+    sections: [
+      {
+        heading: 'Who this fits',
+        body: [
+          'Private charters, ground schools, flight training programs, airport services, FBOs, aviation maintenance shops, and other flight-adjacent operations.',
+          'We help make services, safety signals, availability, aircraft details, forms, and contact paths easier for customers, students, pilots, and partners to understand.',
+        ],
+      },
+      {
+        heading: 'What we can build',
+        body: [
+          'Public-facing websites for charter requests, training inquiries, airport services, fleet pages, maintenance intake, and general aviation credibility.',
+          'When a basic site is not enough, we can also scope portals, CRM workflows, quote requests, scheduling paths, and internal tools that match how your operation runs.',
+        ],
+      },
+    ],
+  },
 ];
 
 const bySlug = new Map(audienceSegments.map((s) => [s.slug, s]));
