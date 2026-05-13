@@ -42,15 +42,21 @@
     </div>
 
     <figure class="process-figure">
-      <img
-        class="process-image"
-        src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/c20a0bfc-fb40-4b90-c639-5e816a73aa00/public"
-        width="1024"
-        height="341"
-        alt="Four-step HostVerna process: discovery call, clear proposal, build and launch, handoff and support"
-        loading="lazy"
-        decoding="async"
-      />
+      <picture>
+        <source
+          media="(max-width: 700px)"
+          srcset="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/79895079-829c-4848-6a7c-20b17b358a00/public"
+        />
+        <img
+          class="process-image"
+          src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/c20a0bfc-fb40-4b90-c639-5e816a73aa00/public"
+          width="1024"
+          height="341"
+          alt="Four-step HostVerna process: discovery call, clear proposal, build and launch, handoff and support"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
     </figure>
   </div>
 </section>

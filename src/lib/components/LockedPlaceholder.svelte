@@ -19,7 +19,10 @@
     <a href="/" class="logo">
       <span class="logo-host">Host</span><span class="logo-verna">Verna</span>
     </a>
-    <a href={phoneHref} class="locked-placeholder-phone">{phoneDisplay}</a>
+    <div class="locked-placeholder-contact">
+      <a href={phoneHref} class="locked-placeholder-phone">{phoneDisplay}</a>
+      <a href="mailto:info@hostverna.com" class="locked-placeholder-email">info@hostverna.com</a>
+    </div>
   </header>
 
   <main class="locked-placeholder-main">
@@ -68,7 +71,16 @@
     color: #0d9488;
   }
 
-  .locked-placeholder-phone {
+  .locked-placeholder-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px 14px;
+  }
+
+  .locked-placeholder-phone,
+  .locked-placeholder-email {
     font-size: 13px;
     font-weight: 600;
     font-family: var(--font-mono);
@@ -80,7 +92,8 @@
     transition: background 0.15s ease;
   }
 
-  .locked-placeholder-phone:hover {
+  .locked-placeholder-phone:hover,
+  .locked-placeholder-email:hover {
     background: rgba(3, 105, 161, 0.08);
   }
 

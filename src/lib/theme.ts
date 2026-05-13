@@ -1,4 +1,4 @@
-/** Mockup / preview: persisted light to dark preference */
+/** Persisted light/dark theme preference. */
 export const THEME_STORAGE_KEY = 'hv_theme_mock';
 
 export type ThemeMode = 'light' | 'dark';

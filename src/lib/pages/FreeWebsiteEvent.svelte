@@ -76,11 +76,10 @@
 
     {#if submitted}
       <div class="event-card event-card--success" role="status">
-        <div class="success-badge">Preview only</div>
-        <h2 class="event-h2">We received your application (mockup)</h2>
+        <div class="success-badge">Application received</div>
+        <h2 class="event-h2">We received your application</h2>
         <p class="event-p">
-          Nothing was sent to a server yet. This flow is a working preview so you can review fields and copy. When we go
-          live, submissions will route to our team for review.
+          Thank you for applying. Our team will review your submission and follow up if your business is selected.
         </p>
         <p class="event-p event-p--tight">
           Questions? <a href="/contact">Contact us</a> or call <a href="tel:+13049926568">304-992-6568</a>.
@@ -192,9 +191,9 @@
         </fieldset>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary btn-lg">Submit application (mockup)</button>
+          <button type="submit" class="btn btn-primary btn-lg">Submit application</button>
           <p class="form-footnote">
-            By submitting, you agree we may verify public posts. This preview does not store data on our servers.
+            By submitting, you agree we may verify public posts as part of application review.
           </p>
         </div>
       </form>

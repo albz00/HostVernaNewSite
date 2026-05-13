@@ -35,7 +35,7 @@
     <ul class="learn-list">
       {#each learnDocs as doc}
         <li class="learn-card">
-          <a href="/learn/{doc.slug}" class="learn-card-link">
+          <a href={`/learn/${doc.slug}`} class="learn-card-link">
             <span class="learn-card-title">{doc.title}</span>
             <span class="learn-card-lede">{doc.lede}</span>
           </a>

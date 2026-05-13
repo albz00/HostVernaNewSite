@@ -26,7 +26,7 @@
   <title>Quick contact | HostVerna</title>
   <meta
     name="description"
-    content="Reach out in a few fields. Mockup preview: nothing is submitted to a server yet."
+    content="Reach out in a few fields for a fast response from HostVerna."
   />
 </svelte:head>
 
@@ -42,10 +42,10 @@
 
     {#if submitted}
       <div class="qc-card qc-success" role="status">
-        <div class="qc-badge">Preview only</div>
-        <h1 class="qc-h1">Got it (mockup)</h1>
+        <div class="qc-badge">Request received</div>
+        <h1 class="qc-h1">Got it</h1>
         <p class="qc-lede">
-          Nothing was sent to a server. This page is a working preview so you can review layout and copy.
+          Thanks for reaching out. Our team will review your details and follow up shortly.
         </p>
         <p class="qc-lede qc-lede-tight">
           Prefer voice? <a href={phoneHref}>{phoneDisplay}</a>
@@ -62,7 +62,7 @@
       <header class="qc-header">
         <h1 class="qc-h1">Quick contact</h1>
         <p class="qc-lede">
-          Name, email, and phone. That is it. (Mockup: submit does not send data anywhere yet.)
+          Name, email, and phone. That is it.
         </p>
       </header>
 

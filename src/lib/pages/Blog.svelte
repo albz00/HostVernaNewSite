@@ -27,7 +27,10 @@
         This page isn’t open to visitors. When we publish articles, they’ll appear here. Questions in the meantime?
         Call or email us and we’ll point you the right way.
       </p>
-      <a href="/" class="btn btn-primary blog-cta">Return to site</a>
+      <div class="blog-actions">
+        <a href="/" class="btn btn-primary blog-cta">Return to site</a>
+        <a href="/contact" class="btn btn-secondary blog-cta">Contact</a>
+      </div>
     </div>
   </main>
 </div>
@@ -115,7 +118,15 @@
     line-height: 1.65;
   }
 
-  .blog-cta {
+  .blog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
     margin-top: 8px;
+  }
+
+  .blog-cta {
+    margin-top: 0;
   }
 </style>

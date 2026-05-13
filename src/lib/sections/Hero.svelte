@@ -502,23 +502,25 @@
       <div class="hero-proof">
         <span class="proof-label">Trusted by business owners across the US</span>
         <div class="proof-list">
-          {#each trustedPartners as p}
-            <div class="proof-partner">
-              {#if p.logo}
-                <img
-                  class="proof-logo"
-                  src={p.logo}
-                  alt={`${p.name} logo`}
-                  width="176"
-                  height="52"
-                  loading="lazy"
-                  decoding="async"
-                />
-              {:else}
-                <span class="proof-brand">{p.name}</span>
-              {/if}
-            </div>
-          {/each}
+          <div class="proof-track">
+            {#each trustedPartners as p}
+              <div class="proof-partner">
+                {#if p.logo}
+                  <img
+                    class="proof-logo"
+                    src={p.logo}
+                    alt={`${p.name} logo`}
+                    width="176"
+                    height="52"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                {:else}
+                  <span class="proof-brand">{p.name}</span>
+                {/if}
+              </div>
+            {/each}
+          </div>
         </div>
       </div>
     </div>
@@ -527,7 +529,7 @@
   <div class="container">
     <div class="hero-visual-row">
       <div class="hero-mock-stack">
-      <div class="hero-mockup" aria-label="Site showcase preview">
+      <div class="hero-mockup" aria-label="Site showcase">
         <div class="mockup-bar">
           <div class="browser-controls" aria-hidden="true">
             <button class="browser-btn" type="button" tabindex="-1" disabled>
@@ -1096,6 +1098,10 @@
     .hero-portrait-img {
       animation: none;
     }
+
+    .proof-track {
+      animation: none !important;
+    }
   }
 
   .hero-portrait-img {
@@ -1190,6 +1196,10 @@
   }
 
   .proof-list {
+    width: 100%;
+  }
+
+  .proof-track {
     display: flex;
     gap: clamp(20px, 4vw, 36px);
     flex-wrap: wrap;
@@ -1202,6 +1212,7 @@
     align-items: center;
     justify-content: center;
     min-height: 46px;
+    flex-shrink: 0;
   }
 
   .proof-logo {
@@ -2602,6 +2613,16 @@
     96%, 100% { opacity: 0; transform: translateY(-2px) scale(0.98); }
   }
 
+  /* Mobile partner logos: single-row horizontal drift without duplicated items */
+  @keyframes proof-drift {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-40%);
+    }
+  }
+
   @media (max-width: 760px) {
     .hero {
       padding-top: calc(110px + var(--hv-promo-h));
@@ -2650,11 +2671,23 @@
     }
 
     .proof-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px 18px;
-      width: 100%;
-      max-width: 360px;
+      overflow-x: hidden;
+      overflow-y: visible;
+      max-width: none;
+      margin-inline: 0;
+      padding-block: 2px;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .proof-track {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 28px;
+      width: max-content;
+      animation: proof-drift 18s ease-in-out infinite alternate;
+      will-change: transform;
     }
 
     .proof-logo {
@@ -2677,6 +2710,15 @@
 
     .reel-annot {
       display: none;
+    }
+  }
+
+  @media (max-width: 760px) and (prefers-reduced-motion: reduce) {
+    .proof-list {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      mask-image: none;
+      -webkit-mask-image: none;
     }
   }
 

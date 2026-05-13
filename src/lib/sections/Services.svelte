@@ -23,6 +23,7 @@
   const services = [
     {
       title: 'Website Design & Development',
+      learnMoreHref: '/services/web-design',
       galleryId: 'web-design' as const,
       galleryUrls: webDesignGalleryUrls,
       galleryLabel: 'Rotating website design examples',
@@ -35,6 +36,7 @@
     },
     {
       title: 'Business Software & Tools',
+      learnMoreHref: '/services/custom-software-solutions',
       galleryId: 'business-software' as const,
       galleryUrls: businessSoftwareGalleryUrls,
       galleryLabel: 'Rotating business software examples',
@@ -47,6 +49,7 @@
     },
     {
       title: 'CRM & Client Management',
+      learnMoreHref: '/services/business-software-crm',
       visualUrl:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/858fe79c-7a72-4f46-2a6a-ad20c0374e00/public',
       visualLabel: 'CRM workflow automation example',
@@ -59,6 +62,7 @@
     },
     {
       title: 'Managed IT Support',
+      learnMoreHref: '/services/it-solutions',
       visualUrl:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a01968f3-730e-4a92-27aa-8b9eb15c0100/public',
       visualLabel: 'IT collaboration and support',
@@ -202,7 +206,7 @@
               <p class="quote-text">{svc.quote}</p>
               <cite class="quote-cite">{svc.quoteName}</cite>
             </blockquote>
-            <a href="/contact" class="btn btn-outline-primary" style="align-self:flex-start; margin-top: 8px;">
+            <a href={svc.learnMoreHref} class="btn btn-outline-primary" style="align-self:flex-start; margin-top: 8px;">
               Learn more
             </a>
           </div>

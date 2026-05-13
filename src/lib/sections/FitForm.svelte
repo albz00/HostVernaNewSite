@@ -16,11 +16,86 @@
   let fit: Fit = 'great';
   let animating = false;
 
-  // Scroll-linked "flood": dark gradient pours down from the top of the section as you scroll,
-  // with an animated wave crest at its leading edge.
+  // Scroll-linked "flood": gradient and generated code rows pour down from the top
+  // of the section as you scroll.
   let sectionEl: HTMLElement | null = null;
   let floodProgress = 0; // 0..1, how filled the section is
   let rafId: number | null = null;
+
+  type CodeRow = {
+    id: number;
+    yPx: number;
+    fontSize: number;
+    spawn: number;
+    alpha: number;
+    tone: 0 | 1 | 2;
+    content: string;
+    chars: number;
+    typeDuration: number;
+    typeDelay: number;
+  };
+
+  const fract = (n: number) => n - Math.floor(n);
+  const noise = (seed: number) => fract(Math.sin(seed * 12.9898) * 43758.5453);
+  const pick = <T,>(list: T[], seed: number): T => list[Math.floor(noise(seed) * list.length) % list.length];
+
+  // Valid TS/Svelte lines so the stream reads like real code, not gibberish.
+  const codeSnippets = [
+    "import { onMount, onDestroy } from 'svelte';",
+    "import { markInlineFitEngaged } from '../fitQualifierStorage';",
+    'let floodProgress = 0;',
+    'let rafId: number | null = null;',
+    "type Step = 'intro' | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'result';",
+    "type Fit = 'great' | 'maybe' | 'no';",
+    'const rect = sectionEl.getBoundingClientRect();',
+    'const vh = window.innerHeight || 1;',
+    'const denom = rect.height + vh;',
+    'const raw = denom > 0 ? (vh - rect.top) / denom : 0;',
+    'const c = Math.max(0, Math.min(1, raw));',
+    'floodProgress = c * c * (3 - 2 * c);',
+    "window.addEventListener('scroll', onScroll, { passive: true });",
+    "window.addEventListener('resize', onScroll);",
+    "window.removeEventListener('scroll', onScroll);",
+    "window.removeEventListener('resize', onScroll);",
+    "if (rafId != null) cancelAnimationFrame(rafId);",
+    "if (step === 'intro' && nextStep !== 'intro') { markInlineFitEngaged(); }",
+    'if (key && value) answers[key] = value;',
+    "if (type === 'heavy-inventory') { fit = 'no'; }",
+    "else if (mindset === 'risk') { fit = 'no'; }",
+    "else if (software === 'yes') { fit = 'great'; }",
+    "else { fit = 'maybe'; }",
+    "const resultCopy: Record<Fit, { title: string; sub: string; cta: string; ctaLabel: string }> = {",
+    "  great: { title: \"You're exactly who we built this for.\", cta: '/contact', ctaLabel: 'Book a Free Call' },",
+    "  maybe: { title: \"We might be a fit. Let's find out.\", cta: '/contact', ctaLabel: 'Talk to Us First' },",
+    "  no: { title: \"We're probably not the right call right now.\", cta: '/about', ctaLabel: 'Learn What We Do' },",
+    '};',
+  ];
+
+  function makeCodeRow(seed: number): string {
+    const partCount = 2 + Math.floor(noise(seed + 9) * 2);
+    const parts: string[] = [];
+    for (let i = 0; i < partCount; i += 1) {
+      parts.push(pick(codeSnippets, seed + i * 7 + 3));
+    }
+    return parts.join('   ');
+  }
+
+  const codeRows: CodeRow[] = Array.from({ length: 22 }, (_, i) => {
+    const lane = 42 + i * 52;
+    const yPx = Math.round(Math.max(22, lane + (noise(i + 1) - 0.5) * 8));
+    return {
+      id: i,
+      yPx,
+      fontSize: 11 + Math.round(noise(i + 13) * 3),
+      spawn: Math.max(0.02, Math.min(0.96, i / 21 - 0.08 + (noise(i + 31) - 0.5) * 0.04)),
+      alpha: 0.16 + noise(i + 37) * 0.2,
+      tone: Math.floor(noise(i + 41) * 3) as 0 | 1 | 2,
+      content: makeCodeRow(i + 53),
+      chars: 44 + Math.floor(noise(i + 47) * 34),
+      typeDuration: 4.4 + noise(i + 59) * 3.2,
+      typeDelay: noise(i + 61) * 2.6,
+    };
+  });
 
   function updateFlood() {
     rafId = null;
@@ -28,11 +103,11 @@
     const rect = sectionEl.getBoundingClientRect();
     const vh = window.innerHeight || 1;
     // Stretch the flood across the section's full scroll traversal so there's real
-    // runway for the wave to crash through. The user reaches halfway through the
-    // section with the wave still actively mid-fall.
+    // runway for the flood to travel through. The user reaches halfway through
+    // the section with the effect still actively mid-fall.
     //   rect.top = vh       (section just entered bottom)  -> progress 0 (pure white)
     //   rect.top = 0        (section fully in view)        -> progress ~ vh / (H + vh)
-    //   rect.bottom = 0     (section fully scrolled past)  -> progress 1 (fully flooded)
+    //   rect.bottom = 0     (section fully scrolled past)  -> progress 1
     const denom = rect.height + vh;
     const raw = denom > 0 ? (vh - rect.top) / denom : 0;
     const c = Math.max(0, Math.min(1, raw));
@@ -140,46 +215,34 @@
   style="--flood: {floodProgress}"
 >
   <div class="flood" aria-hidden="true">
-    <div class="flood-body"></div>
-    <!-- Single, gentle waterline. One long curve with a slow, seamless phase
-         shift. A soft highlight band sits on top to give the edge a sheen
-         without piling on multiple competing animations. -->
-    <svg
-      class="flood-wave"
-      viewBox="0 0 1440 180"
-      preserveAspectRatio="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient id="flood-crest-glow" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(186, 216, 255, 0)" />
-          <stop offset="35%" stop-color="rgba(186, 216, 255, 0.42)" />
-          <stop offset="100%" stop-color="rgba(186, 216, 255, 0)" />
-        </linearGradient>
-      </defs>
-
-      <!-- Long, low-amplitude single wave. Drawn twice end-to-end so the
-           phase shift animation can loop seamlessly across its full width. -->
-      <g class="wave-group">
-        <path
-          class="wave-fill"
-          d="M0,80
-             C240,56 480,104 720,80
-             C960,56 1200,104 1440,80
-             C1680,56 1920,104 2160,80
-             C2400,56 2640,104 2880,80
-             L2880,180 L0,180 Z"
-        />
-        <path
-          class="wave-sheen"
-          d="M0,80
-             C240,56 480,104 720,80
-             C960,56 1200,104 1440,80
-             C1680,56 1920,104 2160,80
-             C2400,56 2640,104 2880,80"
-        />
-      </g>
-    </svg>
+    <div class="flood-body">
+      <div class="code-screen">
+        <div class="code-field">
+          {#each codeRows as row (row.id)}
+            <div
+              class="code-row code-tone-{row.tone}"
+              style="
+                --y: {row.yPx}px;
+                --font-size: {row.fontSize}px;
+                --spawn: {row.spawn};
+                --row-alpha: {row.alpha};
+              "
+            >
+              <span
+                class="code-track"
+                style="
+                  --chars: {row.chars};
+                  --type-duration: {row.typeDuration}s;
+                  --type-delay: {row.typeDelay}s;
+                "
+              >
+                {row.content}
+              </span>
+            </div>
+          {/each}
+        </div>
+      </div>
+    </div>
   </div>
   <div class="container">
     <div class="fit-header">
@@ -408,7 +471,7 @@
     isolation: isolate;
   }
 
-  /* ----- Scroll-driven flood + wave crest ----- */
+  /* ----- Scroll-driven flood + generated code rows ----- */
 
   .flood {
     position: absolute;
@@ -422,25 +485,24 @@
     /* Slightly longer transition smooths out the scroll-driven growth so
        the leading edge never strobes when frames arrive close together. */
     transition: height 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    /* Generous feather at the leading edge; the wave itself supplies the
-       shape; the mask just eases the dark tone into the white below it so
-       there's never a hard horizontal seam as the flood grows. */
+    /* Generous feather at the leading edge eases dark tone into white below it
+       so there is never a hard horizontal seam as the flood grows. */
     -webkit-mask-image: linear-gradient(
       to bottom,
       #000 0%,
-      #000 calc(100% - 140px),
-      rgba(0, 0, 0, 0.92) calc(100% - 100px),
-      rgba(0, 0, 0, 0.7) calc(100% - 60px),
-      rgba(0, 0, 0, 0.3) calc(100% - 24px),
+      #000 calc(100% - 124px),
+      rgba(0, 0, 0, 0.9) calc(100% - 88px),
+      rgba(0, 0, 0, 0.68) calc(100% - 54px),
+      rgba(0, 0, 0, 0.3) calc(100% - 22px),
       rgba(0, 0, 0, 0) 100%
     );
     mask-image: linear-gradient(
       to bottom,
       #000 0%,
-      #000 calc(100% - 140px),
-      rgba(0, 0, 0, 0.92) calc(100% - 100px),
-      rgba(0, 0, 0, 0.7) calc(100% - 60px),
-      rgba(0, 0, 0, 0.3) calc(100% - 24px),
+      #000 calc(100% - 124px),
+      rgba(0, 0, 0, 0.9) calc(100% - 88px),
+      rgba(0, 0, 0, 0.68) calc(100% - 54px),
+      rgba(0, 0, 0, 0.3) calc(100% - 22px),
       rgba(0, 0, 0, 0) 100%
     );
   }
@@ -448,86 +510,149 @@
   .flood-body {
     position: absolute;
     inset: 0;
-    /* Softer, richer gradient with more tonal stops so there's no banding
-       against the wave and the depth reads like water rather than a flat
-       dark panel. */
-    background:
-      radial-gradient(
-        1200px 640px at 50% 30%,
-        rgba(56, 132, 224, 0.22),
-        rgba(56, 132, 224, 0) 70%
-      ),
-      radial-gradient(
-        1300px 820px at 85% 8%,
-        rgba(99, 102, 241, 0.14),
-        rgba(99, 102, 241, 0) 65%
-      ),
-      radial-gradient(
-        900px 520px at 15% 85%,
-        rgba(13, 148, 136, 0.12),
-        rgba(13, 148, 136, 0) 70%
-      ),
-      linear-gradient(
-        180deg,
-        #05091a 0%,
-        #0a1528 30%,
-        #0c1a30 65%,
-        #081224 100%
-      );
+    overflow: hidden;
+    background: #061933;
   }
 
-  /* The waterline: one long, gentle wave with a faint sheen at the crest.
-     Positioned so the leading edge of the curve overlaps the mask feather;
-     the transparent crest dissolves into white instead of looking stamped. */
-  .flood-wave {
+  .flood-body::before {
+    content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    width: 200%;
-    bottom: -36px;
-    height: 150px;
+    inset: 0;
+    background:
+      radial-gradient(1200px 540px at 50% -12%, rgba(56, 189, 248, 0.1), rgba(56, 189, 248, 0) 68%),
+      radial-gradient(1100px 680px at 50% 116%, rgba(2, 6, 23, 0.55), rgba(2, 6, 23, 0) 70%);
     pointer-events: none;
-    /* Subtle ambient glow above the waterline sells "depth" without foam. */
-    filter: drop-shadow(0 -8px 24px rgba(12, 26, 48, 0.55));
   }
 
-  .wave-group {
-    transform-origin: center;
-    animation: wave-slide 18s linear infinite;
+  .code-screen {
+    position: absolute;
+    inset: 6% 4.5% 5%;
+    border-radius: 40px / 30px;
+    border: 1px solid rgba(148, 196, 255, 0.3);
+    background:
+      radial-gradient(130% 92% at 50% 0%, rgba(125, 211, 252, 0.12), rgba(125, 211, 252, 0) 60%),
+      rgba(2, 12, 26, 0.56);
+    box-shadow:
+      0 18px 48px -24px rgba(2, 6, 23, 0.9),
+      inset 0 0 0 1px rgba(226, 232, 240, 0.06),
+      inset 0 -24px 60px rgba(2, 6, 23, 0.34);
+    overflow: hidden;
+    transform: perspective(1200px) rotateX(3deg) scale(1.015);
+    transform-origin: center top;
+    pointer-events: none;
   }
 
-  .wave-fill {
-    fill: #0a1528;
+  .code-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(78% 60% at 16% 0%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 56%),
+      linear-gradient(118deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 38%);
+    mix-blend-mode: screen;
+    opacity: 0.4;
+    pointer-events: none;
   }
 
-  .wave-sheen {
-    fill: none;
-    stroke: url(#flood-crest-glow);
-    stroke-width: 1.25;
-    opacity: 0.85;
+  .code-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(130% 100% at 50% 50%, rgba(255, 255, 255, 0) 42%, rgba(2, 6, 23, 0.42) 100%),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(148, 163, 184, 0.055) 0px,
+        rgba(148, 163, 184, 0.055) 1px,
+        rgba(148, 163, 184, 0) 3px,
+        rgba(148, 163, 184, 0) 4px
+      );
+    pointer-events: none;
   }
 
-  /* Seamless horizontal phase shift: the path is drawn twice end-to-end in
-     viewBox space (0 -> 2880), so translating exactly half the width loops
-     back to the starting phase with no jump. */
-  @keyframes wave-slide {
-    from {
-      transform: translateX(0);
+  .code-field {
+    position: absolute;
+    inset: 5.5% 4.6% 7%;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: 30px / 22px;
+    transform: perspective(900px) rotateX(1.2deg) scale(1.008);
+    transform-origin: center top;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.95) 7%,
+      #000 50%,
+      rgba(0, 0, 0, 0.95) 93%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.95) 7%,
+      #000 50%,
+      rgba(0, 0, 0, 0.95) 93%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .code-row {
+    position: absolute;
+    left: 3%;
+    width: 94%;
+    top: var(--y);
+    font-family: 'DM Mono', monospace;
+    font-size: var(--font-size);
+    line-height: 1;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    opacity: clamp(0, calc((var(--flood, 0) - var(--spawn, 0)) * 3.8 + var(--row-alpha, 0.15)), 0.55);
+    transform: translateY(calc((1 - var(--flood, 0)) * 42px));
+  }
+
+  .code-track {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    border-right: 1px solid currentColor;
+    text-overflow: clip;
+    text-shadow: 0 0 8px rgba(147, 197, 253, 0.2);
+    animation: code-type var(--type-duration) steps(var(--chars), end) infinite;
+    animation-delay: var(--type-delay);
+    will-change: width;
+  }
+
+  .code-tone-0 {
+    color: rgba(240, 249, 255, 0.72);
+  }
+
+  .code-tone-1 {
+    color: rgba(236, 254, 255, 0.68);
+  }
+
+  .code-tone-2 {
+    color: rgba(207, 250, 254, 0.66);
+  }
+
+  @keyframes code-type {
+    0%,
+    8% {
+      width: 0ch;
     }
-    to {
-      transform: translateX(-50%);
+    56%,
+    82% {
+      width: calc(var(--chars) * 1ch);
     }
-  }
-
-  /* Hide the wave entirely when fully submerged, with no seam inside a solid block. */
-  .fit-section.is-flooded .flood-wave {
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    100% {
+      width: 0ch;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .wave-group {
+    .code-track {
       animation: none;
+      width: 72%;
+      border-right: 0;
     }
     .flood {
       transition: none;
@@ -568,7 +693,7 @@
   }
 
   /* Flip header text colors once the flood has started. The title area is the
-     first thing to submerge, so as soon as the wave breaks into the section we
+     first thing to submerge, so as soon as the flood enters the section we
      switch to light text for contrast. */
   .fit-section.is-flooding .fit-title,
   .fit-section.is-flooded .fit-title {
@@ -583,7 +708,7 @@
 
   .fit-section.is-flooding .fit-title :global(.gradient-text),
   .fit-section.is-flooded .fit-title :global(.gradient-text) {
-    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+    background: var(--gradient-text);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -928,13 +1053,13 @@
 
   .rs-tag {
     font-size: 12px;
-    color: #0369a1;
+    color: #0b7285;
     background: linear-gradient(
       135deg,
-      rgba(3, 105, 161, 0.04) 0%,
-      rgba(3, 105, 161, 0.12) 100%
+      rgba(3, 105, 161, 0.08) 0%,
+      rgba(13, 148, 136, 0.12) 100%
     );
-    border: 1px solid rgba(3, 105, 161, 0.15);
+    border: 1px solid rgba(13, 148, 136, 0.2);
     border-radius: var(--radius-tile-sm);
     padding: 3px 8px;
     font-family: 'DM Mono', monospace;

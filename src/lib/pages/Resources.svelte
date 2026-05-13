@@ -33,7 +33,7 @@
       <a href="/blog" class="res-tile">
         <span class="res-tile-label">Blog</span>
         <span class="res-tile-title">Ideas &amp; updates</span>
-        <span class="res-tile-desc">Notes from the shop: mockup for now, real posts soon.</span>
+        <span class="res-tile-desc">Notes from the shop on builds, performance, and practical growth.</span>
       </a>
       <a href="/learn" class="res-tile">
         <span class="res-tile-label">Learn</span>
@@ -47,7 +47,7 @@
       <ul class="res-doc-list">
         {#each learnDocs as doc}
           <li>
-            <a href="/learn/{doc.slug}" class="res-doc-link">{doc.title}</a>
+            <a href={`/learn/${doc.slug}`} class="res-doc-link">{doc.title}</a>
           </li>
         {/each}
       </ul>

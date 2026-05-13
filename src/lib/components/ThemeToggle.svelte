@@ -22,7 +22,7 @@
   role="switch"
   aria-checked={mode === 'dark'}
   aria-label={mode === 'dark' ? 'Use light mode' : 'Use dark mode'}
-  title="Mockup: theme preview"
+  title="Toggle theme"
 >
   <span class="theme-toggle-track" aria-hidden="true"></span>
   <span class="theme-ico theme-ico-sun" aria-hidden="true">
