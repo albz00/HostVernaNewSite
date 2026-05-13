@@ -96,8 +96,17 @@ function buildFullEmailBody(fields: {
 export async function onRequestPost(context: PagesContext): Promise<Response> {
   const { request, env } = context;
 
-  if (!env.resend_api_key || !env.turnstile_secret_key) {
-    return json({ ok: false, error: 'Server not configured for contact delivery.' }, 503);
+  const missing: string[] = [];
+  if (!env.resend_api_key) missing.push('resend_api_key');
+  if (!env.turnstile_secret_key) missing.push('turnstile_secret_key');
+  if (missing.length > 0) {
+    return json(
+      {
+        ok: false,
+        error: `Server not configured for contact delivery. Missing: ${missing.join(', ')}`,
+      },
+      503,
+    );
   }
 
   let payload: Record<string, unknown>;
