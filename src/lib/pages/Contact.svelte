@@ -2,7 +2,7 @@
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
   import TurnstileBox from '../components/TurnstileBox.svelte';
-  import { postContactJson } from '../contactConfig';
+  import { postContactJson, snapshotContactClientMeta } from '../contactConfig';
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
@@ -36,6 +36,8 @@
   let turnstileToken = '';
   let sending = false;
   let submitError = '';
+  /** Set when the visitor leaves the intro and starts the guided steps (for internal time-on-form stats). */
+  let formStartedAtMs = 0;
 
   const needOptions = [
     { id: 'website', label: 'Website design or redesign', sub: 'Custom site, launch, or overhaul' },
@@ -167,6 +169,7 @@
       budget: budgetLabel(budget),
       advertiseOnSite,
       details: details.trim(),
+      clientMeta: snapshotContactClientMeta(formStartedAtMs),
     });
     sending = false;
     if (result.ok) {
@@ -216,7 +219,13 @@
             <li><span class="ib-dot"></span> You can still call <a href={phoneHref}>{phoneDisplay}</a> if you prefer voice</li>
             <li><span class="ib-dot"></span> At the end you send securely through the site (no mail client required)</li>
           </ul>
-          <button type="button" class="btn btn-primary btn-lg" on:click={() => advance('contact')}>Start the form</button>
+          <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            on:click={() => {
+              formStartedAtMs = Date.now();
+              advance('contact');
+            }}>Start the form</button>
         </div>
       {:else if step === 'contact'}
         <div class="form-card">

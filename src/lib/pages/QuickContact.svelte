@@ -2,7 +2,7 @@
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
   import TurnstileBox from '../components/TurnstileBox.svelte';
-  import { postContactJson } from '../contactConfig';
+  import { postContactJson, snapshotContactClientMeta } from '../contactConfig';
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
@@ -34,6 +34,7 @@
       name: name.trim(),
       email: email.trim(),
       phone: phone.trim(),
+      clientMeta: snapshotContactClientMeta(),
     });
     sending = false;
     if (result.ok) {
