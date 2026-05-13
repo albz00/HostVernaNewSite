@@ -119,7 +119,7 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
   }
 
   const kind = trimStr(payload.kind, 20);
-  const to = (env.contact_to?.trim() || 'info@hostverna.com').slice(0, 320);
+  const to = (env.contact_to?.trim() || 'info@hostverna.co').slice(0, 320);
   const from = (env.resend_from?.trim() || 'HostVerna <info@hostverna.co>').slice(0, 320);
 
   if (kind === 'quick') {
