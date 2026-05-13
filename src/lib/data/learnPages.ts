@@ -112,8 +112,10 @@ export function getLearnDoc(slug: string): LearnDocData | undefined {
 /** Resources dropdown: overview, blog, documentation hub, then each guide. */
 export const resourcesNavItems: { title: string; href: string }[] = [
   { title: 'Overview', href: '/resources' },
+  { title: 'FAQ', href: '/faq' },
   { title: 'Blog', href: '/blog' },
   { title: 'Documentation', href: '/learn' },
+  { title: 'Greenbrier County, WV', href: '/greenbrier-county-wv' },
   ...learnDocs.map((d) => ({
     title: d.navTitle,
     href: `/learn/${d.slug}`,

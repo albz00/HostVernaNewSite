@@ -10,19 +10,34 @@
   let menuToggleLabel = 'OPEN';
   let labelAnimToken = 0;
   let prefersReducedMotion = false;
+  let communityBannerVisible = true;
   let navInnerElement: HTMLElement;
   let mobileMenuMaxHeight = 'calc(100dvh - 88px - env(safe-area-inset-bottom))';
+  const MOBILE_BREAKPOINT = 900;
 
   const navLinksRest = [
     { label: 'About', href: '/about' },
+    { label: 'Careers', href: '/careers' },
     { label: 'Case Studies', href: '/#case-studies' },
   ];
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
   const howWeWorkTogetherHref = '/solutions/how-we-work-together';
+  const communityBannerStorageKey = 'hostverna-community-banner-dismissed';
 
   const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+  function setDocumentMenuState(open: boolean) {
+    if (typeof document === 'undefined') return;
+
+    if (open) {
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+
+    document.body.style.removeProperty('overflow');
+  }
 
   function updateMobileMenuHeight() {
     if (typeof window === 'undefined' || !navInnerElement) return;
@@ -58,6 +73,7 @@
   function onMobileToggleClick() {
     const next = !mobileOpen;
     mobileOpen = next;
+    setDocumentMenuState(next);
     if (next) {
       void tick().then(updateMobileMenuHeight);
     }
@@ -69,7 +85,10 @@
   }
 
   function closeMobileMenu() {
+    if (!mobileOpen) return;
+
     mobileOpen = false;
+    setDocumentMenuState(false);
     if (prefersReducedMotion) {
       menuToggleLabel = 'OPEN';
       return;
@@ -77,8 +96,28 @@
     void playLabelTransition('OPEN');
   }
 
+  function setCommunityBannerOffset(visible: boolean) {
+    if (typeof document === 'undefined') return;
+
+    if (visible) {
+      document.documentElement.style.removeProperty('--hv-promo-h');
+      return;
+    }
+
+    document.documentElement.style.setProperty('--hv-promo-h', '0px');
+  }
+
+  function dismissCommunityBanner() {
+    communityBannerVisible = false;
+    setCommunityBannerOffset(false);
+    window.localStorage.setItem(communityBannerStorageKey, 'true');
+  }
+
   onMount(() => {
     prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    communityBannerVisible = window.localStorage.getItem(communityBannerStorageKey) !== 'true';
+    setCommunityBannerOffset(communityBannerVisible);
+    setDocumentMenuState(mobileOpen);
 
     const handler = () => {
       scrolled = window.scrollY > 24;
@@ -87,18 +126,30 @@
       }
     };
     const resizeHandler = () => {
+      if (window.innerWidth > MOBILE_BREAKPOINT && mobileOpen) {
+        closeMobileMenu();
+        return;
+      }
       if (mobileOpen) updateMobileMenuHeight();
+    };
+    const keydownHandler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && mobileOpen) {
+        closeMobileMenu();
+      }
     };
 
     handler();
     window.addEventListener('scroll', handler, { passive: true });
     window.addEventListener('resize', resizeHandler, { passive: true });
+    window.addEventListener('keydown', keydownHandler);
     window.visualViewport?.addEventListener('resize', resizeHandler, { passive: true });
     window.visualViewport?.addEventListener('scroll', resizeHandler, { passive: true });
 
     return () => {
+      setDocumentMenuState(false);
       window.removeEventListener('scroll', handler);
       window.removeEventListener('resize', resizeHandler);
+      window.removeEventListener('keydown', keydownHandler);
       window.visualViewport?.removeEventListener('resize', resizeHandler);
       window.visualViewport?.removeEventListener('scroll', resizeHandler);
     };
@@ -328,9 +379,40 @@
       </div>
     {/if}
   </nav>
+
+  {#if communityBannerVisible}
+    <aside class="community-banner" aria-label="Community update">
+      <div class="community-banner__content">
+        <span class="community-banner__label">Update</span>
+        <span class="community-banner__text">
+          As of 5/13/2026: working on the Elevation Aviation website, demos, and launch updates.
+        </span>
+        <a
+          class="community-banner__link"
+          href="https://elevationaviation.pages.dev/#/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          View preview
+        </a>
+      </div>
+      <button
+        type="button"
+        class="community-banner__close"
+        aria-label="Dismiss community update"
+        on:click={dismissCommunityBanner}
+      >
+        X
+      </button>
+    </aside>
+  {/if}
 </header>
 
 <style>
+  :global(:root) {
+    --hv-promo-h: 34px;
+  }
+
   .nav-wrapper {
     position: fixed;
     top: 0;
@@ -437,6 +519,89 @@
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.65) inset,
       0 10px 36px rgba(15, 23, 42, 0.11);
+  }
+
+  .community-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1200px;
+    min-height: 28px;
+    margin: 5px auto 0;
+    padding: 4px 8px 4px 14px;
+    color: rgba(71, 85, 105, 0.86);
+    background: linear-gradient(90deg, rgba(248, 250, 252, 0.76), rgba(236, 253, 245, 0.62));
+    border-top: 1px solid rgba(203, 213, 225, 0.48);
+    border-bottom: 1px solid rgba(203, 213, 225, 0.5);
+    font-size: 12px;
+    line-height: 1.35;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .community-banner__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .community-banner__label {
+    flex-shrink: 0;
+    color: rgba(3, 105, 161, 0.72);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .community-banner__text {
+    min-width: 0;
+  }
+
+  .community-banner__link {
+    flex-shrink: 0;
+    color: rgba(3, 105, 161, 0.8);
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .community-banner__link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+  }
+
+  .community-banner__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin: -2px 0;
+    border: none;
+    border-radius: var(--radius-tile-sm);
+    color: rgba(71, 85, 105, 0.58);
+    background: transparent;
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .community-banner__close:hover {
+    color: var(--text-secondary);
+    background: rgba(15, 23, 42, 0.05);
+  }
+
+  .community-banner__close:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
   }
 
   .nav-inner {
@@ -918,6 +1083,10 @@
   }
 
   @media (max-width: 900px) {
+    :global(:root) {
+      --hv-promo-h: 46px;
+    }
+
     .nav-links {
       display: none;
     }
@@ -937,9 +1106,26 @@
     .mobile-toggle {
       display: flex;
     }
+
+    .community-banner {
+      gap: 8px;
+      min-height: 38px;
+      margin-top: 5px;
+      padding: 5px 7px 5px 10px;
+      font-size: 11.5px;
+    }
+
+    .community-banner__content {
+      flex-wrap: wrap;
+      gap: 4px 8px;
+    }
   }
 
   @media (max-width: 600px) {
+    :global(:root) {
+      --hv-promo-h: 56px;
+    }
+
     .nav-wrapper {
       padding: 12px 12px;
     }
@@ -956,6 +1142,16 @@
       padding-left: 12px;
       padding-right: 12px;
       max-height: calc(100dvh - 80px - env(safe-area-inset-bottom));
+    }
+
+    .community-banner {
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .community-banner__content {
+      justify-content: flex-start;
     }
   }
 
@@ -978,6 +1174,27 @@
   :global([data-theme='dark']) .nav-bar.scrolled {
     background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
     border-color: rgba(51, 65, 85, 0.65);
+  }
+
+  :global([data-theme='dark']) .community-banner {
+    color: rgba(203, 213, 225, 0.82);
+    background: linear-gradient(90deg, rgba(15, 23, 42, 0.72), rgba(19, 78, 74, 0.34));
+    border-top-color: rgba(71, 85, 105, 0.58);
+    border-bottom-color: rgba(71, 85, 105, 0.5);
+  }
+
+  :global([data-theme='dark']) .community-banner__label,
+  :global([data-theme='dark']) .community-banner__link {
+    color: rgba(125, 211, 252, 0.82);
+  }
+
+  :global([data-theme='dark']) .community-banner__close {
+    color: rgba(203, 213, 225, 0.56);
+  }
+
+  :global([data-theme='dark']) .community-banner__close:hover {
+    color: var(--text-primary);
+    background: rgba(226, 232, 240, 0.08);
   }
 
   :global([data-theme='dark']) .nav-utility {

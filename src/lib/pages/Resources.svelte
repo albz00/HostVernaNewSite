@@ -40,6 +40,13 @@
         <span class="res-tile-title">Documentation</span>
         <span class="res-tile-desc">Domains, images &amp; CDN, and how solutions stay tailored to you.</span>
       </a>
+      <a href="/greenbrier-county-wv" class="res-tile res-tile--wide">
+        <span class="res-tile-label">Local</span>
+        <span class="res-tile-title">Greenbrier County, WV</span>
+        <span class="res-tile-desc"
+          >Areas we serve in the county and how local businesses can request a line on this community page.</span
+        >
+      </a>
     </div>
 
     <section class="res-docs">
@@ -127,9 +134,17 @@
     margin-bottom: 44px;
   }
 
+  .res-tile--wide {
+    grid-column: 1 / -1;
+  }
+
   @media (max-width: 560px) {
     .res-grid {
       grid-template-columns: 1fr;
+    }
+
+    .res-tile--wide {
+      grid-column: auto;
     }
   }
 

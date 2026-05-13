@@ -81,6 +81,7 @@ Primary geography: United States. Primary contact channel: website form and phon
 - Connect: ${SITE_ORIGIN}/connect
 - Support: ${SITE_ORIGIN}/support
 - Resources hub: ${SITE_ORIGIN}/resources
+- Greenbrier County, WV (local resource): ${SITE_ORIGIN}/greenbrier-county-wv
 - Learn / documentation index: ${SITE_ORIGIN}/learn
 
 ## Audiences / vertical landing pages

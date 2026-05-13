@@ -10,16 +10,17 @@
     Company: [
       { label: 'About Us', href: '/about' },
       { label: 'Our Process', href: '/#use-cases' },
-      { label: 'Careers', href: '/contact' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Blog', href: '/blog' },
       { label: 'Press', href: '/contact' },
     ],
     Resources: [
       { label: 'Resources hub', href: '/resources' },
+      { label: 'Greenbrier County, WV', href: '/greenbrier-county-wv' },
       { label: 'Connect', href: '/connect' },
       { label: 'Case Studies', href: '/#case-studies' },
       { label: 'Documentation', href: '/learn' },
-      { label: 'FAQ', href: '/contact' },
+      { label: 'FAQ', href: '/faq' },
       { label: 'Status', href: '/contact' },
       { label: 'Contact', href: '/contact' },
     ],
@@ -250,6 +251,17 @@
     .footer-bottom {
       flex-direction: column;
       align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .footer {
+      padding-top: 56px;
+    }
+
+    .footer-nav {
+      grid-template-columns: 1fr;
+      gap: 18px;
     }
   }
 </style>

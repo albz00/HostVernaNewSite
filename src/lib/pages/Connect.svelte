@@ -33,58 +33,44 @@
       <span class="breadcrumb-current">Connect</span>
     </nav>
 
-    <header class="connect-hero">
-      <h1 class="connect-h1">
-        So you found your way here. <span class="connect-h1-accent">Glad you did.</span>
-      </h1>
-      <p class="connect-lede">
-        Maybe you were clicking through from a client site we worked on and liked what you saw. Maybe you run another web
-        or design shop and want to trade notes, refer work, or ask something technical. Either way, we are listening.
-      </p>
-    </header>
+    <article class="business-card" aria-labelledby="connect-card-heading">
+      <div class="business-card-top">
+        <p class="business-card-kicker">Digital business card</p>
+        <h1 id="connect-card-heading" class="connect-h1">HostVerna</h1>
+        <p class="business-card-role">Web design, software, and managed IT for businesses that want reliability.</p>
+      </div>
 
-    <div class="connect-bento">
-      <section class="connect-card connect-card--wide" aria-labelledby="connect-clients-heading">
-        <h2 id="connect-clients-heading" class="connect-h2">If you are browsing our work</h2>
-        <p class="connect-p">
-          We treat every build like a long-term asset: clear structure, fast loads, and something you are proud to put
-          your name on. If something on a project we shipped inspired you, we would love to hear what stood out. No pitch,
-          no obligation, just humans who care about the craft.
-        </p>
-      </section>
+      <div class="business-card-grid">
+        <section class="business-card-block" aria-label="Contact details">
+          <p class="business-card-label">Email</p>
+          <a href={mailPeerHref} class="business-card-value">{mailTo}</a>
+          <p class="business-card-note">Opens a drafted message so you can edit and send quickly.</p>
+        </section>
 
-      <section class="connect-card" aria-labelledby="connect-peers-heading">
-        <h2 id="connect-peers-heading" class="connect-h2">If you are in the industry</h2>
-        <p class="connect-p">
-          We respect good operators. White-label help, overflow work, a second opinion on a stack choice, or an intro over
-          coffee (even virtual): we are open to real conversations with other teams who ship quality.
-        </p>
-      </section>
+        <section class="business-card-block" aria-label="Phone details">
+          <p class="business-card-label">Phone</p>
+          <a href={phoneHref} class="business-card-value">{phoneDisplay}</a>
+          <p class="business-card-note">Call or text us directly during business hours.</p>
+        </section>
 
-      <aside class="connect-card connect-card--cta" aria-labelledby="connect-cta-heading">
-        <h2 id="connect-cta-heading" class="connect-sr-only">How to reach us</h2>
-        <p class="connect-cta-tag">I am all ears</p>
-        <ul class="connect-actions">
-          <li>
-            <a href={mailPeerHref} class="btn btn-primary btn-lg connect-btn-full">Email us directly</a>
-            <span class="connect-action-note">Opens your mail app with a starter message you can edit however you like.</span>
-          </li>
-          <li>
-            <a href="/contact" class="btn btn-secondary btn-lg connect-btn-full">Full project contact form</a>
-            <span class="connect-action-note">For scoped work, timelines, and getting on our radar the structured way.</span>
-          </li>
-          <li class="connect-phone-row">
-            <span class="connect-phone-label">Prefer voice?</span>
-            <a href={phoneHref} class="connect-phone">{phoneDisplay}</a>
-          </li>
-        </ul>
-      </aside>
-    </div>
+        <section class="business-card-block business-card-block--wide" aria-label="Work style">
+          <p class="business-card-label">Built for</p>
+          <p class="business-card-copy">
+            People finding us through client sites, plus agencies and teams that need a sharp technical partner.
+          </p>
+        </section>
+      </div>
+
+      <div class="business-card-actions">
+        <a href={mailPeerHref} class="btn btn-primary btn-lg">Email HostVerna</a>
+        <a href="/contact" class="btn btn-secondary btn-lg">Open full contact form</a>
+      </div>
+    </article>
 
     <p class="connect-footnote">
-      <a href="/" class="connect-footnote-link">Back to HostVerna home</a>
+      <a href="/" class="connect-footnote-link">Back home</a>
       <span class="connect-footnote-sep" aria-hidden="true">·</span>
-      <a href="/about" class="connect-footnote-link">About us</a>
+      <a href="/about" class="connect-footnote-link">About HostVerna</a>
     </p>
   </div>
 </main>
@@ -127,7 +113,7 @@
 
   .connect-inner {
     position: relative;
-    max-width: 960px;
+    max-width: 760px;
   }
 
   .breadcrumb {
@@ -154,167 +140,112 @@
     color: var(--text-muted);
   }
 
-  .connect-hero {
-    margin-bottom: 40px;
-    text-align: center;
-    max-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
+  .business-card {
+    background: linear-gradient(158deg, rgb(255 255 255 / 0.98) 0%, rgb(248 250 252 / 0.96) 100%);
+    border: 1px solid rgb(3 105 161 / 0.2);
+    border-radius: 22px;
+    box-shadow:
+      0 24px 48px rgb(2 6 23 / 0.08),
+      inset 0 1px 0 rgb(255 255 255 / 0.75);
+    padding: clamp(24px, 4vw, 36px);
+  }
+
+  .business-card-top {
+    border-bottom: 1px solid rgb(148 163 184 / 0.35);
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+
+  .business-card-kicker {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
   }
 
   .connect-h1 {
     font-family: var(--font-display);
-    font-size: clamp(26px, 4.2vw, 42px);
+    font-size: clamp(30px, 6vw, 48px);
     font-weight: 700;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.04em;
     color: var(--text-primary);
-    line-height: 1.12;
-    margin: 0 0 16px;
-  }
-
-  .connect-h1-accent {
-    background: var(--gradient-text);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .connect-lede {
-    font-size: 16px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .connect-bento {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'wide wide'
-      'peer cta';
-    gap: 16px;
-    align-items: stretch;
-  }
-
-  .connect-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-tile);
-    padding: 26px 28px;
-    box-shadow: var(--shadow-tile);
-  }
-
-  .connect-card--wide {
-    grid-area: wide;
-  }
-
-  .connect-card--cta {
-    grid-area: cta;
-    background: linear-gradient(165deg, var(--bg) 0%, rgb(248 250 252 / 0.92) 100%);
-    border-color: rgb(3 105 161 / 0.18);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .connect-card:nth-child(2) {
-    grid-area: peer;
-  }
-
-  .connect-h2 {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
+    line-height: 1.05;
     margin: 0 0 10px;
   }
 
-  .connect-p {
-    font-size: 14px;
+  .business-card-role {
+    margin: 0;
+    font-size: 15px;
     color: var(--text-secondary);
-    line-height: 1.72;
-    margin: 0;
+    line-height: 1.7;
+    max-width: 560px;
   }
 
-  .connect-sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  .business-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
-  .connect-cta-tag {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
-    margin: 0 0 18px;
-    line-height: 1.2;
+  .business-card-block {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    padding: 14px 16px;
   }
 
-  .connect-actions {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    flex: 1;
+  .business-card-block--wide {
+    grid-column: 1 / -1;
   }
 
-  .connect-btn-full {
-    display: block;
-    width: 100%;
-    text-align: center;
-    text-decoration: none;
-  }
-
-  .connect-action-note {
-    display: block;
-    margin-top: 8px;
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.45;
-  }
-
-  .connect-phone-row {
-    margin-top: auto;
-    padding-top: 8px;
-    border-top: 1px dashed var(--border);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .connect-phone-label {
+  .business-card-label {
+    margin: 0 0 8px;
     font-size: 11px;
     font-family: var(--font-mono);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.09em;
     color: var(--text-muted);
   }
 
-  .connect-phone {
-    font-size: 17px;
-    font-weight: 700;
+  .business-card-value {
+    margin: 0;
     font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--primary);
     text-decoration: none;
+    letter-spacing: -0.015em;
   }
 
-  .connect-phone:hover {
+  .business-card-value:hover {
     color: var(--teal-dark);
   }
 
+  .business-card-note {
+    margin: 8px 0 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .business-card-copy {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .business-card-actions {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
   .connect-footnote {
-    margin-top: 36px;
+    margin-top: 22px;
     text-align: center;
     font-size: 13px;
     color: var(--text-muted);
@@ -335,21 +266,13 @@
     opacity: 0.45;
   }
 
-  @media (max-width: 720px) {
-    .connect-bento {
+  @media (max-width: 640px) {
+    .business-card-grid {
       grid-template-columns: 1fr;
-      grid-template-areas:
-        'wide'
-        'peer'
-        'cta';
     }
 
-    .connect-card {
-      padding: 22px 20px;
-    }
-
-    .connect-hero {
-      text-align: left;
+    .business-card {
+      border-radius: 18px;
     }
   }
 </style>

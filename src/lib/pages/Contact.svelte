@@ -29,6 +29,7 @@
   let timeline = '';
   let budget = '';
   let details = '';
+  let advertiseOnSite = false;
 
   const needOptions = [
     { id: 'website', label: 'Website design or redesign', sub: 'Custom site, launch, or overhaul' },
@@ -105,6 +106,7 @@
       `Need: ${needLabel(need)}`,
       `Timeline: ${timelineLabel(timeline)}`,
       `Budget: ${budgetLabel(budget)}`,
+      `Interested in a site listing or ad: ${advertiseOnSite ? 'Yes' : 'No'}`,
       '***',
       'Details:',
       details.trim() || '(none)',
@@ -301,6 +303,12 @@
             <span class="field-label">Details <span class="opt">(optional but helpful)</span></span>
             <textarea class="field-textarea" rows="6" bind:value={details} placeholder="Type here…"></textarea>
           </label>
+          <label class="field-checkbox">
+            <input class="field-checkbox-input" type="checkbox" bind:checked={advertiseOnSite} />
+            <span class="field-checkbox-label"
+              >Interested in a site listing or ad on hostverna.com (for example the Greenbrier County, WV page)</span
+            >
+          </label>
           <div class="card-actions">
             <button type="button" class="btn btn-secondary" on:click={() => advance('budget')}>Back</button>
             <button type="button" class="btn btn-primary" on:click={() => advance('review')}>Review</button>
@@ -326,6 +334,7 @@
             <dt>Need</dt><dd>{needLabel(need)}</dd>
             <dt>Timeline</dt><dd>{timelineLabel(timeline)}</dd>
             <dt>Budget</dt><dd>{budgetLabel(budget)}</dd>
+            <dt>Site listing / ad</dt><dd>{advertiseOnSite ? 'Yes' : 'No'}</dd>
             <dt>Details</dt><dd class="review-dd-block">{details.trim() || '(not provided)'}</dd>
           </dl>
           <div class="review-actions">
@@ -587,6 +596,30 @@
   .field-textarea:focus {
     outline: 2px solid rgb(3 105 161 / 0.25);
     border-color: var(--primary);
+  }
+
+  .field-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .field-checkbox-input {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+
+  .field-checkbox-label {
+    user-select: none;
   }
 
   .option-grid {

@@ -15,6 +15,7 @@ Primary geography: United States. Primary contact channel: website form and phon
 - Connect: https://hostverna.com/connect
 - Support: https://hostverna.com/support
 - Resources hub: https://hostverna.com/resources
+- Greenbrier County, WV (local resource): https://hostverna.com/greenbrier-county-wv
 - Learn / documentation index: https://hostverna.com/learn
 
 ## Audiences / vertical landing pages

@@ -10,13 +10,16 @@
   import QuickContact from './lib/pages/QuickContact.svelte';
   import About from './lib/pages/About.svelte';
   import Connect from './lib/pages/Connect.svelte';
+  import Careers from './lib/pages/Careers.svelte';
   import Resources from './lib/pages/Resources.svelte';
+  import Faq from './lib/pages/Faq.svelte';
   import Blog from './lib/pages/Blog.svelte';
   import LockedPlaceholder from './lib/components/LockedPlaceholder.svelte';
   import LearnIndex from './lib/pages/LearnIndex.svelte';
   import LearnDoc from './lib/pages/LearnDoc.svelte';
   import ServeSegment from './lib/pages/ServeSegment.svelte';
   import FreeWebsiteEvent from './lib/pages/FreeWebsiteEvent.svelte';
+  import GreenbrierCountyWv from './lib/pages/GreenbrierCountyWv.svelte';
   import { canonicalUrl } from './lib/data/siteUrls';
 
   function normalizePathname(path: string): string {
@@ -85,8 +88,14 @@
   <About />
 {:else if path === '/connect'}
   <Connect />
+{:else if path === '/careers'}
+  <Careers />
+{:else if path === '/greenbrier-county-wv'}
+  <GreenbrierCountyWv />
 {:else if path === '/resources'}
   <Resources />
+{:else if path === '/faq'}
+  <Faq />
 {:else if path === '/blog'}
   <Blog />
 {:else if path === '/privacy'}

@@ -17,10 +17,13 @@ export function getSitemapPaths(): string[] {
   const staticPaths: string[] = [
     '/',
     '/about',
+    '/careers',
     '/connect',
     '/contact',
     '/quick-contact',
     '/resources',
+    '/faq',
+    '/greenbrier-county-wv',
     '/support',
     '/public-sector',
     '/learn',
