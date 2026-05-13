@@ -1,6 +1,8 @@
 <script lang="ts">
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
+  import TurnstileBox from '../components/TurnstileBox.svelte';
+  import { postContactJson } from '../contactConfig';
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
@@ -30,6 +32,10 @@
   let budget = '';
   let details = '';
   let advertiseOnSite = false;
+
+  let turnstileToken = '';
+  let sending = false;
+  let submitError = '';
 
   const needOptions = [
     { id: 'website', label: 'Website design or redesign', sub: 'Custom site, launch, or overhaul' },
@@ -131,6 +137,44 @@
     const body = encodeURIComponent(buildBody());
     return `mailto:${mailTo}?subject=${subject}&body=${body}`;
   })();
+
+  let prevStep: Step = 'intro';
+  $: {
+    if (prevStep === 'review' && step !== 'review') {
+      turnstileToken = '';
+      submitError = '';
+    }
+    prevStep = step;
+  }
+
+  async function sendFromReview() {
+    submitError = '';
+    if (!turnstileToken) {
+      submitError = 'Complete the verification check above.';
+      return;
+    }
+    sending = true;
+    const result = await postContactJson({
+      kind: 'full',
+      turnstileToken,
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      organization: organization.trim(),
+      role: role.trim(),
+      need: needLabel(need),
+      timeline: timelineLabel(timeline),
+      budget: budgetLabel(budget),
+      advertiseOnSite,
+      details: details.trim(),
+    });
+    sending = false;
+    if (result.ok) {
+      advance('success');
+      return;
+    }
+    submitError = result.error;
+  }
 </script>
 
 <svelte:head>
@@ -170,7 +214,7 @@
           <ul class="intro-bullets">
             <li><span class="ib-dot"></span> Takes most people under three minutes</li>
             <li><span class="ib-dot"></span> You can still call <a href={phoneHref}>{phoneDisplay}</a> if you prefer voice</li>
-            <li><span class="ib-dot"></span> At the end we open your email app with everything filled in (you send it)</li>
+            <li><span class="ib-dot"></span> At the end you send securely through the site (no mail client required)</li>
           </ul>
           <button type="button" class="btn btn-primary btn-lg" on:click={() => advance('contact')}>Start the form</button>
         </div>
@@ -322,8 +366,8 @@
           <div class="q-step-label">Step 7 of {totalSteps}</div>
           <h2 class="q-heading">Review and send</h2>
           <p class="q-hint">
-            We use your email app so nothing sits on a random server. Tap the button, send the message, and we will reply at
-            <strong>{mailTo}</strong> usually within one business day (often faster).
+            Confirm you are human, then send. We read every message and reply at <strong>{mailTo}</strong> usually within
+            one business day (often faster).
           </p>
           <dl class="review-dl">
             <dt>Name</dt><dd>{name.trim()}</dd>
@@ -337,12 +381,26 @@
             <dt>Site listing / ad</dt><dd>{advertiseOnSite ? 'Yes' : 'No'}</dd>
             <dt>Details</dt><dd class="review-dd-block">{details.trim() || '(not provided)'}</dd>
           </dl>
-          <div class="review-actions">
-            <a href={mailtoHref} class="btn btn-primary btn-lg">Open email app to send</a>
-            <button type="button" class="btn btn-secondary btn-lg" on:click={() => advance('success')}>
-              Continue to confirmation
-            </button>
+          <div class="review-turnstile">
+            <TurnstileBox onToken={(t) => (turnstileToken = t)} />
           </div>
+          {#if submitError}
+            <p class="review-submit-error" role="alert">{submitError}</p>
+          {/if}
+          <div class="review-actions">
+            <button
+              type="button"
+              class="btn btn-primary btn-lg"
+              disabled={sending || !turnstileToken}
+              on:click={sendFromReview}
+            >
+              {sending ? 'Sending…' : 'Send message'}
+            </button>
+            <a href={mailtoHref} class="btn btn-secondary btn-lg">Open in email app instead</a>
+          </div>
+          <button type="button" class="review-back" on:click={() => advance('message')}>
+            ← Back to edit answers
+          </button>
           <p class="review-fallback">
             Prefer phone? <a href={phoneHref}>{phoneDisplay}</a>
           </p>
@@ -352,8 +410,7 @@
           <div class="success-badge">Next step</div>
           <h2 class="q-heading">You are set</h2>
           <p class="card-lead">
-            If your mail program opened, send the message when it looks right. If nothing opened, use the copy in your
-            review or email us directly at <a href="mailto:{mailTo}">{mailTo}</a>.
+            Your message is on its way. If you need to add something, email us at <a href="mailto:{mailTo}">{mailTo}</a>.
           </p>
           <p class="card-lead">
             We read every request. Expect a human reply, not an autoresponder wall, usually within one business day.
@@ -759,6 +816,34 @@
     margin-top: 16px;
     font-size: 13px;
     color: var(--text-secondary);
+  }
+
+  .review-turnstile {
+    margin: 16px 0 8px;
+  }
+
+  .review-submit-error {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: #b91c1c;
+    line-height: 1.45;
+  }
+
+  .review-back {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-family: inherit;
+  }
+
+  .review-back:hover {
+    color: var(--primary);
   }
 
   .review-fallback a {

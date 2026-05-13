@@ -1,6 +1,8 @@
 <script lang="ts">
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
+  import TurnstileBox from '../components/TurnstileBox.svelte';
+  import { postContactJson } from '../contactConfig';
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
@@ -9,16 +11,37 @@
   let email = '';
   let phone = '';
   let submitted = false;
+  let turnstileToken = '';
+  let sending = false;
+  let submitError = '';
 
   function emailOk(v: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
   }
 
-  function handleSubmit(e: Event) {
+  async function handleSubmit(e: Event) {
     e.preventDefault();
+    submitError = '';
     if (!name.trim() || !email.trim() || !emailOk(email)) return;
-    submitted = true;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!turnstileToken) {
+      submitError = 'Complete the verification check below.';
+      return;
+    }
+    sending = true;
+    const result = await postContactJson({
+      kind: 'quick',
+      turnstileToken,
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+    });
+    sending = false;
+    if (result.ok) {
+      submitted = true;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    submitError = result.error;
   }
 </script>
 
@@ -51,7 +74,14 @@
           Prefer voice? <a href={phoneHref}>{phoneDisplay}</a>
         </p>
         <div class="qc-actions">
-          <button type="button" class="btn btn-secondary" on:click={() => (submitted = false)}>Edit details</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            on:click={() => {
+              submitted = false;
+              turnstileToken = '';
+              submitError = '';
+            }}>Edit details</button>
           <a href="/" class="btn btn-primary">Home</a>
         </div>
         <p class="qc-footnote">
@@ -81,8 +111,20 @@
             <input class="field-input" type="tel" name="phone" autocomplete="tel" bind:value={phone} />
           </label>
         </div>
+        <div class="qc-turnstile">
+          <TurnstileBox onToken={(t) => (turnstileToken = t)} />
+        </div>
+        {#if submitError}
+          <p class="qc-submit-error" role="alert">{submitError}</p>
+        {/if}
         <div class="qc-actions qc-actions-form">
-          <button type="submit" class="btn btn-primary" disabled={!name.trim() || !emailOk(email)}>Send</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            disabled={!name.trim() || !emailOk(email) || sending || !turnstileToken}
+          >
+            {sending ? 'Sending…' : 'Send'}
+          </button>
         </div>
         <p class="qc-footnote">
           Or call <a href={phoneHref}>{phoneDisplay}</a> · <a href="/contact">Full contact form</a>
@@ -243,6 +285,17 @@
     gap: 12px;
     align-items: center;
     margin-top: 24px;
+  }
+
+  .qc-turnstile {
+    margin-top: 20px;
+  }
+
+  .qc-submit-error {
+    margin: 12px 0 0;
+    font-size: 14px;
+    color: #b91c1c;
+    line-height: 1.45;
   }
 
   .qc-actions-form {
