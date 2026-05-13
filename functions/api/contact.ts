@@ -93,6 +93,26 @@ function buildFullEmailBody(fields: {
   return lines.join('\n');
 }
 
+function firstNameFrom(fullName: string): string {
+  const cleaned = fullName.trim().split(/\s+/)[0] || '';
+  return cleaned.replace(/[^\p{L}\p{M}'\-]/gu, '');
+}
+
+function buildConfirmationBody(name: string): string {
+  const first = firstNameFrom(name);
+  const greeting = first ? `Hi ${first},` : 'Hi there,';
+  return [
+    greeting,
+    '',
+    'Thanks for reaching out to HostVerna. We have your message and a real person will reply, usually within one business day (often faster).',
+    '',
+    'If anything is urgent, feel free to call us at 304-992-6568.',
+    '',
+    '— The HostVerna team',
+    'info@hostverna.co',
+  ].join('\n');
+}
+
 export async function onRequestPost(context: PagesContext): Promise<Response> {
   const { request, env } = context;
 
@@ -137,7 +157,24 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
       `Phone: ${phone || '(not provided)'}`,
     ].join('\n');
     const subject = `Quick contact: ${name}`;
-    return await sendResend(env.resend_api_key, { from, to, reply_to: email, subject, text });
+    const notify = await sendResendEmail(env.resend_api_key, {
+      from,
+      to,
+      reply_to: email,
+      subject,
+      text,
+    });
+    if (!notify.ok) {
+      console.error('Resend error', notify.status, notify.errText);
+      return json({ ok: false, error: 'Could not send message. Try again later or call us.' }, 502);
+    }
+    await sendConfirmation(env.resend_api_key, {
+      from,
+      replyTo: to,
+      submitterEmail: email,
+      submitterName: name,
+    });
+    return json({ ok: true });
   }
 
   if (kind === 'full') {
@@ -169,16 +206,35 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
       details,
     });
     const subject = `Contact request: ${organization || name}`;
-    return await sendResend(env.resend_api_key, { from, to, reply_to: email, subject, text });
+    const notify = await sendResendEmail(env.resend_api_key, {
+      from,
+      to,
+      reply_to: email,
+      subject,
+      text,
+    });
+    if (!notify.ok) {
+      console.error('Resend error', notify.status, notify.errText);
+      return json({ ok: false, error: 'Could not send message. Try again later or call us.' }, 502);
+    }
+    await sendConfirmation(env.resend_api_key, {
+      from,
+      replyTo: to,
+      submitterEmail: email,
+      submitterName: name,
+    });
+    return json({ ok: true });
   }
 
   return json({ ok: false, error: 'Unknown request type.' }, 400);
 }
 
-async function sendResend(
+type SendResult = { ok: true } | { ok: false; status: number; errText: string };
+
+async function sendResendEmail(
   apiKey: string,
   args: { from: string; to: string; reply_to: string; subject: string; text: string },
-): Promise<Response> {
+): Promise<SendResult> {
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -196,11 +252,26 @@ async function sendResend(
 
   if (!res.ok) {
     const errText = await res.text().catch(() => '');
-    console.error('Resend error', res.status, errText);
-    return json({ ok: false, error: 'Could not send message. Try again later or call us.' }, 502);
+    return { ok: false, status: res.status, errText };
   }
+  return { ok: true };
+}
 
-  return json({ ok: true });
+/** Best-effort confirmation email back to the submitter. Failures are logged, not surfaced. */
+async function sendConfirmation(
+  apiKey: string,
+  args: { from: string; replyTo: string; submitterEmail: string; submitterName: string },
+): Promise<void> {
+  const result = await sendResendEmail(apiKey, {
+    from: args.from,
+    to: args.submitterEmail,
+    reply_to: args.replyTo,
+    subject: 'Thanks for reaching out — HostVerna',
+    text: buildConfirmationBody(args.submitterName),
+  });
+  if (!result.ok) {
+    console.error('Confirmation email failed', result.status, result.errText);
+  }
 }
 
 /** Non-POST requests (POST is handled by `onRequestPost`). */
