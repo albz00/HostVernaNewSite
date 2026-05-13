@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function: POST /api/contact
  * Env (dashboard): resend_api_key, turnstile_secret_key
- * Optional: resend_from (verified sender, e.g. "HostVerna <noreply@yourdomain.com>"), contact_to (default info@hostverna.co)
+ * Optional: resend_from (verified sender, e.g. "HostVerna <noreply@yourdomain.com>"), contact_to (default alex@hostverna.com)
  */
 
 type Env = {
@@ -139,7 +139,7 @@ export async function onRequestPost(context: PagesContext): Promise<Response> {
   }
 
   const kind = trimStr(payload.kind, 20);
-  const to = (env.contact_to?.trim() || 'info@hostverna.co').slice(0, 320);
+  const to = (env.contact_to?.trim() || 'alex@hostverna.com').slice(0, 320);
   const from = (env.resend_from?.trim() || 'HostVerna <info@hostverna.co>').slice(0, 320);
 
   if (kind === 'quick') {
