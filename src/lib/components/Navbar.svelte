@@ -4,6 +4,7 @@
   import { solutionNavItems } from '../data/solutionNav';
   import { resourcesNavItems } from '../data/learnPages';
   import { whoWeServeNavItems } from '../data/whoWeServeNav';
+  import { CLIENT_PORTAL_LOGIN_URL } from '../data/siteUrls';
   let scrolled = false;
   let mobileOpen = false;
   let menuToggleLabel = 'OPEN';
@@ -228,7 +229,7 @@
         >
           <span class="nav-phone-compact-text">{phoneDisplay}</span>
         </a>
-        <a href="/portal" class="btn btn-secondary nav-btn">Portal</a>
+        <a href={CLIENT_PORTAL_LOGIN_URL} class="btn btn-secondary nav-btn">Portal</a>
         <a href="/contact" class="btn btn-primary nav-btn">Get Started</a>
       </div>
 
@@ -317,7 +318,7 @@
           <a href={link.href} class="mobile-link" on:click={closeMobileMenu}>{link.label}</a>
         {/each}
         <div class="mobile-actions">
-          <a href="/portal" class="btn btn-secondary" style="width:100%;justify-content:center" on:click={closeMobileMenu}
+          <a href={CLIENT_PORTAL_LOGIN_URL} class="btn btn-secondary" style="width:100%;justify-content:center" on:click={closeMobileMenu}
             >Portal</a
           >
           <a href="/contact" class="btn btn-primary" style="width:100%;justify-content:center" on:click={closeMobileMenu}

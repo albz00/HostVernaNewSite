@@ -1,6 +1,7 @@
 <script lang="ts">
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
+  import { CLIENT_PORTAL_LOGIN_URL } from '../data/siteUrls';
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
@@ -51,8 +52,8 @@
     <section class="support-block">
       <h2 class="support-h2">Client portal</h2>
       <p class="support-p">
-        If your project includes portal access, log in there for tickets, files, and status, or
-        <a href="/portal">open the portal page</a> to choose how you sign in.
+        If your project includes portal access,
+        <a href={CLIENT_PORTAL_LOGIN_URL}>log in to the client portal</a> for tickets, files, and status.
       </p>
     </section>
 

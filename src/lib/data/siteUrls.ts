@@ -6,6 +6,9 @@ import { solutionPages } from './solutionPages';
 /** Canonical origin for SEO files and meta (no trailing slash). */
 export const SITE_ORIGIN = 'https://hostverna.com';
 
+/** Client workspace login on client.hostverna.com */
+export const CLIENT_PORTAL_LOGIN_URL = 'https://client.hostverna.com/app/login';
+
 /**
  * Indexable paths for sitemap.xml. Excludes locked placeholders (/portal, legal stubs, etc.).
  * Keep in sync with `App.svelte` routing.
