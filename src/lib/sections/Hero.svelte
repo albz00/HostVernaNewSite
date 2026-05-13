@@ -876,8 +876,10 @@
     position: relative;
     padding-top: calc(140px + var(--hv-promo-h));
     padding-bottom: 0;
-    /* visible so portrait shockwaves / drop-shadow aren’t clipped */
-    overflow: visible;
+    /* Keep vertical visual effects, but never allow horizontal page bleed. */
+    overflow-y: visible;
+    overflow-x: hidden;
+    overflow-x: clip;
     background: var(--bg);
   }
 
@@ -1184,6 +1186,7 @@
     border-top: 1px solid rgb(226 232 240 / 0.85);
     width: 100%;
     box-sizing: border-box;
+    min-width: 0;
   }
 
   .proof-label {
@@ -1197,6 +1200,9 @@
 
   .proof-list {
     width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    overflow: clip;
   }
 
   .proof-track {
@@ -1205,6 +1211,8 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    min-width: 0;
   }
 
   .proof-partner {
@@ -2671,21 +2679,28 @@
     }
 
     .proof-list {
-      overflow-x: hidden;
-      overflow-y: visible;
-      max-width: none;
-      margin-inline: 0;
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      margin-inline: auto;
       padding-block: 2px;
-      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      overflow-x: hidden;
+      overflow-x: clip;
+      overflow-y: hidden;
+      contain: paint;
+      mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
     }
 
     .proof-track {
+      display: inline-flex;
       flex-wrap: nowrap;
       justify-content: flex-start;
       align-items: center;
-      gap: 28px;
+      gap: 22px;
       width: max-content;
+      max-width: none;
       animation: proof-drift 18s ease-in-out infinite alternate;
       will-change: transform;
     }
@@ -2715,10 +2730,21 @@
 
   @media (max-width: 760px) and (prefers-reduced-motion: reduce) {
     .proof-list {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow-x: clip;
       mask-image: none;
       -webkit-mask-image: none;
+    }
+
+    .proof-track {
+      animation: none !important;
+      transform: none !important;
+      will-change: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 100%;
+      gap: 14px 18px;
     }
   }
 

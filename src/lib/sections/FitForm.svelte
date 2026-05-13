@@ -659,6 +659,33 @@
     }
   }
 
+  /* Mobile: keep scroll-linked dark blue fill only — no code / faux screen
+     (perspective, masks, and typing rows fight small viewports + touch scroll). */
+  @media (max-width: 768px) {
+    .code-screen {
+      display: none;
+    }
+
+    .flood {
+      /* Height is driven every frame from scroll; transitions read as laggy
+         or “swimming” on iOS/Android. */
+      transition: none;
+      will-change: auto;
+    }
+
+    .flood-body {
+      background:
+        radial-gradient(120% 70% at 50% 0%, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0) 58%),
+        radial-gradient(100% 55% at 50% 100%, rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0) 65%),
+        #061933;
+    }
+
+    .flood-body::before {
+      /* Avoid stacking desktop ::before glows on top of the mobile fill. */
+      background: none;
+    }
+  }
+
   /* Content above the flood. */
   .fit-section > .container {
     position: relative;

@@ -7,7 +7,7 @@
   import { CLIENT_PORTAL_LOGIN_URL } from '../data/siteUrls';
   let scrolled = false;
   let mobileOpen = false;
-  let menuToggleLabel = 'OPEN';
+  let menuToggleLabel = 'MENU';
   let labelAnimToken = 0;
   let prefersReducedMotion = false;
   let communityBannerVisible = true;
@@ -17,7 +17,6 @@
 
   const navLinksRest = [
     { label: 'About', href: '/about' },
-    { label: 'Careers', href: '/careers' },
     { label: 'Case Studies', href: '/#case-studies' },
   ];
 
@@ -78,10 +77,10 @@
       void tick().then(updateMobileMenuHeight);
     }
     if (prefersReducedMotion) {
-      menuToggleLabel = next ? 'CLOSE' : 'OPEN';
+      menuToggleLabel = next ? 'CLOSE' : 'MENU';
       return;
     }
-    void playLabelTransition(next ? 'CLOSE' : 'OPEN');
+    void playLabelTransition(next ? 'CLOSE' : 'MENU');
   }
 
   function closeMobileMenu() {
@@ -90,10 +89,10 @@
     mobileOpen = false;
     setDocumentMenuState(false);
     if (prefersReducedMotion) {
-      menuToggleLabel = 'OPEN';
+      menuToggleLabel = 'MENU';
       return;
     }
-    void playLabelTransition('OPEN');
+    void playLabelTransition('MENU');
   }
 
   function setCommunityBannerOffset(visible: boolean) {
@@ -289,7 +288,7 @@
         class="mobile-toggle"
         class:mobile-toggle--open={mobileOpen}
         on:click={onMobileToggleClick}
-        aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+        aria-label={mobileOpen ? 'Close menu' : 'Menu'}
         aria-expanded={mobileOpen}
         aria-controls="site-mobile-nav"
       >
@@ -876,8 +875,10 @@
     inset: 0;
     border-radius: inherit;
     pointer-events: none;
-    background: var(--bg);
-    border: 1.5px solid var(--primary);
+    border: 1.5px solid transparent;
+    background:
+      linear-gradient(var(--bg), var(--bg)) padding-box,
+      var(--gradient) border-box;
     transition:
       background 0.18s ease,
       border-color 0.18s ease,
@@ -889,7 +890,11 @@
     z-index: 1;
     display: inline-flex;
     align-items: center;
-    color: var(--primary);
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 500;
@@ -899,7 +904,10 @@
     font-variant-numeric: tabular-nums;
     font-feature-settings: 'tnum' 1;
     user-select: none;
-    transition: color 0.18s ease;
+    transition:
+      color 0.18s ease,
+      background 0.18s ease,
+      -webkit-text-fill-color 0.18s ease;
   }
 
   .mobile-toggle__label {
@@ -910,13 +918,19 @@
   }
 
   .mobile-toggle:hover .mobile-toggle__surface {
-    background: var(--primary);
-    border-color: var(--primary);
-    box-shadow: 0 4px 14px rgb(3 105 161 / 0.22);
+    background: var(--gradient);
+    border-color: transparent;
+    box-shadow:
+      0 4px 14px rgb(3 105 161 / 0.22),
+      0 4px 14px rgb(13 148 136 / 0.12);
   }
 
   .mobile-toggle:hover .mobile-toggle__text {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
     color: #fff;
+    -webkit-text-fill-color: #fff;
   }
 
   .mobile-toggle:active {
@@ -929,13 +943,19 @@
   }
 
   .mobile-toggle--open .mobile-toggle__surface {
-    background: var(--primary);
-    border-color: var(--primary);
-    box-shadow: 0 4px 14px rgb(3 105 161 / 0.22);
+    background: var(--gradient);
+    border-color: transparent;
+    box-shadow:
+      0 4px 14px rgb(3 105 161 / 0.22),
+      0 4px 14px rgb(13 148 136 / 0.12);
   }
 
   .mobile-toggle--open .mobile-toggle__text {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
     color: #fff;
+    -webkit-text-fill-color: #fff;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1202,23 +1222,35 @@
   }
 
   :global([data-theme='dark']) .mobile-toggle__surface {
-    background: transparent;
-    border-color: var(--primary);
+    background:
+      linear-gradient(var(--bg), var(--bg)) padding-box,
+      var(--gradient) border-box;
+    border: 1.5px solid transparent;
   }
 
   :global([data-theme='dark']) .mobile-toggle__text {
-    color: var(--primary);
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 
   :global([data-theme='dark']) .mobile-toggle:hover .mobile-toggle__surface,
   :global([data-theme='dark']) .mobile-toggle--open .mobile-toggle__surface {
-    background: var(--primary);
-    border-color: var(--primary);
-    box-shadow: 0 4px 14px rgb(56 189 248 / 0.22);
+    background: var(--gradient);
+    border-color: transparent;
+    box-shadow:
+      0 4px 14px rgb(56 189 248 / 0.22),
+      0 4px 14px rgb(45 212 191 / 0.12);
   }
 
   :global([data-theme='dark']) .mobile-toggle:hover .mobile-toggle__text,
   :global([data-theme='dark']) .mobile-toggle--open .mobile-toggle__text {
-    color: #0f172a;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
   }
 </style>

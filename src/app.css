@@ -150,6 +150,9 @@ textarea,
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -165,10 +168,13 @@ body {
 }
 
 #app {
+  width: 100%;
   max-width: none;
   margin: 0;
   padding: 0;
   text-align: left;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {
