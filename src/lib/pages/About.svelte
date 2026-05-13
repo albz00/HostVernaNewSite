@@ -44,20 +44,6 @@
     </section>
 
     <section class="about-block">
-      <h2 class="about-h2">Hybrid AI, engineer-led</h2>
-      <p class="about-p">
-        HostVerna is a hybrid AI company in a straightforward sense: real software developers use AI to speed up parts of
-        the work, not to replace judgment or accountability. We were shipping production software long before AI became a
-        default marketing line, and that baseline still matters when something has to hold up under real traffic and real
-        users.
-      </p>
-      <p class="about-p about-p--tight">
-        Every build still runs through structured QA, security-minded review, and tooling we keep current, so “faster” does
-        not mean cutting corners on quality or safety.
-      </p>
-    </section>
-
-    <section class="about-block">
       <h2 class="about-h2">Partnership, not a one-off invoice</h2>
       <p class="about-p">
         We show up as credible business partners. We grow the relationship over time, look for the missing piece in your
