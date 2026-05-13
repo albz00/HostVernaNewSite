@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function: POST /api/contact
  * Env (dashboard): resend_api_key, turnstile_secret_key
- * Optional: resend_from (verified sender, e.g. "HostVerna <noreply@yourdomain.com>"), contact_to (default info@hostverna.com)
+ * Optional: resend_from (verified sender, e.g. "HostVerna <noreply@yourdomain.com>"), contact_to (default info@hostverna.co)
  */
 
 type Env = {
@@ -96,31 +96,8 @@ function buildFullEmailBody(fields: {
 export async function onRequestPost(context: PagesContext): Promise<Response> {
   const { request, env } = context;
 
-  const envRecord = env as unknown as Record<string, unknown>;
-  const envKeys = Object.keys(envRecord);
-  const tsRaw = envRecord.turnstile_secret_key;
-  const tsType = typeof tsRaw;
-  const tsLen = tsType === 'string' ? (tsRaw as string).length : -1;
-  const rkRaw = envRecord.resend_api_key;
-  const rkType = typeof rkRaw;
-  const rkLen = rkType === 'string' ? (rkRaw as string).length : -1;
-
-  const missing: string[] = [];
-  if (!env.resend_api_key) missing.push('resend_api_key');
-  if (!env.turnstile_secret_key) missing.push('turnstile_secret_key');
-  if (missing.length > 0) {
-    return json(
-      {
-        ok: false,
-        error: `Server not configured for contact delivery. Missing: ${missing.join(', ')}`,
-        debug: {
-          envKeys,
-          turnstile_secret_key: { type: tsType, length: tsLen },
-          resend_api_key: { type: rkType, length: rkLen },
-        },
-      },
-      503,
-    );
+  if (!env.resend_api_key || !env.turnstile_secret_key) {
+    return json({ ok: false, error: 'Server not configured for contact delivery.' }, 503);
   }
 
   let payload: Record<string, unknown>;
