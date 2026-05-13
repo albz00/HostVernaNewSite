@@ -659,7 +659,7 @@
     }
   }
 
-  /* Mobile: keep scroll-linked dark blue fill only — no code / faux screen
+  /* Mobile: keep scroll-linked dark blue fill only, no code / faux screen
      (perspective, masks, and typing rows fight small viewports + touch scroll). */
   @media (max-width: 768px) {
     .code-screen {

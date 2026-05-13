@@ -9,4 +9,8 @@ Disallow: /cookies
 Disallow: /sla
 Disallow: /blog
 
+# LLM and AI assistant context
+# See https://hostverna.com/llms.txt
+
+Host: hostverna.com
 Sitemap: https://hostverna.com/sitemap.xml

@@ -15,6 +15,23 @@
   let mobileMenuMaxHeight = 'calc(100dvh - 88px - env(safe-area-inset-bottom))';
   const MOBILE_BREAKPOINT = 900;
 
+  type MobileAccordionId = 'services' | 'solutions' | 'whoWeServe' | 'resources';
+
+  function initialMobileAccordion(): Record<MobileAccordionId, boolean> {
+    return { services: false, solutions: false, whoWeServe: false, resources: false };
+  }
+
+  let mobileAccordionOpen = initialMobileAccordion();
+
+  function resetMobileAccordion() {
+    mobileAccordionOpen = initialMobileAccordion();
+  }
+
+  function toggleMobileAccordion(id: MobileAccordionId) {
+    mobileAccordionOpen = { ...mobileAccordionOpen, [id]: !mobileAccordionOpen[id] };
+    void tick().then(updateMobileMenuHeight);
+  }
+
   const navLinksRest = [
     { label: 'About', href: '/about' },
     { label: 'Case Studies', href: '/#case-studies' },
@@ -74,6 +91,7 @@
     mobileOpen = next;
     setDocumentMenuState(next);
     if (next) {
+      resetMobileAccordion();
       void tick().then(updateMobileMenuHeight);
     }
     if (prefersReducedMotion) {
@@ -301,79 +319,178 @@
 
     {#if mobileOpen}
       <div id="site-mobile-nav" class="mobile-menu" style:max-height={mobileMenuMaxHeight}>
-        <a href="/support" class="mobile-link mobile-support-first" on:click={closeMobileMenu}>Support</a>
-        <a href={phoneHref} class="mobile-phone" on:click={closeMobileMenu}>{phoneDisplay}</a>
-
-        <div class="mobile-group">
-          <span class="mobile-group-label">Services</span>
-          {#each serviceNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
-              >{item.title}</a
-            >
-          {/each}
-          <a href="/#services" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
-            >All services overview</a
+        <div class="mobile-actions mobile-actions--top">
+          <a
+            href="/contact"
+            class="btn btn-primary"
+            style="width:100%;justify-content:center"
+            on:click={closeMobileMenu}>Get Started</a
           >
-        </div>
-
-        <div class="mobile-group">
-          <span class="mobile-group-label">Solutions</span>
-          {#each solutionNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}>
-              {#if item.href === howWeWorkTogetherHref}
-                <span class="nav-solution-starred">
-                  <svg
-                    class="nav-solution-star"
-                    viewBox="0 0 16 16"
-                    width="12"
-                    height="12"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
-                    />
-                  </svg>
-                  <span>{item.title}</span>
-                </span>
-              {:else}
-                {item.title}
-              {/if}
-            </a>
-          {/each}
-          <a href="/#use-cases" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
-            >How we work overview</a
+          <a
+            href={CLIENT_PORTAL_LOGIN_URL}
+            class="btn btn-secondary"
+            style="width:100%;justify-content:center"
+            on:click={closeMobileMenu}>Portal</a
           >
-        </div>
-
-        <div class="mobile-group">
-          <span class="mobile-group-label">Who we serve</span>
-          {#each whoWeServeNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
-              >{item.title}</a
-            >
-          {/each}
-        </div>
-
-        <div class="mobile-group">
-          <span class="mobile-group-label">Resources</span>
-          {#each resourcesNavItems as item}
-            <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
-              >{item.title}</a
-            >
-          {/each}
         </div>
 
         {#each navLinksRest as link}
           <a href={link.href} class="mobile-link" on:click={closeMobileMenu}>{link.label}</a>
         {/each}
-        <div class="mobile-actions">
-          <a href={CLIENT_PORTAL_LOGIN_URL} class="btn btn-secondary" style="width:100%;justify-content:center" on:click={closeMobileMenu}
-            >Portal</a
+
+        <a href="/support" class="mobile-link" on:click={closeMobileMenu}>Support</a>
+        <a href={phoneHref} class="mobile-phone" on:click={closeMobileMenu}>{phoneDisplay}</a>
+
+        <div class="mobile-group">
+          <button
+            type="button"
+            class="mobile-group-trigger"
+            aria-expanded={mobileAccordionOpen.services}
+            aria-controls="mobile-accordion-services"
+            id="mobile-accordion-trigger-services"
+            on:click={() => toggleMobileAccordion('services')}
           >
-          <a href="/contact" class="btn btn-primary" style="width:100%;justify-content:center" on:click={closeMobileMenu}
-            >Get Started</a
+            <span class="mobile-group-trigger-label">Services</span>
+            <span
+              class="mobile-group-caret"
+              class:mobile-group-caret--open={mobileAccordionOpen.services}
+              aria-hidden="true"
+            ></span>
+          </button>
+          {#if mobileAccordionOpen.services}
+            <div
+              id="mobile-accordion-services"
+              class="mobile-group-panel"
+              role="region"
+              aria-labelledby="mobile-accordion-trigger-services"
+            >
+              {#each serviceNavItems as item}
+                <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
+                  >{item.title}</a
+                >
+              {/each}
+              <a href="/#services" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
+                >All services overview</a
+              >
+            </div>
+          {/if}
+        </div>
+
+        <div class="mobile-group">
+          <button
+            type="button"
+            class="mobile-group-trigger"
+            aria-expanded={mobileAccordionOpen.solutions}
+            aria-controls="mobile-accordion-solutions"
+            id="mobile-accordion-trigger-solutions"
+            on:click={() => toggleMobileAccordion('solutions')}
           >
+            <span class="mobile-group-trigger-label">Solutions</span>
+            <span
+              class="mobile-group-caret"
+              class:mobile-group-caret--open={mobileAccordionOpen.solutions}
+              aria-hidden="true"
+            ></span>
+          </button>
+          {#if mobileAccordionOpen.solutions}
+            <div
+              id="mobile-accordion-solutions"
+              class="mobile-group-panel"
+              role="region"
+              aria-labelledby="mobile-accordion-trigger-solutions"
+            >
+              {#each solutionNavItems as item}
+                <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}>
+                  {#if item.href === howWeWorkTogetherHref}
+                    <span class="nav-solution-starred">
+                      <svg
+                        class="nav-solution-star"
+                        viewBox="0 0 16 16"
+                        width="12"
+                        height="12"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+                        />
+                      </svg>
+                      <span>{item.title}</span>
+                    </span>
+                  {:else}
+                    {item.title}
+                  {/if}
+                </a>
+              {/each}
+              <a href="/#use-cases" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
+                >How we work overview</a
+              >
+            </div>
+          {/if}
+        </div>
+
+        <div class="mobile-group">
+          <button
+            type="button"
+            class="mobile-group-trigger"
+            aria-expanded={mobileAccordionOpen.whoWeServe}
+            aria-controls="mobile-accordion-who-we-serve"
+            id="mobile-accordion-trigger-who-we-serve"
+            on:click={() => toggleMobileAccordion('whoWeServe')}
+          >
+            <span class="mobile-group-trigger-label">Who we serve</span>
+            <span
+              class="mobile-group-caret"
+              class:mobile-group-caret--open={mobileAccordionOpen.whoWeServe}
+              aria-hidden="true"
+            ></span>
+          </button>
+          {#if mobileAccordionOpen.whoWeServe}
+            <div
+              id="mobile-accordion-who-we-serve"
+              class="mobile-group-panel"
+              role="region"
+              aria-labelledby="mobile-accordion-trigger-who-we-serve"
+            >
+              {#each whoWeServeNavItems as item}
+                <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
+                  >{item.title}</a
+                >
+              {/each}
+            </div>
+          {/if}
+        </div>
+
+        <div class="mobile-group mobile-group--last">
+          <button
+            type="button"
+            class="mobile-group-trigger"
+            aria-expanded={mobileAccordionOpen.resources}
+            aria-controls="mobile-accordion-resources"
+            id="mobile-accordion-trigger-resources"
+            on:click={() => toggleMobileAccordion('resources')}
+          >
+            <span class="mobile-group-trigger-label">Resources</span>
+            <span
+              class="mobile-group-caret"
+              class:mobile-group-caret--open={mobileAccordionOpen.resources}
+              aria-hidden="true"
+            ></span>
+          </button>
+          {#if mobileAccordionOpen.resources}
+            <div
+              id="mobile-accordion-resources"
+              class="mobile-group-panel"
+              role="region"
+              aria-labelledby="mobile-accordion-trigger-resources"
+            >
+              {#each resourcesNavItems as item}
+                <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
+                  >{item.title}</a
+                >
+              {/each}
+            </div>
+          {/if}
         </div>
       </div>
     {/if}
@@ -981,27 +1098,77 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  .mobile-support-first {
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: var(--text-secondary);
+  .mobile-actions--top {
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 
   .mobile-group {
-    padding: 8px 0 12px;
-    margin-bottom: 4px;
+    padding: 2px 0 6px;
+    margin-bottom: 2px;
     border-bottom: 1px solid #e2e8f0;
   }
 
-  .mobile-group-label {
-    display: block;
+  .mobile-group--last {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 4px;
+  }
+
+  .mobile-group-trigger {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    padding: 6px 12px;
+    margin: 0;
+    border: none;
+    border-radius: var(--radius-tile-sm);
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease;
+  }
+
+  .mobile-group-trigger:hover {
+    background: var(--bg-subtle);
+  }
+
+  .mobile-group-trigger:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .mobile-group-trigger-label {
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-family: var(--font-mono);
     color: #94a3b8;
-    padding: 4px 12px 8px;
+  }
+
+  .mobile-group-caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #94a3b8;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-group-caret--open {
+    transform: rotate(180deg);
+  }
+
+  .mobile-group-panel {
+    padding-bottom: 4px;
   }
 
   .mobile-phone {

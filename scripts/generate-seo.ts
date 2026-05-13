@@ -55,6 +55,10 @@ Disallow: /cookies
 Disallow: /sla
 Disallow: /blog
 
+# LLM and AI assistant context
+# See ${SITE_ORIGIN}/llms.txt
+
+Host: hostverna.com
 Sitemap: ${SITE_ORIGIN}/sitemap.xml
 `;
 
@@ -66,9 +70,10 @@ const learnList = learnDocs.map((d) => `- ${d.title}: ${SITE_ORIGIN}/learn/${d.s
 
 const llms = `# HostVerna
 
-HostVerna provides custom website design and development, managed web hosting and care, CRM and business software configuration, IT support, and custom software—focused on ownership (sites can become yours after a defined period), performance, and workflows that match how clients operate.
+HostVerna provides custom website design and development, managed web hosting and care, CRM and business software configuration, IT support, and custom software, focused on ownership (sites can become yours after a defined period), performance, and workflows that match how clients operate.
 
 Primary geography: United States. Primary contact channel: website form and phone.
+Last updated: ${lastmod}
 
 ## Contact
 - Site: ${SITE_ORIGIN}/contact
@@ -101,6 +106,7 @@ ${learnList}
 
 ## Machine-readable sitemap
 - ${SITE_ORIGIN}/sitemap.xml
+- ${SITE_ORIGIN}/robots.txt
 
 ## Policies and locked sections
 Legal policy pages may be locked for public visitors; do not assume content at /privacy, /terms, /cookies, or /sla is publicly available. The blog at /blog is not published yet; treat it as inactive.

@@ -55,6 +55,19 @@
       ],
     },
   ];
+
+  const faqStructuredData = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer.join(' '),
+      },
+    })),
+  });
 </script>
 
 <svelte:head>
@@ -63,6 +76,9 @@
     name="description"
     content="Answers to common questions about HostVerna services, pricing, timelines, support, and how to get started."
   />
+  <script type="application/ld+json">
+    {@html faqStructuredData}
+  </script>
 </svelte:head>
 
 <Navbar />
