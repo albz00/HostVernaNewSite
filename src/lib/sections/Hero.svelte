@@ -631,7 +631,7 @@
                       <span class="email-label">From</span>
                       <span class="email-value">
                         <span class="email-from-name">Alex Zimmerman</span>
-                        <span class="email-from-addr">&lt;info@hostverna.com&gt;</span>
+                        <span class="email-from-addr">&lt;info@hostverna.co&gt;</span>
                       </span>
                     </div>
                     <div class="email-row">

@@ -6,7 +6,7 @@
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
-  const mailTo = 'info@hostverna.com';
+  const mailTo = 'info@hostverna.co';
 
   type Step =
     | 'intro'

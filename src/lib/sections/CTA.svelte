@@ -82,7 +82,7 @@
       </p>
       <div class="cta-actions">
         <a href="/contact" class="btn btn-white btn-lg">Book a Free Call</a>
-        <a href="mailto:info@hostverna.com" class="btn btn-ghost btn-lg">info@hostverna.com</a>
+        <a href="mailto:info@hostverna.co" class="btn btn-ghost btn-lg">info@hostverna.co</a>
       </div>
       <div class="cta-proof">
         <span class="cp-item">No commitment required</span>
