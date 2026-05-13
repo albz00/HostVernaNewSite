@@ -2,7 +2,7 @@
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
 
-  const mailTo = 'info@hostverna.co';
+  const mailTo = 'info@hostverna.com';
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
 

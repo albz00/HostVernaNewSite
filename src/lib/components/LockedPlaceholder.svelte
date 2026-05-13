@@ -21,7 +21,7 @@
     </a>
     <div class="locked-placeholder-contact">
       <a href={phoneHref} class="locked-placeholder-phone">{phoneDisplay}</a>
-      <a href="mailto:info@hostverna.co" class="locked-placeholder-email">info@hostverna.co</a>
+      <a href="mailto:info@hostverna.com" class="locked-placeholder-email">info@hostverna.com</a>
     </div>
   </header>
 

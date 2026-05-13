@@ -45,7 +45,7 @@
           One partner, everything digital.
         </p>
         <div class="brand-contact">
-          <a href="mailto:info@hostverna.co" class="contact-link">info@hostverna.co</a>
+          <a href="mailto:info@hostverna.com" class="contact-link">info@hostverna.com</a>
           <a
             href="https://www.facebook.com/hostverna"
             class="contact-link"

@@ -42,7 +42,7 @@
     <section class="support-block">
       <h2 class="support-h2">Email</h2>
       <p class="support-p">
-        <a href="mailto:support@hostverna.co" class="support-mail">support@hostverna.co</a>
+        <a href="mailto:support@hostverna.com" class="support-mail">support@hostverna.com</a>
         <span class="support-note">
           For non-urgent issues; include URLs, screenshots, and what you expected to happen.</span
         >
