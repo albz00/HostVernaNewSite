@@ -21,6 +21,7 @@
   import ServeSegment from './lib/pages/ServeSegment.svelte';
   import FreeWebsiteEvent from './lib/pages/FreeWebsiteEvent.svelte';
   import GreenbrierCountyWv from './lib/pages/GreenbrierCountyWv.svelte';
+  import Labyrinth from './lib/pages/Labyrinth.svelte';
   import { canonicalUrl } from './lib/data/siteUrls';
 
   function normalizePathname(path: string): string {
@@ -101,6 +102,8 @@
   <Careers />
 {:else if path === '/greenbrier-county-wv'}
   <GreenbrierCountyWv />
+{:else if path === '/labyrinth'}
+  <Labyrinth />
 {:else if path === '/resources'}
   <Resources />
 {:else if path === '/faq'}

@@ -54,6 +54,7 @@ Disallow: /terms
 Disallow: /cookies
 Disallow: /sla
 Disallow: /blog
+Disallow: /labyrinth
 
 # LLM and AI assistant context
 # See ${SITE_ORIGIN}/llms.txt
