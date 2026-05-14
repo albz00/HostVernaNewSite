@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
+  import { trackGaPageView } from './lib/analytics';
   import Home from './lib/pages/Home.svelte';
   import Portal from './lib/pages/Portal.svelte';
   import ServicePage from './lib/pages/ServicePage.svelte';
@@ -56,6 +57,14 @@
   $: solutionSlug = solutionSlugFromPath(path);
   $: learnDocSlug = learnDocSlugFromPath(path);
   $: canonical = canonicalUrl(path);
+
+  $: if (typeof window !== 'undefined') {
+    const p = path;
+    void (async () => {
+      await tick();
+      trackGaPageView(p);
+    })();
+  }
 
   onMount(() => {
     const sync = () => {
