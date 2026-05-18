@@ -501,15 +501,15 @@
       <div class="community-banner__content">
         <span class="community-banner__label">Update</span>
         <span class="community-banner__text">
-          As of 5/13/2026: working on the Elevation Aviation website, demos, and launch updates.
+          Congratulations on your new website, Elevation Aviation!
         </span>
         <a
           class="community-banner__link"
-          href="https://elevationaviation.pages.dev/#/"
+          href="https://elevationflight.com"
           target="_blank"
           rel="noreferrer"
         >
-          View preview
+          elevationflight.com
         </a>
       </div>
       <button
