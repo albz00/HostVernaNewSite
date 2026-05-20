@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
-  import { trackGaPageView } from './lib/analytics';
+  import { trackGaPageView, trackMatomoPageView } from './lib/analytics';
   import Home from './lib/pages/Home.svelte';
   import Portal from './lib/pages/Portal.svelte';
   import ServicePage from './lib/pages/ServicePage.svelte';
@@ -21,7 +21,7 @@
   import ServeSegment from './lib/pages/ServeSegment.svelte';
   import FreeWebsiteEvent from './lib/pages/FreeWebsiteEvent.svelte';
   import GreenbrierCountyWv from './lib/pages/GreenbrierCountyWv.svelte';
-  import Labyrinth from './lib/pages/Labyrinth.svelte';
+  import Pacman from './lib/pages/Pacman.svelte';
   import { canonicalUrl } from './lib/data/siteUrls';
 
   function normalizePathname(path: string): string {
@@ -35,6 +35,7 @@
   }
 
   let path = getPath();
+  let matomoReady = false;
 
   function serviceSlugFromPath(p: string): string | null {
     if (!p.startsWith('/services/')) return null;
@@ -64,10 +65,12 @@
     void (async () => {
       await tick();
       trackGaPageView(p);
+      if (matomoReady) trackMatomoPageView(p);
     })();
   }
 
   onMount(() => {
+    matomoReady = true;
     const sync = () => {
       path = normalizePathname(window.location.pathname);
     };
@@ -102,8 +105,8 @@
   <Careers />
 {:else if path === '/greenbrier-county-wv'}
   <GreenbrierCountyWv />
-{:else if path === '/labyrinth'}
-  <Labyrinth />
+{:else if path === '/pacman'}
+  <Pacman />
 {:else if path === '/resources'}
   <Resources />
 {:else if path === '/faq'}

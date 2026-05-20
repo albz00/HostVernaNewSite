@@ -19,4 +19,4 @@ Todo list:
 - Write Privacy Policy
 
 Are you happy? Look what you made me do.
-Check /labyrinth for fun.
+Check /pacman for fun.

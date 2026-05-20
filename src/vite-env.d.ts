@@ -3,6 +3,7 @@
 
 interface Window {
   gtag?: (...args: unknown[]) => void;
+  _paq?: unknown[][];
 }
 
 interface ImportMetaEnv {
