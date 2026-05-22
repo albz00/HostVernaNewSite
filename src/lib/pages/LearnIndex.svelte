@@ -4,14 +4,6 @@
   import { learnDocs } from '../data/learnPages';
 </script>
 
-<svelte:head>
-  <title>Learn | HostVerna</title>
-  <meta
-    name="description"
-    content="Documentation: domain transfers, images and CDN on Cloudflare, and how solutions stay tailored to you."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="learn-page">

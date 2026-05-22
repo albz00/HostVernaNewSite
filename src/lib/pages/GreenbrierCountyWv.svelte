@@ -18,14 +18,6 @@
   ] as const;
 </script>
 
-<svelte:head>
-  <title>Greenbrier County, WV | Local resource &amp; listings | HostVerna</title>
-  <meta
-    name="description"
-    content="A HostVerna resource page for Greenbrier County, West Virginia: areas we work in and an open invitation for local businesses to be listed or featured."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="gb-page">

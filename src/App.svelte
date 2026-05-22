@@ -19,10 +19,9 @@
   import LearnIndex from './lib/pages/LearnIndex.svelte';
   import LearnDoc from './lib/pages/LearnDoc.svelte';
   import ServeSegment from './lib/pages/ServeSegment.svelte';
-  import FreeWebsiteEvent from './lib/pages/FreeWebsiteEvent.svelte';
   import GreenbrierCountyWv from './lib/pages/GreenbrierCountyWv.svelte';
   import Pacman from './lib/pages/Pacman.svelte';
-  import { canonicalUrl } from './lib/data/siteUrls';
+  import { getPageMeta } from './lib/data/pageMeta';
 
   function normalizePathname(path: string): string {
     if (path.length > 1 && path.endsWith('/')) return path.slice(0, -1);
@@ -58,7 +57,7 @@
   $: serviceSlug = serviceSlugFromPath(path);
   $: solutionSlug = solutionSlugFromPath(path);
   $: learnDocSlug = learnDocSlugFromPath(path);
-  $: canonical = canonicalUrl(path);
+  $: pageMeta = getPageMeta(path);
 
   $: if (typeof window !== 'undefined') {
     const p = path;
@@ -80,7 +79,17 @@
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={canonical} />
+  <title>{pageMeta.title}</title>
+  <meta name="description" content={pageMeta.description} />
+  <link rel="canonical" href={pageMeta.canonical} />
+  <meta property="og:url" content={pageMeta.canonical} />
+  <meta property="og:title" content={pageMeta.title} />
+  <meta property="og:description" content={pageMeta.description} />
+  <meta name="twitter:title" content={pageMeta.title} />
+  <meta name="twitter:description" content={pageMeta.description} />
+  {#if pageMeta.robots}
+    <meta name="robots" content={pageMeta.robots} />
+  {/if}
 </svelte:head>
 
 {#if path === '/portal'}
@@ -95,8 +104,6 @@
   <QuickContact />
 {:else if path === '/contact'}
   <Contact />
-{:else if path === '/events/free-website-july'}
-  <FreeWebsiteEvent />
 {:else if path === '/about'}
   <About />
 {:else if path === '/connect'}
@@ -115,29 +122,21 @@
   <Blog />
 {:else if path === '/privacy'}
   <LockedPlaceholder
-    documentTitle="Privacy Policy (locked) | HostVerna"
-    metaDescription="The HostVerna privacy policy is not available for public access right now."
     heading="Privacy Policy is locked"
     lead="This page isn’t open to visitors. If you need our privacy practices in writing or have questions, call or email us and we’ll point you the right way."
   />
 {:else if path === '/terms'}
   <LockedPlaceholder
-    documentTitle="Terms of Service (locked) | HostVerna"
-    metaDescription="The HostVerna terms of service are not available for public access right now."
     heading="Terms of Service are locked"
     lead="This page isn’t open to visitors. If you need our terms in writing or have questions, call or email us and we’ll point you the right way."
   />
 {:else if path === '/cookies'}
   <LockedPlaceholder
-    documentTitle="Cookie Policy (locked) | HostVerna"
-    metaDescription="The HostVerna cookie policy is not available for public access right now."
     heading="Cookie Policy is locked"
     lead="This page isn’t open to visitors. If you need details about cookies or have questions, call or email us and we’ll point you the right way."
   />
 {:else if path === '/sla'}
   <LockedPlaceholder
-    documentTitle="SLA (locked) | HostVerna"
-    metaDescription="The HostVerna service level agreement is not available for public access right now."
     heading="SLA is locked"
     lead="This page isn’t open to visitors. If you need SLA details or have questions, call or email us and we’ll point you the right way."
   />

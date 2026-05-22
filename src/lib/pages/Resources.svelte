@@ -4,14 +4,6 @@
   import { learnDocs } from '../data/learnPages';
 </script>
 
-<svelte:head>
-  <title>Resources | HostVerna</title>
-  <meta
-    name="description"
-    content="Blog, documentation, and guides from HostVerna: domains, performance, and how we work with clients."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="res-page">

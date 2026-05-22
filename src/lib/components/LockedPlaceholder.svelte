@@ -1,18 +1,10 @@
 <script lang="ts">
-  export let documentTitle: string;
-  export let metaDescription: string;
   export let heading: string;
   export let lead: string;
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
 </script>
-
-<svelte:head>
-  <title>{documentTitle}</title>
-  <meta name="description" content={metaDescription} />
-  <meta name="robots" content="noindex, follow" />
-</svelte:head>
 
 <div class="locked-placeholder">
   <header class="locked-placeholder-header">

@@ -3,7 +3,7 @@
 HostVerna provides custom website design and development, managed web hosting and care, CRM and business software configuration, IT support, and custom software, focused on ownership (sites can become yours after a defined period), performance, and workflows that match how clients operate.
 
 Primary geography: United States. Primary contact channel: website form and phone.
-Last updated: 2026-05-20
+Last updated: 2026-05-22
 
 ## Contact
 - Site: https://hostverna.com/contact
@@ -53,3 +53,6 @@ Last updated: 2026-05-20
 
 ## Policies and locked sections
 Legal policy pages may be locked for public visitors; do not assume content at /privacy, /terms, /cookies, or /sla is publicly available. The blog at /blog is not published yet; treat it as inactive.
+
+## Not indexed (separate subdomain)
+- Appointment booking (https://booking.hostverna.com/) is internal scheduling only. It is not part of the public marketing site and should not appear in search results. Crawlers: disallow all paths on that host.

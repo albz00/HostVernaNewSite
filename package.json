@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "seo": "tsx scripts/generate-seo.ts",
-    "build": "npm run seo && vite build",
+    "build": "npm run seo && vite build && tsx scripts/prerender-html.ts",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
   },

@@ -1,1 +1,34 @@
-/*    /index.html   200
+# Prerendered routes (unique meta per URL for crawlers)
+/about  /about/index.html  200
+/aviation  /aviation/index.html  200
+/careers  /careers/index.html  200
+/connect  /connect/index.html  200
+/contact  /contact/index.html  200
+/faq  /faq/index.html  200
+/greenbrier-county-wv  /greenbrier-county-wv/index.html  200
+/learn  /learn/index.html  200
+/learn/custom-solutions  /learn/custom-solutions/index.html  200
+/learn/domain-transfers  /learn/domain-transfers/index.html  200
+/learn/images-and-cdn  /learn/images-and-cdn/index.html  200
+/professional-services  /professional-services/index.html  200
+/public-sector  /public-sector/index.html  200
+/quick-contact  /quick-contact/index.html  200
+/resources  /resources/index.html  200
+/services/business-software-crm  /services/business-software-crm/index.html  200
+/services/custom-software-solutions  /services/custom-software-solutions/index.html  200
+/services/it-solutions  /services/it-solutions/index.html  200
+/services/managed-web-services  /services/managed-web-services/index.html  200
+/services/web-design  /services/web-design/index.html  200
+/solutions/beyond-templates  /solutions/beyond-templates/index.html  200
+/solutions/customer-confirmations  /solutions/customer-confirmations/index.html  200
+/solutions/how-we-work-together  /solutions/how-we-work-together/index.html  200
+/solutions/own-your-site  /solutions/own-your-site/index.html  200
+/solutions/reachable-it-support  /solutions/reachable-it-support/index.html  200
+/solutions/security-built-in  /solutions/security-built-in/index.html  200
+/solutions/speed-without-lock-in  /solutions/speed-without-lock-in/index.html  200
+/solutions/workflow-fit-software  /solutions/workflow-fit-software/index.html  200
+/support  /support/index.html  200
+/trades  /trades/index.html  200
+
+# SPA fallback for unmatched paths
+/*  /index.html  200

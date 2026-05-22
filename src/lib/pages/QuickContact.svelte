@@ -46,14 +46,6 @@
   }
 </script>
 
-<svelte:head>
-  <title>Quick contact | HostVerna</title>
-  <meta
-    name="description"
-    content="Reach out in a few fields for a fast response from HostVerna."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="qc-page">

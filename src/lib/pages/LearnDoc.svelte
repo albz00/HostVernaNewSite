@@ -21,15 +21,6 @@
   }
 </script>
 
-<svelte:head>
-  {#if doc}
-    <title>{doc.metaTitle}</title>
-    <meta name="description" content={doc.lede} />
-  {:else}
-    <title>Not found | HostVerna</title>
-  {/if}
-</svelte:head>
-
 <Navbar />
 
 {#if doc}

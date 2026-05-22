@@ -13,14 +13,6 @@
   )}`;
 </script>
 
-<svelte:head>
-  <title>Connect | HostVerna</title>
-  <meta
-    name="description"
-    content="Landed here from a site we built, or curious as a fellow web team? Say hello. We are happy to connect, collaborate, or answer questions."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="connect-page">

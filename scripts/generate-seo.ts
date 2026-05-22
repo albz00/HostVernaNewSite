@@ -1,13 +1,14 @@
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { learnDocs } from '../src/lib/data/learnPages';
 import { servicePages } from '../src/lib/data/servicePages';
 import { solutionPages } from '../src/lib/data/solutionPages';
-import { getSitemapPaths, SITE_ORIGIN } from '../src/lib/data/siteUrls';
+import { BOOKING_ORIGIN, getSitemapPaths, SITE_ORIGIN } from '../src/lib/data/siteUrls';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, '..', 'public');
+const bookingDeployDir = join(__dirname, '..', 'deploy', 'booking-hostverna');
 
 function escapeXml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -111,8 +112,81 @@ ${learnList}
 
 ## Policies and locked sections
 Legal policy pages may be locked for public visitors; do not assume content at /privacy, /terms, /cookies, or /sla is publicly available. The blog at /blog is not published yet; treat it as inactive.
+
+## Not indexed (separate subdomain)
+- Appointment booking (${BOOKING_ORIGIN}/) is internal scheduling only. It is not part of the public marketing site and should not appear in search results. Crawlers: disallow all paths on that host.
 `;
 
 writeFileSync(join(publicDir, 'llms.txt'), llms, 'utf8');
 
-console.log(`Wrote ${urls.length} URLs to public/sitemap.xml, robots.txt, llms.txt`);
+const redirectRules = urls
+  .filter((p) => p !== '/')
+  .map((p) => `${p}  ${p}/index.html  200`)
+  .join('\n');
+
+const redirects = `# Prerendered routes (unique meta per URL for crawlers)
+${redirectRules}
+
+# SPA fallback for unmatched paths
+/*  /index.html  200
+`;
+
+writeFileSync(join(publicDir, '_redirects'), redirects, 'utf8');
+
+mkdirSync(bookingDeployDir, { recursive: true });
+
+const bookingRobots = `User-agent: *
+Disallow: /
+`;
+
+writeFileSync(join(bookingDeployDir, 'robots.txt'), bookingRobots, 'utf8');
+
+/** Cloudflare Pages / static hosts in front of Easy!Appointments */
+const bookingHeaders = `/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+`;
+
+writeFileSync(join(bookingDeployDir, '_headers'), bookingHeaders, 'utf8');
+
+const bookingReadme = `# Block crawlers on ${BOOKING_ORIGIN}
+
+Easy!Appointments runs on a **separate subdomain**. \`hostverna.com/robots.txt\` does not apply here.
+
+## 1. robots.txt (required)
+
+Copy \`robots.txt\` from this folder to the **web root** of the booking install (same place as Easy!Appointments \`index.php\`).
+
+Verify: ${BOOKING_ORIGIN}/robots.txt should return:
+
+\`\`\`
+User-agent: *
+Disallow: /
+\`\`\`
+
+## 2. X-Robots-Tag (recommended)
+
+If booking is behind **Cloudflare**, either:
+
+- Upload \`_headers\` from this folder to the booking site’s static output, or
+- Add a **Transform Rule** / **Configuration Rule** response header on \`booking.hostverna.com\`:
+  \`X-Robots-Tag: noindex, nofollow, noarchive\`
+
+## 3. Remove from Google (after deploy)
+
+In [Google Search Console](https://search.google.com/search-console), add the \`booking.hostverna.com\` property (or use a domain property), then:
+
+- **Removals** → temporarily remove the URL, and/or
+- **URL Inspection** → confirm \`robots.txt\` blocks crawling, then request removal
+
+Sitelinks on the main \`hostverna.com\` result may take weeks to drop after the booking host is blocked.
+
+## Do not link from the marketing site
+
+Avoid public \`<a href>\` links to booking from hostverna.com pages; use \`/contact\` instead so Google does not treat booking as a primary sitelink.
+`;
+
+writeFileSync(join(bookingDeployDir, 'README.md'), bookingReadme, 'utf8');
+
+console.log(
+  `Wrote ${urls.length} URLs to public/sitemap.xml, robots.txt, llms.txt, _redirects; booking crawl block files in deploy/booking-hostverna/`
+);

@@ -12,14 +12,6 @@
   import ScrollQualifierPrompt from '../components/ScrollQualifierPrompt.svelte';
 </script>
 
-<svelte:head>
-  <title>HostVerna | Custom websites, software & IT that fit your business</title>
-  <meta
-    name="description"
-    content="Custom websites, managed hosting, CRM setup, IT support, and software built around your business, with clear ownership when the project wraps."
-  />
-</svelte:head>
-
 <Navbar />
 <Hero />
 <Stats />

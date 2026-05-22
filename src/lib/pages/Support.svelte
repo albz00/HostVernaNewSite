@@ -7,14 +7,6 @@
   const phoneHref = 'tel:+13049926568';
 </script>
 
-<svelte:head>
-  <title>Support | HostVerna</title>
-  <meta
-    name="description"
-    content="Get help with hosting, your site, or software we built for you. Call, email, or open a request through the portal when you have access."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="support-page">

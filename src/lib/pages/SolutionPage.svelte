@@ -19,15 +19,6 @@
           : null;
 </script>
 
-<svelte:head>
-  {#if page}
-    <title>{page.metaTitle}</title>
-    <meta name="description" content={page.lede} />
-  {:else}
-    <title>Not found | HostVerna</title>
-  {/if}
-</svelte:head>
-
 <Navbar />
 
 {#if page}

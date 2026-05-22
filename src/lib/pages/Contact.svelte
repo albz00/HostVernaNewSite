@@ -180,14 +180,6 @@
   }
 </script>
 
-<svelte:head>
-  <title>Contact &amp; get started | HostVerna</title>
-  <meta
-    name="description"
-    content="Tell us what you need in a few quick steps. We respond fast, with no pressure. Call, email, or complete this form."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="contact-page">

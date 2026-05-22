@@ -3,15 +3,6 @@
   const phoneHref = 'tel:+13049926568';
 </script>
 
-<svelte:head>
-  <title>Blog (locked) | HostVerna</title>
-  <meta
-    name="description"
-    content="The HostVerna blog is not available for public access right now."
-  />
-  <meta name="robots" content="noindex, follow" />
-</svelte:head>
-
 <div class="blog">
   <header class="blog-header">
     <a href="/" class="logo">

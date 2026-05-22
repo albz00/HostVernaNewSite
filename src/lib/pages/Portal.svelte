@@ -8,13 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>Client portal | HostVerna</title>
-  <meta
-    name="description"
-    content="Sign in to the HostVerna client portal for projects, files, and updates."
-  />
   <meta http-equiv="refresh" content={`0;url=${CLIENT_PORTAL_LOGIN_URL}`} />
-  <meta name="robots" content="noindex, follow" />
 </svelte:head>
 
 <p class="portal-redirect">

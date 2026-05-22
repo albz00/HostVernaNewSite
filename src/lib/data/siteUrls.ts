@@ -10,6 +10,12 @@ export const SITE_ORIGIN = 'https://hostverna.com';
 export const CLIENT_PORTAL_LOGIN_URL = 'https://client.hostverna.com/app/login';
 
 /**
+ * Easy!Appointments scheduling (separate subdomain; not part of the marketing site index).
+ * Deploy `deploy/booking-hostverna/robots.txt` to this host — see that folder’s README.
+ */
+export const BOOKING_ORIGIN = 'https://booking.hostverna.com';
+
+/**
  * Indexable paths for sitemap.xml. Excludes locked placeholders (/portal, legal stubs, etc.).
  * Keep in sync with `App.svelte` routing.
  */
@@ -27,7 +33,6 @@ export function getSitemapPaths(): string[] {
     '/support',
     '/public-sector',
     '/learn',
-    '/events/free-website-july',
     ...audienceSegments.map((s) => `/${s.slug}`),
   ];
 

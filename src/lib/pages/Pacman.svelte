@@ -1204,15 +1204,6 @@
   });
 </script>
 
-<svelte:head>
-  <title>First-person Pac-Man | HostVerna</title>
-  <meta
-    name="description"
-    content="A first-person Pac-Man hidden inside hostverna.com. Eat all the pellets, dodge the ghosts, grab a power pellet to chomp them back."
-  />
-  <meta name="robots" content="noindex, follow" />
-</svelte:head>
-
 <div class="pac-page">
   <header class="pac-header">
     <a class="back-link" href="/journal.txt" aria-label="Back to journal.txt">

@@ -3,14 +3,6 @@
   import Footer from '../components/Footer.svelte';
 </script>
 
-<svelte:head>
-  <title>About HostVerna | Partnership &amp; values</title>
-  <meta
-    name="description"
-    content="HostVerna (DBA; founded as A to Z Digital LLC): our story, how we work with clients, and who leads the work."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="about-page">

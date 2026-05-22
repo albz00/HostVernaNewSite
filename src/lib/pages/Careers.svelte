@@ -3,14 +3,6 @@
   import Footer from '../components/Footer.svelte';
 </script>
 
-<svelte:head>
-  <title>Careers | HostVerna</title>
-  <meta
-    name="description"
-    content="Careers at HostVerna. There are currently no open positions, but you can still send your information for future opportunities."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="careers-page">

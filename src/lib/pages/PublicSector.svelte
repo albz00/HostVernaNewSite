@@ -3,14 +3,6 @@
   import Footer from '../components/Footer.svelte';
 </script>
 
-<svelte:head>
-  <title>Public Sector | HostVerna</title>
-  <meta
-    name="description"
-    content="Websites, software, and integrations for agencies and public entities buying through formal procurement and vendor marketplaces."
-  />
-</svelte:head>
-
 <Navbar />
 
 <main class="sector-page">
