@@ -9,6 +9,9 @@ export const SITE_ORIGIN = 'https://hostverna.com';
 /** Client workspace login on client.hostverna.com */
 export const CLIENT_PORTAL_LOGIN_URL = 'https://client.hostverna.com/app/login';
 
+/** Google Business profile — leave a review */
+export const GOOGLE_REVIEWS_URL = 'https://g.page/r/CU8uH4eJcYkzEAI/review';
+
 /**
  * Easy!Appointments scheduling (separate subdomain; not part of the marketing site index).
  * Deploy `deploy/booking-hostverna/robots.txt` to this host — see that folder’s README.

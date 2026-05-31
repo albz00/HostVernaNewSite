@@ -4,27 +4,27 @@
   const pillars = [
     {
       title: 'We answer the phone',
-      desc: 'A real person who knows your account picks up.',
+      desc: 'A real person who knows your account picks up, usually the same day.',
     },
     {
-      title: 'We\'re not a marketing company',
-      desc: 'We build useful sites and tools, not generic funnels.',
+      title: 'Not a marketing agency',
+      desc: 'No magic leads or ad budgets you cannot justify. We build the hub your traffic should point back to.',
     },
     {
       title: 'You own what you paid for',
-      desc: 'After a set number of months, the site transfers to you.',
+      desc: 'After a set number of months, the code, domain, and hosting transfer to you.',
     },
     {
       title: 'We guide, not overwhelm',
-      desc: 'We walk you through your site until you feel comfortable.',
+      desc: 'We walk you through your site and explain the why, without the jargon.',
     },
     {
-      title: 'No surprises, ever',
-      desc: 'Scope, pricing, and timeline are agreed before anything starts.',
+      title: 'Your money stays put',
+      desc: 'We connect what you already have before suggesting you spend more on anything.',
     },
     {
-      title: 'Proactive communication',
-      desc: 'We check in, flag issues early, and keep you updated.',
+      title: 'Monthly check-ins included',
+      desc: 'Each month we flag gaps and missed opportunities, so the attention you already get actually lands.',
     },
   ];
 </script>
@@ -33,11 +33,11 @@
   <div class="container">
     <div class="split-header">
       <div>
-        <h2 class="section-title">A clear path, start to finish</h2>
+        <h2 class="section-title">Not magic. Just a clear path.</h2>
       </div>
       <p class="split-sub">
-        You shouldn't have to become a web expert.
-        <ContentHighlight tone="keyword">Here is the simple flow.</ContentHighlight>
+        No magic SEO buttons or ad gambles, and no becoming a web expert yourself.
+        <ContentHighlight tone="keyword">Here's exactly how it goes.</ContentHighlight>
       </p>
     </div>
 
@@ -67,7 +67,7 @@
       <div class="whyus-left">
         <h2 class="section-title">Why businesses<br />stay with us</h2>
         <p class="why-sub">
-          We handle the technical work without leaving you out of the loop.
+          We're your technical partner, not a marketing agency. We handle the hard parts and keep you in the loop.
         </p>
         <figure class="why-team-fig">
           <img

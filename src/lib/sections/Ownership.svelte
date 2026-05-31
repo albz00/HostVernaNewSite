@@ -5,23 +5,30 @@
     {
       pain: 'You keep paying for a site you never own.',
       context:
-        'Monthly fees stack up long after the build is paid for, and the keys stay with the agency.',
+        'The monthly fees never stop, and the day you leave, you walk away with nothing.',
       answer:
-        'Ownership transfers to you \u2014 code, content, domain, and credentials, all in your name.',
+        'Ownership transfers to you. Code, content, domain, and credentials all end up in your name.',
     },
     {
-      pain: 'Every small change becomes a ticket.',
+      pain: 'Every little change turns into a support ticket.',
       context:
-        'Typos, photos, and page edits shouldn\u2019t need a whole vendor process to move forward.',
+        'Updating a photo or fixing a typo should not require waiting on a vendor for a week.',
       answer:
-        'Built custom, then made easy to manage. Update text, images, and pages yourself, or hand it back to us.',
+        'We build it custom, then make it easy to manage. Change text, images, and pages yourself, or hand it back to us anytime.',
     },
     {
-      pain: 'When something breaks, nobody picks up.',
+      pain: 'When something breaks, nobody answers.',
       context:
-        'Support shouldn\u2019t disappear into a ticket queue for days while your business waits.',
+        'Your business should not sit on hold while a ticket buries itself in a queue for days.',
       answer:
-        'You get a direct line to the team that built it. Real people, real answers, on the same day.',
+        'You get a direct line to the people who built it. Real answers, usually the same day.',
+    },
+    {
+      pain: 'Your attention goes everywhere except your website.',
+      context:
+        'Your Google profile, social pages, business cards, and voicemail all point people in different directions, when they should point to one place that earns trust and gets the call.',
+      answer:
+        'We are a web and software company, not a marketing agency. We build your site as the hub, then make sure every touchpoint sends people back to it, without burning money on ads or SEO guesses.',
     },
   ];
 
@@ -58,12 +65,12 @@
 
     <header class="pain-lede">
       <h2 class="pain-title">
-        Built for the business owner<br />
-        who has no time for this.
+        For owners who'd rather run<br />
+        their business than their website.
       </h2>
       <p class="pain-sub">
         If you've ever thought
-        <ContentHighlight tone="comment">"I just need this handled,"</ContentHighlight>
+        <ContentHighlight tone="comment">"I just need someone to handle this,"</ContentHighlight>
         you're in the right place.
       </p>
     </header>
@@ -90,12 +97,12 @@
           Then it's yours.
         </h2>
         <p class="own-body">
-          Most web agencies rent you a site and keep the keys.
-          <ContentHighlight tone="accent">You pay monthly for something you never actually own.</ContentHighlight>
-          We don't work that way.
+          Most agencies rent you a website and hold the keys.
+          <ContentHighlight tone="accent">You pay every month for something that is never actually yours.</ContentHighlight>
+          We do the opposite.
         </p>
         <p class="own-body">
-          We build the site, train you on it, and transfer the code, tools, and hosting after a set number of months. After that, what happens next is your call.
+          We build the site, show you how to run it, and hand over the code, tools, and hosting after a set number of months. Along the way we make sure your social profiles, Google listing, and other touchpoints all point back to it. After that, the next move is yours.
         </p>
 
         <figure class="own-transfer-fig">

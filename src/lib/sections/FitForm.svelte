@@ -187,21 +187,21 @@
   const resultCopy: Record<Fit, { title: string; sub: string; cta: string; ctaLabel: string }> = {
     great: {
       title: "You're exactly who we built this for.",
-      sub: "Your business looks like a strong fit. Let's have a quick call.",
+      sub: "Your business looks like a strong fit. Let's set up a quick call.",
       cta: '/contact',
       ctaLabel: 'Book a Free Call',
     },
     maybe: {
       title: "We might be a fit. Let's find out.",
-      sub: "Reach out and we'll be straight about whether it makes sense.",
+      sub: "Reach out and we'll be straight with you about whether it makes sense.",
       cta: '/contact',
       ctaLabel: 'Talk to Us First',
     },
     no: {
-      title: "We're probably not the right call right now.",
-      sub: "Based on your answers, we'd likely be a poor fit right now.",
+      title: "We're probably not your best option today.",
+      sub: "Based on your answers, another provider would likely serve you better right now.",
       cta: '/about',
-      ctaLabel: 'Learn What We Do',
+      ctaLabel: 'See What We Do',
     },
   };
 </script>
@@ -247,13 +247,12 @@
   <div class="container">
     <div class="fit-header">
       <h2 class="fit-title">
-        We're selective about who we work with.<br />
-        <span class="gradient-text">Here's why that's good for you.</span>
+        We don't take every project.<br />
+        <span class="gradient-text">Let's see if we fit yours.</span>
       </h2>
       <p class="fit-sub">
-        We don't take every project.
         <ContentHighlight tone="keyword">Answer five quick questions</ContentHighlight>
-        and we'll be honest about fit.
+        and we'll tell you honestly whether we're the right call, no pressure either way.
       </p>
     </div>
 
@@ -261,24 +260,24 @@
 
       {#if step === 'intro'}
         <div class="form-card intro-card">
-          <h3 class="intro-heading">Quick qualifier. Five questions.</h3>
+          <h3 class="intro-heading">A quick fit check. Five questions.</h3>
           <div class="intro-split">
             <div class="intro-copy">
               <p class="intro-body">
-                A quick check before we talk.
+                A short read on your business before we ever talk.
                 <ContentHighlight tone="comment">Takes under a minute.</ContentHighlight>
               </p>
               <div class="intro-bullets">
-                <div class="ib"><div class="ib-dot"></div><span>We'll tell you straight if we're not the right fit</span></div>
+                <div class="ib"><div class="ib-dot"></div><span>If we're not the right fit, we'll say so</span></div>
                 <div class="ib"><div class="ib-dot"></div><span>No sales pressure from this form</span></div>
-                <div class="ib"><div class="ib-dot"></div><span>Financing available if budget is a concern</span></div>
+                <div class="ib"><div class="ib-dot"></div><span>Financing available if budget is the concern</span></div>
               </div>
             </div>
             <aside class="intro-qualifier-panel">
               <QualifierIcon src={qualifierIconUrl} />
             </aside>
           </div>
-          <button class="btn btn-primary btn-lg" on:click={() => advance('q1')}>Start the Qualifier</button>
+          <button class="btn btn-primary btn-lg" on:click={() => advance('q1')}>Start the Fit Check</button>
         </div>
 
       {:else if step === 'q1'}

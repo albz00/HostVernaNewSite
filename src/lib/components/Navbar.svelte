@@ -4,13 +4,12 @@
   import { solutionNavItems } from '../data/solutionNav';
   import { resourcesNavItems } from '../data/learnPages';
   import { whoWeServeNavItems } from '../data/whoWeServeNav';
-  import { CLIENT_PORTAL_LOGIN_URL } from '../data/siteUrls';
+  import { CLIENT_PORTAL_LOGIN_URL, GOOGLE_REVIEWS_URL } from '../data/siteUrls';
   let scrolled = false;
   let mobileOpen = false;
   let menuToggleLabel = 'MENU';
   let labelAnimToken = 0;
   let prefersReducedMotion = false;
-  let communityBannerVisible = true;
   let navInnerElement: HTMLElement;
   let mobileMenuMaxHeight = 'calc(100dvh - 88px - env(safe-area-inset-bottom))';
   const MOBILE_BREAKPOINT = 900;
@@ -40,7 +39,6 @@
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
   const howWeWorkTogetherHref = '/solutions/how-we-work-together';
-  const communityBannerStorageKey = 'hostverna-community-banner-dismissed';
 
   const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
@@ -113,27 +111,8 @@
     void playLabelTransition('MENU');
   }
 
-  function setCommunityBannerOffset(visible: boolean) {
-    if (typeof document === 'undefined') return;
-
-    if (visible) {
-      document.documentElement.style.removeProperty('--hv-promo-h');
-      return;
-    }
-
-    document.documentElement.style.setProperty('--hv-promo-h', '0px');
-  }
-
-  function dismissCommunityBanner() {
-    communityBannerVisible = false;
-    setCommunityBannerOffset(false);
-    window.localStorage.setItem(communityBannerStorageKey, 'true');
-  }
-
   onMount(() => {
     prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    communityBannerVisible = window.localStorage.getItem(communityBannerStorageKey) !== 'true';
-    setCommunityBannerOffset(communityBannerVisible);
     setDocumentMenuState(mobileOpen);
 
     const handler = () => {
@@ -176,11 +155,45 @@
 <header class="nav-wrapper" class:scrolled>
   <div class="nav-utility" class:nav-utility--hidden={scrolled} aria-label="Sales and support">
     <div class="nav-utility-inner">
-      <a href="/support" class="nav-utility-link">Support</a>
-      <span class="nav-utility-sales">
-        <span class="nav-utility-sales-label">Sales:</span>
-        <a href={phoneHref} class="nav-utility-phone">{phoneDisplay}</a>
-      </span>
+      <a
+        href={GOOGLE_REVIEWS_URL}
+        class="nav-google-reviews"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Read our 10 Google reviews"
+      >
+        <svg class="nav-google-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+          <path
+            fill="#4285F4"
+            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+          />
+          <path
+            fill="#34A853"
+            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+          />
+          <path
+            fill="#FBBC05"
+            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+          />
+          <path
+            fill="#EA4335"
+            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+          />
+        </svg>
+        <span class="nav-google-stars" aria-hidden="true">
+          {#each [0, 1, 2, 3, 4] as _}
+            <span class="nav-google-star">★</span>
+          {/each}
+        </span>
+        <span class="nav-google-count">(10 reviews)</span>
+      </a>
+      <div class="nav-utility-right">
+        <a href="/support" class="nav-utility-link">Support</a>
+        <span class="nav-utility-sales">
+          <span class="nav-utility-sales-label">Sales:</span>
+          <a href={phoneHref} class="nav-utility-phone">{phoneDisplay}</a>
+        </span>
+      </div>
     </div>
   </div>
 
@@ -495,40 +508,9 @@
       </div>
     {/if}
   </nav>
-
-  {#if communityBannerVisible}
-    <aside class="community-banner" aria-label="Community update">
-      <div class="community-banner__content">
-        <span class="community-banner__label">Update</span>
-        <span class="community-banner__text">
-          Congratulations on your new website, Elevation Aviation!
-        </span>
-        <a
-          class="community-banner__link"
-          href="https://elevationflight.com"
-          target="_blank"
-          rel="noreferrer"
-        >
-          elevationflight.com
-        </a>
-      </div>
-      <button
-        type="button"
-        class="community-banner__close"
-        aria-label="Dismiss community update"
-        on:click={dismissCommunityBanner}
-      >
-        X
-      </button>
-    </aside>
-  {/if}
 </header>
 
 <style>
-  :global(:root) {
-    --hv-promo-h: 34px;
-  }
-
   .nav-wrapper {
     position: fixed;
     top: 0;
@@ -560,9 +542,58 @@
     .nav-utility-inner {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: space-between;
       gap: 22px;
       font-size: 12.5px;
+    }
+
+    .nav-utility-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 22px;
+      margin-left: auto;
+    }
+
+    .nav-google-reviews {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 3px 6px;
+      margin: -3px -6px;
+      border-radius: var(--radius-tile-sm);
+      transition: color 0.15s ease, background 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-google-reviews:hover {
+      color: var(--text-primary);
+      background: rgba(3, 105, 161, 0.06);
+    }
+
+    .nav-google-stars {
+      display: inline-flex;
+      align-items: center;
+      gap: 1px;
+      line-height: 1;
+    }
+
+    .nav-google-star {
+      font-size: 12px;
+      color: #f59e0b;
+      text-shadow: 0 0 0.5px rgba(180, 83, 9, 0.35);
+    }
+
+    .nav-google-count {
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .nav-google-logo {
+      display: block;
+      flex-shrink: 0;
     }
 
     .nav-utility-link {
@@ -635,89 +666,6 @@
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.65) inset,
       0 10px 36px rgba(15, 23, 42, 0.11);
-  }
-
-  .community-banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    max-width: 1200px;
-    min-height: 28px;
-    margin: 5px auto 0;
-    padding: 4px 8px 4px 14px;
-    color: rgba(71, 85, 105, 0.86);
-    background: linear-gradient(90deg, rgba(248, 250, 252, 0.76), rgba(236, 253, 245, 0.62));
-    border-top: 1px solid rgba(203, 213, 225, 0.48);
-    border-bottom: 1px solid rgba(203, 213, 225, 0.5);
-    font-size: 12px;
-    line-height: 1.35;
-    text-align: center;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  .community-banner__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    min-width: 0;
-    flex: 1;
-  }
-
-  .community-banner__label {
-    flex-shrink: 0;
-    color: rgba(3, 105, 161, 0.72);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .community-banner__text {
-    min-width: 0;
-  }
-
-  .community-banner__link {
-    flex-shrink: 0;
-    color: rgba(3, 105, 161, 0.8);
-    font-weight: 650;
-    text-decoration: none;
-  }
-
-  .community-banner__link:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
-  }
-
-  .community-banner__close {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    margin: -2px 0;
-    border: none;
-    border-radius: var(--radius-tile-sm);
-    color: rgba(71, 85, 105, 0.58);
-    background: transparent;
-    font-size: 17px;
-    line-height: 1;
-    cursor: pointer;
-    transition: color 0.15s ease, background 0.15s ease;
-  }
-
-  .community-banner__close:hover {
-    color: var(--text-secondary);
-    background: rgba(15, 23, 42, 0.05);
-  }
-
-  .community-banner__close:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 1px;
   }
 
   .nav-inner {
@@ -1270,10 +1218,6 @@
   }
 
   @media (max-width: 900px) {
-    :global(:root) {
-      --hv-promo-h: 46px;
-    }
-
     .nav-links {
       display: none;
     }
@@ -1293,26 +1237,9 @@
     .mobile-toggle {
       display: flex;
     }
-
-    .community-banner {
-      gap: 8px;
-      min-height: 38px;
-      margin-top: 5px;
-      padding: 5px 7px 5px 10px;
-      font-size: 11.5px;
-    }
-
-    .community-banner__content {
-      flex-wrap: wrap;
-      gap: 4px 8px;
-    }
   }
 
   @media (max-width: 600px) {
-    :global(:root) {
-      --hv-promo-h: 56px;
-    }
-
     .nav-wrapper {
       padding: 12px 12px;
     }
@@ -1329,16 +1256,6 @@
       padding-left: 12px;
       padding-right: 12px;
       max-height: calc(100dvh - 80px - env(safe-area-inset-bottom));
-    }
-
-    .community-banner {
-      align-items: center;
-      justify-content: flex-start;
-      text-align: left;
-    }
-
-    .community-banner__content {
-      justify-content: flex-start;
     }
   }
 
@@ -1361,27 +1278,6 @@
   :global([data-theme='dark']) .nav-bar.scrolled {
     background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
     border-color: rgba(51, 65, 85, 0.65);
-  }
-
-  :global([data-theme='dark']) .community-banner {
-    color: rgba(203, 213, 225, 0.82);
-    background: linear-gradient(90deg, rgba(15, 23, 42, 0.72), rgba(19, 78, 74, 0.34));
-    border-top-color: rgba(71, 85, 105, 0.58);
-    border-bottom-color: rgba(71, 85, 105, 0.5);
-  }
-
-  :global([data-theme='dark']) .community-banner__label,
-  :global([data-theme='dark']) .community-banner__link {
-    color: rgba(125, 211, 252, 0.82);
-  }
-
-  :global([data-theme='dark']) .community-banner__close {
-    color: rgba(203, 213, 225, 0.56);
-  }
-
-  :global([data-theme='dark']) .community-banner__close:hover {
-    color: var(--text-primary);
-    background: rgba(226, 232, 240, 0.08);
   }
 
   :global([data-theme='dark']) .nav-utility {

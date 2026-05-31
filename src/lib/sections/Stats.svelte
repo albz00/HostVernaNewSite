@@ -13,7 +13,7 @@
       value: '100+',
       label: 'Businesses Served',
       sub: '3 years and counting',
-      detail: 'Steady work with real business owners.',
+      detail: 'Long-term relationships with real business owners.',
     },
     {
       id: 'experience',
@@ -27,7 +27,7 @@
       value: '98%',
       label: 'Client Retention',
       sub: 'year over year',
-      detail: 'Clients tend to stick with us.',
+      detail: 'Most clients stay with us year after year.',
     },
     {
       id: 'response',
@@ -66,6 +66,14 @@
     {
       text: '"When the CRM acts up, I talk to someone who knows our setup."',
       author: 'S. Okafor',
+    },
+    {
+      text: '"My Google profile and Facebook finally point back to one place."',
+      author: 'T. Nguyen',
+    },
+    {
+      text: '"They flagged gaps on our site before they ever cost us."',
+      author: 'B. Alvarez',
     },
   ];
 

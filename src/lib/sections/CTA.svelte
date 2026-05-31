@@ -1,28 +1,37 @@
 <script lang="ts">
   import ContentHighlight from '../components/ContentHighlight.svelte';
 
-  /** 3D avatar illustration, shared across testimonial cards */
+  /** Default 3D avatar for testimonial cards */
   const testimonialAvatarUrl =
     'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/52207b03-2a80-4d87-9cff-0e3ea8315700/public';
+
+  const femaleTestimonialAvatarUrl =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/10d28c89-44ac-48d7-fdd8-f7df72fd4100/public';
 
   const testimonials = [
     {
       quote:
-        "They rebuilt the site, showed me how to edit it, and put the ownership terms in writing.",
-      author: 'Sarah M.',
-      result: 'Owns her site outright',
+        'Alex was very quick to respond, professional and attentive to everything I needed worked on! Highly recommend him for any website/domain needs!',
+      author: 'Brenley B.',
+      result: 'Website & domain support',
+      reviewUrl: 'https://share.google/nI0lP4shlDehrmocj',
+      avatarUrl: femaleTestimonialAvatarUrl,
     },
     {
       quote:
-        "They answered my hosting questions plainly and handled the technical parts.",
-      author: 'James T.',
-      result: 'No IT background required',
+        'Alex is super great to work with and very responsive to requests! He has a great eye for design and does awesome work!',
+      author: 'Missy G.',
+      result: 'Responsive design work',
+      reviewUrl: 'https://share.google/zW457dDaYVtPVDDC9',
+      avatarUrl: femaleTestimonialAvatarUrl,
     },
     {
       quote:
-        "Now one team knows the setup, and our staff has one place to go.",
-      author: 'Layla K.',
-      result: 'One partner, everything handled',
+        'Fantastic work every time, has done three logos and two websites for me. Always very timely and professional highly recommend',
+      author: 'John H.',
+      result: 'Logos & websites',
+      reviewUrl: 'https://share.google/m3cNjN3NOGc9jlWch',
+      avatarUrl: testimonialAvatarUrl,
     },
   ];
 </script>
@@ -32,24 +41,57 @@
     <div class="t-header">
       <h2 class="t-title">From business owners like you</h2>
       <p class="t-sub">
-        Short notes on
-        <ContentHighlight tone="string">what it felt like to work with us.</ContentHighlight>
+        Honest notes on
+        <ContentHighlight tone="string">what it's actually like to work with us.</ContentHighlight>
       </p>
     </div>
     <div class="testimonials-grid">
       {#each testimonials as t}
-        <div class="t-card">
+        <a
+          href={t.reviewUrl}
+          class="t-card"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Read {t.author}'s Google review"
+        >
+          <span class="t-external-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </span>
           <div class="t-result">{t.result}</div>
-          <div class="t-stars" role="img" aria-label="5 out of 5 stars">
-            {#each [0, 1, 2, 3, 4] as _}
-              <span class="t-star" aria-hidden="true">★</span>
-            {/each}
-          </div>
+          <span class="t-google-link">
+            <svg class="t-google-logo" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path
+                fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              />
+            </svg>
+            <span class="t-stars" aria-hidden="true">
+              {#each [0, 1, 2, 3, 4] as _}
+                <span class="t-star">★</span>
+              {/each}
+            </span>
+          </span>
           <p class="t-quote">{t.quote}</p>
           <div class="t-author">
             <div class="t-avatar">
               <img
-                src={testimonialAvatarUrl}
+                src={t.avatarUrl}
                 width="88"
                 height="88"
                 alt=""
@@ -62,7 +104,7 @@
               <div class="t-name">{t.author}</div>
             </div>
           </div>
-        </div>
+        </a>
       {/each}
     </div>
   </div>
@@ -71,13 +113,13 @@
 <section class="cta-section" id="contact">
   <div class="container cta-content">
     <div class="cta-inner">
-      <span class="cta-eyebrow">Ready to grow?</span>
+      <span class="cta-eyebrow">Ready when you are</span>
       <h2 class="cta-title">
         Stop renting.<br />Start owning.
       </h2>
       <p class="cta-sub">
-        If you're tired of
-        <ContentHighlight tone="accent">paying for something you don't own</ContentHighlight>,
+        If you're done
+        <ContentHighlight tone="accent">paying forever for something you don't own</ContentHighlight>,
         let's talk.
       </p>
       <div class="cta-actions">
@@ -135,6 +177,7 @@
   }
 
   .t-card {
+    position: relative;
     background: var(--bg);
     padding: 32px 28px;
     display: flex;
@@ -143,11 +186,37 @@
     border-radius: var(--radius-tile);
     border: 1px solid var(--border);
     box-shadow: var(--shadow-tile);
-    transition: box-shadow 0.22s ease;
+    transition: box-shadow 0.22s ease, border-color 0.22s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
 
   .t-card:hover {
     box-shadow: var(--shadow-tile-hover);
+    border-color: color-mix(in srgb, var(--primary) 25%, var(--border));
+  }
+
+  .t-external-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .t-card:hover .t-external-icon {
+    color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 8%, var(--bg));
+    border-color: color-mix(in srgb, var(--primary) 25%, var(--border));
   }
 
   .t-result {
@@ -162,6 +231,17 @@
     display: inline-block;
     width: fit-content;
     letter-spacing: 0.01em;
+  }
+
+  .t-google-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+  }
+
+  .t-google-logo {
+    flex-shrink: 0;
   }
 
   .t-stars {

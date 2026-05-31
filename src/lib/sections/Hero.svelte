@@ -460,15 +460,15 @@
     <div class="hero-top">
       <div class="hero-copy">
         <h1 class="hero-title">
-          Your site. Your software.<br />
-          <span class="gradient-text">Actually yours.</span>
+          We build the hub<br />
+          <span class="gradient-text">your business runs through.</span>
         </h1>
 
         <p class="hero-sub">
-          We design and build everything from scratch.
+          Custom websites and software for business owners who are done renting a DIY platform.
           <ContentHighlight tone="keyword">No templates, no locked subscriptions.</ContentHighlight>
-          You <ContentHighlight tone="string">own your site outright</ContentHighlight>, get the tools to manage it, and have
-          <ContentHighlight tone="comment">a team you can actually reach</ContentHighlight>.
+          You <ContentHighlight tone="string">own your site outright</ContentHighlight>, with
+          <ContentHighlight tone="comment">a local technical partner who actually picks up</ContentHighlight>.
         </p>
 
         <div class="hero-actions">
@@ -500,26 +500,47 @@
       </figure>
 
       <div class="hero-proof">
-        <span class="proof-label">Trusted by business owners across the US</span>
+        <span class="proof-label">Businesses in association with</span>
         <div class="proof-list">
-          <div class="proof-track">
-            {#each trustedPartners as p}
-              <div class="proof-partner">
-                {#if p.logo}
-                  <img
-                    class="proof-logo"
-                    src={p.logo}
-                    alt={`${p.name} logo`}
-                    width="176"
-                    height="52"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                {:else}
-                  <span class="proof-brand">{p.name}</span>
-                {/if}
-              </div>
-            {/each}
+          <div class="proof-track" aria-label="Partner businesses">
+            <div class="proof-set">
+              {#each trustedPartners as p}
+                <div class="proof-partner">
+                  {#if p.logo}
+                    <img
+                      class="proof-logo"
+                      src={p.logo}
+                      alt={`${p.name} logo`}
+                      width="176"
+                      height="52"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  {:else}
+                    <span class="proof-brand">{p.name}</span>
+                  {/if}
+                </div>
+              {/each}
+            </div>
+            <div class="proof-set proof-set--clone" aria-hidden="true">
+              {#each trustedPartners as p}
+                <div class="proof-partner">
+                  {#if p.logo}
+                    <img
+                      class="proof-logo"
+                      src={p.logo}
+                      alt=""
+                      width="176"
+                      height="52"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  {:else}
+                    <span class="proof-brand">{p.name}</span>
+                  {/if}
+                </div>
+              {/each}
+            </div>
           </div>
         </div>
       </div>
@@ -1198,36 +1219,61 @@
     font-family: 'DM Mono', monospace;
   }
 
+  /* Seamless marquee on every breakpoint: track holds two identical
+     .proof-set groups; animating to -50% loops with no visible seam. */
   .proof-list {
+    position: relative;
     width: 100%;
     min-width: 0;
     overflow: hidden;
     overflow: clip;
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   }
 
   .proof-track {
     display: flex;
-    gap: clamp(20px, 4vw, 36px);
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     align-items: center;
-    width: 100%;
-    min-width: 0;
+    gap: 0;
+    width: max-content;
+    max-width: none;
+    animation: proof-marquee 32s linear infinite;
+    will-change: transform;
+  }
+
+  .proof-list:hover .proof-track {
+    animation-play-state: paused;
+  }
+
+  .proof-set {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--proof-gap, 40px);
+    /* Trailing gap so spacing across the loop seam matches inner spacing. */
+    padding-right: var(--proof-gap, 40px);
   }
 
   .proof-partner {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 0 0 auto;
+    width: clamp(108px, 12vw, 148px);
+    height: 46px;
     min-height: 46px;
-    flex-shrink: 0;
+    max-height: 46px;
+    overflow: hidden;
   }
 
   .proof-logo {
     display: block;
-    height: clamp(34px, 4.2vw, 44px);
-    width: auto;
-    max-width: min(168px, 34vw);
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
     object-position: center;
     opacity: 0.92;
@@ -2621,13 +2667,13 @@
     96%, 100% { opacity: 0; transform: translateY(-2px) scale(0.98); }
   }
 
-  /* Mobile partner logos: single-row horizontal drift without duplicated items */
-  @keyframes proof-drift {
+  /* Mobile partner logos: seamless marquee (track is duplicated in markup) */
+  @keyframes proof-marquee {
     from {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     to {
-      transform: translateX(-40%);
+      transform: translate3d(-50%, 0, 0);
     }
   }
 
@@ -2678,36 +2724,19 @@
       line-height: 1.45;
     }
 
-    .proof-list {
-      position: relative;
-      width: 100%;
-      max-width: 100%;
-      min-width: 0;
-      margin-inline: auto;
-      padding-block: 2px;
-      overflow-x: hidden;
-      overflow-x: clip;
-      overflow-y: hidden;
-      contain: paint;
-      mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    .proof-set {
+      --proof-gap: 26px;
+    }
+
+    .proof-partner {
+      width: clamp(112px, 32vw, 142px);
+      height: 40px;
+      min-height: 40px;
+      max-height: 40px;
     }
 
     .proof-track {
-      display: inline-flex;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 22px;
-      width: max-content;
-      max-width: none;
-      animation: proof-drift 18s ease-in-out infinite alternate;
-      will-change: transform;
-    }
-
-    .proof-logo {
-      max-width: min(142px, 38vw);
-      height: clamp(28px, 9vw, 38px);
+      animation-duration: 22s;
     }
 
     .hero-visual-row {
@@ -2728,25 +2757,39 @@
     }
   }
 
-  @media (max-width: 760px) and (prefers-reduced-motion: reduce) {
+  /* No motion: drop the marquee, show a single static wrapped row.
+     The cloned .proof-set is hidden so logos are not duplicated. */
+  @media (prefers-reduced-motion: reduce) {
     .proof-list {
-      overflow-x: clip;
+      overflow: visible;
       mask-image: none;
       -webkit-mask-image: none;
+    }
+
+    .proof-set--clone {
+      display: none !important;
+    }
+
+    .proof-set {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      padding-right: 0;
+      gap: 14px 18px;
     }
 
     .proof-track {
       animation: none !important;
       transform: none !important;
       will-change: auto;
-      display: flex;
       flex-wrap: wrap;
       justify-content: center;
       width: 100%;
       max-width: 100%;
-      gap: 14px 18px;
     }
   }
+
 
   @media (max-width: 520px) {
     .mockup-bar {
