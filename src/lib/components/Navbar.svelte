@@ -4,7 +4,78 @@
   import { solutionNavItems } from '../data/solutionNav';
   import { resourcesNavItems } from '../data/learnPages';
   import { whoWeServeNavItems } from '../data/whoWeServeNav';
-  import { CLIENT_PORTAL_LOGIN_URL, GOOGLE_REVIEWS_URL } from '../data/siteUrls';
+  import {
+    CLIENT_PORTAL_LOGIN_URL,
+    CLOUDFLARE_PAGE_VIEWS_URL,
+    FACEBOOK_REVIEWS_URL,
+    GOOGLE_REVIEWS_URL,
+  } from '../data/siteUrls';
+
+  type UtilityBadge = {
+    id: 'google' | 'facebook' | 'cloudflare' | 'cloudflare-network';
+    href: string;
+    platform: string;
+    kind: 'reviews' | 'pageviews' | 'monthly-pageviews';
+    count?: number;
+    label?: string;
+    ariaLabel?: string;
+  };
+
+  const utilityBadges: UtilityBadge[] = [
+    { id: 'google', href: GOOGLE_REVIEWS_URL, count: 13, platform: 'Google', kind: 'reviews' },
+    { id: 'facebook', href: FACEBOOK_REVIEWS_URL, count: 5, platform: 'Facebook', kind: 'reviews' },
+    {
+      id: 'cloudflare',
+      href: CLOUDFLARE_PAGE_VIEWS_URL,
+      platform: 'Cloudflare',
+      kind: 'pageviews',
+      label: '100K page views · HostVerna',
+      ariaLabel: '100,000 page views for HostVerna.com',
+    },
+    {
+      id: 'cloudflare-network',
+      href: '/about',
+      platform: 'Cloudflare',
+      kind: 'monthly-pageviews',
+      label: '550K+ monthly views · all client sites',
+      ariaLabel: 'Over 550,000 monthly page views across all HostVerna client websites',
+    },
+  ];
+
+  const UTILITY_CYCLE_MS = 8000;
+  const UTILITY_FADE_MS = 650;
+
+  let activeBadgeIndex = 0;
+  let badgeFading = false;
+
+  function utilityLabel(badge: UtilityBadge): string {
+    if (badge.label) return badge.label;
+    if (badge.kind === 'reviews') return `(${badge.count} reviews)`;
+    return `(${badge.count!.toLocaleString('en-US')} page views)`;
+  }
+
+  function utilityAriaLabel(badge: UtilityBadge): string {
+    if (badge.ariaLabel) return badge.ariaLabel;
+    if (badge.kind === 'reviews') return `Read our ${badge.count} ${badge.platform} reviews`;
+    return `${badge.count!.toLocaleString('en-US')} page views served through ${badge.platform}`;
+  }
+
+  $: activeBadge = utilityBadges[activeBadgeIndex];
+  $: badgeAriaLabel = utilityAriaLabel(activeBadge);
+  $: badgeLabel = utilityLabel(activeBadge);
+
+  async function cycleUtilityBadge() {
+    if (prefersReducedMotion) {
+      activeBadgeIndex = (activeBadgeIndex + 1) % utilityBadges.length;
+      return;
+    }
+
+    badgeFading = true;
+    await delay(UTILITY_FADE_MS);
+    activeBadgeIndex = (activeBadgeIndex + 1) % utilityBadges.length;
+    await tick();
+    badgeFading = false;
+  }
   let scrolled = false;
   let mobileOpen = false;
   let menuToggleLabel = 'MENU';
@@ -141,7 +212,12 @@
     window.visualViewport?.addEventListener('resize', resizeHandler, { passive: true });
     window.visualViewport?.addEventListener('scroll', resizeHandler, { passive: true });
 
+    const utilityCycleTimer = window.setInterval(() => {
+      void cycleUtilityBadge();
+    }, UTILITY_CYCLE_MS);
+
     return () => {
+      window.clearInterval(utilityCycleTimer);
       setDocumentMenuState(false);
       window.removeEventListener('scroll', handler);
       window.removeEventListener('resize', resizeHandler);
@@ -156,36 +232,57 @@
   <div class="nav-utility" class:nav-utility--hidden={scrolled} aria-label="Sales and support">
     <div class="nav-utility-inner">
       <a
-        href={GOOGLE_REVIEWS_URL}
-        class="nav-google-reviews"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Read our 13 Google reviews"
+        href={activeBadge.href}
+        class="nav-reviews"
+        target={activeBadge.href.startsWith('http') ? '_blank' : undefined}
+        rel={activeBadge.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+        aria-label={badgeAriaLabel}
+        aria-live="polite"
       >
-        <svg class="nav-google-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-          <path
-            fill="#4285F4"
-            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
-          />
-          <path
-            fill="#34A853"
-            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-          />
-          <path
-            fill="#FBBC05"
-            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-          />
-          <path
-            fill="#EA4335"
-            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-          />
-        </svg>
-        <span class="nav-google-stars" aria-hidden="true">
-          {#each [0, 1, 2, 3, 4] as _}
-            <span class="nav-google-star">★</span>
-          {/each}
+        <span class="nav-reviews-content" class:is-fading={badgeFading}>
+          {#if activeBadge.id === 'google'}
+            <svg class="nav-reviews-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+              <path
+                fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              />
+            </svg>
+          {:else if activeBadge.id === 'facebook'}
+            <svg class="nav-reviews-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+              <path
+                fill="#1877F2"
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              />
+            </svg>
+          {:else}
+            <svg class="nav-reviews-logo nav-reviews-logo--cloudflare" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+              <path
+                fill="#F38020"
+                d="M16.5088 16.8447C16.0305 17.7471 15.1119 18.375 14.127 18.375H3.93751C1.85859 18.375 0.228516 16.3906 0.699219 14.3555C1.02148 12.918 2.29297 11.9062 3.76172 11.9062H4.91211C5.05078 8.20312 8.02734 5.25 11.7012 5.25C14.5801 5.25 17.0273 6.98438 18.1055 9.375C18.3164 9.33984 18.5273 9.31641 18.75 9.31641C20.6367 9.31641 22.1602 10.8398 22.1602 12.7266C22.1602 14.6133 20.6367 16.1367 18.75 16.1367H17.7539C17.1562 16.1367 16.6875 16.4531 16.5088 16.8447Z"
+              />
+            </svg>
+          {/if}
+          {#if activeBadge.kind === 'reviews'}
+            <span class="nav-reviews-stars" aria-hidden="true">
+              {#each [0, 1, 2, 3, 4] as _}
+                <span class="nav-reviews-star">★</span>
+              {/each}
+            </span>
+          {/if}
+          <span class="nav-reviews-count">{badgeLabel}</span>
         </span>
-        <span class="nav-google-count">(13 reviews)</span>
       </a>
       <div class="nav-utility-right">
         <a href="/support" class="nav-utility-link">Support</a>
@@ -554,10 +651,9 @@
       margin-left: auto;
     }
 
-    .nav-google-reviews {
+    .nav-reviews {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
       color: var(--text-secondary);
       text-decoration: none;
       padding: 3px 6px;
@@ -567,33 +663,52 @@
       flex-shrink: 0;
     }
 
-    .nav-google-reviews:hover {
+    .nav-reviews:hover {
       color: var(--text-primary);
       background: rgba(3, 105, 161, 0.06);
     }
 
-    .nav-google-stars {
+    .nav-reviews-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      opacity: 1;
+      transition: opacity 0.65s ease;
+    }
+
+    .nav-reviews-content.is-fading {
+      opacity: 0;
+    }
+
+    .nav-reviews-stars {
       display: inline-flex;
       align-items: center;
       gap: 1px;
       line-height: 1;
     }
 
-    .nav-google-star {
+    .nav-reviews-star {
       font-size: 12px;
       color: #f59e0b;
       text-shadow: 0 0 0.5px rgba(180, 83, 9, 0.35);
     }
 
-    .nav-google-count {
+    .nav-reviews-count {
       font-weight: 500;
       letter-spacing: 0.01em;
       white-space: nowrap;
+      min-width: 15em;
     }
 
-    .nav-google-logo {
+    .nav-reviews-logo {
       display: block;
       flex-shrink: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nav-reviews-content {
+        transition: none;
+      }
     }
 
     .nav-utility-link {
