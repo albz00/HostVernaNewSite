@@ -160,7 +160,7 @@
         class="nav-google-reviews"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Read our 10 Google reviews"
+        aria-label="Read our 13 Google reviews"
       >
         <svg class="nav-google-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
           <path
@@ -185,7 +185,7 @@
             <span class="nav-google-star">★</span>
           {/each}
         </span>
-        <span class="nav-google-count">(10 reviews)</span>
+        <span class="nav-google-count">(13 reviews)</span>
       </a>
       <div class="nav-utility-right">
         <a href="/support" class="nav-utility-link">Support</a>

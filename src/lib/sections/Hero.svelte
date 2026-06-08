@@ -468,7 +468,7 @@
           Custom websites and software for business owners who are done renting a DIY platform.
           <ContentHighlight tone="keyword">No templates, no locked subscriptions.</ContentHighlight>
           You <ContentHighlight tone="string">own your site outright</ContentHighlight>, with
-          <ContentHighlight tone="comment">a local technical partner who actually picks up</ContentHighlight>.
+          <ContentHighlight tone="comment">a technical partner who actually guides you</ContentHighlight>.
         </p>
 
         <div class="hero-actions">

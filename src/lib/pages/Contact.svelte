@@ -82,6 +82,9 @@
 
   function advance(next: Step) {
     animating = true;
+    if (step === 'intro' && next !== 'intro') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setTimeout(() => {
       step = next;
       animating = false;
@@ -182,8 +185,9 @@
 
 <Navbar />
 
-<main class="contact-page">
+<main class="contact-page" class:in-flow={step !== 'intro'}>
   <div class="container contact-inner">
+    {#if step === 'intro'}
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span class="breadcrumb-sep" aria-hidden="true">/</span>
@@ -197,28 +201,48 @@
         our qualifier: quick for you, enough detail for us to respond with something useful.
       </p>
     </header>
+    {/if}
 
     <div class="contact-shell" class:animating>
       {#if step === 'intro'}
         <div class="form-card intro-card">
-          <h2 class="card-h2">Before we talk money or timelines in depth</h2>
+          <div class="intro-accent-bar"></div>
+          <h2 class="card-h2">Tell us what you're working on</h2>
           <p class="card-lead">
-            This is not a contract and not a sales script. It is the fastest way to get your request to the right person
-            with context, so our first reply can actually help.
+            Fill this out and we'll get back to you with something useful. Seven quick questions, takes about two minutes.
           </p>
           <ul class="intro-bullets">
-            <li><span class="ib-dot"></span> Takes most people under three minutes</li>
-            <li><span class="ib-dot"></span> You can still call <a href={phoneHref}>{phoneDisplay}</a> if you prefer voice</li>
-            <li><span class="ib-dot"></span> At the end you send securely through the site (no mail client required)</li>
+            <li>
+              <span class="ib-dot"></span>
+              We read every submission and reply personally
+            </li>
+            <li>
+              <span class="ib-dot"></span>
+              Prefer to call? Reach us at <a href={phoneHref}>{phoneDisplay}</a>
+            </li>
+            <li>
+              <span class="ib-dot"></span>
+              Secure send at the end, no email client needed
+            </li>
           </ul>
-          <button
-            type="button"
-            class="btn btn-primary btn-lg"
-            on:click={() => {
-              formStartedAtMs = Date.now();
-              advance('contact');
-            }}>Start the form</button>
+          <div class="intro-footer">
+            <button
+              type="button"
+              class="btn btn-primary btn-lg intro-start-btn"
+              on:click={() => {
+                formStartedAtMs = Date.now();
+                advance('contact');
+              }}
+            >
+              Start the form
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <span class="intro-alt">or call us at <a href={phoneHref}>{phoneDisplay}</a></span>
+          </div>
         </div>
+
       {:else if step === 'contact'}
         <div class="form-card">
           <div class="q-progress">
@@ -227,15 +251,17 @@
           <div class="q-step-label">Step 1 of {totalSteps}</div>
           <h2 class="q-heading">How do we reach you?</h2>
           <div class="field-stack">
-            <label class="field">
-              <span class="field-label">Full name <span class="req">*</span></span>
-              <input class="field-input" type="text" bind:value={name} autocomplete="name" />
-            </label>
-            <label class="field">
-              <span class="field-label">Work email <span class="req">*</span></span>
-              <input class="field-input" type="email" bind:value={email} autocomplete="email" />
-            </label>
-            <label class="field">
+            <div class="field-row">
+              <label class="field">
+                <span class="field-label">Full name <span class="req">*</span></span>
+                <input class="field-input" type="text" bind:value={name} autocomplete="name" />
+              </label>
+              <label class="field">
+                <span class="field-label">Work email <span class="req">*</span></span>
+                <input class="field-input" type="email" bind:value={email} autocomplete="email" />
+              </label>
+            </div>
+            <label class="field field--half">
               <span class="field-label">Phone <span class="opt">(optional)</span></span>
               <input class="field-input" type="tel" bind:value={phone} autocomplete="tel" />
             </label>
@@ -247,6 +273,7 @@
             >
           </div>
         </div>
+
       {:else if step === 'org'}
         <div class="form-card">
           <div class="q-progress">
@@ -255,20 +282,23 @@
           <div class="q-step-label">Step 2 of {totalSteps}</div>
           <h2 class="q-heading">Who is this for?</h2>
           <div class="field-stack">
-            <label class="field">
-              <span class="field-label">Business or organization <span class="req">*</span></span>
-              <input class="field-input" type="text" bind:value={organization} autocomplete="organization" />
-            </label>
-            <label class="field">
-              <span class="field-label">Your role <span class="opt">(optional)</span></span>
-              <input class="field-input" type="text" bind:value={role} autocomplete="organization-title" placeholder="e.g. Owner, Ops manager" />
-            </label>
+            <div class="field-row">
+              <label class="field">
+                <span class="field-label">Business or organization <span class="req">*</span></span>
+                <input class="field-input" type="text" bind:value={organization} autocomplete="organization" />
+              </label>
+              <label class="field">
+                <span class="field-label">Your role <span class="opt">(optional)</span></span>
+                <input class="field-input" type="text" bind:value={role} autocomplete="organization-title" placeholder="e.g. Owner, Ops manager" />
+              </label>
+            </div>
           </div>
           <div class="card-actions">
             <button type="button" class="btn btn-secondary" on:click={() => advance('contact')}>Back</button>
             <button type="button" class="btn btn-primary" on:click={goFromOrg} disabled={!organization.trim()}>Continue</button>
           </div>
         </div>
+
       {:else if step === 'need'}
         <div class="form-card">
           <div class="q-progress">
@@ -291,6 +321,7 @@
             >
           </div>
         </div>
+
       {:else if step === 'timeline'}
         <div class="form-card">
           <div class="q-progress">
@@ -313,6 +344,7 @@
             >
           </div>
         </div>
+
       {:else if step === 'budget'}
         <div class="form-card">
           <div class="q-progress">
@@ -336,6 +368,7 @@
             >
           </div>
         </div>
+
       {:else if step === 'message'}
         <div class="form-card">
           <div class="q-progress">
@@ -343,7 +376,7 @@
           </div>
           <div class="q-step-label">Step 6 of {totalSteps}</div>
           <h2 class="q-heading">Anything else we should know?</h2>
-          <p class="q-hint">Links, competitors you like, constraints, or what “done” looks like for you.</p>
+          <p class="q-hint">Links, competitors you like, constraints, or what "done" looks like for you.</p>
           <label class="field">
             <span class="field-label">Details <span class="opt">(optional but helpful)</span></span>
             <textarea class="field-textarea" rows="6" bind:value={details} placeholder="Type here…"></textarea>
@@ -359,6 +392,7 @@
             <button type="button" class="btn btn-primary" on:click={() => advance('review')}>Review</button>
           </div>
         </div>
+
       {:else if step === 'review'}
         <div class="form-card review-card">
           <div class="q-progress">
@@ -406,6 +440,7 @@
             Prefer phone? <a href={phoneHref}>{phoneDisplay}</a>
           </p>
         </div>
+
       {:else if step === 'success'}
         <div class="form-card success-card">
           <div class="success-badge">Next step</div>
@@ -435,6 +470,31 @@
     min-height: 60vh;
     background: var(--bg-subtle);
     border-top: 1px solid var(--border);
+    transition: background 0.3s ease, min-height 0.3s ease;
+  }
+
+  .contact-page.in-flow {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+  }
+
+  .contact-page.in-flow .contact-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 60px;
+    max-width: 860px;
+  }
+
+  .contact-page.in-flow .contact-shell {
+    max-width: none;
+  }
+
+  .contact-page.in-flow .form-card {
+    padding: 48px 56px;
   }
 
   @media (min-width: 901px) {
@@ -445,6 +505,9 @@
 
   .contact-inner {
     max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
   }
 
   .breadcrumb {
@@ -511,11 +574,24 @@
     box-shadow: var(--shadow-sm);
   }
 
+  /* ----- Intro card ----- */
+
   .intro-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
+    border-radius: var(--radius-tile) var(--radius-tile) 0 0;
   }
 
   .card-h2 {
@@ -524,6 +600,7 @@
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.02em;
+    margin: 0;
   }
 
   .card-lead {
@@ -545,15 +622,26 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 100%;
     font-size: 14px;
     color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
   }
 
   .intro-bullets li {
     display: flex;
     align-items: flex-start;
     gap: 10px;
+  }
+
+  .intro-bullets a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .intro-bullets a:hover {
+    text-decoration: underline;
   }
 
   .ib-dot {
@@ -564,6 +652,38 @@
     flex-shrink: 0;
     margin-top: 7px;
   }
+
+  .intro-footer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+
+  .intro-start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .intro-alt {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .intro-alt a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .intro-alt a:hover {
+    text-decoration: underline;
+  }
+
+  /* ----- Shared form steps ----- */
 
   .q-progress {
     height: 3px;
@@ -610,6 +730,27 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .field--half {
+    max-width: 50%;
+    padding-right: 8px;
+  }
+
+  @media (max-width: 560px) {
+    .field-row {
+      grid-template-columns: 1fr;
+    }
+    .field--half {
+      max-width: 100%;
+      padding-right: 0;
+    }
   }
 
   .field {
@@ -870,7 +1011,16 @@
     margin-bottom: 12px;
   }
 
+  @media (min-width: 900px) {
+    .contact-page.in-flow .option-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
   @media (max-width: 640px) {
+    .contact-page.in-flow .form-card {
+      padding: 28px 22px;
+    }
     .form-card {
       padding: 28px 22px;
     }
@@ -888,6 +1038,15 @@
     }
     .review-dd-block {
       grid-column: 1;
+    }
+    .intro-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .intro-start-btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>
