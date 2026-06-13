@@ -19,8 +19,8 @@
     <header class="learn-header">
       <h1 class="learn-h1">Learn</h1>
       <p class="learn-lede">
-        Straightforward write-ups on how we work: domains, performance, and how projects stay specific to you. More articles
-        will land here over time.
+        Straightforward guides on how we work: domains, performance, hosting, and project delivery. Additional documents
+        will be added over time.
       </p>
     </header>
 

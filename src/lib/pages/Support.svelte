@@ -19,15 +19,15 @@
 
     <h1 class="support-h1">Support</h1>
     <p class="support-lede">
-      If something’s down, misbehaving, or unclear, we want to hear about it. Use the options below, and include your
-      business name and the fastest way to reach you.
+      If a system is unavailable, not working as expected, or unclear, contact us. Include your business name and the
+      fastest way to reach you.
     </p>
 
     <section class="support-block">
       <h2 class="support-h2">Call</h2>
       <p class="support-p">
         <a href={phoneHref} class="support-phone">{phoneDisplay}</a>
-        <span class="support-note"> Same number as sales; say you’re calling for support and we’ll route you.</span>
+        <span class="support-note"> Same number as sales. Let us know you need support and we will route your call.</span>
       </p>
     </section>
 
@@ -36,7 +36,7 @@
       <p class="support-p">
         <a href="mailto:support@hostverna.com" class="support-mail">support@hostverna.com</a>
         <span class="support-note">
-          For non-urgent issues; include URLs, screenshots, and what you expected to happen.</span
+          For non-urgent issues, include URLs, screenshots, and expected behavior.</span
         >
       </p>
     </section>

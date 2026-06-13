@@ -7,24 +7,24 @@
       desc: 'A real person who knows your account picks up, usually the same day.',
     },
     {
-      title: 'Not a marketing agency',
-      desc: 'No magic leads or ad budgets you cannot justify. We build the hub your traffic should point back to.',
+      title: 'Clear guidance over hype',
+      desc: 'We focus on practical implementation guidance tied to real business operations.',
     },
     {
       title: 'You own what you paid for',
       desc: 'After a set number of months, the code, domain, and hosting transfer to you.',
     },
     {
-      title: 'We guide, not overwhelm',
-      desc: 'We walk you through your site and explain the why, without the jargon.',
+      title: 'We guide your team',
+      desc: 'We explain decisions, workflows, and ownership clearly, without unnecessary jargon.',
     },
     {
       title: 'Your money stays put',
-      desc: 'We connect what you already have before suggesting you spend more on anything.',
+      desc: 'We optimize and connect what you already use before recommending additional spend.',
     },
     {
       title: 'Monthly check-ins included',
-      desc: 'Each month we flag gaps and missed opportunities, so the attention you already get actually lands.',
+      desc: 'Monthly reviews identify gaps and improvement opportunities so traffic and inquiries convert more reliably.',
     },
   ];
 </script>
@@ -33,10 +33,10 @@
   <div class="container">
     <div class="split-header">
       <div>
-        <h2 class="section-title">Not magic. Just a clear path.</h2>
+        <h2 class="section-title">A clear delivery path</h2>
       </div>
       <p class="split-sub">
-        No magic SEO buttons or ad gambles, and no becoming a web expert yourself.
+        No shortcuts, inflated promises, or technical guesswork.
         <ContentHighlight tone="keyword">Here's exactly how it goes.</ContentHighlight>
       </p>
     </div>
@@ -67,7 +67,8 @@
       <div class="whyus-left">
         <h2 class="section-title">Why businesses<br />stay with us</h2>
         <p class="why-sub">
-          We're your technical partner, not a marketing agency. We handle the hard parts and keep you in the loop.
+          We build and support technical systems with clear communication and practical execution. We handle delivery and
+          keep your team informed at each stage.
         </p>
         <figure class="why-team-fig">
           <img

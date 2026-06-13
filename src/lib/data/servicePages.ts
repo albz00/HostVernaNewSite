@@ -15,20 +15,20 @@ export const servicePages: ServicePageData[] = [
     title: 'Web design',
     metaTitle: 'Web design | HostVerna',
     lede:
-      'Sites designed and built around your business, not a template with your logo dropped in. You get something that fits how you work and what you need to say.',
+      'Custom websites designed around your business goals, audience, and workflow. You get a site that reflects your brand and helps visitors take action.',
     sections: [
       {
         heading: 'Built from scratch',
         body: [
-          'We start from discovery: who you serve, what makes you different, and what visitors should do on your site. Design and content follow from that, not from a theme demo.',
-          'You get clear structure, fast performance, and ownership when the project wraps. No mystery fees, no “you can’t move your site elsewhere.”',
+          'We start with discovery: who you serve, what differentiates your business, and what visitors should do on your site. Design and content are built from that plan.',
+          'You get clear structure, strong performance, and full ownership at handoff. There is no platform lock-in.',
         ],
       },
       {
         heading: 'What you can expect',
         body: [
-          'A focused build timeline, check-ins you can actually use, and a handoff where you’re not left guessing how to update things.',
-          'When you need integrations later (forms, booking, email), we plan for real-world use, not just launch day.',
+          'A defined build timeline, practical check-ins, and a documented handoff so your team can update core content with confidence.',
+          'When you need integrations later (forms, booking, email, CRM), we plan for those requirements from the beginning.',
         ],
       },
     ],
@@ -38,19 +38,19 @@ export const servicePages: ServicePageData[] = [
     title: 'Managed web services',
     metaTitle: 'Managed web services | HostVerna',
     lede:
-      'Hosting, updates, and monitoring so your site stays fast, secure, and online, without you becoming the part-time web person.',
+      'Hosting, updates, and monitoring that keep your site fast, secure, and available without adding operational overhead to your team.',
     sections: [
       {
         heading: 'We stay on it',
         body: [
-          'SSL, backups, and platform updates handled on a sane schedule. When something drifts (uptime, speed, broken links), we catch it before your customers do.',
-          'You get a team you can reach without a ticket maze. If something’s wrong, you’re not debugging it alone at 9 p.m.',
+          'SSL, backups, and platform updates are handled on a consistent schedule. We monitor uptime, performance, and core site health before issues impact customers.',
+          'You have direct support access when something goes wrong, so your team is not troubleshooting alone.',
         ],
       },
       {
         heading: 'Fit for your stack',
         body: [
-          'Whether we built the site or you’re bringing one to us, we align hosting and care with how your business actually operates.',
+          'Whether we built the site or you are migrating an existing one, we align hosting and support with your operating requirements.',
         ],
       },
     ],
@@ -60,19 +60,19 @@ export const servicePages: ServicePageData[] = [
     title: 'Business software & CRM',
     metaTitle: 'Business software & CRM | HostVerna',
     lede:
-      'Tools and CRM setup that match your sales process, so your team uses them instead of fighting them.',
+      'CRM and business tools configured to match your sales process, so teams can adopt them quickly and use them consistently.',
     sections: [
       {
         heading: 'Configured for how you sell',
         body: [
-          'Fields, pipelines, and automation aligned to your workflow, not a generic default that everyone ignores by week three.',
-          'We care about adoption: training, cleanup, and follow-through so the system still works six months later.',
+          'Fields, pipelines, and automation are mapped to your workflow instead of generic defaults.',
+          'We support adoption with training, cleanup, and follow-up so the system remains useful after launch.',
         ],
       },
       {
         heading: 'Fewer tools, clearer handoffs',
         body: [
-          'When it makes sense, we help consolidate overlapping apps so data and responsibility aren’t scattered across five logins.',
+          'When appropriate, we consolidate overlapping tools so data and ownership are not fragmented across multiple systems.',
         ],
       },
     ],
@@ -82,19 +82,19 @@ export const servicePages: ServicePageData[] = [
     title: 'IT solutions',
     metaTitle: 'IT solutions | HostVerna',
     lede:
-      'Practical IT support for businesses that need things to work, without building an internal IT department.',
+      'Practical IT support for businesses that need reliable systems without maintaining a full internal IT department.',
     sections: [
       {
         heading: 'Responsive support',
         body: [
-          'Issues triaged and fixed with context: your devices, your network, your line-of-business apps. We’re not a faceless queue reading from a script.',
-          'Proactive monitoring where it helps, clear communication when something needs a decision or a purchase.',
+          'Issues are triaged and resolved with context from your devices, network, and line-of-business systems.',
+          'We provide proactive monitoring where it adds value and clear communication when decisions or purchases are required.',
         ],
       },
       {
         heading: 'Grounded in your operations',
         body: [
-          'We optimize for uptime and sanity: security baselines, backups, and documentation you can actually find when you need it.',
+          'We focus on uptime, security baselines, backups, and documentation your team can find and use when needed.',
         ],
       },
     ],
@@ -104,19 +104,19 @@ export const servicePages: ServicePageData[] = [
     title: 'Custom software solutions',
     metaTitle: 'Custom software solutions | HostVerna',
     lede:
-      'When off-the-shelf almost fits, custom work closes the gap: internal tools, client portals, and workflows built for your rules, not a vendor’s roadmap.',
+      'When off-the-shelf software does not fully fit, custom development closes the gap with internal tools, portals, and workflows built for your requirements.',
     sections: [
       {
         heading: 'Purpose-built',
         body: [
-          'We scope to outcomes: fewer spreadsheets, fewer handoffs, less retyping between systems. You get software that reflects how your team really operates.',
-          'Design, build, and iterate with you, so v1 ships and v2 isn’t a rewrite because nobody talked to the people who click the buttons.',
+          'We scope to outcomes: fewer spreadsheets, fewer handoffs, and less manual re-entry between systems.',
+          'We design, build, and iterate with your team so the first release is usable and future updates remain manageable.',
         ],
       },
       {
         heading: 'Own the result',
         body: [
-          'Clear IP and hosting story: you’re not locked into a black box you can’t move. We document what we built and how to run it.',
+          'You receive clear IP ownership, portable hosting options, and documentation for ongoing operation.',
         ],
       },
     ],

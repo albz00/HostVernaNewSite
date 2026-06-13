@@ -1,8 +1,10 @@
 import { audienceSegments } from './audienceSegments';
+import { getGreenbrierPlace } from './greenbrierPlaces';
 import { learnDocs } from './learnPages';
 import { servicePages } from './servicePages';
 import { solutionPages } from './solutionPages';
 import { canonicalUrl } from './siteUrls';
+import { getWvCityPage } from './wvCityPages';
 
 export type PageMeta = {
   title: string;
@@ -22,15 +24,15 @@ const staticMeta: Record<string, Omit<PageMeta, 'canonical'>> = {
   '/': {
     title: 'HostVerna | Custom websites, software & IT that fit your business',
     description:
-      'Custom websites, managed hosting, CRM setup, IT support, and software built around your business, with clear ownership when the project wraps.',
+      'Custom websites, web hosting, web development, CRM setup, IT support, and software built around your business, with clear ownership when the project wraps. Built for owners searching for a dependable web designer near me in Southern WV and beyond.',
   },
   '/about': {
-    title: 'About HostVerna — Website & IT partner in WV',
+    title: 'About HostVerna | Website and IT partner in WV',
     description:
-      'Learn about HostVerna: our story, how we partner with clients on custom websites, managed hosting, and long-term technology support in West Virginia.',
+      'Learn about HostVerna: our story, how we partner with clients on custom websites, web hosting, and long-term technology support in West Virginia.',
   },
   '/contact': {
-    title: 'Contact HostVerna — Web design & hosting consultation',
+    title: 'Contact HostVerna | Web design and hosting consultation',
     description:
       'Contact HostVerna to discuss custom websites, software development, hosting, or IT support. Call, email, or use our guided form.',
   },
@@ -41,16 +43,22 @@ const staticMeta: Record<string, Omit<PageMeta, 'canonical'>> = {
   '/connect': {
     title: 'Connect | HostVerna',
     description:
-      'Found us through a client site or another web team? Say hello — we are happy to connect, collaborate, or answer questions.',
+      'Found us through a client site or another web team? Contact us to connect, collaborate, or ask questions.',
+  },
+  '/areas-served': {
+    title: 'Areas served | HostVerna',
+    description:
+      'Areas served index from HostVerna with nationwide U.S. coverage details plus featured city and regional pages for web development, web hosting, software, and IT support.',
   },
   '/greenbrier-county-wv': {
-    title: 'Greenbrier County, WV — Web design, hosting & IT',
+    title: 'Greenbrier County, WV | Areas served | HostVerna',
     description:
-      'Website design, hosting, and IT services for businesses in Greenbrier County and Southern West Virginia. Local resource and business listings.',
+      'Local web development, web hosting, software, and IT support coverage details for Greenbrier County, West Virginia.',
   },
   '/resources': {
     title: 'Resources | HostVerna',
-    description: 'Blog, documentation, and guides from HostVerna: domains, performance, and how we work with clients.',
+    description:
+      'Blog, documentation, and guides from HostVerna: domains, web hosting, web development, performance, and how we work with clients.',
   },
   '/faq': {
     title: 'FAQ | HostVerna',
@@ -110,7 +118,7 @@ const staticMeta: Record<string, Omit<PageMeta, 'canonical'>> = {
   '/pacman': {
     title: 'First-person Pac-Man | HostVerna',
     description:
-      'A first-person Pac-Man hidden inside hostverna.com. Eat all the pellets, dodge the ghosts, grab a power pellet to chomp them back.',
+      'A first-person Pac-Man experience hidden inside hostverna.com. Eat all pellets, avoid ghosts, and use power pellets for temporary defense.',
     robots: 'noindex, follow',
   },
 };
@@ -163,6 +171,30 @@ export function getPageMeta(path: string): PageMeta {
       description: segment.lede,
       canonical: canonicalUrl(p),
     };
+  }
+
+  if (p.startsWith('/greenbrier-county-wv/')) {
+    const placeSlug = p.slice('/greenbrier-county-wv/'.length);
+    const place = getGreenbrierPlace(placeSlug);
+    if (place) {
+      return {
+        title: place.metaTitle,
+        description: place.metaDescription,
+        canonical: canonicalUrl(p),
+      };
+    }
+  }
+
+  if (p.startsWith('/areas-served/')) {
+    const citySlug = p.slice('/areas-served/'.length);
+    const cityPage = getWvCityPage(citySlug);
+    if (cityPage) {
+      return {
+        title: cityPage.metaTitle,
+        description: cityPage.metaDescription,
+        canonical: canonicalUrl(p),
+      };
+    }
   }
 
   return { ...notFoundMeta, canonical: canonicalUrl(p) };

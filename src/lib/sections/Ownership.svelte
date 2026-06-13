@@ -5,30 +5,30 @@
     {
       pain: 'You keep paying for a site you never own.',
       context:
-        'The monthly fees never stop, and the day you leave, you walk away with nothing.',
+        'Recurring fees continue indefinitely, and leaving the platform often means losing the delivered asset.',
       answer:
-        'Ownership transfers to you. Code, content, domain, and credentials all end up in your name.',
+        'Ownership transfers to you. Code, content, domain, and credentials are documented and controlled by your business.',
     },
     {
       pain: 'Every little change turns into a support ticket.',
       context:
-        'Updating a photo or fixing a typo should not require waiting on a vendor for a week.',
+        'Routine updates should not require long vendor response cycles.',
       answer:
-        'We build it custom, then make it easy to manage. Change text, images, and pages yourself, or hand it back to us anytime.',
+        'We build for maintainability so your team can handle routine updates, with optional support available when needed.',
     },
     {
       pain: 'When something breaks, nobody answers.',
       context:
-        'Your business should not sit on hold while a ticket buries itself in a queue for days.',
+        'Operations should not pause while requests sit in a queue.',
       answer:
-        'You get a direct line to the people who built it. Real answers, usually the same day.',
+        'You have direct access to the team that built the system, with timely support response.',
     },
     {
       pain: 'Your attention goes everywhere except your website.',
       context:
-        'Your Google profile, social pages, business cards, and voicemail all point people in different directions, when they should point to one place that earns trust and gets the call.',
+        'Google profiles, social pages, printed materials, and messaging channels should direct people to one reliable destination.',
       answer:
-        'We are a web and software company, not a marketing agency. We build your site as the hub, then make sure every touchpoint sends people back to it, without burning money on ads or SEO guesses.',
+        'We build your site as the central destination and align core touchpoints so visitors can find accurate information and contact paths quickly.',
     },
   ];
 
@@ -65,12 +65,12 @@
 
     <header class="pain-lede">
       <h2 class="pain-title">
-        For owners who'd rather run<br />
+        For owners who would rather run<br />
         their business than their website.
       </h2>
       <p class="pain-sub">
-        If you've ever thought
-        <ContentHighlight tone="comment">"I just need someone to handle this,"</ContentHighlight>
+        If you have ever thought
+        <ContentHighlight tone="comment">"I need a team to handle this correctly,"</ContentHighlight>
         you're in the right place.
       </p>
     </header>
@@ -94,15 +94,15 @@
       <div class="own-left">
         <h2 class="own-title">
           You pay for it once.<br />
-          Then it's yours.
+          Then it is yours.
         </h2>
         <p class="own-body">
-          Most agencies rent you a website and hold the keys.
-          <ContentHighlight tone="accent">You pay every month for something that is never actually yours.</ContentHighlight>
+          Many agencies rent website access while retaining platform control.
+          <ContentHighlight tone="accent">That creates ongoing cost without long-term ownership.</ContentHighlight>
           We do the opposite.
         </p>
         <p class="own-body">
-          We build the site, show you how to run it, and hand over the code, tools, and hosting after a set number of months. Along the way we make sure your social profiles, Google listing, and other touchpoints all point back to it. After that, the next move is yours.
+          We build the site, train your team on core operations, and transfer code, tools, and hosting access after a defined term. We also align key channels so your digital presence points to one central destination.
         </p>
 
         <figure class="own-transfer-fig">
@@ -115,7 +115,7 @@
             loading="lazy"
             decoding="async"
           />
-          <figcaption class="own-transfer-cap">After ownership transfers, you keep the source code, hosting access, the management tools, and the documentation. Support stays available on your terms.</figcaption>
+          <figcaption class="own-transfer-cap">After ownership transfer, you retain source code, hosting access, management tools, and documentation. Support remains available on your terms.</figcaption>
         </figure>
       </div>
 

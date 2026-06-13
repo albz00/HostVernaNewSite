@@ -186,22 +186,22 @@
 
   const resultCopy: Record<Fit, { title: string; sub: string; cta: string; ctaLabel: string }> = {
     great: {
-      title: "You're exactly who we built this for.",
-      sub: "Your business looks like a strong fit. Let's set up a quick call.",
+      title: 'Your business appears to be a strong fit.',
+      sub: 'Based on your responses, a short call is the best next step.',
       cta: '/contact',
-      ctaLabel: 'Book a Free Call',
+      ctaLabel: 'Book a call',
     },
     maybe: {
-      title: "We might be a fit. Let's find out.",
-      sub: "Reach out and we'll be straight with you about whether it makes sense.",
+      title: 'There may be a fit.',
+      sub: 'Contact us and we will give you a direct recommendation based on your goals.',
       cta: '/contact',
-      ctaLabel: 'Talk to Us First',
+      ctaLabel: 'Contact us',
     },
     no: {
-      title: "We're probably not your best option today.",
-      sub: "Based on your answers, another provider would likely serve you better right now.",
+      title: 'Another provider may be a better fit today.',
+      sub: 'Based on your responses, a different service model may better match your current needs.',
       cta: '/about',
-      ctaLabel: 'See What We Do',
+      ctaLabel: 'See our scope',
     },
   };
 </script>
@@ -252,7 +252,7 @@
       </h2>
       <p class="fit-sub">
         <ContentHighlight tone="keyword">Answer five quick questions</ContentHighlight>
-        and we'll tell you honestly whether we're the right call, no pressure either way.
+        and we will tell you directly whether we are the right fit.
       </p>
     </div>
 
@@ -268,8 +268,8 @@
                 <ContentHighlight tone="comment">Takes under a minute.</ContentHighlight>
               </p>
               <div class="intro-bullets">
-                <div class="ib"><div class="ib-dot"></div><span>If we're not the right fit, we'll say so</span></div>
-                <div class="ib"><div class="ib-dot"></div><span>No sales pressure from this form</span></div>
+                <div class="ib"><div class="ib-dot"></div><span>If we are not the right fit, we will say so</span></div>
+                <div class="ib"><div class="ib-dot"></div><span>This form is for qualification, not sales pressure</span></div>
                 <div class="ib"><div class="ib-dot"></div><span>Financing available if budget is the concern</span></div>
               </div>
             </div>
@@ -353,19 +353,19 @@
           </div>
           <div class="q-step-label">Question 3 of 5</div>
           <h3 class="q-heading">How do you think about a website or software investment?</h3>
-          <p class="q-context">Be honest. It helps us give you a real answer.</p>
+          <p class="q-context">Provide the most accurate answer. It helps us give you a useful recommendation.</p>
           <div class="option-list">
             <button class="opt-row opt-row-highlight" on:click={() => advance('q4', 'mindset', 'investment')}>
-              <span class="or-label">It's an investment that should return value</span>
-              <span class="or-sub">I want something that performs</span>
+              <span class="or-label">It is an investment that should produce measurable value</span>
+              <span class="or-sub">I want a solution that performs and scales</span>
             </button>
             <button class="opt-row" on:click={() => advance('q4', 'mindset', 'unsure')}>
-              <span class="or-label">I'm not sure yet. I need to understand the value first</span>
-              <span class="or-sub">I need clarity before committing</span>
+              <span class="or-label">I am not sure yet and need to understand value first</span>
+              <span class="or-sub">I need clarity before making a commitment</span>
             </button>
             <button class="opt-row opt-row-caution" on:click={() => advance('q4', 'mindset', 'risk')}>
-              <span class="or-label">I see it as a risk more than an investment</span>
-              <span class="or-sub">I've been burned before</span>
+              <span class="or-label">I currently see this as a risk more than an investment</span>
+              <span class="or-sub">I need a conservative approach</span>
             </button>
           </div>
         </div>

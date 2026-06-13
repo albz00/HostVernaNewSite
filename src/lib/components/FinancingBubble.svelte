@@ -59,8 +59,7 @@
       <p class="ff-lead">Yes, we offer financing.</p>
       <p class="ff-body">
         If budget is a concern, ask us about spreading payments for your website, software, or bundled
-        work. We’ll walk you through what’s available and what makes sense for your project, with no
-        pressure.
+        work. We will explain available options and recommend what fits your project requirements.
       </p>
       <ul class="ff-bullets">
         <li>Options depend on scope and timeline</li>

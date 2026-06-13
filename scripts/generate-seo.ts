@@ -1,9 +1,11 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { greenbrierPlaces } from '../src/lib/data/greenbrierPlaces';
 import { learnDocs } from '../src/lib/data/learnPages';
 import { servicePages } from '../src/lib/data/servicePages';
 import { solutionPages } from '../src/lib/data/solutionPages';
+import { wvCityPages } from '../src/lib/data/wvCityPages';
 import { BOOKING_ORIGIN, getSitemapPaths, SITE_ORIGIN } from '../src/lib/data/siteUrls';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -69,6 +71,10 @@ writeFileSync(join(publicDir, 'robots.txt'), robots, 'utf8');
 const serviceList = servicePages.map((p) => `- ${p.title}: ${SITE_ORIGIN}/services/${p.slug}`).join('\n');
 const solutionList = solutionPages.map((p) => `- ${p.title}: ${SITE_ORIGIN}/solutions/${p.slug}`).join('\n');
 const learnList = learnDocs.map((d) => `- ${d.title}: ${SITE_ORIGIN}/learn/${d.slug}`).join('\n');
+const greenbrierPlaceList = greenbrierPlaces
+  .map((place) => `- ${place.name}: ${SITE_ORIGIN}/greenbrier-county-wv/${place.slug}`)
+  .join('\n');
+const wvCityList = wvCityPages.map((city) => `- ${city.city}, WV: ${SITE_ORIGIN}/areas-served/${city.slug}`).join('\n');
 
 const llms = `# HostVerna
 
@@ -88,8 +94,15 @@ Last updated: ${lastmod}
 - Connect: ${SITE_ORIGIN}/connect
 - Support: ${SITE_ORIGIN}/support
 - Resources hub: ${SITE_ORIGIN}/resources
-- Greenbrier County, WV (local resource): ${SITE_ORIGIN}/greenbrier-county-wv
+- Areas served index: ${SITE_ORIGIN}/areas-served
+- Greenbrier County, WV: ${SITE_ORIGIN}/greenbrier-county-wv
 - Learn / documentation index: ${SITE_ORIGIN}/learn
+
+## Greenbrier County place pages
+${greenbrierPlaceList}
+
+## Major West Virginia city pages
+${wvCityList}
 
 ## Audiences / vertical landing pages
 - Public sector: ${SITE_ORIGIN}/public-sector

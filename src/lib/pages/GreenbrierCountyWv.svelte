@@ -1,21 +1,7 @@
 <script lang="ts">
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
-
-  /** Larger towns and common service-area names in Greenbrier County, WV */
-  const areas = [
-    'Lewisburg',
-    'White Sulphur Springs',
-    'Ronceverte',
-    'Rainelle',
-    'Rupert',
-    'Meadow Bridge',
-    'Williamsburg & Smoot',
-    'Quinwood & eastern ridges',
-    'Alderson (Greenbrier side)',
-    'Frankford, Renick & Clintonville',
-    'Rural routes & surrounding communities county-wide',
-  ] as const;
+  import { greenbrierPlaces } from '../data/greenbrierPlaces';
 </script>
 
 <Navbar />
@@ -25,35 +11,38 @@
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span class="breadcrumb-sep" aria-hidden="true">/</span>
-      <a href="/resources">Resources</a>
+      <a href="/#who-we-serve">Who we serve</a>
+      <span class="breadcrumb-sep" aria-hidden="true">/</span>
+      <a href="/areas-served">Areas served</a>
       <span class="breadcrumb-sep" aria-hidden="true">/</span>
       <span class="breadcrumb-current">Greenbrier County, WV</span>
     </nav>
 
     <header class="gb-header">
-      <h1 class="gb-h1">Greenbrier County</h1>
+      <h1 class="gb-h1">Greenbrier County, WV</h1>
       <p class="gb-lede">
-        This is a simple <strong>local resource page</strong> from HostVerna. We are based in the region and want this
-        space to stay useful for neighbors: where we show up, and room for <strong>local businesses</strong> who want
-        a line on the web next to ours.
+        This is a local coverage page under our <a href="/areas-served">Areas served index</a>. It outlines place names and
+        scheduling context for Greenbrier County service requests.
       </p>
     </header>
 
     <section class="gb-block" aria-labelledby="areas-heading">
-      <h2 id="areas-heading" class="gb-h2">Areas we cover</h2>
+      <h2 id="areas-heading" class="gb-h2">Greenbrier County, WV</h2>
       <p class="gb-p">
-        When you hire us for websites, hosting, software, or IT support, travel and on-site work are planned around
-        realistic drive times from our base. These are the names people use most often when we schedule visits or calls
-        in the county:
+        For websites, hosting, software, and IT support in Greenbrier County, service planning is based on practical travel
+        and scheduling. These place pages cover the most common towns and communities used in
+        scheduling:
       </p>
       <ul class="gb-list">
-        {#each areas as place}
-          <li>{place}</li>
+        {#each greenbrierPlaces as place}
+          <li>
+            <a class="gb-place-link" href={'/greenbrier-county-wv/' + place.slug}>{place.name}</a>
+          </li>
         {/each}
       </ul>
       <p class="gb-p gb-p--tight">
-        If your town is not spelled out here but you are in Greenbrier County, we still want to hear from you. County
-        lines on a map do not always match how people describe where they work.
+        If your town is not listed but you are in Greenbrier County, contact us. Service coverage is based on practical
+        location and scheduling, not only list wording.
       </p>
     </section>
 
@@ -61,13 +50,13 @@
       <h2 id="listings-heading" class="gb-h2">List your business here</h2>
       <p class="gb-p">
         We can add a short <strong>free line or logo placement</strong> for reputable local businesses that want to be
-        associated with this page. Think of it as a neighborhood bulletin, not paid directory spam. You do not need to be
-        a HostVerna customer to ask; we just reserve the right to say no if a listing does not fit the tone of the site.
+        associated with this page. You do not need to be a HostVerna customer to request placement. We reserve the right
+        to decline listings that do not fit site standards.
       </p>
       <p class="gb-p gb-p--tight">
         Use our <a href="/contact">contact form</a> and check <strong>Interested in a site listing or ad</strong>, or
         email with your business name, what you do, a link you want shown, and optionally a sentence for context. If you
-        write manually, mention <strong>“Greenbrier County page”</strong> so it lands in the right thread.
+        write manually, mention <strong>“Greenbrier County page”</strong> so we route the request correctly.
       </p>
     </section>
 
@@ -184,6 +173,16 @@
 
   .gb-list li {
     margin-bottom: 6px;
+  }
+
+  .gb-place-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .gb-place-link:hover {
+    text-decoration: underline;
   }
 
   .gb-cta {

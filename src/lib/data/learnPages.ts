@@ -23,25 +23,25 @@ export const learnDocs: LearnDocData[] = [
     title: 'How we transfer domains',
     metaTitle: 'Domain transfers | HostVerna Learn',
     lede:
-      'Moving a domain should be boring and predictable. Here is how we coordinate transfers, what we need from you, and where the slow parts usually are (hint: often the registrar, not us).',
+      'Domain transfers should be predictable and low risk. Here is how we coordinate transfers, what we need from you, and where delays usually occur.',
     sections: [
       {
         heading: 'Before anything moves',
         body: [
-          'We confirm who owns the domain, where it is registered today, and whether email or DNS depends on it. If you are not sure, we walk you through finding that in your current registrar’s panel.',
+          'We confirm ownership, current registrar details, and any email or DNS dependencies before changes begin.',
         ],
       },
       {
         heading: 'Auth codes and unlock',
         body: [
-          'Most transfers need the domain unlocked and an authorization code from the losing registrar. We tell you exactly what to click; you paste codes to us in a secure channel when we ask.',
+          'Most transfers require domain unlock and an authorization code from the current registrar. We provide clear steps and collect required data through a secure channel.',
           'Timing matters: some registrars add a waiting period after you request a code.',
         ],
       },
       {
         heading: 'After transfer starts',
         body: [
-          'DNS can stay stable during many transfers if we plan it. We coordinate cutovers so your site and email do not disappear in the middle of the night unless you want that window.',
+          'DNS can remain stable during many transfers with proper planning. We coordinate cutovers to avoid unexpected site or email downtime.',
         ],
       },
     ],
@@ -52,19 +52,19 @@ export const learnDocs: LearnDocData[] = [
     title: 'How images are hosted and load fast',
     metaTitle: 'Images & CDN | HostVerna Learn',
     lede:
-      'Heavy, unoptimized images are the fastest way to make a site feel slow. We use Cloudflare’s image pipeline so visitors get appropriately sized files from the edge, close to where they are browsing.',
+      'Large, unoptimized images are a common performance issue. We use Cloudflare image delivery so visitors receive appropriately sized files from nearby edge locations.',
     sections: [
       {
         heading: 'Why a CDN helps',
         body: [
-          'A content delivery network caches copies of your assets in many places. First visit might fetch from origin; repeat visits and global traffic benefit from shorter paths and fewer round trips.',
+          'A content delivery network caches copies of assets across multiple regions. This reduces latency and improves performance for repeat and geographically distributed traffic.',
         ],
       },
       {
         heading: 'Cloudflare Images in our stack',
         body: [
-          'When we wire your project for Cloudflare Images, variants can be served for different layouts and densities so phones are not downloading desktop-sized originals.',
-          'Exact setup depends on your plan and how your site is built; we document what we enabled for your project in handoff.',
+          'With Cloudflare Images, we serve variants by layout and device density so smaller screens do not download oversized originals.',
+          'Setup depends on your plan and implementation. We document enabled options in your project handoff.',
         ],
       },
     ],
@@ -75,29 +75,25 @@ export const learnDocs: LearnDocData[] = [
     title: 'How our solutions stay tailored to you',
     metaTitle: 'Custom solutions | HostVerna Learn',
     lede:
-      'Nothing we ship is “insert business name here.” Discovery, constraints, and your actual workflows drive what we design, build, and host.',
+      'Our delivery is tailored to each client. Discovery, constraints, and operational workflows drive what we design, build, and host.',
     sections: [
       {
         heading: 'Discovery first',
         body: [
-          'We start from outcomes: who uses the thing, what must never break, and what “done” looks like on your calendar. Templates might inform layout, but they do not replace your specifics.',
+          'We start from outcomes: who uses the system, what cannot fail, and what delivery looks like in practical terms. Templates may inform layout but do not replace requirements.',
         ],
-        mediaSlots: 1,
-        mediaLabels: ['Your discovery outline / workshop notes'],
       },
       {
         heading: 'Build and iterate with you',
         body: [
-          'You see progress in stages that match risk: structure before polish, working paths before edge cases. Feedback goes into the next slice instead of stacking silently until launch week.',
+          'You see progress in risk-based stages: structure before polish and core paths before edge cases. Feedback is incorporated continuously throughout delivery.',
         ],
-        mediaSlots: 2,
       },
       {
         heading: 'What you get at handoff',
         body: [
-          'You should know what you own, where it runs, and how to change text without calling us for every comma. When you want us back, it is for strategy or heavier work, not because the basics are a mystery.',
+          'At handoff, you should know what you own, where it runs, and how to make routine content updates. Ongoing support remains available for strategy or advanced work.',
         ],
-        mediaSlots: 1,
       },
     ],
   },
@@ -115,7 +111,6 @@ export const resourcesNavItems: { title: string; href: string }[] = [
   { title: 'FAQ', href: '/faq' },
   { title: 'Blog', href: '/blog' },
   { title: 'Documentation', href: '/learn' },
-  { title: 'Greenbrier County, WV', href: '/greenbrier-county-wv' },
   ...learnDocs.map((d) => ({
     title: d.navTitle,
     href: `/learn/${d.slug}`,

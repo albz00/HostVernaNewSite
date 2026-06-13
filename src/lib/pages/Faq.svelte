@@ -51,7 +51,7 @@
       question: 'How do we get started?',
       answer: [
         'Use the contact form or call us directly. Share what you are trying to improve, any timeline constraints, and budget context if available.',
-        'We will follow up with practical next steps, not a generic autoresponder funnel.',
+        'We will follow up with practical next steps and direct guidance.',
       ],
     },
   ];

@@ -17,7 +17,8 @@
     <header class="res-header">
       <h1 class="res-h1">Resources</h1>
       <p class="res-lede">
-        Articles, documentation, and the occasional long-form note. Start with the blog or jump into a specific guide.
+        Articles, documentation, and practical notes on web hosting and web development. Start with the blog or jump into
+        a specific guide.
       </p>
     </header>
 
@@ -25,19 +26,17 @@
       <a href="/blog" class="res-tile">
         <span class="res-tile-label">Blog</span>
         <span class="res-tile-title">Ideas &amp; updates</span>
-        <span class="res-tile-desc">Notes from the shop on builds, performance, and practical growth.</span>
+        <span class="res-tile-desc">Practical updates on delivery, performance, and operational improvements.</span>
       </a>
       <a href="/learn" class="res-tile">
         <span class="res-tile-label">Learn</span>
         <span class="res-tile-title">Documentation</span>
         <span class="res-tile-desc">Domains, images &amp; CDN, and how solutions stay tailored to you.</span>
       </a>
-      <a href="/greenbrier-county-wv" class="res-tile res-tile--wide">
-        <span class="res-tile-label">Local</span>
-        <span class="res-tile-title">Greenbrier County, WV</span>
-        <span class="res-tile-desc"
-          >Areas we serve in the county and how local businesses can request a line on this community page.</span
-        >
+      <a href="/faq" class="res-tile">
+        <span class="res-tile-label">FAQ</span>
+        <span class="res-tile-title">Common questions</span>
+        <span class="res-tile-desc">Quick answers on timelines, ownership, support, and how projects start.</span>
       </a>
     </div>
 
@@ -126,17 +125,9 @@
     margin-bottom: 44px;
   }
 
-  .res-tile--wide {
-    grid-column: 1 / -1;
-  }
-
   @media (max-width: 560px) {
     .res-grid {
       grid-template-columns: 1fr;
-    }
-
-    .res-tile--wide {
-      grid-column: auto;
     }
   }
 

@@ -56,7 +56,7 @@
       author: 'M. Torres',
     },
     {
-      text: '"They explained the basics without making me feel dumb."',
+      text: '"They explained the basics clearly and without jargon."',
       author: 'A. Chen',
     },
     {
@@ -93,7 +93,7 @@
             <p class="stat-more-text">{stat.detail}</p>
           </details>
           {#if stat.id === 'response'}
-            <a href="/quick-contact" class="btn btn-outline-primary stat-prove-it">Prove it</a>
+            <a href="/quick-contact" class="btn btn-outline-primary stat-prove-it">Contact support</a>
           {/if}
         </div>
       {/each}

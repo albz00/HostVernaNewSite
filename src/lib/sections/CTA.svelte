@@ -11,7 +11,7 @@
   const testimonials = [
     {
       quote:
-        'Alex was very quick to respond, professional and attentive to everything I needed worked on! Highly recommend him for any website/domain needs!',
+        'Alex was responsive, professional, and attentive to all requested updates. I recommend him for website and domain work.',
       author: 'Brenley B.',
       result: 'Website & domain support',
       reviewUrl: 'https://share.google/nI0lP4shlDehrmocj',
@@ -19,7 +19,7 @@
     },
     {
       quote:
-        'Alex is super great to work with and very responsive to requests! He has a great eye for design and does awesome work!',
+        'Alex is professional, responsive, and strong on design direction. The quality of work was consistently high.',
       author: 'Missy G.',
       result: 'Responsive design work',
       reviewUrl: 'https://share.google/zW457dDaYVtPVDDC9',
@@ -27,7 +27,7 @@
     },
     {
       quote:
-        'Fantastic work every time, has done three logos and two websites for me. Always very timely and professional highly recommend',
+        'Consistently strong work across three logos and two websites. Delivery was timely and professional.',
       author: 'John H.',
       result: 'Logos & websites',
       reviewUrl: 'https://share.google/m3cNjN3NOGc9jlWch',
@@ -42,7 +42,7 @@
       <h2 class="t-title">From business owners like you</h2>
       <p class="t-sub">
         Honest notes on
-        <ContentHighlight tone="string">what it's actually like to work with us.</ContentHighlight>
+        <ContentHighlight tone="string">what working with us is like.</ContentHighlight>
       </p>
     </div>
     <div class="testimonials-grid">
@@ -118,9 +118,9 @@
         Stop renting.<br />Start owning.
       </h2>
       <p class="cta-sub">
-        If you're done
-        <ContentHighlight tone="accent">paying forever for something you don't own</ContentHighlight>,
-        let's talk.
+        If you want
+        <ContentHighlight tone="accent">ownership without perpetual platform fees</ContentHighlight>,
+        contact us.
       </p>
       <div class="cta-actions">
         <a href="/contact" class="btn btn-white btn-lg">Book a Free Call</a>

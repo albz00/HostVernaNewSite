@@ -15,8 +15,8 @@
     <div class="blog-locked" role="status">
       <h1 class="blog-title">Blog is locked</h1>
       <p class="blog-lead">
-        This page isn’t open to visitors. When we publish articles, they’ll appear here. Questions in the meantime?
-        Call or email us and we’ll point you the right way.
+        This page is not open to visitors. Published articles will appear here when available. For questions, contact us
+        by phone or email.
       </p>
       <div class="blog-actions">
         <a href="/" class="btn btn-primary blog-cta">Return to site</a>

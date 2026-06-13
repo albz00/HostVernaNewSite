@@ -16,8 +16,8 @@
     <header class="about-header">
       <h1 class="about-h1">About HostVerna</h1>
       <p class="about-lede">
-        We build professional web presence, credible email, and solid tech. Here is how we think about the relationship,
-        what we owe you, and who stands behind the work.
+        We build professional web presence, reliable hosting, and practical technology systems. This page explains how we
+        work, what we commit to, and who leads delivery.
       </p>
     </header>
 
@@ -25,23 +25,21 @@
       <h2 class="about-h2">HostVerna and where we came from</h2>
       <p class="about-p">
         The business was originally formed as <strong>A to Z Digital LLC</strong>. <strong>HostVerna</strong> is our
-        operating name (DBA). We started out doing graphics work. There was steady demand for it at the time, but we moved
-        quickly into websites and ongoing digital work because that path offered better traction and long-term stability
-        for our clients and for us.
+        operating name (DBA). We began with graphic design work, then shifted into websites and long-term digital systems
+        because clients needed stronger operational outcomes.
       </p>
       <p class="about-p about-p--tight">
-        We have been in this space long enough to understand how it actually works, and we have many customers who rely on
-        us day to day: not for buzzwords, but for stuff that stays up, stays clear, and stays maintainable.
+        We have been in this space long enough to understand practical delivery constraints. Many clients rely on us for
+        systems that remain stable, clear, and maintainable.
       </p>
     </section>
 
     <section class="about-block">
       <h2 class="about-h2">Partnership, not a one-off invoice</h2>
       <p class="about-p">
-        We show up as credible business partners. We grow the relationship over time, look for the missing piece in your
-        puzzle, and stay honest when something is not a fit. Some engagements click right away; sometimes it takes a few
-        passes; sometimes life gets in the way on either side. We sincerely want things to work, and we know that is not
-        always how it goes. We stay straight with you and never pretend a website replaces your hustle.
+        We approach engagements as long-term partnerships. We look for the highest-impact improvements, communicate clearly
+        when something is not a fit, and stay realistic about scope and outcomes. A website supports business growth, but
+        it does not replace operational execution.
       </p>
     </section>
 
@@ -57,10 +55,9 @@
     <section class="about-block">
       <h2 class="about-h2">Long-term fit, without a trap</h2>
       <p class="about-p">
-        Our builds are ownership-based: the site can become a real asset that is yours, not a rental you can never leave.
-        Plenty of clients stay with us for years because it makes sense, but we never want to lock anyone into a messy,
-        full-time dependency. When ongoing help fits, we keep it clean; when you are ready to stand on your own, the work
-        is documented so you are not held hostage.
+        Our builds are ownership-based. Your site becomes a transferable business asset instead of a permanent rental. Many
+        clients stay with us long term, but we do not rely on lock-in. When ongoing support is needed, we keep it clear;
+        when you choose to transition, documentation and access are already in place.
       </p>
     </section>
 
@@ -77,28 +74,29 @@
         />
       </div>
       <p class="about-p">
-        HostVerna is led by <strong>Alex Zimmerman</strong>, who started working with tech around age eight. Within the
-        first month of owning a computer he was already port-forwarding, running servers, and learning how things connect.
-        By the early teens he was in the website business; from roughly twelve to sixteen he built and led multiple
-        ventures with teams. Larger projects leaned heavily into code and software, collaborating with other developers and
-        chasing ambitious builds. The through-line is practical systems knowledge, not jargon, and enough experience to
-        be realistic about what we take on.
+        HostVerna is led by <strong>Alex Zimmerman</strong>. He started hands-on in tech early, then moved into paid work
+        in his teens across web, software, infrastructure, and operations. As his scope grew, he led multiple software
+        development teams and managed projects from planning through delivery. That early run built practical judgment in
+        execution, leadership, and market fit.
       </p>
       <p class="about-p about-p--tight">
-        Alex is a cybersecurity graduate and holds multiple <strong>CompTIA</strong> certifications. The formal path
-        matters, but hands-on knowledge built over many years before that still outweighs what came from coursework and
-        certs alone. When something breaks in the real world, the depth from those earlier years is what shows up first.
+        Alex has long been involved in cybersecurity, IT, and software development, including work supporting government
+        entities and other high-accountability environments. Credentials help, but the core value comes from continuous
+        hands-on production work solving real operational issues.
       </p>
       <p class="about-p about-p--tight">
-        At 22 he was in a <strong>Senior IT</strong> role for <strong>Global HR</strong> and
-        <strong>DISA Global Solutions</strong>, and was a heavy hitter on their team for several years before moving full
-        time into HostVerna.
+        Before moving full time into HostVerna, he served in a <strong>Senior IT</strong> role supporting
+        <strong>Global HR</strong> and <strong>DISA Global Solutions</strong>, where reliability, security, and response
+        time were non-negotiable.
       </p>
       <p class="about-p about-p--tight">
-        At DISA, Alex also built and supported integrations between applicant tracking systems (including
-        <strong>iCIMS</strong>) and an in-house platform, for national-scale hiring programs. We keep specific end-employer
-        names off this page so we are not implying endorsements; the work was live production integration at serious
-        volume.
+        At DISA, Alex supported integrations between applicant tracking systems and internal hiring infrastructure,
+        resolving complex cases across national-scale hiring programs. We do not list specific end-employer names here
+        to avoid implying endorsements.
+      </p>
+      <p class="about-p about-p--tight">
+        The through-line across all of this is straightforward: direct accountability, clear communication, and work
+        designed to hold up in production.
       </p>
     </section>
 

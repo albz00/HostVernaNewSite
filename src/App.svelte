@@ -19,7 +19,10 @@
   import LearnIndex from './lib/pages/LearnIndex.svelte';
   import LearnDoc from './lib/pages/LearnDoc.svelte';
   import ServeSegment from './lib/pages/ServeSegment.svelte';
+  import AreasServed from './lib/pages/AreasServed.svelte';
+  import WvCityPage from './lib/pages/WvCityPage.svelte';
   import GreenbrierCountyWv from './lib/pages/GreenbrierCountyWv.svelte';
+  import GreenbrierPlace from './lib/pages/GreenbrierPlace.svelte';
   import Pacman from './lib/pages/Pacman.svelte';
   import { getPageMeta } from './lib/data/pageMeta';
 
@@ -54,9 +57,23 @@
     return rest || null;
   }
 
+  function greenbrierPlaceSlugFromPath(p: string): string | null {
+    if (!p.startsWith('/greenbrier-county-wv/')) return null;
+    const rest = p.slice('/greenbrier-county-wv/'.length);
+    return rest || null;
+  }
+
+  function wvCitySlugFromPath(p: string): string | null {
+    if (!p.startsWith('/areas-served/')) return null;
+    const rest = p.slice('/areas-served/'.length);
+    return rest || null;
+  }
+
   $: serviceSlug = serviceSlugFromPath(path);
   $: solutionSlug = solutionSlugFromPath(path);
   $: learnDocSlug = learnDocSlugFromPath(path);
+  $: greenbrierPlaceSlug = greenbrierPlaceSlugFromPath(path);
+  $: wvCitySlug = wvCitySlugFromPath(path);
   $: pageMeta = getPageMeta(path);
 
   $: if (typeof window !== 'undefined') {
@@ -110,8 +127,14 @@
   <Connect />
 {:else if path === '/careers'}
   <Careers />
+{:else if path === '/areas-served'}
+  <AreasServed />
+{:else if wvCitySlug !== null}
+  <WvCityPage slug={wvCitySlug} />
 {:else if path === '/greenbrier-county-wv'}
   <GreenbrierCountyWv />
+{:else if greenbrierPlaceSlug !== null}
+  <GreenbrierPlace slug={greenbrierPlaceSlug} />
 {:else if path === '/pacman'}
   <Pacman />
 {:else if path === '/resources'}
@@ -123,22 +146,22 @@
 {:else if path === '/privacy'}
   <LockedPlaceholder
     heading="Privacy Policy is locked"
-    lead="This page isn’t open to visitors. If you need our privacy practices in writing or have questions, call or email us and we’ll point you the right way."
+    lead="This page is not open to visitors. If you need our privacy practices in writing or have questions, call or email us."
   />
 {:else if path === '/terms'}
   <LockedPlaceholder
     heading="Terms of Service are locked"
-    lead="This page isn’t open to visitors. If you need our terms in writing or have questions, call or email us and we’ll point you the right way."
+    lead="This page is not open to visitors. If you need our terms in writing or have questions, call or email us."
   />
 {:else if path === '/cookies'}
   <LockedPlaceholder
     heading="Cookie Policy is locked"
-    lead="This page isn’t open to visitors. If you need details about cookies or have questions, call or email us and we’ll point you the right way."
+    lead="This page is not open to visitors. If you need cookie policy details or have questions, call or email us."
   />
 {:else if path === '/sla'}
   <LockedPlaceholder
     heading="SLA is locked"
-    lead="This page isn’t open to visitors. If you need SLA details or have questions, call or email us and we’ll point you the right way."
+    lead="This page is not open to visitors. If you need SLA details or have questions, call or email us."
   />
 {:else if path === '/learn'}
   <LearnIndex />

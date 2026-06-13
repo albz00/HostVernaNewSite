@@ -9,7 +9,7 @@
   const mailPeerHref = `mailto:${mailTo}?subject=${encodeURIComponent(
     'Hello from the Connect page'
   )}&body=${encodeURIComponent(
-    'Hi HostVerna,\n\nI found you through a site you built (or I am reaching out as another shop). I would love to connect or ask a quick question:\n\n\n'
+    'Hello HostVerna,\n\nI found you through a site you built, or I am reaching out from another team. I would like to connect or ask a quick question:\n\n\n'
   )}`;
 </script>
 
@@ -29,26 +29,26 @@
       <div class="business-card-top">
         <p class="business-card-kicker">Digital business card</p>
         <h1 id="connect-card-heading" class="connect-h1">HostVerna</h1>
-        <p class="business-card-role">Web design, software, and managed IT for businesses that want reliability.</p>
+        <p class="business-card-role">Web design, software, and managed IT for businesses that need reliable delivery.</p>
       </div>
 
       <div class="business-card-grid">
         <section class="business-card-block" aria-label="Contact details">
           <p class="business-card-label">Email</p>
           <a href={mailPeerHref} class="business-card-value">{mailTo}</a>
-          <p class="business-card-note">Opens a drafted message so you can edit and send quickly.</p>
+          <p class="business-card-note">Opens a prefilled message that you can edit before sending.</p>
         </section>
 
         <section class="business-card-block" aria-label="Phone details">
           <p class="business-card-label">Phone</p>
           <a href={phoneHref} class="business-card-value">{phoneDisplay}</a>
-          <p class="business-card-note">Call or text us directly during business hours.</p>
+          <p class="business-card-note">Call or text directly during business hours.</p>
         </section>
 
         <section class="business-card-block business-card-block--wide" aria-label="Work style">
           <p class="business-card-label">Built for</p>
           <p class="business-card-copy">
-            People finding us through client sites, plus agencies and teams that need a sharp technical partner.
+            Referrals from client sites, plus agencies and teams that need a dependable technical partner.
           </p>
         </section>
       </div>

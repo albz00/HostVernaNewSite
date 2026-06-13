@@ -1290,8 +1290,9 @@
     margin-top: 12px;
   }
 
-  /* Tablet + mobile: show the phone on the nav bar itself. */
-  @media (max-width: 1180px) {
+  /* Mobile only: show the compact phone on the nav bar itself.
+     Tablet keeps phone in the utility strip to avoid duplication. */
+  @media (max-width: 900px) {
     .nav-phone-compact {
       display: inline-flex;
     }
@@ -1304,6 +1305,11 @@
       padding-top: 8px;
       padding-bottom: 6px;
       row-gap: 0;
+    }
+
+    .nav-actions {
+      margin-left: auto;
+      justify-content: flex-end;
     }
 
     .nav-links {

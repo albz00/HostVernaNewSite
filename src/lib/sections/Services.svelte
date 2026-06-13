@@ -27,7 +27,7 @@
       galleryId: 'web-design' as const,
       galleryUrls: webDesignGalleryUrls,
       galleryLabel: 'Rotating website design examples',
-      description: `Outgrown a DIY builder, or stuck with a site that doesn't look like you? We build a custom site that becomes the hub your business runs on, with ownership terms from the start.`,
+      description: `If your current site no longer reflects your business, we build a custom replacement that serves as your central digital platform, with clear ownership terms from the start.`,
       placeholder: 'Website Redesign',
       quote:
         '"The site finally looks like us."',
@@ -40,7 +40,7 @@
       galleryId: 'business-software' as const,
       galleryUrls: businessSoftwareGalleryUrls,
       galleryLabel: 'Rotating business software examples',
-      description: `Juggling spreadsheets, logins, and manual steps? We build internal tools, client portals, and web apps shaped around how your team already works.`,
+      description: `If your team is managing fragmented spreadsheets and manual steps, we build internal tools, client portals, and web apps aligned to your workflow.`,
       placeholder: 'Internal Ops Platform',
       quote:
         '"We stopped bouncing between spreadsheets."',
@@ -53,7 +53,7 @@
       visualUrl:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/858fe79c-7a72-4f46-2a6a-ad20c0374e00/public',
       visualLabel: 'CRM workflow automation example',
-      description: `Leads slipping through the cracks? CRM setup that matches your sales process, with the fields, automation, and training your team will actually use.`,
+      description: `If leads are being lost, we implement CRM systems that match your sales process, with practical fields, automation, and team training.`,
       placeholder: 'CRM Dashboard',
       quote:
         '"People actually use the CRM now."',
@@ -66,7 +66,7 @@
       visualUrl:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a01968f3-730e-4a92-27aa-8b9eb15c0100/public',
       visualLabel: 'IT collaboration and support',
-      description: `Tired of the runaround when something breaks? You call, we answer, and we keep things moving, no ticket black holes.`,
+      description: `When systems fail, you need direct response. You contact us, we triage quickly, and we keep operations moving.`,
       placeholder: 'Infrastructure Overview',
       quote:
         '"A real person picked up."',

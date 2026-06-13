@@ -197,8 +197,8 @@
     <header class="contact-header">
       <h1 class="contact-h1">Get started</h1>
       <p class="contact-lede">
-        A short guided form so we know who you are, what you need, and how soon you are looking to move. Same spirit as
-        our qualifier: quick for you, enough detail for us to respond with something useful.
+        A short guided form so we understand who you are, what you need, and your timeline. It is designed to be quick for
+        you and specific enough for a useful response.
       </p>
     </header>
     {/if}
@@ -209,12 +209,12 @@
           <div class="intro-accent-bar"></div>
           <h2 class="card-h2">Tell us what you're working on</h2>
           <p class="card-lead">
-            Fill this out and we'll get back to you with something useful. Seven quick questions, takes about two minutes.
+            Complete seven quick questions in about two minutes. We use your answers to provide a focused response.
           </p>
           <ul class="intro-bullets">
             <li>
               <span class="ib-dot"></span>
-              We read every submission and reply personally
+              Every submission is reviewed by our team
             </li>
             <li>
               <span class="ib-dot"></span>
@@ -222,7 +222,7 @@
             </li>
             <li>
               <span class="ib-dot"></span>
-              Secure send at the end, no email client needed
+              Secure web submission, no email client required
             </li>
           </ul>
           <div class="intro-footer">
@@ -376,7 +376,7 @@
           </div>
           <div class="q-step-label">Step 6 of {totalSteps}</div>
           <h2 class="q-heading">Anything else we should know?</h2>
-          <p class="q-hint">Links, competitors you like, constraints, or what "done" looks like for you.</p>
+          <p class="q-hint">Share links, constraints, examples, or what success looks like for this project.</p>
           <label class="field">
             <span class="field-label">Details <span class="opt">(optional but helpful)</span></span>
             <textarea class="field-textarea" rows="6" bind:value={details} placeholder="Type here…"></textarea>
@@ -449,7 +449,7 @@
             Your message is on its way. If you need to add something, email us at <a href="mailto:{mailTo}">{mailTo}</a>.
           </p>
           <p class="card-lead">
-            We read every request. Expect a human reply, not an autoresponder wall, usually within one business day.
+            We read every request. Expect a direct human reply, usually within one business day.
           </p>
           <div class="card-actions card-actions-center">
             <a href="/" class="btn btn-primary btn-lg">Back to home</a>

@@ -367,7 +367,7 @@
     const cx = u - 0.5;
     const cy = v - 0.5;
 
-    // Eyes — drawn over body, also visible when ghost is "eaten"
+    // Eyes - drawn over body, also visible when ghost is "eaten"
     const eyeY = -0.05;
     const eyeOff = 0.18;
     const eyeR = 0.085;
@@ -564,7 +564,7 @@
       | { kind: 'ghost'; ghost: Ghost; x: number; y: number; d2: number };
     const sprites: Sprite[] = [];
 
-    // Pellets — only collect ones in front and within view distance
+    // Pellets - only collect ones in front and within view distance
     for (let y = 0; y < MAP_H; y++) {
       for (let x = 0; x < MAP_W; x++) {
         const tile = map[y * MAP_W + x];
@@ -901,7 +901,7 @@
       cands.push({ x: nx, y: ny, score: s });
     }
     if (cands.length === 0) {
-      // Dead end — allow reverse
+      // Dead end - allow reverse
       for (const [ddx, ddy] of dirs) {
         const nx = myCellX + ddx;
         const ny = myCellY + ddy;
@@ -1231,8 +1231,8 @@
           <div class="overlay-card">
             <h2>READY?</h2>
             <p class="lead">
-              Eat every pellet without getting caught. Power pellets in the corners turn the ghosts blue — chomp
-              them back for big points.
+              Eat every pellet without getting caught. Power pellets in the corners turn ghosts blue, so you can capture
+              them for bonus points.
             </p>
             <ul class="controls">
               <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> &middot; move</li>
@@ -1269,7 +1269,7 @@
         <div class="overlay dead">
           <div class="overlay-card">
             <h2>GAME OVER</h2>
-            <p class="lead">The ghosts got you. Should've grabbed a power pellet.</p>
+            <p class="lead">A ghost reached you before you activated a power pellet.</p>
             <p class="stats">
               Score: <strong>{score}</strong> &middot; Pellets eaten: <strong>{pelletsEaten}</strong> /
               {pelletsTotal} &middot; Time: <strong>{formatTime(elapsedSec)}</strong>
@@ -1284,7 +1284,7 @@
         <div class="overlay won">
           <div class="overlay-card">
             <h2>YOU WIN</h2>
-            <p class="lead">Every pellet eaten. The ghosts are very upset with you.</p>
+            <p class="lead">All pellets cleared. Round complete.</p>
             <p class="stats">
               Score: <strong>{score}</strong> &middot; Lives left: <strong>{lives}</strong> &middot; Time:
               <strong>{formatTime(elapsedSec)}</strong>
@@ -1307,7 +1307,7 @@
   </main>
 
   <footer class="pac-footer">
-    <span>Made by HostVerna for no reason at all.</span>
+    <span>Built by HostVerna as an internal demo.</span>
     <a class="back-link footer-back" href="/journal.txt">Back to /journal.txt &rarr;</a>
   </footer>
 </div>

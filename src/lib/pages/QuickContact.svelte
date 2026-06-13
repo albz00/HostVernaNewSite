@@ -59,9 +59,9 @@
     {#if submitted}
       <div class="qc-card qc-success" role="status">
         <div class="qc-badge">Request received</div>
-        <h1 class="qc-h1">Got it</h1>
+        <h1 class="qc-h1">Thank you</h1>
         <p class="qc-lede">
-          Thanks for reaching out. Our team will review your details and follow up shortly.
+          Thank you for contacting us. Our team will review your details and follow up shortly.
         </p>
         <p class="qc-lede qc-lede-tight">
           Prefer voice? <a href={phoneHref}>{phoneDisplay}</a>

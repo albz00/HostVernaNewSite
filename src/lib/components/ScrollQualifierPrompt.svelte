@@ -94,10 +94,9 @@
         ×
       </button>
       <p class="sqp-kicker">Still browsing?</p>
-      <h2 id="sqp-heading" class="sqp-title">Looks like you’re digging in</h2>
+      <h2 id="sqp-heading" class="sqp-title">Before you continue</h2>
       <p class="sqp-body">
-        If you haven’t yet, take a minute to see if we’re a good fit for each other before you go
-        further. Five quick questions, straight answers, no pressure.
+        Take one minute to complete the fit check before continuing. Five quick questions and a direct recommendation.
       </p>
       <div class="sqp-actions">
         <button
@@ -106,7 +105,7 @@
           bind:this={primaryBtn}
           on:click={goToQualifier}
         >
-          See if we’re a fit
+          Start fit check
         </button>
         <button type="button" class="btn btn-secondary" on:click={close}>Not now</button>
       </div>

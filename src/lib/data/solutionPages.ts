@@ -19,19 +19,19 @@ export const solutionPages: SolutionPageData[] = [
     title: 'Own your site',
     metaTitle: 'Own your site | HostVerna',
     lede:
-      'Stop renting a website you will never own. We build yours so that after a clear payoff period, the asset is yours, with no perpetual license and no hostage-taking when you want to move.',
+      'Stop renting a website you will never own. We build your site so ownership transfers after a defined term, without perpetual licensing or platform lock-in.',
     sections: [
       {
-        heading: 'What “ownership” means here',
+        heading: 'What ownership means',
         body: [
-          'You get the real deliverable: design, code, and a handoff where you know what you have. We are not selling a locked theme on someone else’s platform.',
-          'After a set number of months, the site is yours. Hosting fees tied to “renting” the build go away. You keep a direct line to the people who built it when you need changes.',
+          'You receive the full deliverable: design, code, and a documented handoff. We do not deliver locked themes on third-party platforms.',
+          'After a defined number of months, ownership transfers to you. Rental-style build fees end, and support remains available when needed.',
         ],
       },
       {
         heading: 'Why it matters',
         body: [
-          'Most small businesses outgrow template sites but stay stuck paying for them. Ownership aligns the investment with an asset you control, and removes the “call us to change a word” trap.',
+          'Many small businesses outgrow template platforms but remain tied to recurring fees. Ownership aligns your spend with an asset you control.',
         ],
       },
     ],
@@ -42,19 +42,19 @@ export const solutionPages: SolutionPageData[] = [
     title: 'Beyond templates',
     metaTitle: 'Beyond templates | HostVerna',
     lede:
-      'If your site looks like a theme demo with your logo, it is not serving you. We design and build from your business, not from a one-size-fits-all layout.',
+      'If your site resembles a generic theme, it likely does not represent your business well. We design and build from your strategy, not from a preset layout.',
     sections: [
       {
         heading: 'Custom, not recycled',
         body: [
-          'Discovery comes first: who you serve, what makes you different, and what visitors should do. Structure, copy, and visuals follow from that, not from a pre-built grid.',
-          'You get performance and clarity without filler sections you did not ask for.',
+          'Discovery comes first: audience, differentiation, and conversion goals. Structure, copy, and visuals follow that strategy.',
+          'You get a focused site with clear messaging and performance, without unnecessary filler sections.',
         ],
       },
       {
-        heading: 'When you are ready to go deeper',
+        heading: 'Next step',
         body: [
-          'Our web design and development service is the natural next step if you want a full build spec and timeline.',
+          'Our web design and development service is the next step when you need a full build specification and timeline.',
         ],
       },
     ],
@@ -65,18 +65,18 @@ export const solutionPages: SolutionPageData[] = [
     title: 'Workflow-fit software',
     metaTitle: 'Workflow-fit software | HostVerna',
     lede:
-      'Off-the-shelf tools almost fit. The gap is where your team loses hours. Custom software closes it: internal tools, portals, and workflows built for your rules, not a vendor’s roadmap.',
+      'Off-the-shelf tools often leave workflow gaps that cost time. Custom software closes those gaps with internal tools, portals, and processes built for your operation.',
     sections: [
       {
-        heading: 'Built for how you actually work',
+        heading: 'Built for your real workflow',
         body: [
-          'We scope to outcomes: fewer spreadsheets, fewer handoffs, less retyping between systems. Iteration includes the people who click the buttons, so v2 is not a rewrite because nobody asked them.',
+          'We scope to outcomes: fewer spreadsheets, fewer handoffs, and less manual re-entry between systems. Iteration includes the people who use the software daily.',
         ],
       },
       {
-        heading: 'Explore the build',
+        heading: 'Explore the approach',
         body: [
-          'See how we approach custom applications, ownership of the result, and documentation you can run with.',
+          'Review how we handle custom applications, ownership, and documentation for long-term maintainability.',
         ],
       },
     ],
@@ -87,18 +87,18 @@ export const solutionPages: SolutionPageData[] = [
     title: 'Reachable IT support',
     metaTitle: 'Reachable IT support | HostVerna',
     lede:
-      'You should not need a computer science degree to run your business, or a 40-minute hold when something breaks. You get responsive IT grounded in your devices, network, and line-of-business apps.',
+      'You should not need a technical background to run your business. We provide responsive IT support aligned to your devices, network, and line-of-business systems.',
     sections: [
       {
-        heading: 'Humans, not a script',
+        heading: 'Context-aware support',
         body: [
-          'Issues get triaged with context. We are not a faceless queue reading from a script. When something needs a decision or a purchase, we say so clearly.',
+          'Issues are triaged with operational context. When a decision or purchase is required, we communicate it clearly and promptly.',
         ],
       },
       {
         heading: 'Stability and sanity',
         body: [
-          'Security baselines, backups, and documentation you can find when you need it. Proactive monitoring where it actually helps.',
+          'We maintain security baselines, backups, and clear documentation, with proactive monitoring where it provides measurable value.',
         ],
       },
     ],
@@ -109,18 +109,18 @@ export const solutionPages: SolutionPageData[] = [
     title: 'Speed without lock-in',
     metaTitle: 'Speed without lock-in | HostVerna',
     lede:
-      'Fast load times should not require chaining yourself to a proprietary platform. We ship lean, edge-hosted sites with real ownership of the codebase: portable, documented, and yours.',
+      'Fast load times should not require proprietary lock-in. We deliver lean, edge-hosted sites with portable code ownership and clear documentation.',
     sections: [
       {
         heading: 'Performance by design',
         body: [
-          'Compiled static output and edge delivery mean visitors get a snappy experience without a bloated stack. You feel it in benchmarks and in day-to-day use.',
+          'Compiled static output and edge delivery provide fast performance without unnecessary stack complexity.',
         ],
       },
       {
         heading: 'No platform ransom',
         body: [
-          'When you own your site, you own the actual code, not a login to a black box. That freedom is part of the build, not an upsell.',
+          'When you own your site, you own the underlying code, not just access to a closed platform.',
         ],
       },
     ],
@@ -128,22 +128,22 @@ export const solutionPages: SolutionPageData[] = [
   {
     slug: 'customer-confirmations',
     navTitle: 'Customer confirmations',
-    title: 'Customer confirmations that actually reassure',
+    title: 'Customer confirmations that build trust',
     metaTitle: 'Customer confirmations | HostVerna',
     lede:
-      'After someone submits a form, they should know their message was received. They should not stare at a spinner, get dumped on the homepage, or wonder if it vanished. We build confirmation experiences we would stand behind for our own clients.',
+      'After a form submission, customers should immediately know their message was received and what happens next. We design confirmation flows that reduce uncertainty and improve follow-through.',
     sections: [
       {
         heading: 'On the page and in the inbox',
         body: [
-          'A clear on-screen confirmation is the minimum. Where it fits your process, we align copy so the next step is obvious: what you will do, how fast, and how they can follow up if needed.',
-          'That is the same bar we use when we set up sites for businesses that cannot afford to look sloppy after someone takes the time to write them.',
+          'A clear on-screen confirmation is the baseline. Where appropriate, we align follow-up copy so next steps are explicit: what happens next, expected response time, and how to follow up.',
+          'This protects trust at a critical point in the customer journey.',
         ],
       },
       {
-        heading: 'Why it is part of the product',
+        heading: 'Why it belongs in scope',
         body: [
-          'Trust breaks when the UI goes silent. Confirmation messaging is not an afterthought; it is part of the conversion story and the relationship. We treat it that way in scope and in QA.',
+          'Trust declines when the interface becomes silent after submission. Confirmation messaging is part of the product and should be included in scope and QA.',
         ],
       },
     ],
@@ -154,19 +154,19 @@ export const solutionPages: SolutionPageData[] = [
     title: 'Security built in, not bolted on later',
     metaTitle: 'Web security | HostVerna',
     lede:
-      'A brochure site can still be probed for weak forms, leaked data, and sloppy defaults. We ship with a sane baseline: less attack surface, modern hosting patterns, and no mystery endpoints for visitors to poke.',
+      'Even brochure sites are regularly scanned for weak forms and insecure defaults. We ship with a practical baseline: lower attack surface, modern hosting patterns, and controlled endpoints.',
     sections: [
       {
-        heading: 'What “solid” means here',
+        heading: 'What a solid baseline includes',
         body: [
-          'Sensible protections against automated abuse on contact paths, careful handling of user input, and infrastructure choices that do not paint a target on your back.',
-          'We are not selling fear. We are matching the risk to what you actually run: public forms, third-party scripts, and the reality that small sites get scanned constantly.',
+          'Protections against automated abuse on contact paths, careful input handling, and infrastructure choices that reduce unnecessary exposure.',
+          'We align controls to your actual risk profile, including public forms and third-party scripts.',
         ],
       },
       {
         heading: 'How we keep it maintainable',
         body: [
-          'Security that only lives in one person’s head does not survive. Builds stay understandable, dependencies stay intentional, and when something needs a server-side check, we say so plainly instead of pretending the browser can do it all.',
+          'Security must remain maintainable over time. We keep builds understandable, dependencies intentional, and communicate clearly when server-side controls are required.',
         ],
       },
     ],
@@ -174,35 +174,35 @@ export const solutionPages: SolutionPageData[] = [
   {
     slug: 'how-we-work-together',
     navTitle: 'How we work together',
-    title: 'How we work together (without pretending we run your business)',
+    title: 'How we work together',
     metaTitle: 'How we work together | HostVerna',
     lede:
-      'We are not a marketing agency. We build professional web presence, credible email, and solid tech, and we help you understand how the digital world fits your business. You still steer the ship: we do our part so you can do yours.',
+      'We focus on web presence, software, and technical infrastructure. We provide clear guidance and implementation support while your team remains responsible for business strategy and growth.',
     sections: [
       {
-        heading: 'Real guidance, honest limits',
+        heading: 'Clear guidance and clear limits',
         body: [
-          'If you are not sure how any of this works, that is normal. Part of our job is to explain what to expect in plain language: what a site can and cannot do, what happens after launch, and where your effort still matters.',
-          'We do not guarantee customers or revenue. Growing the business is still on you. What we can do is make you look serious, give people one clear place to learn about you, and remove the “cheap template” feeling that costs trust.',
+          'If digital systems are not your core focus, we explain each phase in plain language: what the solution does, what it does not do, and what happens after launch.',
+          'We do not guarantee customers or revenue. We do build a credible digital foundation that supports trust and clearer buyer decisions.',
         ],
       },
       {
-        heading: 'Professional, not “growth hacks”',
+        heading: 'Professional foundations',
         body: [
-          'We care about real business email on your domain, design that makes you look established, and information architecture that holds up when someone actually reads it. That is how you look gigantic next to a bare social profile or a half-finished Google Business listing with nowhere good to send people.',
+          'We prioritize domain-based business email, credible design, and clear information architecture so visitors can evaluate your business quickly and confidently.',
         ],
       },
       {
-        heading: 'Many doors, one lobby',
+        heading: 'Many channels, one destination',
         body: [
-          'Think of a business center with multiple front doors: one for walk-ins, one from the parking lot, one from the street, and one from a shared directory. Your marketing touchpoints work the same way. You might mention the business on TikTok, Facebook, Instagram, in email, and on Google. Each of those is a door.',
-          'What you need is one proper place where all of that traffic can land: hours, story, proof, contact, and the details people ask for. Without a real site, you still might win work, but you also might lose someone who needed a single trustworthy page and never found it.',
+          'Your business may be discovered through search, social media, referrals, or email. Each channel should point to one reliable destination.',
+          'That destination should provide the essentials: services, proof, contact paths, and practical details. Without it, potential customers may leave before they have enough information to decide.',
         ],
       },
       {
-        heading: 'Why we do not lead with “conversions”',
+        heading: 'How we define our role',
         body: [
-          'We understand how traffic and attention work online, but we are not here to sell magic funnel math. We build the credible destination; you put the energy into reputation, follow-up, and getting people to those doors in the first place. When both sides do their job, it tends to work out well.',
+          'We build and maintain the digital destination. Your team owns reputation, follow-up, and demand generation. This division of responsibility keeps expectations clear and execution effective.',
         ],
       },
     ],

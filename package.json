@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "seo": "tsx scripts/generate-seo.ts",
     "build": "npm run seo && vite build && tsx scripts/prerender-html.ts",
     "preview": "vite preview",

@@ -16,7 +16,7 @@
     ],
     Resources: [
       { label: 'Resources hub', href: '/resources' },
-      { label: 'Greenbrier County, WV', href: '/greenbrier-county-wv' },
+      { label: 'Areas served', href: '/areas-served' },
       { label: 'Connect', href: '/connect' },
       { label: 'Case Studies', href: '/#case-studies' },
       { label: 'Documentation', href: '/learn' },
@@ -41,8 +41,8 @@
           <span class="logo-host">Host</span><span class="logo-verna">Verna</span>
         </a>
         <p class="brand-desc">
-          Web development and managed services for your business.
-          One partner, everything digital.
+          Web hosting, web development, software, and managed services for business operations.
+          One technical partner across core digital systems.
         </p>
         <div class="brand-contact">
           <a href="mailto:info@hostverna.com" class="contact-link">info@hostverna.com</a>
@@ -86,7 +86,7 @@
         &copy; {new Date().getFullYear()} HostVerna. All rights reserved.
       </span>
       <div class="footer-tagline">
-        Websites, software, CRM, and IT support. One partner.
+        Websites, software, CRM, and IT support from one team.
       </div>
     </div>
   </div>

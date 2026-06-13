@@ -75,7 +75,7 @@ function cfFromRequest(request: Request): CfRequestProps | undefined {
 }
 
 function buildEdgeLocationLine(cf: CfRequestProps | undefined): string {
-  if (!cf) return '(edge geo unavailable — not on Cloudflare edge or headers stripped)';
+  if (!cf) return '(edge geo unavailable; not on Cloudflare edge or headers stripped)';
   const locality = [cf.city, cf.region, cf.country].filter((x) => typeof x === 'string' && x.trim()).join(', ');
   const tz = typeof cf.timezone === 'string' && cf.timezone.trim() ? cf.timezone.trim() : '';
   const lat = cf.latitude;
@@ -145,7 +145,7 @@ function buildPrivateLeadBlock(args: {
   if (args.client.referrer) {
     lines.push(`Referrer / prior URL: ${args.client.referrer}`);
   } else {
-    lines.push('Referrer / prior URL: (empty — direct, HTTPS, or privacy settings)');
+    lines.push('Referrer / prior URL: (empty; direct, HTTPS, or privacy settings)');
   }
   if (args.client.pageUrl) {
     lines.push(`Submitted from (full link): ${args.client.pageUrl}`);
@@ -354,7 +354,7 @@ function buildConfirmationBody(name: string, summary: ConfirmationSummary): stri
     '',
     'If anything is urgent, feel free to call us at 304-992-6568.',
     '',
-    '— The HostVerna team',
+    '- The HostVerna team',
     CONFIRM_FOOTER_EMAIL,
   ].join('\n');
 }
@@ -369,7 +369,7 @@ function buildConfirmationHtml(name: string, summary: ConfirmationSummary): stri
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Thanks — HostVerna</title>
+<title>Thanks | HostVerna</title>
 </head>
 <body style="margin:0;padding:0;background-color:#f1f5f9;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#f1f5f9;padding:32px 16px;">
@@ -594,7 +594,7 @@ async function sendConfirmation(
     from: args.from,
     to: args.submitterEmail,
     reply_to: args.replyTo,
-    subject: 'Thanks for reaching out — HostVerna',
+    subject: 'Thanks for reaching out | HostVerna',
     text: buildConfirmationBody(args.submitterName, args.summary),
     html: buildConfirmationHtml(args.submitterName, args.summary),
   });

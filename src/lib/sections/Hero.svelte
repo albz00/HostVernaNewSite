@@ -380,7 +380,7 @@
       hero: {
         title: 'Your town,',
         titleEmphasis: 'clearly online.',
-        sub: 'Pay bills, file permits, and find what you need without the runaround.',
+        sub: 'Pay bills, file permits, and find information quickly.',
         cta: 'Pay a Bill',
       },
       sections: [
@@ -465,10 +465,10 @@
         </h1>
 
         <p class="hero-sub">
-          Custom websites and software for business owners who are done renting a DIY platform.
+          Custom web development, hosting, and software for owners who need a stable long-term platform.
           <ContentHighlight tone="keyword">No templates, no locked subscriptions.</ContentHighlight>
           You <ContentHighlight tone="string">own your site outright</ContentHighlight>, with
-          <ContentHighlight tone="comment">a technical partner who actually guides you</ContentHighlight>.
+          <ContentHighlight tone="comment">a technical partner that provides direct guidance</ContentHighlight>.
         </p>
 
         <div class="hero-actions">
