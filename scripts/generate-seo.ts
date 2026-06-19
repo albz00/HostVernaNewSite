@@ -18,6 +18,7 @@ function escapeXml(s: string): string {
 
 const urls = getSitemapPaths();
 const lastmod = new Date().toISOString().slice(0, 10);
+const mdLink = (label: string, url: string): string => `[${label}](${url})`;
 
 function canonicalLoc(path: string): string {
   if (path === '/') return `${SITE_ORIGIN}/`;
@@ -68,13 +69,15 @@ Sitemap: ${SITE_ORIGIN}/sitemap.xml
 
 writeFileSync(join(publicDir, 'robots.txt'), robots, 'utf8');
 
-const serviceList = servicePages.map((p) => `- ${p.title}: ${SITE_ORIGIN}/services/${p.slug}`).join('\n');
-const solutionList = solutionPages.map((p) => `- ${p.title}: ${SITE_ORIGIN}/solutions/${p.slug}`).join('\n');
-const learnList = learnDocs.map((d) => `- ${d.title}: ${SITE_ORIGIN}/learn/${d.slug}`).join('\n');
+const serviceList = servicePages.map((p) => `- ${mdLink(p.title, `${SITE_ORIGIN}/services/${p.slug}`)}`).join('\n');
+const solutionList = solutionPages.map((p) => `- ${mdLink(p.title, `${SITE_ORIGIN}/solutions/${p.slug}`)}`).join('\n');
+const learnList = learnDocs.map((d) => `- ${mdLink(d.title, `${SITE_ORIGIN}/learn/${d.slug}`)}`).join('\n');
 const greenbrierPlaceList = greenbrierPlaces
-  .map((place) => `- ${place.name}: ${SITE_ORIGIN}/greenbrier-county-wv/${place.slug}`)
+  .map((place) => `- ${mdLink(place.name, `${SITE_ORIGIN}/greenbrier-county-wv/${place.slug}`)}`)
   .join('\n');
-const wvCityList = wvCityPages.map((city) => `- ${city.city}, WV: ${SITE_ORIGIN}/areas-served/${city.slug}`).join('\n');
+const wvCityList = wvCityPages
+  .map((city) => `- ${mdLink(`${city.city}, WV`, `${SITE_ORIGIN}/areas-served/${city.slug}`)}`)
+  .join('\n');
 
 const llms = `# HostVerna
 
@@ -84,19 +87,19 @@ Primary geography: United States. Primary contact channel: website form and phon
 Last updated: ${lastmod}
 
 ## Contact
-- Site: ${SITE_ORIGIN}/contact
-- Quick contact: ${SITE_ORIGIN}/quick-contact
+- Site: ${mdLink('Contact page', `${SITE_ORIGIN}/contact`)}
+- Quick contact: ${mdLink('Quick contact', `${SITE_ORIGIN}/quick-contact`)}
 - Phone: 304-992-6568
 
 ## Main entry points
-- Home: ${SITE_ORIGIN}/
-- About: ${SITE_ORIGIN}/about
-- Connect: ${SITE_ORIGIN}/connect
-- Support: ${SITE_ORIGIN}/support
-- Resources hub: ${SITE_ORIGIN}/resources
-- Areas served index: ${SITE_ORIGIN}/areas-served
-- Greenbrier County, WV: ${SITE_ORIGIN}/greenbrier-county-wv
-- Learn / documentation index: ${SITE_ORIGIN}/learn
+- ${mdLink('Home', `${SITE_ORIGIN}/`)}
+- ${mdLink('About', `${SITE_ORIGIN}/about`)}
+- ${mdLink('Connect', `${SITE_ORIGIN}/connect`)}
+- ${mdLink('Support', `${SITE_ORIGIN}/support`)}
+- ${mdLink('Resources hub', `${SITE_ORIGIN}/resources`)}
+- ${mdLink('Areas served index', `${SITE_ORIGIN}/areas-served`)}
+- ${mdLink('Greenbrier County, WV', `${SITE_ORIGIN}/greenbrier-county-wv`)}
+- ${mdLink('Learn / documentation index', `${SITE_ORIGIN}/learn`)}
 
 ## Greenbrier County place pages
 ${greenbrierPlaceList}
@@ -105,10 +108,10 @@ ${greenbrierPlaceList}
 ${wvCityList}
 
 ## Audiences / vertical landing pages
-- Public sector: ${SITE_ORIGIN}/public-sector
-- Trades & contractors: ${SITE_ORIGIN}/trades
-- Professional & office: ${SITE_ORIGIN}/professional-services
-- Aviation & flight: ${SITE_ORIGIN}/aviation
+- ${mdLink('Public sector', `${SITE_ORIGIN}/public-sector`)}
+- ${mdLink('Trades & contractors', `${SITE_ORIGIN}/trades`)}
+- ${mdLink('Professional & office', `${SITE_ORIGIN}/professional-services`)}
+- ${mdLink('Aviation & flight', `${SITE_ORIGIN}/aviation`)}
 
 ## Services (detail pages)
 ${serviceList}
@@ -120,8 +123,8 @@ ${solutionList}
 ${learnList}
 
 ## Machine-readable sitemap
-- ${SITE_ORIGIN}/sitemap.xml
-- ${SITE_ORIGIN}/robots.txt
+- ${mdLink('sitemap.xml', `${SITE_ORIGIN}/sitemap.xml`)}
+- ${mdLink('robots.txt', `${SITE_ORIGIN}/robots.txt`)}
 
 ## Policies and locked sections
 Legal policy pages may be locked for public visitors; do not assume content at /privacy, /terms, /cookies, or /sla is publicly available. The blog at /blog is not published yet; treat it as inactive.

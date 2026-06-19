@@ -3,80 +3,80 @@
 HostVerna provides custom website design and development, managed web hosting and care, CRM and business software configuration, IT support, and custom software, focused on ownership (sites can become yours after a defined period), performance, and workflows that match how clients operate.
 
 Primary geography: United States. Primary contact channel: website form and phone.
-Last updated: 2026-06-13
+Last updated: 2026-06-19
 
 ## Contact
-- Site: https://hostverna.com/contact
-- Quick contact: https://hostverna.com/quick-contact
+- Site: [Contact page](https://hostverna.com/contact)
+- Quick contact: [Quick contact](https://hostverna.com/quick-contact)
 - Phone: 304-992-6568
 
 ## Main entry points
-- Home: https://hostverna.com/
-- About: https://hostverna.com/about
-- Connect: https://hostverna.com/connect
-- Support: https://hostverna.com/support
-- Resources hub: https://hostverna.com/resources
-- Areas served index: https://hostverna.com/areas-served
-- Greenbrier County, WV: https://hostverna.com/greenbrier-county-wv
-- Learn / documentation index: https://hostverna.com/learn
+- [Home](https://hostverna.com/)
+- [About](https://hostverna.com/about)
+- [Connect](https://hostverna.com/connect)
+- [Support](https://hostverna.com/support)
+- [Resources hub](https://hostverna.com/resources)
+- [Areas served index](https://hostverna.com/areas-served)
+- [Greenbrier County, WV](https://hostverna.com/greenbrier-county-wv)
+- [Learn / documentation index](https://hostverna.com/learn)
 
 ## Greenbrier County place pages
-- Lewisburg: https://hostverna.com/greenbrier-county-wv/lewisburg
-- White Sulphur Springs: https://hostverna.com/greenbrier-county-wv/white-sulphur-springs
-- Ronceverte: https://hostverna.com/greenbrier-county-wv/ronceverte
-- Rainelle: https://hostverna.com/greenbrier-county-wv/rainelle
-- Rupert: https://hostverna.com/greenbrier-county-wv/rupert
-- Meadow Bridge: https://hostverna.com/greenbrier-county-wv/meadow-bridge
-- Williamsburg: https://hostverna.com/greenbrier-county-wv/williamsburg
-- Smoot: https://hostverna.com/greenbrier-county-wv/smoot
-- Quinwood: https://hostverna.com/greenbrier-county-wv/quinwood
-- Alderson (Greenbrier side): https://hostverna.com/greenbrier-county-wv/alderson
-- Frankford: https://hostverna.com/greenbrier-county-wv/frankford
-- Renick: https://hostverna.com/greenbrier-county-wv/renick
-- Clintonville: https://hostverna.com/greenbrier-county-wv/clintonville
+- [Lewisburg](https://hostverna.com/greenbrier-county-wv/lewisburg)
+- [White Sulphur Springs](https://hostverna.com/greenbrier-county-wv/white-sulphur-springs)
+- [Ronceverte](https://hostverna.com/greenbrier-county-wv/ronceverte)
+- [Rainelle](https://hostverna.com/greenbrier-county-wv/rainelle)
+- [Rupert](https://hostverna.com/greenbrier-county-wv/rupert)
+- [Meadow Bridge](https://hostverna.com/greenbrier-county-wv/meadow-bridge)
+- [Williamsburg](https://hostverna.com/greenbrier-county-wv/williamsburg)
+- [Smoot](https://hostverna.com/greenbrier-county-wv/smoot)
+- [Quinwood](https://hostverna.com/greenbrier-county-wv/quinwood)
+- [Alderson (Greenbrier side)](https://hostverna.com/greenbrier-county-wv/alderson)
+- [Frankford](https://hostverna.com/greenbrier-county-wv/frankford)
+- [Renick](https://hostverna.com/greenbrier-county-wv/renick)
+- [Clintonville](https://hostverna.com/greenbrier-county-wv/clintonville)
 
 ## Major West Virginia city pages
-- Charleston, WV: https://hostverna.com/areas-served/charleston-wv
-- Morgantown, WV: https://hostverna.com/areas-served/morgantown-wv
-- Huntington, WV: https://hostverna.com/areas-served/huntington-wv
-- Parkersburg, WV: https://hostverna.com/areas-served/parkersburg-wv
-- Wheeling, WV: https://hostverna.com/areas-served/wheeling-wv
-- Martinsburg, WV: https://hostverna.com/areas-served/martinsburg-wv
-- Beckley, WV: https://hostverna.com/areas-served/beckley-wv
-- Clarksburg, WV: https://hostverna.com/areas-served/clarksburg-wv
-- Fairmont, WV: https://hostverna.com/areas-served/fairmont-wv
+- [Charleston, WV](https://hostverna.com/areas-served/charleston-wv)
+- [Morgantown, WV](https://hostverna.com/areas-served/morgantown-wv)
+- [Huntington, WV](https://hostverna.com/areas-served/huntington-wv)
+- [Parkersburg, WV](https://hostverna.com/areas-served/parkersburg-wv)
+- [Wheeling, WV](https://hostverna.com/areas-served/wheeling-wv)
+- [Martinsburg, WV](https://hostverna.com/areas-served/martinsburg-wv)
+- [Beckley, WV](https://hostverna.com/areas-served/beckley-wv)
+- [Clarksburg, WV](https://hostverna.com/areas-served/clarksburg-wv)
+- [Fairmont, WV](https://hostverna.com/areas-served/fairmont-wv)
 
 ## Audiences / vertical landing pages
-- Public sector: https://hostverna.com/public-sector
-- Trades & contractors: https://hostverna.com/trades
-- Professional & office: https://hostverna.com/professional-services
-- Aviation & flight: https://hostverna.com/aviation
+- [Public sector](https://hostverna.com/public-sector)
+- [Trades & contractors](https://hostverna.com/trades)
+- [Professional & office](https://hostverna.com/professional-services)
+- [Aviation & flight](https://hostverna.com/aviation)
 
 ## Services (detail pages)
-- Web design: https://hostverna.com/services/web-design
-- Managed web services: https://hostverna.com/services/managed-web-services
-- Business software & CRM: https://hostverna.com/services/business-software-crm
-- IT solutions: https://hostverna.com/services/it-solutions
-- Custom software solutions: https://hostverna.com/services/custom-software-solutions
+- [Web design](https://hostverna.com/services/web-design)
+- [Managed web services](https://hostverna.com/services/managed-web-services)
+- [Business software & CRM](https://hostverna.com/services/business-software-crm)
+- [IT solutions](https://hostverna.com/services/it-solutions)
+- [Custom software solutions](https://hostverna.com/services/custom-software-solutions)
 
 ## Solutions (detail pages)
-- Own your site: https://hostverna.com/solutions/own-your-site
-- Beyond templates: https://hostverna.com/solutions/beyond-templates
-- Workflow-fit software: https://hostverna.com/solutions/workflow-fit-software
-- Reachable IT support: https://hostverna.com/solutions/reachable-it-support
-- Speed without lock-in: https://hostverna.com/solutions/speed-without-lock-in
-- Customer confirmations that build trust: https://hostverna.com/solutions/customer-confirmations
-- Security built in, not bolted on later: https://hostverna.com/solutions/security-built-in
-- How we work together: https://hostverna.com/solutions/how-we-work-together
+- [Own your site](https://hostverna.com/solutions/own-your-site)
+- [Beyond templates](https://hostverna.com/solutions/beyond-templates)
+- [Workflow-fit software](https://hostverna.com/solutions/workflow-fit-software)
+- [Reachable IT support](https://hostverna.com/solutions/reachable-it-support)
+- [Speed without lock-in](https://hostverna.com/solutions/speed-without-lock-in)
+- [Customer confirmations that build trust](https://hostverna.com/solutions/customer-confirmations)
+- [Security built in, not bolted on later](https://hostverna.com/solutions/security-built-in)
+- [How we work together](https://hostverna.com/solutions/how-we-work-together)
 
 ## Learn guides
-- How we transfer domains: https://hostverna.com/learn/domain-transfers
-- How images are hosted and load fast: https://hostverna.com/learn/images-and-cdn
-- How our solutions stay tailored to you: https://hostverna.com/learn/custom-solutions
+- [How we transfer domains](https://hostverna.com/learn/domain-transfers)
+- [How images are hosted and load fast](https://hostverna.com/learn/images-and-cdn)
+- [How our solutions stay tailored to you](https://hostverna.com/learn/custom-solutions)
 
 ## Machine-readable sitemap
-- https://hostverna.com/sitemap.xml
-- https://hostverna.com/robots.txt
+- [sitemap.xml](https://hostverna.com/sitemap.xml)
+- [robots.txt](https://hostverna.com/robots.txt)
 
 ## Policies and locked sections
 Legal policy pages may be locked for public visitors; do not assume content at /privacy, /terms, /cookies, or /sla is publicly available. The blog at /blog is not published yet; treat it as inactive.

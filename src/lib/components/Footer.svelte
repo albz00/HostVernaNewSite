@@ -58,7 +58,7 @@
       <nav class="footer-nav">
         {#each Object.entries(footerLinks) as [category, links]}
           <div class="footer-col">
-            <h4 class="footer-col-title">{category}</h4>
+            <h3 class="footer-col-title">{category}</h3>
             <ul class="footer-link-list">
               {#each links as link}
                 <li>
@@ -131,7 +131,7 @@
 
   .brand-desc {
     font-size: 14px;
-    color: #64748b;
+    color: #cbd5e1;
     line-height: 1.65;
     max-width: 240px;
   }
@@ -179,14 +179,14 @@
 
   .footer-link {
     font-size: 13.5px;
-    color: #64748b;
+    color: #cbd5e1;
     text-decoration: none;
     transition: color 0.15s;
     font-weight: 400;
   }
 
   .footer-link:hover {
-    color: #94a3b8;
+    color: #ffffff;
   }
 
   .footer-trust {
@@ -200,7 +200,7 @@
 
   .ft-item {
     font-size: 11px;
-    color: #475569;
+    color: #94a3b8;
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.04em;
   }
@@ -221,12 +221,12 @@
 
   .footer-copy {
     font-size: 13px;
-    color: #475569;
+    color: #cbd5e1;
   }
 
   .footer-tagline {
     font-size: 13px;
-    color: #334155;
+    color: #94a3b8;
     font-style: italic;
   }
 

@@ -13,13 +13,15 @@
 </script>
 
 <Navbar />
-<Hero />
-<Stats />
-<FitForm />
-<Services />
-<Ownership />
-<WhyUs />
-<CTA />
+<main id="main-content">
+  <Hero />
+  <Stats />
+  <FitForm />
+  <Services />
+  <Ownership />
+  <WhyUs />
+  <CTA />
+</main>
 <Footer />
 <FinancingBubble />
 <ScrollQualifierPrompt />

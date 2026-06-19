@@ -88,7 +88,7 @@
         {#each pillars as p}
           <div class="pillar">
             <div class="pillar-body">
-              <h4 class="pillar-title">{p.title}</h4>
+              <h3 class="pillar-title">{p.title}</h3>
               <p class="pillar-desc">{p.desc}</p>
             </div>
           </div>

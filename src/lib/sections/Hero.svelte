@@ -437,7 +437,8 @@
 
   onMount(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mq.matches) return;
+    const mobileMq = window.matchMedia('(max-width: 760px)');
+    if (mq.matches || mobileMq.matches) return;
     const id = window.setInterval(() => {
       siteI = (siteI + 1) % sites.length;
     }, CYCLE_MS);
@@ -550,7 +551,7 @@
   <div class="container">
     <div class="hero-visual-row">
       <div class="hero-mock-stack">
-      <div class="hero-mockup" aria-label="Site showcase">
+      <div class="hero-mockup">
         <div class="mockup-bar">
           <div class="browser-controls" aria-hidden="true">
             <button class="browser-btn" type="button" tabindex="-1" disabled>
@@ -576,7 +577,7 @@
           </div>
         </div>
 
-        <div class="mockup-screen" aria-hidden="true">
+        <div class="mockup-screen">
           {#key siteI}
             <div
               class="reel"
@@ -595,6 +596,7 @@
                         width="26"
                         height="26"
                         class="phase-icon-img"
+                        loading="lazy"
                         decoding="async"
                       />
                     </span>
@@ -613,6 +615,7 @@
                         width="26"
                         height="26"
                         class="phase-icon-img"
+                        loading="lazy"
                         decoding="async"
                       />
                     </span>
@@ -631,6 +634,7 @@
                         width="26"
                         height="26"
                         class="phase-icon-img"
+                        loading="lazy"
                         decoding="async"
                       />
                     </span>
@@ -2719,9 +2723,15 @@
       gap: 12px;
     }
 
+    .hero-shock,
+    .hero-portrait-img {
+      animation: none !important;
+    }
+
     .proof-label {
       max-width: 260px;
       line-height: 1.45;
+      color: #64748b;
     }
 
     .proof-set {
@@ -2752,8 +2762,23 @@
       height: clamp(280px, 76vw, 340px);
     }
 
+    .reel-intake,
+    .reel-cursor,
     .reel-annot {
       display: none;
+    }
+
+    .reel-page {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    .reel-cta {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
     }
   }
 

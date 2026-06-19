@@ -23,6 +23,7 @@
   const services = [
     {
       title: 'Website Design & Development',
+      ctaLabel: 'Learn about Web Design',
       learnMoreHref: '/services/web-design',
       galleryId: 'web-design' as const,
       galleryUrls: webDesignGalleryUrls,
@@ -36,6 +37,7 @@
     },
     {
       title: 'Business Software & Tools',
+      ctaLabel: 'Learn about Business Software',
       learnMoreHref: '/services/custom-software-solutions',
       galleryId: 'business-software' as const,
       galleryUrls: businessSoftwareGalleryUrls,
@@ -49,6 +51,7 @@
     },
     {
       title: 'CRM & Client Management',
+      ctaLabel: 'Learn about CRM Setup',
       learnMoreHref: '/services/business-software-crm',
       visualUrl:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/858fe79c-7a72-4f46-2a6a-ad20c0374e00/public',
@@ -62,6 +65,7 @@
     },
     {
       title: 'Managed IT Support',
+      ctaLabel: 'Learn about IT Support',
       learnMoreHref: '/services/it-solutions',
       visualUrl:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a01968f3-730e-4a92-27aa-8b9eb15c0100/public',
@@ -80,11 +84,12 @@
 
   onMount(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobile = window.matchMedia('(max-width: 760px)').matches;
 
     let idWeb: number | undefined;
     let idBiz: number | undefined;
 
-    if (!reduce) {
+    if (!reduce && !mobile) {
       idWeb = window.setInterval(() => {
         webDesignGalleryIndex = (webDesignGalleryIndex + 1) % webDesignGalleryUrls.length;
       }, 5500);
@@ -147,7 +152,7 @@
         >
           <div class="service-visual">
             {#if svc.galleryUrls && svc.galleryLabel}
-              <div class="svc-visual" aria-label={svc.galleryLabel}>
+              <div class="svc-visual" role="img" aria-label={svc.galleryLabel}>
                 {#each svc.galleryUrls as url, i}
                   <img
                     src={url}
@@ -158,13 +163,13 @@
                       : i === businessSoftwareGalleryIndex}
                     width={1600}
                     height={1000}
-                    loading={i === 0 ? 'eager' : 'lazy'}
+                    loading="lazy"
                     decoding="async"
                   />
                 {/each}
               </div>
             {:else if svc.visualUrl && svc.visualLabel}
-              <div class="svc-visual" aria-label={svc.visualLabel}>
+              <div class="svc-visual" role="img" aria-label={svc.visualLabel}>
                 <img
                   src={svc.visualUrl}
                   alt=""
@@ -206,8 +211,13 @@
               <p class="quote-text">{svc.quote}</p>
               <cite class="quote-cite">{svc.quoteName}</cite>
             </blockquote>
-            <a href={svc.learnMoreHref} class="btn btn-outline-primary" style="align-self:flex-start; margin-top: 8px;">
-              Learn more
+            <a
+              href={svc.learnMoreHref}
+              class="btn btn-outline-primary"
+              style="align-self:flex-start; margin-top: 8px;"
+              aria-label={`Learn more about ${svc.title}`}
+            >
+              {svc.ctaLabel}
             </a>
           </div>
         </div>
@@ -652,6 +662,8 @@
     .service-text .btn {
       width: 100%;
       justify-content: center;
+      white-space: normal;
+      text-align: center;
     }
   }
 

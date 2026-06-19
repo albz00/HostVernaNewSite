@@ -169,7 +169,7 @@
 
   .stat-sub {
     font-size: 11px;
-    color: #94a3b8;
+    color: #64748b;
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.04em;
     margin: 0;
@@ -297,7 +297,7 @@
   .mq-text {
     font-size: 13px;
     font-style: italic;
-    color: #374151;
+    color: #1f2937;
   }
 
   .mq-divider {
@@ -307,7 +307,7 @@
 
   .mq-author {
     font-size: 11px;
-    color: #94a3b8;
+    color: #64748b;
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.03em;
   }

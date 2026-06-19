@@ -328,7 +328,7 @@
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.92);
   }
 
   .cta-title {
@@ -343,7 +343,7 @@
 
   .cta-sub {
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(255, 255, 255, 0.92);
     max-width: 440px;
     line-height: 1.7;
   }
@@ -409,7 +409,7 @@
 
   .cp-item {
     font-size: 12px;
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.9);
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.04em;
   }
@@ -418,7 +418,7 @@
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.7);
     flex-shrink: 0;
   }
 
