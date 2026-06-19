@@ -262,7 +262,7 @@
               </label>
             </div>
             <label class="field field--half">
-              <span class="field-label">Phone <span class="opt">(optional)</span></span>
+              <span class="field-label">Phone <span class="field-opt">(optional)</span></span>
               <input class="field-input" type="tel" bind:value={phone} autocomplete="tel" />
             </label>
           </div>
@@ -288,7 +288,7 @@
                 <input class="field-input" type="text" bind:value={organization} autocomplete="organization" />
               </label>
               <label class="field">
-                <span class="field-label">Your role <span class="opt">(optional)</span></span>
+                <span class="field-label">Your role <span class="field-opt">(optional)</span></span>
                 <input class="field-input" type="text" bind:value={role} autocomplete="organization-title" placeholder="e.g. Owner, Ops manager" />
               </label>
             </div>
@@ -378,7 +378,7 @@
           <h2 class="q-heading">Anything else we should know?</h2>
           <p class="q-hint">Share links, constraints, examples, or what success looks like for this project.</p>
           <label class="field">
-            <span class="field-label">Details <span class="opt">(optional but helpful)</span></span>
+            <span class="field-label">Details <span class="field-opt">(optional but helpful)</span></span>
             <textarea class="field-textarea" rows="6" bind:value={details} placeholder="Type here…"></textarea>
           </label>
           <label class="field-checkbox">
@@ -769,7 +769,7 @@
     color: var(--primary);
   }
 
-  .opt {
+  .field-opt {
     font-weight: 400;
     color: var(--text-muted);
   }
@@ -1018,6 +1018,15 @@
   }
 
   @media (max-width: 640px) {
+    .contact-page.in-flow {
+      min-height: auto;
+    }
+
+    .contact-page.in-flow .contact-inner {
+      justify-content: flex-start;
+      padding-bottom: 32px;
+    }
+
     .contact-page.in-flow .form-card {
       padding: 28px 22px;
     }
@@ -1047,6 +1056,12 @@
     .intro-start-btn {
       width: 100%;
       justify-content: center;
+    }
+
+    /* Prevent iOS Safari zoom-shrink behavior on focused fields. */
+    .field-input,
+    .field-textarea {
+      font-size: 16px;
     }
   }
 </style>
