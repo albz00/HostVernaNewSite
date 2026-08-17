@@ -1,9 +1,5 @@
 import { audienceSegments } from './audienceSegments';
-import { greenbrierPlaces } from './greenbrierPlaces';
-import { learnDocs } from './learnPages';
 import { servicePages } from './servicePages';
-import { solutionPages } from './solutionPages';
-import { wvCityPages } from './wvCityPages';
 
 /** Canonical origin for SEO files and meta (no trailing slash). */
 export const SITE_ORIGIN = 'https://hostverna.com';
@@ -38,23 +34,15 @@ export function getSitemapPaths(): string[] {
     '/connect',
     '/contact',
     '/quick-contact',
-    '/resources',
     '/faq',
-    '/areas-served',
-    '/greenbrier-county-wv',
+    '/pricing',
     '/support',
-    '/public-sector',
-    '/learn',
     ...audienceSegments.map((s) => `/${s.slug}`),
   ];
 
   const servicePaths = servicePages.map((p) => `/services/${p.slug}`);
-  const solutionPaths = solutionPages.map((p) => `/solutions/${p.slug}`);
-  const learnPaths = learnDocs.map((d) => `/learn/${d.slug}`);
-  const greenbrierPlacePaths = greenbrierPlaces.map((place) => `/greenbrier-county-wv/${place.slug}`);
-  const wvCityPaths = wvCityPages.map((city) => `/areas-served/${city.slug}`);
 
-  const combined = [...staticPaths, ...servicePaths, ...solutionPaths, ...learnPaths, ...greenbrierPlacePaths, ...wvCityPaths];
+  const combined = [...staticPaths, ...servicePaths];
   return [...new Set(combined)].sort((a, b) => a.localeCompare(b));
 }
 

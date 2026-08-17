@@ -3,28 +3,28 @@
 
   const pillars = [
     {
-      title: 'We answer the phone',
-      desc: 'A real person who knows your account picks up, usually the same day.',
+      title: 'Responsive user support',
+      desc: 'Your team has one place to call for computers, applications, email, printers, accounts, and access.',
     },
     {
-      title: 'Clear guidance over hype',
-      desc: 'We focus on practical implementation guidance tied to real business operations.',
+      title: 'Plain-English guidance',
+      desc: 'We explain the issue, the practical options, and what your firm needs to decide without generic IT jargon.',
     },
     {
-      title: 'You own what you paid for',
-      desc: 'After a set number of months, the code, domain, and hosting transfer to you.',
+      title: 'Consistent device administration',
+      desc: 'Workstations, updates, software, inventory, and replacement planning stay organized.',
     },
     {
-      title: 'We guide your team',
-      desc: 'We explain decisions, workflows, and ownership clearly, without unnecessary jargon.',
+      title: 'Cloud account administration',
+      desc: 'Microsoft 365 or Google Workspace users, permissions, MFA, groups, licensing, and email stay under control.',
     },
     {
-      title: 'Your money stays put',
-      desc: 'We optimize and connect what you already use before recommending additional spend.',
+      title: 'Backup discipline',
+      desc: 'Critical files and systems have an appropriate backup process and a documented recovery plan.',
     },
     {
-      title: 'Monthly check-ins included',
-      desc: 'Monthly reviews identify gaps and improvement opportunities so traffic and inquiries convert more reliably.',
+      title: 'Year-round IT ownership',
+      desc: 'We coordinate vendors, plan improvements, and maintain the environment instead of waiting for busy-season failures.',
     },
   ];
 </script>
@@ -33,11 +33,11 @@
   <div class="container">
     <div class="split-header">
       <div>
-        <h2 class="section-title">A clear delivery path</h2>
+        <h2 class="section-title">A practical IT delivery path</h2>
       </div>
       <p class="split-sub">
-        No shortcuts, inflated promises, or technical guesswork.
-        <ContentHighlight tone="keyword">Here's exactly how it goes.</ContentHighlight>
+        Assess the environment, address practical gaps, document the work, and support the team.
+        <ContentHighlight tone="keyword">Keep it understandable.</ContentHighlight>
       </p>
     </div>
 
@@ -52,7 +52,7 @@
           src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/c20a0bfc-fb40-4b90-c639-5e816a73aa00/public"
           width="1024"
           height="341"
-          alt="Four-step HostVerna process: discovery call, clear proposal, build and launch, handoff and support"
+          alt="Four-step HostVerna process from discovery through ongoing support"
           loading="lazy"
           decoding="async"
         />
@@ -65,10 +65,10 @@
   <div class="container">
     <div class="whyus-layout">
       <div class="whyus-left">
-        <h2 class="section-title">Why businesses<br />stay with us</h2>
+        <h2 class="section-title">Managed IT built<br />for accounting firms</h2>
         <p class="why-sub">
-          We build and support technical systems with clear communication and practical execution. We handle delivery and
-          keep your team informed at each stage.
+          Accounting practices depend on workstations, tax applications, email, document storage, scanning, printing,
+          remote access, and reliable internet. We structure support around those dependencies.
         </p>
         <figure class="why-team-fig">
           <img
@@ -81,7 +81,7 @@
             decoding="async"
           />
         </figure>
-        <a href="/contact" class="btn btn-primary">Talk to us</a>
+        <a href="/contact" class="btn btn-primary">How We Support Accounting Firms</a>
       </div>
 
       <div class="whyus-right">
@@ -96,9 +96,9 @@
 
         <div class="inline-quote">
           <p class="iq-text">
-            "They walked me through the handoff, and I knew what I owned before launch."
+            "Tax season should not be your annual IT stress test."
           </p>
-          <span class="iq-cite">L. Kwan</span>
+          <span class="iq-cite">HostVerna operating principle</span>
         </div>
       </div>
     </div>

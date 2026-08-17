@@ -1,11 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { greenbrierPlaces } from '../src/lib/data/greenbrierPlaces';
-import { learnDocs } from '../src/lib/data/learnPages';
 import { servicePages } from '../src/lib/data/servicePages';
-import { solutionPages } from '../src/lib/data/solutionPages';
-import { wvCityPages } from '../src/lib/data/wvCityPages';
 import { BOOKING_ORIGIN, getSitemapPaths, SITE_ORIGIN } from '../src/lib/data/siteUrls';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -70,20 +66,12 @@ Sitemap: ${SITE_ORIGIN}/sitemap.xml
 writeFileSync(join(publicDir, 'robots.txt'), robots, 'utf8');
 
 const serviceList = servicePages.map((p) => `- ${mdLink(p.title, `${SITE_ORIGIN}/services/${p.slug}`)}`).join('\n');
-const solutionList = solutionPages.map((p) => `- ${mdLink(p.title, `${SITE_ORIGIN}/solutions/${p.slug}`)}`).join('\n');
-const learnList = learnDocs.map((d) => `- ${mdLink(d.title, `${SITE_ORIGIN}/learn/${d.slug}`)}`).join('\n');
-const greenbrierPlaceList = greenbrierPlaces
-  .map((place) => `- ${mdLink(place.name, `${SITE_ORIGIN}/greenbrier-county-wv/${place.slug}`)}`)
-  .join('\n');
-const wvCityList = wvCityPages
-  .map((city) => `- ${mdLink(`${city.city}, WV`, `${SITE_ORIGIN}/areas-served/${city.slug}`)}`)
-  .join('\n');
 
 const llms = `# HostVerna
 
-HostVerna provides custom website design and development, managed web hosting and care, CRM and business software configuration, IT support, and custom software, focused on ownership (sites can become yours after a defined period), performance, and workflows that match how clients operate.
+HostVerna provides managed IT support for CPAs, accounting firms, tax preparers, enrolled agents, bookkeeping firms, and payroll providers. Core services are managed IT, IRS Security Six implementation, WISP creation and updates, and tax-season IT readiness.
 
-Primary geography: United States. Primary contact channel: website form and phone.
+Primary geography: West Virginia and beyond. Primary contact channels: consultation form and phone.
 Last updated: ${lastmod}
 
 ## Contact
@@ -94,33 +82,13 @@ Last updated: ${lastmod}
 ## Main entry points
 - ${mdLink('Home', `${SITE_ORIGIN}/`)}
 - ${mdLink('About', `${SITE_ORIGIN}/about`)}
-- ${mdLink('Connect', `${SITE_ORIGIN}/connect`)}
 - ${mdLink('Support', `${SITE_ORIGIN}/support`)}
-- ${mdLink('Resources hub', `${SITE_ORIGIN}/resources`)}
-- ${mdLink('Areas served index', `${SITE_ORIGIN}/areas-served`)}
-- ${mdLink('Greenbrier County, WV', `${SITE_ORIGIN}/greenbrier-county-wv`)}
-- ${mdLink('Learn / documentation index', `${SITE_ORIGIN}/learn`)}
 
-## Greenbrier County place pages
-${greenbrierPlaceList}
-
-## Major West Virginia city pages
-${wvCityList}
-
-## Audiences / vertical landing pages
-- ${mdLink('Public sector', `${SITE_ORIGIN}/public-sector`)}
-- ${mdLink('Trades & contractors', `${SITE_ORIGIN}/trades`)}
-- ${mdLink('Professional & office', `${SITE_ORIGIN}/professional-services`)}
-- ${mdLink('Aviation & flight', `${SITE_ORIGIN}/aviation`)}
+## Who HostVerna serves
+- ${mdLink('Accounting and tax firms', `${SITE_ORIGIN}/accounting-tax-firms`)}
 
 ## Services (detail pages)
 ${serviceList}
-
-## Solutions (detail pages)
-${solutionList}
-
-## Learn guides
-${learnList}
 
 ## Machine-readable sitemap
 - ${mdLink('sitemap.xml', `${SITE_ORIGIN}/sitemap.xml`)}

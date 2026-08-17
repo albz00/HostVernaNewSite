@@ -8,115 +8,73 @@ export type ServicePageData = {
   sections: ServiceSection[];
 };
 
-/** Top → bottom order matches the Services dropdown */
+/** Top → bottom order matches the IT Services dropdown. */
 export const servicePages: ServicePageData[] = [
   {
-    slug: 'web-design',
-    title: 'Web design',
-    metaTitle: 'Web design | HostVerna',
-    lede:
-      'Custom websites designed around your business goals, audience, and workflow. You get a site that reflects your brand and helps visitors take action.',
-    sections: [
-      {
-        heading: 'Built from scratch',
-        body: [
-          'We start with discovery: who you serve, what differentiates your business, and what visitors should do on your site. Design and content are built from that plan.',
-          'You get clear structure, strong performance, and full ownership at handoff. There is no platform lock-in.',
-        ],
-      },
-      {
-        heading: 'What you can expect',
-        body: [
-          'A defined build timeline, practical check-ins, and a documented handoff so your team can update core content with confidence.',
-          'When you need integrations later (forms, booking, email, CRM), we plan for those requirements from the beginning.',
-        ],
-      },
-    ],
-  },
-  {
-    slug: 'managed-web-services',
-    title: 'Managed web services',
-    metaTitle: 'Managed web services | HostVerna',
-    lede:
-      'Hosting, updates, and monitoring that keep your site fast, secure, and available without adding operational overhead to your team.',
-    sections: [
-      {
-        heading: 'We stay on it',
-        body: [
-          'SSL, backups, and platform updates are handled on a consistent schedule. We monitor uptime, performance, and core site health before issues impact customers.',
-          'You have direct support access when something goes wrong, so your team is not troubleshooting alone.',
-        ],
-      },
-      {
-        heading: 'Fit for your stack',
-        body: [
-          'Whether we built the site or you are migrating an existing one, we align hosting and support with your operating requirements.',
-        ],
-      },
-    ],
-  },
-  {
-    slug: 'business-software-crm',
-    title: 'Business software & CRM',
-    metaTitle: 'Business software & CRM | HostVerna',
-    lede:
-      'CRM and business tools configured to match your sales process, so teams can adopt them quickly and use them consistently.',
-    sections: [
-      {
-        heading: 'Configured for how you sell',
-        body: [
-          'Fields, pipelines, and automation are mapped to your workflow instead of generic defaults.',
-          'We support adoption with training, cleanup, and follow-up so the system remains useful after launch.',
-        ],
-      },
-      {
-        heading: 'Fewer tools, clearer handoffs',
-        body: [
-          'When appropriate, we consolidate overlapping tools so data and ownership are not fragmented across multiple systems.',
-        ],
-      },
-    ],
-  },
-  {
     slug: 'it-solutions',
-    title: 'IT solutions',
-    metaTitle: 'IT solutions | HostVerna',
+    title: 'Managed IT Services',
+    metaTitle: 'Managed IT Services | HostVerna',
     lede:
-      'Practical IT support for businesses that need reliable systems without maintaining a full internal IT department.',
+      'Responsive user support plus the ongoing administration required to keep devices, accounts, applications, backups, and business technology organized.',
     sections: [
       {
-        heading: 'Responsive support',
+        heading: 'One place to call when technology gets in the way',
         body: [
-          'Issues are triaged and resolved with context from your devices, network, and line-of-business systems.',
-          'We provide proactive monitoring where it adds value and clear communication when decisions or purchases are required.',
+          'HostVerna acts as an outsourced IT function for accounting and tax firms that need professional support but do not want to build a full internal IT department.',
+          'Help desk, device administration, Microsoft 365 or Google Workspace, backup management, vendor coordination, and practical technology planning can all sit under one accountable relationship.',
         ],
       },
       {
-        heading: 'Grounded in your operations',
+        heading: 'Built around filing season',
         body: [
-          'We focus on uptime, security baselines, backups, and documentation your team can find and use when needed.',
+          'Workstations, tax applications, email, document storage, scanning, printing, remote access, and reliable internet all have an outsized impact on revenue during busy season.',
+          'We review and improve the environment before January through April exposes every weak process at once.',
         ],
       },
     ],
   },
   {
-    slug: 'custom-software-solutions',
-    title: 'Custom software solutions',
-    metaTitle: 'Custom software solutions | HostVerna',
+    slug: 'irs-security-six',
+    title: 'IRS Security Six',
+    metaTitle: 'IRS Security Six Implementation | HostVerna',
     lede:
-      'When off-the-shelf software does not fully fit, custom development closes the gap with internal tools, portals, and workflows built for your requirements.',
+      'A focused technology project for CPAs and tax preparers to configure the six baseline safeguards emphasized by the IRS Security Summit and document what is in place.',
     sections: [
       {
-        heading: 'Purpose-built',
+        heading: 'What the IRS Security Six covers',
         body: [
-          'We scope to outcomes: fewer spreadsheets, fewer handoffs, and less manual re-entry between systems.',
-          'We design, build, and iterate with your team so the first release is usable and future updates remain manageable.',
+          'Anti-malware, firewall review, multi-factor authentication, reliable backups, full-disk encryption, and secure remote access.',
+          'HostVerna can review your current environment, close practical configuration gaps, and produce a clear implementation summary for your records.',
         ],
       },
       {
-        heading: 'Own the result',
+        heading: 'Best paired with a WISP',
         body: [
-          'You receive clear IP ownership, portable hosting options, and documentation for ongoing operation.',
+          'The technical safeguards should be reflected in your Written Information Security Plan. HostVerna can build or update the WISP so the documentation matches the systems and processes actually in use.',
+          'The Security Six is a baseline checklist, not a complete security or compliance program. HostVerna provides technology implementation and documentation assistance. Your firm remains responsible for its legal, regulatory, and professional obligations. HostVerna does not provide legal advice or certify regulatory compliance.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'wisp-services',
+    title: 'WISP Services',
+    metaTitle: 'WISP Creation & Updates | HostVerna',
+    lede:
+      'Create a new Written Information Security Plan or update an outdated one so it documents your firm’s systems, safeguards, vendors, roles, and review process in plain language.',
+    sections: [
+      {
+        heading: 'More than a downloaded template',
+        body: [
+          'A useful WISP should be tailored to the firm’s size, complexity, systems, and the sensitivity of the information it handles.',
+          'We identify users, devices, applications, data locations, service providers, remote-access methods, and current safeguards, then document responsible roles, risks, safeguards, service providers, incident handling, and review cadence.',
+        ],
+      },
+      {
+        heading: 'Keep it current',
+        body: [
+          'Update the WISP as systems, vendors, staff, locations, or operating processes materially change. Annual reviews and updates after major IT changes are available.',
+          'HostVerna can help develop and maintain the technical portions of a WISP, but we do not provide legal advice or certify regulatory compliance. Firms remain responsible for their legal, regulatory, and professional obligations.',
         ],
       },
     ],

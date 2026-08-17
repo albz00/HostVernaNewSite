@@ -58,15 +58,15 @@
       <h2 id="ff-heading" class="ff-heading">Financing</h2>
       <p class="ff-lead">Yes, we offer financing.</p>
       <p class="ff-body">
-        If budget is a concern, ask us about spreading payments for your website, software, or bundled
-        work. We will explain available options and recommend what fits your project requirements.
+        If budget is a concern, ask us about phased billing for Security Six, WISP, or a defined
+        accounting-firm IT project. We will explain available options and recommend a practical scope.
       </p>
       <ul class="ff-bullets">
         <li>Options depend on scope and timeline</li>
         <li>Discussed upfront before anything is signed</li>
-        <li>Same ownership model: you still own what you pay for</li>
+        <li>Project scope and payment terms are documented upfront</li>
       </ul>
-      <a href="/contact" class="btn btn-primary ff-cta" on:click={close}>Talk to us about it</a>
+      <a href="/contact" class="btn btn-primary ff-cta" on:click={close}>See Our Pricing</a>
     </div>
   {/if}
 

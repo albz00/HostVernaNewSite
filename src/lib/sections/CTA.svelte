@@ -1,48 +1,22 @@
 <script lang="ts">
   import ContentHighlight from '../components/ContentHighlight.svelte';
 
-  /** Default 3D avatar for testimonial cards */
-  const testimonialAvatarUrl =
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/52207b03-2a80-4d87-9cff-0e3ea8315700/public';
-
-  const femaleTestimonialAvatarUrl =
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/10d28c89-44ac-48d7-fdd8-f7df72fd4100/public';
-
-  const testimonials = [
-    {
-      quote:
-        'Alex was responsive, professional, and attentive to all requested updates. I recommend him for website and domain work.',
-      author: 'Brenley B.',
-      result: 'Website & domain support',
-      reviewUrl: 'https://share.google/nI0lP4shlDehrmocj',
-      avatarUrl: femaleTestimonialAvatarUrl,
-    },
-    {
-      quote:
-        'Alex is professional, responsive, and strong on design direction. The quality of work was consistently high.',
-      author: 'Missy G.',
-      result: 'Responsive design work',
-      reviewUrl: 'https://share.google/zW457dDaYVtPVDDC9',
-      avatarUrl: femaleTestimonialAvatarUrl,
-    },
-    {
-      quote:
-        'Consistently strong work across three logos and two websites. Delivery was timely and professional.',
-      author: 'John H.',
-      result: 'Logos & websites',
-      reviewUrl: 'https://share.google/m3cNjN3NOGc9jlWch',
-      avatarUrl: testimonialAvatarUrl,
-    },
-  ];
+  const testimonials: {
+    quote: string;
+    author: string;
+    result: string;
+    reviewUrl: string;
+    avatarUrl: string;
+  }[] = [];
 </script>
 
 <section class="section testimonials-section" id="case-studies">
   <div class="container">
     <div class="t-header">
-      <h2 class="t-title">From business owners like you</h2>
+      <h2 class="t-title">What clients say about working with us</h2>
       <p class="t-sub">
-        Honest notes on
-        <ContentHighlight tone="string">what working with us is like.</ContentHighlight>
+        Direct feedback on
+        <ContentHighlight tone="string">responsiveness, professionalism, and delivery.</ContentHighlight>
       </p>
     </div>
     <div class="testimonials-grid">
@@ -113,29 +87,28 @@
 <section class="cta-section" id="contact">
   <div class="container cta-content">
     <div class="cta-inner">
-      <span class="cta-eyebrow">Ready when you are</span>
+      <span class="cta-eyebrow">West Virginia Managed IT</span>
       <h2 class="cta-title">
-        Stop renting.<br />Start owning.
+        Need your firm's IT cleaned up<br />before the next filing deadline?
       </h2>
       <p class="cta-sub">
-        If you want
-        <ContentHighlight tone="accent">ownership without perpetual platform fees</ContentHighlight>,
-        contact us.
+        Start with an IT review, a Security Six implementation project,
+        <ContentHighlight tone="accent">a WISP update, or a managed support plan.</ContentHighlight>
       </p>
       <div class="cta-actions">
-        <a href="/contact" class="btn btn-white btn-lg">Book a Free Call</a>
-        <a href="mailto:info@hostverna.com" class="btn btn-ghost btn-lg">info@hostverna.com</a>
+        <a href="/contact" class="btn btn-white btn-lg">How We Support Accounting Firms</a>
+        <a href="mailto:info@hostverna.com" class="btn btn-ghost btn-lg">See Our Pricing</a>
       </div>
       <div class="cta-proof">
-        <span class="cp-item">No commitment required</span>
+        <span class="cp-item">West Virginia-based</span>
         <span class="cp-dot"></span>
-        <span class="cp-item">24-hour response</span>
+        <span class="cp-item">Tax-season ready</span>
         <span class="cp-dot"></span>
-        <span class="cp-item">Free call</span>
+        <span class="cp-item">Plain-English support</span>
         <span class="cp-dot"></span>
-        <span class="cp-item">Financing available</span>
+        <span class="cp-item">Serving clients beyond WV</span>
         <span class="cp-dot"></span>
-        <span class="cp-item">WV Licensed &amp; Insured</span>
+        <span class="cp-item">Managed IT is our core service</span>
       </div>
     </div>
   </div>
@@ -143,6 +116,7 @@
 
 <style>
   .testimonials-section {
+    display: none;
     background: var(--bg-subtle);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);

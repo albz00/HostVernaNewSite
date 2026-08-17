@@ -3,59 +3,59 @@
 
   const painPoints = [
     {
-      pain: 'You keep paying for a site you never own.',
+      pain: 'Tax season exposes every weak IT process at once.',
       context:
-        'Recurring fees continue indefinitely, and leaving the platform often means losing the delivered asset.',
+        'Busy-season uptime matters. Remote access has to be controlled, and the team needs help without waiting days for a response.',
       answer:
-        'Ownership transfers to you. Code, content, domain, and credentials are documented and controlled by your business.',
+        'We review the environment before filing season, fix practical gaps, and stay available when the workload spikes.',
     },
     {
-      pain: 'Every little change turns into a support ticket.',
+      pain: 'Every computer is configured differently.',
       context:
-        'Routine updates should not require long vendor response cycles.',
+        'Inconsistent devices, accounts, and software create avoidable problems for staff and make support harder.',
       answer:
-        'We build for maintainability so your team can handle routine updates, with optional support available when needed.',
+        'We standardize what can be standardized and document the important setup, access, and support processes.',
     },
     {
-      pain: 'When something breaks, nobody answers.',
+      pain: 'No one knows whether backups are actually working.',
       context:
-        'Operations should not pause while requests sit in a queue.',
+        'Client files and business-critical systems need a reliable backup process and a clear recovery plan.',
       answer:
-        'You have direct access to the team that built the system, with timely support response.',
+        'We configure and monitor backups appropriate to your environment and document what is protected.',
     },
     {
-      pain: 'Your attention goes everywhere except your website.',
+      pain: 'The WISP no longer matches the firm.',
       context:
-        'Google profiles, social pages, printed materials, and messaging channels should direct people to one reliable destination.',
+        'Staff, vendors, locations, systems, and safeguards change. A downloaded template does not stay useful on its own.',
       answer:
-        'We build your site as the central destination and align core touchpoints so visitors can find accurate information and contact paths quickly.',
+        'HostVerna provides technology implementation and documentation assistance. Your firm remains responsible for its legal, regulatory, and professional obligations.',
     },
   ];
 
   const ownership = [
     {
       actor: 'we',
-      step: 'We build it.',
+      step: 'Assess.',
       detail:
-        'Custom designed and developed for your business. No recycled theme, filler copy, or launch-day scramble.',
+        'Review users, devices, email, backups, remote access, tax applications, vendors, and current security controls.',
     },
     {
       actor: 'you',
-      step: 'You use it.',
+      step: 'Standardize.',
       detail:
-        'The site launches and we walk you through it, so you can update common content without guessing.',
+        'Fix configuration gaps, establish documented processes, and bring systems under consistent management.',
     },
     {
       actor: 'you',
-      step: 'You own it.',
+      step: 'Support.',
       detail:
-        'After a set number of months, the site is yours. Code, credentials, documentation, and hosting access all move to you.',
+        'Provide ongoing help desk and administration so small problems do not become filing-season emergencies.',
     },
     {
       actor: 'we',
-      step: 'We stay available.',
+      step: 'Review and improve.',
       detail:
-        'No mandatory retainer. Call us when you want help, a new page, or another project entirely.',
+        'Revisit access, backups, devices, vendors, and documentation as the firm changes and before busy season forces the issue.',
     },
   ];
 </script>
@@ -65,13 +65,12 @@
 
     <header class="pain-lede">
       <h2 class="pain-title">
-        For owners who would rather run<br />
-        their business than their website.
+        Built for firms that handle sensitive<br />
+        financial and taxpayer data every day.
       </h2>
       <p class="pain-sub">
-        If you have ever thought
-        <ContentHighlight tone="comment">"I need a team to handle this correctly,"</ContentHighlight>
-        you're in the right place.
+        Technology for an accounting practice has to work differently.
+        <ContentHighlight tone="comment">Tax season should not be your annual IT stress test.</ContentHighlight>
       </p>
     </header>
 
@@ -93,16 +92,15 @@
     <div class="own-layout">
       <div class="own-left">
         <h2 class="own-title">
-          You pay for it once.<br />
-          Then it is yours.
+          Support the people.<br />
+          Manage the systems.
         </h2>
         <p class="own-body">
-          Many agencies rent website access while retaining platform control.
-          <ContentHighlight tone="accent">That creates ongoing cost without long-term ownership.</ContentHighlight>
-          We do the opposite.
+          Rather than selling disconnected tools, HostVerna brings core IT operations into
+          <ContentHighlight tone="accent">one accountable support relationship.</ContentHighlight>
         </p>
         <p class="own-body">
-          We build the site, train your team on core operations, and transfer code, tools, and hosting access after a defined term. We also align key channels so your digital presence points to one central destination.
+          Keep the technology understandable. Standardize what can be standardized. Document the important things. Respond when users need help.
         </p>
 
         <figure class="own-transfer-fig">
@@ -111,16 +109,16 @@
             src="/images/site-ownership-handshake.jpg"
             width="1400"
             height="935"
-            alt="Two business people shaking hands across a table after agreeing on next steps"
+            alt="Two business people agreeing on practical technology support"
             loading="lazy"
             decoding="async"
           />
-          <figcaption class="own-transfer-cap">After ownership transfer, you retain source code, hosting access, management tools, and documentation. Support remains available on your terms.</figcaption>
+          <figcaption class="own-transfer-cap">Security Six is a baseline checklist, not a complete security or compliance program. HostVerna does not provide legal advice or certify regulatory compliance.</figcaption>
         </figure>
       </div>
 
       <div class="own-right">
-        <ol class="own-stages" aria-label="Ownership transfer phases">
+        <ol class="own-stages" aria-label="Managed IT support phases">
           {#each ownership as item}
             <li class="own-stage" data-actor={item.actor}>
               <h3 class="own-stage-title">{item.step}</h3>

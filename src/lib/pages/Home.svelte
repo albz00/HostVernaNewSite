@@ -15,9 +15,9 @@
 <Navbar />
 <main id="main-content">
   <Hero />
-  <Stats />
-  <FitForm />
   <Services />
+  <FitForm />
+  <Stats />
   <Ownership />
   <WhyUs />
   <CTA />

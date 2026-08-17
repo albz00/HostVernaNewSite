@@ -6,51 +6,51 @@
     {
       question: 'What does HostVerna actually help with?',
       answer: [
-        'We handle websites, custom software, CRM setup, managed hosting, and ongoing IT support. Most clients start with one pain point and then fold in adjacent needs so they can work with one team instead of juggling multiple vendors.',
+        'We provide managed IT, IRS Security Six implementation, WISP creation and updates, Microsoft 365 or Google Workspace administration, backups, device management, vendor coordination, and tax-season readiness for accounting and tax firms.',
       ],
     },
     {
-      question: 'Do you work with existing websites, or only full rebuilds?',
+      question: 'Who does HostVerna support?',
       answer: [
-        'Both. If your current site can be improved safely, we can optimize speed, fix structure, and modernize design in phases. If the foundation is holding you back, we will recommend a rebuild and explain why before any commitment.',
+        'We support CPAs, accounting firms, tax preparers, enrolled agents, bookkeeping firms, and payroll providers. Our service is built around firms that handle sensitive financial and taxpayer data.',
       ],
     },
     {
       question: 'How does pricing work?',
       answer: [
         'Pricing depends on scope, timeline, and complexity. After a short discovery conversation, we provide a clear proposal with ranges, assumptions, and phased options when useful.',
-        'If you are not sure where to start, we can begin with a small paid planning sprint so you get direction before larger build decisions.',
+        'If you are not sure where to start, an IT review can identify the most practical first step.',
       ],
     },
     {
-      question: 'How quickly can we start a project?',
+      question: 'How quickly can we start?',
       answer: [
         'Small updates can often start quickly. Larger projects usually begin with a short planning window so requirements, priorities, and delivery phases are clear.',
-        'If you have a hard launch date, tell us early so we can evaluate scope against your timeline and suggest tradeoffs if needed.',
+        'If filing season or another deadline is approaching, tell us early so we can evaluate the environment and prioritize the work.',
       ],
     },
     {
-      question: 'Do you provide hosting and maintenance after launch?',
+      question: 'Do you provide ongoing managed IT?',
       answer: [
-        'Yes. We offer managed hosting and support plans for updates, uptime monitoring, security maintenance, and issue response. We also support teams that prefer to host elsewhere and only need build or advisory help.',
+        'Yes. Managed IT is the core service. It can include help desk support, device administration, cloud accounts, backups, vendor coordination, and practical technology planning.',
       ],
     },
     {
-      question: 'Can you help with domains, DNS, and business email setup?',
+      question: 'Can you help with Microsoft 365 or Google Workspace?',
       answer: [
-        'Yes. We regularly help with domain transfers, DNS records, and email provider setup. We plan these changes carefully to avoid downtime and document what was configured so your team is not left guessing later.',
+        'Yes. We help with user provisioning, permissions, MFA, shared mailboxes, groups, licensing, email administration, and common cloud productivity issues.',
       ],
     },
     {
-      question: 'What kinds of businesses do you serve?',
+      question: 'Does Security Six mean we are fully compliant?',
       answer: [
-        'We work with local businesses, public-sector teams, and organizations with specialized operations. If your workflow is unique, that is normal for us. We design around your process instead of forcing a one-size-fits-all template.',
+        'No. The Security Six is a baseline checklist, not a complete security or compliance program. HostVerna provides technology implementation and documentation assistance. Your firm remains responsible for its legal, regulatory, and professional obligations.',
       ],
     },
     {
       question: 'How do we get started?',
       answer: [
-        'Use the contact form or call us directly. Share what you are trying to improve, any timeline constraints, and budget context if available.',
+        'Use the consultation form or call us directly. Share your firm size, locations, software, current IT support, and biggest pain points.',
         'We will follow up with practical next steps and direct guidance.',
       ],
     },

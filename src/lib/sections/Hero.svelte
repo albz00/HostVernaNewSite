@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import ContentHighlight from '../components/ContentHighlight.svelte';
 
   /** LCP candidate: preloaded in index.html + fetchpriority="high" on the img */
@@ -430,20 +429,6 @@
     },
   ];
 
-  const CYCLE_MS = 15000;
-  let siteI = 0;
-
-  $: site = sites[siteI];
-
-  onMount(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const mobileMq = window.matchMedia('(max-width: 760px)');
-    if (mq.matches || mobileMq.matches) return;
-    const id = window.setInterval(() => {
-      siteI = (siteI + 1) % sites.length;
-    }, CYCLE_MS);
-    return () => window.clearInterval(id);
-  });
 </script>
 
 <section class="hero">
@@ -461,20 +446,19 @@
     <div class="hero-top">
       <div class="hero-copy">
         <h1 class="hero-title">
-          We build the hub<br />
-          <span class="gradient-text">your business runs through.</span>
+          IT that keeps your<br />
+          <span class="gradient-text">accounting firm working.</span>
         </h1>
 
         <p class="hero-sub">
-          Custom web development, hosting, and software for owners who need a stable long-term platform.
-          <ContentHighlight tone="keyword">No templates, no locked subscriptions.</ContentHighlight>
-          You <ContentHighlight tone="string">own your site outright</ContentHighlight>, with
-          <ContentHighlight tone="comment">a technical partner that provides direct guidance</ContentHighlight>.
+          Managed IT support built around the way CPAs, accounting firms, and tax preparers work.
+          <ContentHighlight tone="keyword">Tax-season ready.</ContentHighlight>
+          Get help with <ContentHighlight tone="string">Microsoft 365, backups, and device management</ContentHighlight>,
+          plus <ContentHighlight tone="comment">plain-English support when your team needs it</ContentHighlight>.
         </p>
 
         <div class="hero-actions">
-          <a href="/contact" class="btn btn-primary btn-lg">Get a Free Consultation</a>
-          <a href="/solutions/own-your-site" class="btn btn-secondary btn-lg">How Ownership Works</a>
+          <a href="/contact" class="btn btn-primary btn-lg">See Our Pricing</a>
         </div>
       </div>
 
@@ -501,7 +485,7 @@
       </figure>
 
       <div class="hero-proof">
-        <span class="proof-label">Businesses in association with</span>
+        <span class="proof-label">West Virginia-based · Serving clients in West Virginia and beyond</span>
         <div class="proof-list">
           <div class="proof-track" aria-label="Partner businesses">
             <div class="proof-set">
@@ -548,352 +532,6 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="hero-visual-row">
-      <div class="hero-mock-stack">
-      <div class="hero-mockup">
-        <div class="mockup-bar">
-          <div class="browser-controls" aria-hidden="true">
-            <button class="browser-btn" type="button" tabindex="-1" disabled>
-              <svg viewBox="0 0 16 16" width="11" height="11"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button class="browser-btn" type="button" tabindex="-1" disabled>
-              <svg viewBox="0 0 16 16" width="11" height="11"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button class="browser-btn" type="button" tabindex="-1" disabled>
-              <svg viewBox="0 0 16 16" width="11" height="11"><path d="M3 8a5 5 0 1 1 1.6 3.66M3 12v-2.5h2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-          <div class="browser-address" aria-hidden="true">
-            <svg class="browser-lock" viewBox="0 0 16 16" width="9" height="9"><path d="M4.5 7V5a3.5 3.5 0 0 1 7 0v2M3.5 7h9v6h-9z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            {#key siteI}
-              <span class="browser-url">{site.url}</span>
-            {/key}
-          </div>
-          <div class="browser-tab-actions" aria-hidden="true">
-            <span class="browser-dot"></span>
-            <span class="browser-dot"></span>
-            <span class="browser-dot"></span>
-          </div>
-        </div>
-
-        <div class="mockup-screen">
-          {#key siteI}
-            <div
-              class="reel"
-              style="--site-bg:{site.palette.bg}; --site-surface:{site.palette.surface}; --site-primary:{site.palette.primary}; --site-accent:{site.palette.accent}; --site-text:{site.palette.text}; --site-muted:{site.palette.muted};"
-            >
-              <!-- Phase 1: Intake, the briefing email we send after a discovery call.
-                   A small process timeline sits to the left of the email showing the
-                   three phases: Discovery call → Email brief → Build. -->
-              <div class="reel-intake">
-                <div class="phase-track" aria-hidden="true">
-                  <div class="phase-node phase-node--done">
-                    <span class="phase-icon">
-                      <img
-                        src={phaseIconPhoneUrl}
-                        alt=""
-                        width="26"
-                        height="26"
-                        class="phase-icon-img"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </span>
-                    <span class="phase-label">Discovery<br/>call</span>
-                  </div>
-
-                  <svg class="phase-arrow" viewBox="0 0 14 16" width="10" height="12" aria-hidden="true">
-                    <path d="M7 1v12m0 0l-3.5-3.5M7 13l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-
-                  <div class="phase-node phase-node--current">
-                    <span class="phase-icon">
-                      <img
-                        src={phaseIconEmailUrl}
-                        alt=""
-                        width="26"
-                        height="26"
-                        class="phase-icon-img"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </span>
-                    <span class="phase-label">Email<br/>brief</span>
-                  </div>
-
-                  <svg class="phase-arrow" viewBox="0 0 14 16" width="10" height="12" aria-hidden="true">
-                    <path d="M7 1v12m0 0l-3.5-3.5M7 13l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-
-                  <div class="phase-node phase-node--next">
-                    <span class="phase-icon">
-                      <img
-                        src={phaseIconSiteUrl}
-                        alt=""
-                        width="26"
-                        height="26"
-                        class="phase-icon-img"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </span>
-                    <span class="phase-label">Your<br/>site</span>
-                  </div>
-                </div>
-
-                <div class="email-card">
-                  <div class="email-toolbar">
-                    <span class="email-toolbar-title">New Message</span>
-                    <span class="email-toolbar-actions" aria-hidden="true">
-                      <span class="email-toolbar-btn"><svg viewBox="0 0 16 16" width="9" height="9"><path d="M3 10h10M3 10L6 7M3 10l3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                      <span class="email-toolbar-btn"><svg viewBox="0 0 16 16" width="9" height="9"><rect x="3" y="3" width="10" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span>
-                      <span class="email-toolbar-btn"><svg viewBox="0 0 16 16" width="9" height="9"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
-                    </span>
-                  </div>
-                  <div class="email-headers">
-                    <div class="email-row">
-                      <span class="email-label">From</span>
-                      <span class="email-value">
-                        <span class="email-from-name">Alex Zimmerman</span>
-                        <span class="email-from-addr">&lt;info@hostverna.com&gt;</span>
-                      </span>
-                    </div>
-                    <div class="email-row">
-                      <span class="email-label">To</span>
-                      <span class="email-value">
-                        <span class="email-from-name">{site.brief.toName}</span>
-                        <span class="email-from-addr">&lt;{site.brief.toEmail}&gt;</span>
-                      </span>
-                    </div>
-                    <div class="email-row email-row--subject">
-                      <span class="email-label">Subject</span>
-                      <span class="email-value email-subject">{site.brief.subject}</span>
-                    </div>
-                  </div>
-                  <div class="email-body">
-                    <p class="email-greeting">{site.brief.greeting}</p>
-                    <p class="email-intro">{site.brief.intro}</p>
-                    <ul class="email-list">
-                      {#each site.brief.objectives as obj, oi}
-                        <li style="--oi:{oi}">
-                          <span class="email-bullet" aria-hidden="true"></span>
-                          <span>{obj}</span>
-                        </li>
-                      {/each}
-                    </ul>
-                    <p class="email-outro">{site.brief.outro}</p>
-                    <p class="email-signoff">{site.brief.signoff}</p>
-                  </div>
-                  <div class="email-footer">
-                    <span class="email-send">
-                      <svg viewBox="0 0 16 16" width="10" height="10" aria-hidden="true"><path d="M1.5 8L14.5 2.5 12 14l-4-5-6.5-1z" fill="currentColor"/></svg>
-                      Send
-                    </span>
-                    <span class="email-sent-indicator" aria-hidden="true">
-                      <svg viewBox="0 0 16 16" width="9" height="9"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      Sent
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Phase 2: Finished site that the cursor browses -->
-              <div class="reel-page">
-                {#each site.sections as section, sI}
-                  {#if section.kind === 'hero'}
-                    <div class="sec sec-hero">
-                      <nav class="site-nav">
-                        <span class="site-logo site-logo--{site.logo.style}">
-                          <span class="site-logo-mark">{site.logo.mark}</span>
-                          {#if site.logo.tag}
-                            <span class="site-logo-tag">{site.logo.tag}</span>
-                          {/if}
-                        </span>
-                        <ul class="site-nav-links">
-                          {#each site.nav as link}
-                            <li>{link}</li>
-                          {/each}
-                        </ul>
-                      </nav>
-                      <div class="sec-hero-body">
-                        <h2 class="sec-hero-title">
-                          {site.hero.title}
-                          {#if site.hero.titleEmphasis}
-                            <em>{site.hero.titleEmphasis}</em>
-                          {/if}
-                        </h2>
-                        <p class="sec-hero-sub">{site.hero.sub}</p>
-                        <span class="sec-hero-cta">{site.hero.cta}</span>
-                      </div>
-                    </div>
-                  {:else if section.kind === 'grid'}
-                    <div class="sec sec-grid">
-                      {#if section.eyebrow || section.heading}
-                        <div class="sec-head">
-                          {#if section.eyebrow}
-                            <span class="sec-eyebrow">{section.eyebrow}</span>
-                          {/if}
-                          {#if section.heading}
-                            <h3 class="sec-heading">{section.heading}</h3>
-                          {/if}
-                          {#if section.sub}
-                            <p class="sec-sub">{section.sub}</p>
-                          {/if}
-                        </div>
-                      {/if}
-                      <div class="sec-grid-body" style="--cols:{section.cols};">
-                        {#each section.cards as card, gi}
-                          <div class="grid-card" style="--gi:{gi}">
-                            <div class="grid-card-photo" aria-hidden="true">
-                              <span class="grid-card-photo-shimmer"></span>
-                            </div>
-                            <div class="grid-card-body">
-                              <span class="grid-card-title">{card.title}</span>
-                              <span class="grid-card-sub">{card.meta}</span>
-                            </div>
-                            {#if card.tag}
-                              <span class="grid-card-tag">{card.tag}</span>
-                            {/if}
-                          </div>
-                        {/each}
-                      </div>
-                    </div>
-                  {:else if section.kind === 'services'}
-                    <div class="sec sec-services">
-                      {#if section.eyebrow || section.heading}
-                        <div class="sec-head">
-                          {#if section.eyebrow}
-                            <span class="sec-eyebrow">{section.eyebrow}</span>
-                          {/if}
-                          {#if section.heading}
-                            <h3 class="sec-heading">{section.heading}</h3>
-                          {/if}
-                          {#if section.sub}
-                            <p class="sec-sub">{section.sub}</p>
-                          {/if}
-                        </div>
-                      {/if}
-                      <div class="sec-services-body" style="--count:{section.cards.length};">
-                        {#each section.cards as card, ci}
-                          <div class="service-card" style="--ci:{ci}">
-                            <span class="service-icon" aria-hidden="true"></span>
-                            <span class="service-title">{card.title}</span>
-                            <span class="service-blurb">{card.blurb}</span>
-                          </div>
-                        {/each}
-                      </div>
-                    </div>
-                  {:else if section.kind === 'reviews'}
-                    <div class="sec sec-reviews">
-                      {#if section.eyebrow || section.heading}
-                        <div class="sec-head">
-                          {#if section.eyebrow}
-                            <span class="sec-eyebrow">{section.eyebrow}</span>
-                          {/if}
-                          {#if section.heading}
-                            <h3 class="sec-heading">{section.heading}</h3>
-                          {/if}
-                        </div>
-                      {/if}
-                      <div class="sec-reviews-body">
-                      {#each section.items as item, ri}
-                        <figure class="review-row" style="--ri:{ri}">
-                          <span class="review-avatar">{item.author[0]}</span>
-                          <figcaption>
-                            <span class="review-stars" aria-hidden="true">
-                              {#each Array.from({ length: 5 }) as _, _sI}
-                                <svg
-                                  class="review-star"
-                                  viewBox="0 0 24 24"
-                                  width="10"
-                                  height="10"
-                                  focusable="false"
-                                >
-                                  <path
-                                    fill="currentColor"
-                                    d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                                  />
-                                </svg>
-                              {/each}
-                            </span>
-                            <blockquote class="review-quote">&ldquo;{item.quote}&rdquo;</blockquote>
-                            <span class="review-author">- {item.author}</span>
-                          </figcaption>
-                        </figure>
-                      {/each}
-                      </div>
-                    </div>
-                  {:else if section.kind === 'cta'}
-                    <div class="sec sec-cta">
-                      <div class="cta-text">
-                        <h3 class="cta-title">{section.title}</h3>
-                        <p class="cta-sub">{section.sub}</p>
-                      </div>
-                      <span class="cta-btn">{section.button}</span>
-                    </div>
-                  {:else if section.kind === 'footer'}
-                    <div class="sec sec-footer">
-                      <div class="footer-brand">
-                        <span class="site-logo site-logo--{site.logo.style} site-logo--footer">
-                          <span class="site-logo-mark">{site.logo.mark}</span>
-                        </span>
-                      </div>
-                      <div class="footer-cols">
-                        {#each section.columns as col, fi}
-                          <div class="footer-col" style="--fi:{fi}">
-                            <span class="footer-title">{col.title}</span>
-                            {#each col.links as link}
-                              <span class="footer-link">{link}</span>
-                            {/each}
-                          </div>
-                        {/each}
-                      </div>
-                    </div>
-                  {/if}
-                {/each}
-              </div>
-
-              <!-- Phase 3: Animated pointer that browses the built site -->
-              <div class="reel-cursor" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="16" height="16">
-                  <path
-                    d="M5 3 L5 19 L9.2 15.5 L11.7 21 L14 20 L11.5 14.5 L17 14.2 Z"
-                    fill="#ffffff"
-                    stroke="#0f172a"
-                    stroke-width="1.2"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-
-              <!--
-                Reel annotations + CTA: small coach-mark bubbles that pop up
-                over the site explaining what the prospect is seeing. The
-                final one is a real anchor so prospects can actually start
-                a brief without calling.
-              -->
-              <div class="reel-annot reel-annot--a" aria-hidden="true">
-                This could be yours, written for <em>your</em> business.
-              </div>
-              <div class="reel-annot reel-annot--b" aria-hidden="true">
-                Own every asset. No lock-in. Ever.
-              </div>
-              <a
-                class="reel-cta"
-                href="/contact"
-                aria-label="Start your brief with HostVerna"
-              >
-                <span class="reel-cta-label">Get a site like this</span>
-                <span class="reel-cta-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-          {/key}
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <style>

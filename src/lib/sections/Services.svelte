@@ -2,80 +2,43 @@
   import { onMount } from 'svelte';
   import ContentHighlight from '../components/ContentHighlight.svelte';
 
-  const webDesignGalleryUrls = [
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/e7411c78-6148-419c-edba-edf1b5d57600/public',
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/7235dcdb-a1d5-452f-0461-513b2d203000/public',
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/747d39cd-8323-4c4b-7a35-605f9e248c00/public',
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/74b37047-5e66-43cb-e67d-4558ac093600/public',
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/2bf4cd4f-d625-43f3-0c87-43f95ac83b00/public',
-  ] as const;
-
-  const businessSoftwareGalleryUrls = [
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/7e7293f0-2161-4ffa-80e9-dc0150aa8e00/public',
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/9a436251-63ba-4058-855e-2193e8359800/public',
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/95a5524a-9151-4a51-c492-e874a017c300/public',
-    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/207d7cd9-5109-43ca-4f9a-1b44be5cd600/public',
-  ] as const;
-
-  let webDesignGalleryIndex = 0;
-  let businessSoftwareGalleryIndex = 0;
-
   const services = [
     {
-      title: 'Website Design & Development',
-      ctaLabel: 'Learn about Web Design',
-      learnMoreHref: '/services/web-design',
-      galleryId: 'web-design' as const,
-      galleryUrls: webDesignGalleryUrls,
-      galleryLabel: 'Rotating website design examples',
-      description: `If your current site no longer reflects your business, we build a custom replacement that serves as your central digital platform, with clear ownership terms from the start.`,
-      placeholder: 'Website Redesign',
-      quote:
-        '"The site finally looks like us."',
-      quoteName: 'J. Harrow',
-      flip: false,
-    },
-    {
-      title: 'Business Software & Tools',
-      ctaLabel: 'Learn about Business Software',
-      learnMoreHref: '/services/custom-software-solutions',
-      galleryId: 'business-software' as const,
-      galleryUrls: businessSoftwareGalleryUrls,
-      galleryLabel: 'Rotating business software examples',
-      description: `If your team is managing fragmented spreadsheets and manual steps, we build internal tools, client portals, and web apps aligned to your workflow.`,
-      placeholder: 'Internal Ops Platform',
-      quote:
-        '"We stopped bouncing between spreadsheets."',
-      quoteName: 'M. Torres',
-      flip: true,
-    },
-    {
-      title: 'CRM & Client Management',
-      ctaLabel: 'Learn about CRM Setup',
-      learnMoreHref: '/services/business-software-crm',
-      visualUrl:
-        'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/858fe79c-7a72-4f46-2a6a-ad20c0374e00/public',
-      visualLabel: 'CRM workflow automation example',
-      description: `If leads are being lost, we implement CRM systems that match your sales process, with practical fields, automation, and team training.`,
-      placeholder: 'CRM Dashboard',
-      quote:
-        '"People actually use the CRM now."',
-      quoteName: 'S. Okafor',
-      flip: false,
-    },
-    {
-      title: 'Managed IT Support',
-      ctaLabel: 'Learn about IT Support',
+      title: 'Managed IT Services',
+      ctaLabel: 'How We Support Accounting Firms',
       learnMoreHref: '/services/it-solutions',
       visualUrl:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a01968f3-730e-4a92-27aa-8b9eb15c0100/public',
-      visualLabel: 'IT collaboration and support',
-      description: `When systems fail, you need direct response. You contact us, we triage quickly, and we keep operations moving.`,
-      placeholder: 'Infrastructure Overview',
-      quote:
-        '"A real person picked up."',
+      visualLabel: 'Managed IT collaboration and support',
+      description: `Your IT department, without building one in-house. Help desk, user support, device administration, patching, Microsoft 365 or Google Workspace, vendor coordination, backups, and ongoing technology management.`,
+      placeholder: 'Managed IT Services',
+      quote: '"A real person picked up."',
       quoteName: 'R. Patel',
+      flip: false,
+    },
+    {
+      title: 'IRS Security Six Setup',
+      ctaLabel: 'How We Support Accounting Firms',
+      learnMoreHref: '/services/irs-security-six',
+      visualUrl: '/images/irs-security-six.jpg',
+      visualLabel: 'Laptop showing a secured connection and lock symbol',
+      description: `Practical implementation of anti-malware, firewall review, multi-factor authentication, backups, drive encryption, and secure remote access for tax professionals.`,
+      placeholder: 'IRS Security Six',
+      quote: '"The safeguards are configured and clearly documented."',
+      quoteName: 'Security Six project',
       flip: true,
+    },
+    {
+      title: 'WISP Creation & Updates',
+      ctaLabel: 'How We Support Accounting Firms',
+      learnMoreHref: '/services/wisp-services',
+      visualUrl: '/images/wisp-documentation.jpg',
+      visualLabel: 'Professionals reviewing a written security plan together',
+      description: `A firm-specific Written Information Security Plan that reflects your systems, staff, vendors, safeguards, and review process—not a generic template with your name pasted in.`,
+      placeholder: 'WISP Documentation',
+      quote: '"The plan now matches how the firm actually operates."',
+      quoteName: 'WISP project',
+      flip: false,
     },
   ];
 
@@ -85,19 +48,6 @@
   onMount(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const mobile = window.matchMedia('(max-width: 760px)').matches;
-
-    let idWeb: number | undefined;
-    let idBiz: number | undefined;
-
-    if (!reduce && !mobile) {
-      idWeb = window.setInterval(() => {
-        webDesignGalleryIndex = (webDesignGalleryIndex + 1) % webDesignGalleryUrls.length;
-      }, 5500);
-      idBiz = window.setInterval(() => {
-        businessSoftwareGalleryIndex =
-          (businessSoftwareGalleryIndex + 1) % businessSoftwareGalleryUrls.length;
-      }, 5500);
-    }
 
     let observer: IntersectionObserver | undefined;
 
@@ -125,8 +75,6 @@
     }
 
     return () => {
-      if (idWeb !== undefined) clearInterval(idWeb);
-      if (idBiz !== undefined) clearInterval(idBiz);
       observer?.disconnect();
     };
   });
@@ -136,8 +84,8 @@
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">
-        Built around your business.<br />
-        <ContentHighlight tone="accent">Owned by you.</ContentHighlight>
+        Your IT department,<br />
+        <ContentHighlight tone="accent">without building one in-house.</ContentHighlight>
       </h2>
     </div>
 
@@ -151,24 +99,7 @@
           bind:this={rowEls[rowIndex]}
         >
           <div class="service-visual">
-            {#if svc.galleryUrls && svc.galleryLabel}
-              <div class="svc-visual" role="img" aria-label={svc.galleryLabel}>
-                {#each svc.galleryUrls as url, i}
-                  <img
-                    src={url}
-                    alt=""
-                    class="svc-gallery-img"
-                    class:active={svc.galleryId === 'web-design'
-                      ? i === webDesignGalleryIndex
-                      : i === businessSoftwareGalleryIndex}
-                    width={1600}
-                    height={1000}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                {/each}
-              </div>
-            {:else if svc.visualUrl && svc.visualLabel}
+            {#if svc.visualUrl && svc.visualLabel}
               <div class="svc-visual" role="img" aria-label={svc.visualLabel}>
                 <img
                   src={svc.visualUrl}

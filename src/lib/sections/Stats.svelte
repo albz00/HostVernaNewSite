@@ -19,8 +19,8 @@
       id: 'experience',
       value: '12+',
       label: 'Years Experience',
-      sub: 'in digital services',
-      detail: 'Hands-on experience across web, tools, and support.',
+      sub: 'in technology support',
+      detail: 'Hands-on experience across IT operations, security, and user support.',
     },
     {
       id: 'retention',
@@ -44,36 +44,12 @@
       author: 'R. Patel',
     },
     {
-      text: '"The ownership terms were clear from day one."',
-      author: 'J. Harrow',
-    },
-    {
-      text: '"I can change hours and photos myself now."',
-      author: 'L. Kwan',
-    },
-    {
       text: '"We went from four logins to one workflow the team understands."',
       author: 'M. Torres',
     },
     {
       text: '"They explained the basics clearly and without jargon."',
       author: 'A. Chen',
-    },
-    {
-      text: '"The terms matched what we signed. No surprise monthly add-ons."',
-      author: 'D. Ross',
-    },
-    {
-      text: '"When the CRM acts up, I talk to someone who knows our setup."',
-      author: 'S. Okafor',
-    },
-    {
-      text: '"My Google profile and Facebook finally point back to one place."',
-      author: 'T. Nguyen',
-    },
-    {
-      text: '"They flagged gaps on our site before they ever cost us."',
-      author: 'B. Alvarez',
     },
   ];
 

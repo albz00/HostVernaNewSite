@@ -1,8 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
   import { serviceNavItems } from '../data/servicePages';
-  import { solutionNavItems } from '../data/solutionNav';
-  import { resourcesNavItems } from '../data/learnPages';
   import { whoWeServeNavItems } from '../data/whoWeServeNav';
   import {
     CLIENT_PORTAL_LOGIN_URL,
@@ -31,14 +29,6 @@
       kind: 'pageviews',
       label: '100K page views · HostVerna',
       ariaLabel: '100,000 page views for HostVerna.com',
-    },
-    {
-      id: 'cloudflare-network',
-      href: '/about',
-      platform: 'Cloudflare',
-      kind: 'monthly-pageviews',
-      label: '550K+ monthly views · all client sites',
-      ariaLabel: 'Over 550,000 monthly page views across all HostVerna client websites',
     },
   ];
 
@@ -85,10 +75,10 @@
   let mobileMenuMaxHeight = 'calc(100dvh - 88px - env(safe-area-inset-bottom))';
   const MOBILE_BREAKPOINT = 900;
 
-  type MobileAccordionId = 'services' | 'solutions' | 'whoWeServe' | 'resources';
+  type MobileAccordionId = 'services' | 'whoWeServe';
 
   function initialMobileAccordion(): Record<MobileAccordionId, boolean> {
-    return { services: false, solutions: false, whoWeServe: false, resources: false };
+    return { services: false, whoWeServe: false };
   }
 
   let mobileAccordionOpen = initialMobileAccordion();
@@ -104,13 +94,10 @@
 
   const navLinksRest = [
     { label: 'About', href: '/about' },
-    { label: 'Case Studies', href: '/#case-studies' },
   ];
 
   const phoneDisplay = '304-992-6568';
   const phoneHref = 'tel:+13049926568';
-  const howWeWorkTogetherHref = '/solutions/how-we-work-together';
-
   const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
   function setDocumentMenuState(open: boolean) {
@@ -312,7 +299,7 @@
       <ul class="nav-links">
         <li class="nav-dropdown">
           <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
-            Services
+            IT Services
             <span class="nav-dropdown-caret" aria-hidden="true"></span>
           </button>
           <ul class="nav-dropdown-menu" role="menu">
@@ -323,45 +310,7 @@
             {/each}
             <li role="none" class="nav-dropdown-footer">
               <a href="/#services" class="nav-dropdown-link nav-dropdown-all" role="menuitem"
-                >All services overview</a
-              >
-            </li>
-          </ul>
-        </li>
-        <li class="nav-dropdown">
-          <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
-            Solutions
-            <span class="nav-dropdown-caret" aria-hidden="true"></span>
-          </button>
-          <ul class="nav-dropdown-menu nav-dropdown-menu--solutions-cols" role="menu">
-            {#each solutionNavItems as item}
-              <li role="none" class="nav-dropdown-solution-cell">
-                <a href={item.href} class="nav-dropdown-link" role="menuitem">
-                  {#if item.href === howWeWorkTogetherHref}
-                    <span class="nav-solution-starred">
-                      <svg
-                        class="nav-solution-star"
-                        viewBox="0 0 16 16"
-                        width="12"
-                        height="12"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
-                        />
-                      </svg>
-                      <span>{item.title}</span>
-                    </span>
-                  {:else}
-                    {item.title}
-                  {/if}
-                </a>
-              </li>
-            {/each}
-            <li role="none" class="nav-dropdown-footer nav-dropdown-footer--span-cols">
-              <a href="/#use-cases" class="nav-dropdown-link nav-dropdown-all" role="menuitem"
-                >How we work overview</a
+                >Managed IT and services overview</a
               >
             </li>
           </ul>
@@ -373,19 +322,6 @@
           </button>
           <ul class="nav-dropdown-menu nav-dropdown-menu--solutions-cols" role="menu">
             {#each whoWeServeNavItems as item}
-              <li role="none" class="nav-dropdown-solution-cell">
-                <a href={item.href} class="nav-dropdown-link" role="menuitem">{item.title}</a>
-              </li>
-            {/each}
-          </ul>
-        </li>
-        <li class="nav-dropdown">
-          <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
-            Resources
-            <span class="nav-dropdown-caret" aria-hidden="true"></span>
-          </button>
-          <ul class="nav-dropdown-menu nav-dropdown-menu--solutions-cols" role="menu">
-            {#each resourcesNavItems as item}
               <li role="none" class="nav-dropdown-solution-cell">
                 <a href={item.href} class="nav-dropdown-link" role="menuitem">{item.title}</a>
               </li>
@@ -408,7 +344,7 @@
           <span class="nav-phone-compact-text">{phoneDisplay}</span>
         </a>
         <a href={CLIENT_PORTAL_LOGIN_URL} class="btn btn-secondary nav-btn">Portal</a>
-        <a href="/contact" class="btn btn-primary nav-btn">Get Started</a>
+        <a href="/contact" class="btn btn-primary nav-btn">Schedule a Consultation</a>
       </div>
 
       <button
@@ -434,7 +370,7 @@
             href="/contact"
             class="btn btn-primary"
             style="width:100%;justify-content:center"
-            on:click={closeMobileMenu}>Get Started</a
+            on:click={closeMobileMenu}>Schedule a Consultation</a
           >
           <a
             href={CLIENT_PORTAL_LOGIN_URL}
@@ -460,7 +396,7 @@
             id="mobile-accordion-trigger-services"
             on:click={() => toggleMobileAccordion('services')}
           >
-            <span class="mobile-group-trigger-label">Services</span>
+            <span class="mobile-group-trigger-label">IT Services</span>
             <span
               class="mobile-group-caret"
               class:mobile-group-caret--open={mobileAccordionOpen.services}
@@ -480,60 +416,7 @@
                 >
               {/each}
               <a href="/#services" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
-                >All services overview</a
-              >
-            </div>
-          {/if}
-        </div>
-
-        <div class="mobile-group">
-          <button
-            type="button"
-            class="mobile-group-trigger"
-            aria-expanded={mobileAccordionOpen.solutions}
-            aria-controls="mobile-accordion-solutions"
-            id="mobile-accordion-trigger-solutions"
-            on:click={() => toggleMobileAccordion('solutions')}
-          >
-            <span class="mobile-group-trigger-label">Solutions</span>
-            <span
-              class="mobile-group-caret"
-              class:mobile-group-caret--open={mobileAccordionOpen.solutions}
-              aria-hidden="true"
-            ></span>
-          </button>
-          {#if mobileAccordionOpen.solutions}
-            <div
-              id="mobile-accordion-solutions"
-              class="mobile-group-panel"
-              role="region"
-              aria-labelledby="mobile-accordion-trigger-solutions"
-            >
-              {#each solutionNavItems as item}
-                <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}>
-                  {#if item.href === howWeWorkTogetherHref}
-                    <span class="nav-solution-starred">
-                      <svg
-                        class="nav-solution-star"
-                        viewBox="0 0 16 16"
-                        width="12"
-                        height="12"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
-                        />
-                      </svg>
-                      <span>{item.title}</span>
-                    </span>
-                  {:else}
-                    {item.title}
-                  {/if}
-                </a>
-              {/each}
-              <a href="/#use-cases" class="mobile-link mobile-sublink mobile-sublink-all" on:click={closeMobileMenu}
-                >How we work overview</a
+                >Managed IT and services overview</a
               >
             </div>
           {/if}
@@ -571,37 +454,6 @@
           {/if}
         </div>
 
-        <div class="mobile-group mobile-group--last">
-          <button
-            type="button"
-            class="mobile-group-trigger"
-            aria-expanded={mobileAccordionOpen.resources}
-            aria-controls="mobile-accordion-resources"
-            id="mobile-accordion-trigger-resources"
-            on:click={() => toggleMobileAccordion('resources')}
-          >
-            <span class="mobile-group-trigger-label">Resources</span>
-            <span
-              class="mobile-group-caret"
-              class:mobile-group-caret--open={mobileAccordionOpen.resources}
-              aria-hidden="true"
-            ></span>
-          </button>
-          {#if mobileAccordionOpen.resources}
-            <div
-              id="mobile-accordion-resources"
-              class="mobile-group-panel"
-              role="region"
-              aria-labelledby="mobile-accordion-trigger-resources"
-            >
-              {#each resourcesNavItems as item}
-                <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
-                  >{item.title}</a
-                >
-              {/each}
-            </div>
-          {/if}
-        </div>
       </div>
     {/if}
   </nav>

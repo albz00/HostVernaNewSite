@@ -34,8 +34,8 @@
       {/each}
 
       <div class="sector-cta">
-        <a href="/contact" class="btn btn-primary btn-lg">Get in touch</a>
-        <a href="/#who-we-serve" class="btn btn-secondary btn-lg">Qualifier</a>
+        <a href="/contact" class="btn btn-primary btn-lg">Schedule an IT Consultation</a>
+        <a href="/#who-we-serve" class="btn btn-secondary btn-lg">Review Your IT Needs</a>
       </div>
     </div>
   </main>

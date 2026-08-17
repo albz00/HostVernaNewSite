@@ -60,14 +60,14 @@
     "if (rafId != null) cancelAnimationFrame(rafId);",
     "if (step === 'intro' && nextStep !== 'intro') { markInlineFitEngaged(); }",
     'if (key && value) answers[key] = value;',
-    "if (type === 'heavy-inventory') { fit = 'no'; }",
-    "else if (mindset === 'risk') { fit = 'no'; }",
-    "else if (software === 'yes') { fit = 'great'; }",
+    "if (firmType === 'accounting') { fit = 'great'; }",
+    "else if (need === 'managed-it') { fit = 'great'; }",
+    "else if (need === 'security-six') { fit = 'great'; }",
     "else { fit = 'maybe'; }",
     "const resultCopy: Record<Fit, { title: string; sub: string; cta: string; ctaLabel: string }> = {",
-    "  great: { title: \"You're exactly who we built this for.\", cta: '/contact', ctaLabel: 'Book a Free Call' },",
-    "  maybe: { title: \"We might be a fit. Let's find out.\", cta: '/contact', ctaLabel: 'Talk to Us First' },",
-    "  no: { title: \"We're probably not the right call right now.\", cta: '/about', ctaLabel: 'Learn What We Do' },",
+    "  great: { title: \"Your firm appears to be a strong fit.\", cta: '/contact', ctaLabel: 'See Our Pricing' },",
+    "  maybe: { title: \"Let's review your IT needs.\", cta: '/contact', ctaLabel: 'See Our Pricing' },",
+    "  no: { title: \"We only support accounting and tax firms.\", cta: '/about', ctaLabel: 'How We Support Accounting Firms' },",
     '};',
   ];
 
@@ -186,22 +186,22 @@
 
   const resultCopy: Record<Fit, { title: string; sub: string; cta: string; ctaLabel: string }> = {
     great: {
-      title: 'Your business appears to be a strong fit.',
-      sub: 'Based on your responses, a short call is the best next step.',
+      title: 'Your firm appears to be a strong fit.',
+      sub: 'Based on your responses, an IT consultation is the best next step.',
       cta: '/contact',
-      ctaLabel: 'Book a call',
+      ctaLabel: 'See Our Pricing',
     },
     maybe: {
       title: 'There may be a fit.',
       sub: 'Contact us and we will give you a direct recommendation based on your goals.',
       cta: '/contact',
-      ctaLabel: 'Contact us',
+      ctaLabel: 'See Our Pricing',
     },
     no: {
       title: 'Another provider may be a better fit today.',
       sub: 'Based on your responses, a different service model may better match your current needs.',
       cta: '/about',
-      ctaLabel: 'See our scope',
+      ctaLabel: 'How We Support Accounting Firms',
     },
   };
 </script>
@@ -247,12 +247,12 @@
   <div class="container">
     <div class="fit-header">
       <h2 class="fit-title">
-        We don't take every project.<br />
-        <span class="gradient-text">Let's see if we fit yours.</span>
+        IT support designed around<br />
+        <span class="gradient-text">the realities of accounting firms.</span>
       </h2>
       <p class="fit-sub">
         <ContentHighlight tone="keyword">Answer five quick questions</ContentHighlight>
-        and we will tell you directly whether we are the right fit.
+        and we will recommend a practical starting point.
       </p>
     </div>
 
@@ -260,24 +260,24 @@
 
       {#if step === 'intro'}
         <div class="form-card intro-card">
-          <h3 class="intro-heading">A quick fit check. Five questions.</h3>
+          <h3 class="intro-heading">A quick IT needs check. Five questions.</h3>
           <div class="intro-split">
             <div class="intro-copy">
               <p class="intro-body">
-                A short read on your business before we ever talk.
+                A short read on your firm before we ever talk.
                 <ContentHighlight tone="comment">Takes under a minute.</ContentHighlight>
               </p>
               <div class="intro-bullets">
                 <div class="ib"><div class="ib-dot"></div><span>If we are not the right fit, we will say so</span></div>
-                <div class="ib"><div class="ib-dot"></div><span>This form is for qualification, not sales pressure</span></div>
-                <div class="ib"><div class="ib-dot"></div><span>Financing available if budget is the concern</span></div>
+                <div class="ib"><div class="ib-dot"></div><span>You do not need to know which package you need</span></div>
+                <div class="ib"><div class="ib-dot"></div><span>We will recommend a practical starting point</span></div>
               </div>
             </div>
             <aside class="intro-qualifier-panel">
               <QualifierIcon src={qualifierIconUrl} />
             </aside>
           </div>
-          <button class="btn btn-primary btn-lg" on:click={() => advance('q1')}>Start the Fit Check</button>
+          <button class="btn btn-primary btn-lg" on:click={() => advance('q1')}>Start the IT Needs Check</button>
         </div>
 
       {:else if step === 'q1'}
@@ -286,35 +286,35 @@
             <div class="qp-bar" style="width: 20%"></div>
           </div>
           <div class="q-step-label">Question 1 of 5</div>
-          <h3 class="q-heading">What best describes your business?</h3>
+          <h3 class="q-heading">What best describes your firm?</h3>
           <div class="option-grid">
             <button class="opt" on:click={() => advance('q2', 'bizType', 'trades')}>
-              <span class="opt-label">Trades / Construction / Excavating</span>
-              <span class="opt-sub">Contractors, builders, HVAC, plumbing, landscaping</span>
+              <span class="opt-label">CPA Firm</span>
+              <span class="opt-sub">Audit, accounting, advisory, and tax work</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'local')}>
-              <span class="opt-label">Local Service Business</span>
-              <span class="opt-sub">Service-focused, small to medium, not heavy inventory</span>
+              <span class="opt-label">Accounting Firm</span>
+              <span class="opt-sub">Small or mid-sized professional practice</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'dental')}>
-              <span class="opt-label">Dental / Medical / Brochure</span>
-              <span class="opt-sub">Professional or appointment-based sites</span>
+              <span class="opt-label">Tax Preparer or Enrolled Agent</span>
+              <span class="opt-sub">Solo or team-based tax practice</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'aviation')}>
-              <span class="opt-label">Aviation / Flight</span>
-              <span class="opt-sub">Charters, schools, airports, FBOs, maintenance</span>
+              <span class="opt-label">Bookkeeping Firm</span>
+              <span class="opt-sub">Bookkeeping and client accounting services</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'government')}>
-              <span class="opt-label">Government / Municipal</span>
-              <span class="opt-sub">Municipalities and public-sector teams</span>
+              <span class="opt-label">Payroll Provider</span>
+              <span class="opt-sub">Payroll and related client services</span>
             </button>
             <button class="opt" on:click={() => advance('q2', 'bizType', 'education')}>
-              <span class="opt-label">School / University / Medical School</span>
-              <span class="opt-sub">Educational institutions and programs</span>
+              <span class="opt-label">Other Professional Firm</span>
+              <span class="opt-sub">A firm with sensitive client information and recurring IT needs</span>
             </button>
             <button class="opt opt-caution" on:click={() => advance('q2', 'bizType', 'heavy-inventory')}>
-              <span class="opt-label">Heavy Inventory / E-commerce</span>
-              <span class="opt-sub">Large catalogs, fulfillment, or stock management</span>
+              <span class="opt-label">Another Type of Business</span>
+              <span class="opt-sub">Tell us what you do and we will give you a direct answer</span>
             </button>
           </div>
         </div>
@@ -352,20 +352,20 @@
             <div class="qp-bar" style="width: 60%"></div>
           </div>
           <div class="q-step-label">Question 3 of 5</div>
-          <h3 class="q-heading">How do you think about a website or software investment?</h3>
+          <h3 class="q-heading">How do you think about ongoing IT support?</h3>
           <p class="q-context">Provide the most accurate answer. It helps us give you a useful recommendation.</p>
           <div class="option-list">
             <button class="opt-row opt-row-highlight" on:click={() => advance('q4', 'mindset', 'investment')}>
-              <span class="or-label">It is an investment that should produce measurable value</span>
-              <span class="or-sub">I want a solution that performs and scales</span>
+              <span class="or-label">We need one accountable IT relationship</span>
+              <span class="or-sub">Reliable support and consistent management matter</span>
             </button>
             <button class="opt-row" on:click={() => advance('q4', 'mindset', 'unsure')}>
-              <span class="or-label">I am not sure yet and need to understand value first</span>
-              <span class="or-sub">I need clarity before making a commitment</span>
+              <span class="or-label">We need a defined project before considering ongoing support</span>
+              <span class="or-sub">Security Six, WISP, migration, or a technology cleanup</span>
             </button>
             <button class="opt-row opt-row-caution" on:click={() => advance('q4', 'mindset', 'risk')}>
-              <span class="or-label">I currently see this as a risk more than an investment</span>
-              <span class="or-sub">I need a conservative approach</span>
+              <span class="or-label">We only need occasional break-fix help</span>
+              <span class="or-sub">No ongoing ownership or standardization right now</span>
             </button>
           </div>
         </div>
@@ -379,24 +379,24 @@
           <h3 class="q-heading">What are you actually looking for right now?</h3>
           <div class="option-list">
             <button class="opt-row" on:click={() => advance('q5', 'need', 'website')}>
-              <span class="or-label">A website that actually represents my business</span>
-              <span class="or-sub">Custom, professional, and owned by me</span>
+              <span class="or-label">Managed IT Services</span>
+              <span class="or-sub">Help desk, devices, accounts, backups, and vendors</span>
             </button>
             <button class="opt-row" on:click={() => advance('q5', 'need', 'software')}>
-              <span class="or-label">Custom software or internal tools</span>
-              <span class="or-sub">Portals, job tools, dashboards</span>
+              <span class="or-label">IRS Security Six implementation</span>
+              <span class="or-sub">Review and configure the six baseline safeguards</span>
             </button>
             <button class="opt-row" on:click={() => advance('q5', 'need', 'crm')}>
-              <span class="or-label">CRM or client management system</span>
-              <span class="or-sub">Pipeline, follow-up, team tracking</span>
+              <span class="or-label">WISP creation or update</span>
+              <span class="or-sub">Documentation that reflects the current firm</span>
             </button>
             <button class="opt-row" on:click={() => advance('q5', 'need', 'it')}>
-              <span class="or-label">Ongoing IT support or managed services</span>
-              <span class="or-sub">Support when things break</span>
+              <span class="or-label">Pre-tax-season IT review</span>
+              <span class="or-sub">Find and address weak processes before filing season</span>
             </button>
             <button class="opt-row" on:click={() => advance('q5', 'need', 'all')}>
-              <span class="or-label">Honestly, probably more than one of these</span>
-              <span class="or-sub">I need a broader cleanup</span>
+              <span class="or-label">Security Six, WISP, and managed IT together</span>
+              <span class="or-sub">We need a broader IT cleanup and ongoing support</span>
             </button>
           </div>
         </div>
@@ -407,16 +407,16 @@
             <div class="qp-bar" style="width: 95%"></div>
           </div>
           <div class="q-step-label">Question 5 of 5</div>
-          <h3 class="q-heading">Are you looking for custom software or tools specifically?</h3>
-          <p class="q-context">Not every business needs custom software. This helps us sort that out.</p>
+          <h3 class="q-heading">Do you need Security Six or WISP support?</h3>
+          <p class="q-context">The technical safeguards and written documentation work best when they reflect the same environment.</p>
           <div class="option-list">
             <button class="opt-row" on:click={() => { answers.software = 'yes'; calcResult(); }}>
-              <span class="or-label">Yes, I need custom software or tools</span>
-              <span class="or-sub">Systems, portals, platforms, dashboards</span>
+              <span class="or-label">Yes, we need Security Six or WISP help</span>
+              <span class="or-sub">Implementation, documentation, or both</span>
             </button>
             <button class="opt-row" on:click={() => { answers.software = 'no'; calcResult(); }}>
-              <span class="or-label">No, a website or CRM is what I need</span>
-              <span class="or-sub">No custom software right now</span>
+              <span class="or-label">No, ongoing managed IT is the priority</span>
+              <span class="or-sub">Help desk, devices, accounts, backups, and vendors</span>
             </button>
           </div>
         </div>

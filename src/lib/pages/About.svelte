@@ -14,50 +14,46 @@
     </nav>
 
     <header class="about-header">
-      <h1 class="about-h1">About HostVerna</h1>
+      <h1 class="about-h1">West Virginia technology support with a practical small-business mindset.</h1>
       <p class="about-lede">
-        We build professional web presence, reliable hosting, and practical technology systems. This page explains how we
-        work, what we commit to, and who leads delivery.
+        HostVerna is a West Virginia-based technology firm serving businesses that need dependable systems, responsive
+        support, and clear guidance without building a large internal IT department.
       </p>
     </header>
 
     <section class="about-block">
-      <h2 class="about-h2">HostVerna and where we came from</h2>
+      <h2 class="about-h2">Ongoing IT ownership for accounting and tax firms</h2>
       <p class="about-p">
-        The business was originally formed as <strong>A to Z Digital LLC</strong>. <strong>HostVerna</strong> is our
-        operating name (DBA). We began with graphic design work, then shifted into websites and long-term digital systems
-        because clients needed stronger operational outcomes.
+        HostVerna focuses on managed IT, IRS Security Six implementation, WISP documentation, and tax-season technology
+        readiness for accounting and tax professionals.
       </p>
       <p class="about-p about-p--tight">
-        We have been in this space long enough to understand practical delivery constraints. Many clients rely on us for
-        systems that remain stable, clear, and maintainable.
+        That focus is especially well suited to accounting and tax firms, where day-to-day reliability, access management,
+        backups, and documented security practices have direct operational importance.
       </p>
     </section>
 
     <section class="about-block">
-      <h2 class="about-h2">Partnership, not a one-off invoice</h2>
+      <h2 class="about-h2">Your IT department, without building one in-house</h2>
       <p class="about-p">
-        We approach engagements as long-term partnerships. We look for the highest-impact improvements, communicate clearly
-        when something is not a fit, and stay realistic about scope and outcomes. A website supports business growth, but
-        it does not replace operational execution.
+        We provide the ongoing support and administration small and mid-sized professional firms need: user help, device
+        management, cloud accounts, backups, vendor coordination, documentation, and practical technology planning.
       </p>
     </section>
 
     <section class="about-block">
-      <h2 class="about-h2">What we owe you</h2>
+      <h2 class="about-h2">Our operating philosophy</h2>
       <p class="about-p">
-        Our promise to every customer is to be as attentive and respectful as we can, and to earn your trust instead of
-        demanding it: clear communication, realistic timelines, and advice that matches what we actually know how to
-        deliver.
+        Keep the technology understandable. Standardize what can be standardized. Document the important things. Respond
+        when users need help. Improve the environment before busy season forces the issue.
       </p>
     </section>
 
     <section class="about-block">
-      <h2 class="about-h2">Long-term fit, without a trap</h2>
+      <h2 class="about-h2">Practical, local, and accountable</h2>
       <p class="about-p">
-        Our builds are ownership-based. Your site becomes a transferable business asset instead of a permanent rental. Many
-        clients stay with us long term, but we do not rely on lock-in. When ongoing support is needed, we keep it clear;
-        when you choose to transition, documentation and access are already in place.
+        HostVerna is West Virginia-based and serves clients in West Virginia and beyond. We communicate in plain English,
+        stay realistic about scope, and focus on technology that supports the business.
       </p>
     </section>
 
@@ -74,15 +70,13 @@
         />
       </div>
       <p class="about-p">
-        HostVerna is led by <strong>Alex Zimmerman</strong>. He started hands-on in tech early, then moved into paid work
-        in his teens across web, software, infrastructure, and operations. As his scope grew, he led multiple software
-        development teams and managed projects from planning through delivery. That early run built practical judgment in
-        execution, leadership, and market fit.
+        HostVerna is led by <strong>Alex Zimmerman</strong>. He started hands-on in technology early and moved into
+        infrastructure and IT operations. That work built practical judgment in execution, support, and accountable
+        technology management.
       </p>
       <p class="about-p about-p--tight">
-        Alex has long been involved in cybersecurity, IT, and software development, including work supporting government
-        entities and other high-accountability environments. Credentials help, but the core value comes from continuous
-        hands-on production work solving real operational issues.
+        Alex has long been involved in cybersecurity and IT, including work in high-accountability environments.
+        Credentials help, but the core value comes from continuous hands-on work solving real operational issues.
       </p>
       <p class="about-p about-p--tight">
         Before moving full time into HostVerna, he served in a <strong>Senior IT</strong> role supporting
@@ -101,7 +95,7 @@
     </section>
 
     <div class="about-cta">
-      <a href="/contact" class="btn btn-primary btn-lg">Get in touch</a>
+      <a href="/contact" class="btn btn-primary btn-lg">Schedule a Consultation</a>
       <a href="/" class="btn btn-secondary btn-lg">Home</a>
     </div>
   </div>

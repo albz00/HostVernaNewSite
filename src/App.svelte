@@ -4,25 +4,15 @@
   import Home from './lib/pages/Home.svelte';
   import Portal from './lib/pages/Portal.svelte';
   import ServicePage from './lib/pages/ServicePage.svelte';
-  import PublicSector from './lib/pages/PublicSector.svelte';
   import Support from './lib/pages/Support.svelte';
-  import SolutionPage from './lib/pages/SolutionPage.svelte';
   import Contact from './lib/pages/Contact.svelte';
   import QuickContact from './lib/pages/QuickContact.svelte';
   import About from './lib/pages/About.svelte';
-  import Connect from './lib/pages/Connect.svelte';
   import Careers from './lib/pages/Careers.svelte';
-  import Resources from './lib/pages/Resources.svelte';
   import Faq from './lib/pages/Faq.svelte';
-  import Blog from './lib/pages/Blog.svelte';
+  import Pricing from './lib/pages/Pricing.svelte';
   import LockedPlaceholder from './lib/components/LockedPlaceholder.svelte';
-  import LearnIndex from './lib/pages/LearnIndex.svelte';
-  import LearnDoc from './lib/pages/LearnDoc.svelte';
   import ServeSegment from './lib/pages/ServeSegment.svelte';
-  import AreasServed from './lib/pages/AreasServed.svelte';
-  import WvCityPage from './lib/pages/WvCityPage.svelte';
-  import GreenbrierCountyWv from './lib/pages/GreenbrierCountyWv.svelte';
-  import GreenbrierPlace from './lib/pages/GreenbrierPlace.svelte';
   import Pacman from './lib/pages/Pacman.svelte';
   import { getPageMeta } from './lib/data/pageMeta';
 
@@ -45,35 +35,7 @@
     return rest || null;
   }
 
-  function solutionSlugFromPath(p: string): string | null {
-    if (!p.startsWith('/solutions/')) return null;
-    const rest = p.slice('/solutions/'.length);
-    return rest || null;
-  }
-
-  function learnDocSlugFromPath(p: string): string | null {
-    if (!p.startsWith('/learn/')) return null;
-    const rest = p.slice('/learn/'.length);
-    return rest || null;
-  }
-
-  function greenbrierPlaceSlugFromPath(p: string): string | null {
-    if (!p.startsWith('/greenbrier-county-wv/')) return null;
-    const rest = p.slice('/greenbrier-county-wv/'.length);
-    return rest || null;
-  }
-
-  function wvCitySlugFromPath(p: string): string | null {
-    if (!p.startsWith('/areas-served/')) return null;
-    const rest = p.slice('/areas-served/'.length);
-    return rest || null;
-  }
-
   $: serviceSlug = serviceSlugFromPath(path);
-  $: solutionSlug = solutionSlugFromPath(path);
-  $: learnDocSlug = learnDocSlugFromPath(path);
-  $: greenbrierPlaceSlug = greenbrierPlaceSlugFromPath(path);
-  $: wvCitySlug = wvCitySlugFromPath(path);
   $: pageMeta = getPageMeta(path);
 
   $: if (typeof window !== 'undefined') {
@@ -111,9 +73,7 @@
 
 {#if path === '/portal'}
   <Portal />
-{:else if path === '/public-sector'}
-  <PublicSector />
-{:else if path === '/trades' || path === '/professional-services' || path === '/aviation'}
+{:else if path === '/accounting-tax-firms'}
   <ServeSegment slug={path.slice(1)} />
 {:else if path === '/support'}
   <Support />
@@ -123,26 +83,14 @@
   <Contact />
 {:else if path === '/about'}
   <About />
-{:else if path === '/connect'}
-  <Connect />
 {:else if path === '/careers'}
   <Careers />
-{:else if path === '/areas-served'}
-  <AreasServed />
-{:else if wvCitySlug !== null}
-  <WvCityPage slug={wvCitySlug} />
-{:else if path === '/greenbrier-county-wv'}
-  <GreenbrierCountyWv />
-{:else if greenbrierPlaceSlug !== null}
-  <GreenbrierPlace slug={greenbrierPlaceSlug} />
 {:else if path === '/pacman'}
   <Pacman />
-{:else if path === '/resources'}
-  <Resources />
 {:else if path === '/faq'}
   <Faq />
-{:else if path === '/blog'}
-  <Blog />
+{:else if path === '/pricing'}
+  <Pricing />
 {:else if path === '/privacy'}
   <LockedPlaceholder
     heading="Privacy Policy is locked"
@@ -163,12 +111,6 @@
     heading="SLA is locked"
     lead="This page is not open to visitors. If you need SLA details or have questions, call or email us."
   />
-{:else if path === '/learn'}
-  <LearnIndex />
-{:else if learnDocSlug !== null}
-  <LearnDoc slug={learnDocSlug} />
-{:else if solutionSlug !== null}
-  <SolutionPage slug={solutionSlug} />
 {:else if serviceSlug !== null}
   <ServicePage slug={serviceSlug} />
 {:else}

@@ -40,12 +40,12 @@
   let formStartedAtMs = 0;
 
   const needOptions = [
-    { id: 'website', label: 'Website design or redesign', sub: 'Custom site, launch, or overhaul' },
-    { id: 'software', label: 'Custom software or internal tools', sub: 'Portals, workflows, integrations' },
-    { id: 'crm', label: 'CRM or client management', sub: 'Setup, migration, training' },
-    { id: 'it', label: 'IT support or managed services', sub: 'Ongoing help, monitoring, fixes' },
-    { id: 'multiple', label: 'More than one of the above', sub: 'We will sort priorities on a call' },
-    { id: 'unsure', label: 'Not sure yet', sub: 'Tell us in the next step' },
+    { id: 'website', label: 'Managed IT Services', sub: 'Ongoing help desk and IT ownership' },
+    { id: 'software', label: 'IRS Security Six', sub: 'Baseline safeguard implementation' },
+    { id: 'crm', label: 'WISP Creation or Update', sub: 'Firm-specific security documentation' },
+    { id: 'it', label: 'Tax-Season IT Readiness', sub: 'Pre-season review and cleanup' },
+    { id: 'multiple', label: 'Microsoft 365 / Google Workspace', sub: 'Accounts, permissions, MFA, and cleanup' },
+    { id: 'unsure', label: 'Other Accounting-Firm IT Need', sub: 'Tell us what is getting in the way' },
   ] as const;
 
   const timelineOptions = [
@@ -195,10 +195,10 @@
     </nav>
 
     <header class="contact-header">
-      <h1 class="contact-h1">Get started</h1>
+      <h1 class="contact-h1">Tell us what your firm needs from IT.</h1>
       <p class="contact-lede">
-        A short guided form so we understand who you are, what you need, and your timeline. It is designed to be quick for
-        you and specific enough for a useful response.
+        Whether you need ongoing managed support, a Security Six project, a WISP update, or help untangling a specific
+        technology issue, start here.
       </p>
     </header>
     {/if}
@@ -207,9 +207,9 @@
       {#if step === 'intro'}
         <div class="form-card intro-card">
           <div class="intro-accent-bar"></div>
-          <h2 class="card-h2">Tell us what you're working on</h2>
+          <h2 class="card-h2">Start a conversation</h2>
           <p class="card-lead">
-            Complete seven quick questions in about two minutes. We use your answers to provide a focused response.
+            You do not need to know exactly what package you need. Tell us about your firm and current IT situation.
           </p>
           <ul class="intro-bullets">
             <li>
@@ -234,7 +234,7 @@
                 advance('contact');
               }}
             >
-              Start the form
+              Schedule a Consultation
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
@@ -305,7 +305,7 @@
             <div class="qp-bar" style="width: {progressPct()}%"></div>
           </div>
           <div class="q-step-label">Step 3 of {totalSteps}</div>
-          <h2 class="q-heading">What are you reaching out about?</h2>
+          <h2 class="q-heading">What can we help with?</h2>
           <div class="option-grid">
             {#each needOptions as opt}
               <button type="button" class="opt" class:opt-active={need === opt.id} on:click={() => (need = opt.id)}>
@@ -375,8 +375,8 @@
             <div class="qp-bar" style="width: {progressPct()}%"></div>
           </div>
           <div class="q-step-label">Step 6 of {totalSteps}</div>
-          <h2 class="q-heading">Anything else we should know?</h2>
-          <p class="q-hint">Share links, constraints, examples, or what success looks like for this project.</p>
+          <h2 class="q-heading">Tell us about your firm and current IT situation.</h2>
+          <p class="q-hint">Firm size, locations, software, current support, and your biggest pain points are useful starting points.</p>
           <label class="field">
             <span class="field-label">Details <span class="field-opt">(optional but helpful)</span></span>
             <textarea class="field-textarea" rows="6" bind:value={details} placeholder="Type here…"></textarea>
@@ -429,7 +429,7 @@
               disabled={sending || !turnstileToken}
               on:click={sendFromReview}
             >
-              {sending ? 'Sending…' : 'Send message'}
+              {sending ? 'Sending…' : 'Send Consultation Request'}
             </button>
             <a href={mailtoHref} class="btn btn-secondary btn-lg">Open in email app instead</a>
           </div>
@@ -446,7 +446,7 @@
           <div class="success-badge">Next step</div>
           <h2 class="q-heading">You are set</h2>
           <p class="card-lead">
-            Your message is on its way. If you need to add something, email us at <a href="mailto:{mailTo}">{mailTo}</a>.
+            Your consultation request is on its way. If you need to add something, email us at <a href="mailto:{mailTo}">{mailTo}</a>.
           </p>
           <p class="card-lead">
             We read every request. Expect a direct human reply, usually within one business day.

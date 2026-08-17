@@ -1,10 +1,6 @@
 import { audienceSegments } from './audienceSegments';
-import { getGreenbrierPlace } from './greenbrierPlaces';
-import { learnDocs } from './learnPages';
 import { servicePages } from './servicePages';
-import { solutionPages } from './solutionPages';
 import { canonicalUrl } from './siteUrls';
-import { getWvCityPage } from './wvCityPages';
 
 export type PageMeta = {
   title: string;
@@ -22,63 +18,38 @@ function normalizePath(path: string): string {
 
 const staticMeta: Record<string, Omit<PageMeta, 'canonical'>> = {
   '/': {
-    title: 'HostVerna | Custom websites, software & IT that fit your business',
+    title: 'HostVerna | Managed IT for Accounting & Tax Firms',
     description:
-      'Custom websites, web hosting, web development, CRM setup, IT support, and software built around your business, with clear ownership when the project wraps. Built for owners searching for a dependable web designer near me in Southern WV and beyond.',
+      'Managed IT services for CPAs, accounting firms, tax preparers and professional businesses. IRS Security Six, WISP support, help desk and cloud administration.',
   },
   '/about': {
-    title: 'About HostVerna | Website and IT partner in WV',
+    title: 'About HostVerna | West Virginia IT Services',
     description:
-      'Learn about HostVerna: our story, how we partner with clients on custom websites, web hosting, and long-term technology support in West Virginia.',
+      'Learn about HostVerna, a West Virginia-based managed IT firm serving accounting, tax, and other professional firms.',
   },
   '/contact': {
-    title: 'Contact HostVerna | Web design and hosting consultation',
+    title: 'Contact HostVerna | IT Consultation',
     description:
-      'Contact HostVerna to discuss custom websites, software development, hosting, or IT support. Call, email, or use our guided form.',
+      'Schedule a consultation for managed IT, IRS Security Six implementation, WISP support, or tax-season readiness for your accounting or tax firm.',
   },
   '/quick-contact': {
     title: 'Quick contact | HostVerna',
-    description: 'Reach HostVerna in a few fields for a fast response about websites, hosting, software, or IT support.',
-  },
-  '/connect': {
-    title: 'Connect | HostVerna',
-    description:
-      'Found us through a client site or another web team? Contact us to connect, collaborate, or ask questions.',
-  },
-  '/areas-served': {
-    title: 'Areas served | HostVerna',
-    description:
-      'Areas served index from HostVerna with nationwide U.S. coverage details plus featured city and regional pages for web development, web hosting, software, and IT support.',
-  },
-  '/greenbrier-county-wv': {
-    title: 'Greenbrier County, WV | Areas served | HostVerna',
-    description:
-      'Local web development, web hosting, software, and IT support coverage details for Greenbrier County, West Virginia.',
-  },
-  '/resources': {
-    title: 'Resources | HostVerna',
-    description:
-      'Blog, documentation, and guides from HostVerna: domains, web hosting, web development, performance, and how we work with clients.',
+    description: 'Reach HostVerna for managed IT support for your accounting or tax firm.',
   },
   '/faq': {
     title: 'FAQ | HostVerna',
     description:
       'Answers to common questions about HostVerna services, pricing, timelines, support, and how to get started.',
   },
-  '/learn': {
-    title: 'Learn | HostVerna',
+  '/pricing': {
+    title: 'Managed IT Package & Pricing | HostVerna',
     description:
-      'Documentation: domain transfers, images and CDN on Cloudflare, and how solutions stay tailored to you.',
+      'See what is included in HostVerna managed IT support and contact us for a clear proposal built around your accounting or tax firm.',
   },
   '/support': {
     title: 'Support | HostVerna',
     description:
-      'Get help with hosting, your site, or software we built for you. Call, email, or open a request through the portal when you have access.',
-  },
-  '/public-sector': {
-    title: 'Public sector | HostVerna',
-    description:
-      'Websites, software, and integrations for agencies and public entities buying through formal procurement and vendor marketplaces.',
+      'Get IT help for your accounting or tax firm. Call, email, or open a request through the client portal.',
   },
   '/careers': {
     title: 'Careers | HostVerna',
@@ -146,24 +117,6 @@ export function getPageMeta(path: string): PageMeta {
     };
   }
 
-  const solution = solutionPages.find((s) => `/solutions/${s.slug}` === p);
-  if (solution) {
-    return {
-      title: solution.metaTitle,
-      description: solution.lede,
-      canonical: canonicalUrl(p),
-    };
-  }
-
-  const doc = learnDocs.find((d) => `/learn/${d.slug}` === p);
-  if (doc) {
-    return {
-      title: doc.metaTitle,
-      description: doc.lede,
-      canonical: canonicalUrl(p),
-    };
-  }
-
   const segment = audienceSegments.find((s) => `/${s.slug}` === p);
   if (segment) {
     return {
@@ -171,30 +124,6 @@ export function getPageMeta(path: string): PageMeta {
       description: segment.lede,
       canonical: canonicalUrl(p),
     };
-  }
-
-  if (p.startsWith('/greenbrier-county-wv/')) {
-    const placeSlug = p.slice('/greenbrier-county-wv/'.length);
-    const place = getGreenbrierPlace(placeSlug);
-    if (place) {
-      return {
-        title: place.metaTitle,
-        description: place.metaDescription,
-        canonical: canonicalUrl(p),
-      };
-    }
-  }
-
-  if (p.startsWith('/areas-served/')) {
-    const citySlug = p.slice('/areas-served/'.length);
-    const cityPage = getWvCityPage(citySlug);
-    if (cityPage) {
-      return {
-        title: cityPage.metaTitle,
-        description: cityPage.metaDescription,
-        canonical: canonicalUrl(p),
-      };
-    }
   }
 
   return { ...notFoundMeta, canonical: canonicalUrl(p) };

@@ -3,7 +3,7 @@
   import Footer from '../components/Footer.svelte';
   import { getServicePage } from '../data/servicePages';
 
-  /** e.g. `web-design` */
+  /** e.g. `it-solutions` */
   export let slug: string;
 
   $: page = getServicePage(slug);
@@ -17,7 +17,7 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-sep" aria-hidden="true">/</span>
-        <a href="/#services">Services</a>
+        <a href="/#services">IT Services</a>
         <span class="breadcrumb-sep" aria-hidden="true">/</span>
         <span class="breadcrumb-current">{page.title}</span>
       </nav>
@@ -35,8 +35,8 @@
       {/each}
 
       <div class="service-cta">
-        <a href="/contact" class="btn btn-primary btn-lg">Get in touch</a>
-        <a href="/#services" class="btn btn-secondary btn-lg">All services</a>
+        <a href="/contact" class="btn btn-primary btn-lg">Schedule a Consultation</a>
+        <a href="/#services" class="btn btn-secondary btn-lg">All IT Services</a>
       </div>
     </div>
   </main>

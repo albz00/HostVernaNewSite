@@ -11,70 +11,25 @@ export type AudienceSegmentData = {
 
 export const audienceSegments: AudienceSegmentData[] = [
   {
-    slug: 'trades',
-    navTitle: 'Trades & contractors',
-    title: 'Trades & contractors',
-    metaTitle: 'Trades & contractors | HostVerna',
+    slug: 'accounting-tax-firms',
+    navTitle: 'Accounting & Tax Firms',
+    title: 'IT support designed around the realities of accounting firms.',
+    metaTitle: 'IT for CPAs, Accounting Firms & Tax Preparers | HostVerna',
     lede:
-      'HVAC, electrical, plumbing, landscaping, and similar trade businesses need mobile-first sites that load quickly, present licensing clearly, and convert estimate requests into booked work.',
+      'From a solo preparer to a multi-office CPA practice, the technology priorities are similar: protect access, keep systems available, support staff quickly, and reduce surprises during busy season.',
     sections: [
       {
-        heading: 'What we focus on',
+        heading: 'Who HostVerna supports',
         body: [
-          'Clear service areas, emergency versus scheduled service paths, and calls to action aligned to how customers contact you (call, form, or text).',
-          'Project photos, testimonials, and core trust information visitors expect: hours, services, and business credentials.',
+          'CPA firms, accounting firms, tax preparers, enrolled agents, bookkeeping firms, and payroll providers.',
+          'Support can include user accounts, endpoints, email, document access, collaboration, remote work, backups, Security Six implementation, WISP documentation, and technology vendors.',
         ],
       },
       {
-        heading: 'Built for the field',
+        heading: 'Prepare before the phones start ringing',
         body: [
-          'Mobile-first layouts, reliable hosting, and submission paths that perform under real field conditions. When you are ready to add scheduling or CRM integrations, the technical foundation is in place.',
-        ],
-      },
-    ],
-  },
-  {
-    slug: 'professional-services',
-    navTitle: 'Professional & office',
-    title: 'Professional & office',
-    metaTitle: 'Professional services | HostVerna',
-    lede:
-      'Law, accounting, consulting, and similar firms need a credible first impression: domain-based business email, a professional site, and information structured for busy decision-makers.',
-    sections: [
-      {
-        heading: 'Credibility first',
-        body: [
-          'Design and copy aligned to your positioning, with clear paths for intake, consultations, or downloads.',
-        ],
-      },
-      {
-        heading: 'Systems when you need them',
-        body: [
-          'We connect websites to your existing tools (scheduling, CRM, intake) without adding unnecessary software.',
-        ],
-      },
-    ],
-  },
-  {
-    slug: 'aviation',
-    navTitle: 'Aviation & flight',
-    title: 'Aviation & flight',
-    metaTitle: 'Aviation websites and software | HostVerna',
-    lede:
-      'Charter operators, flight schools, airports, FBOs, and maintenance teams need digital tools that are credible, current, and easy to use. We build systems for aviation organizations that cannot afford unclear information.',
-    sections: [
-      {
-        heading: 'Who this fits',
-        body: [
-          'Private charter operators, ground schools, flight training programs, airport services, FBOs, maintenance shops, and related operations.',
-          'We help present services, safety information, availability, aircraft details, forms, and contact paths in a way that is clear to customers, students, pilots, and partners.',
-        ],
-      },
-      {
-        heading: 'What we can build',
-        body: [
-          'Public-facing websites for charter requests, training inquiries, airport services, fleet pages, and maintenance intake.',
-          'When needed, we also scope portals, CRM workflows, quote paths, scheduling workflows, and internal tools aligned to your operation.',
+          'A pre-season review can cover user accounts and permissions, workstation health, MFA, tax software access, backups, remote work, internet and network dependencies, printer and scanner workflows, vendor contacts, and WISP changes.',
+          'HostVerna provides technology implementation and documentation assistance. Your firm remains responsible for its legal, regulatory, and professional obligations. HostVerna does not provide legal advice or certify regulatory compliance.',
         ],
       },
     ],

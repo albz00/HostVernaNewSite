@@ -1,28 +1,29 @@
 <script lang="ts">
   const footerLinks = {
-    Services: [
-      { label: 'Web Development', href: '/#services' },
-      { label: 'Business Software', href: '/#services' },
-      { label: 'CRM Setup', href: '/#services' },
-      { label: 'IT Support', href: '/#services' },
-      { label: 'Managed Hosting', href: '/#services' },
+    'IT Services': [
+      { label: 'Managed IT Services', href: '/services/it-solutions' },
+      { label: 'IRS Security Six', href: '/services/irs-security-six' },
+      { label: 'WISP Services', href: '/services/wisp-services' },
+    ],
+    'Who We Serve': [
+      { label: 'CPA Firms', href: '/accounting-tax-firms' },
+      { label: 'Tax Preparers & EAs', href: '/accounting-tax-firms' },
+      { label: 'Bookkeeping Firms', href: '/accounting-tax-firms' },
+      { label: 'Payroll Providers', href: '/accounting-tax-firms' },
+    ],
+    'Get Started': [
+      { label: 'Schedule a Consultation', href: '/contact' },
+      { label: 'Discuss Your IT Needs', href: '/contact' },
+      { label: 'Request a Security Six Review', href: '/contact' },
+      { label: 'Discuss Your WISP', href: '/contact' },
+      { label: 'Support', href: '/support' },
     ],
     Company: [
-      { label: 'About Us', href: '/about' },
-      { label: 'Our Process', href: '/#use-cases' },
+      { label: 'About HostVerna', href: '/about' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'How We Work', href: '/#use-cases' },
       { label: 'Careers', href: '/careers' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Press', href: '/contact' },
-    ],
-    Resources: [
-      { label: 'Resources hub', href: '/resources' },
-      { label: 'Areas served', href: '/areas-served' },
-      { label: 'Connect', href: '/connect' },
-      { label: 'Case Studies', href: '/#case-studies' },
-      { label: 'Documentation', href: '/learn' },
       { label: 'FAQ', href: '/faq' },
-      { label: 'Status', href: '/contact' },
-      { label: 'Contact', href: '/contact' },
     ],
     Legal: [
       { label: 'Privacy Policy', href: '/privacy' },
@@ -41,8 +42,8 @@
           <span class="logo-host">Host</span><span class="logo-verna">Verna</span>
         </a>
         <p class="brand-desc">
-          Web hosting, web development, software, and managed services for business operations.
-          One technical partner across core digital systems.
+          West Virginia-based managed IT support for CPAs, accounting firms, tax preparers,
+          enrolled agents, bookkeeping firms, and payroll providers.
         </p>
         <div class="brand-contact">
           <a href="mailto:info@hostverna.com" class="contact-link">info@hostverna.com</a>
@@ -72,21 +73,21 @@
     </div>
 
     <div class="footer-trust">
-      <span class="ft-item">WV Licensed Business</span>
+      <span class="ft-item">West Virginia-based</span>
       <span class="ft-sep">/</span>
-      <span class="ft-item">Fully Insured</span>
+      <span class="ft-item">Managed IT Support</span>
       <span class="ft-sep">/</span>
-      <span class="ft-item">Serving Clients Nationwide*</span>
+      <span class="ft-item">IRS Security Six</span>
       <span class="ft-sep">/</span>
-      <span class="ft-item">Financing Available</span>
+      <span class="ft-item">WISP Creation &amp; Updates</span>
     </div>
 
     <div class="footer-bottom">
       <span class="footer-copy">
-        &copy; {new Date().getFullYear()} HostVerna. All rights reserved.
+        &copy; 2026 HostVerna. All rights reserved.
       </span>
       <div class="footer-tagline">
-        Websites, software, CRM, and IT support from one team.
+        IT implementation and documentation support only. Not legal or tax advice.
       </div>
     </div>
   </div>
