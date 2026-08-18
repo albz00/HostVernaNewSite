@@ -152,11 +152,8 @@
     margin-bottom: 28px;
   }
 
-  .as-block--highlight {
-    padding: 22px 20px;
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-tile);
+  .as-block--highlight .as-h2 {
+    color: var(--primary);
   }
 
   .as-h2 {

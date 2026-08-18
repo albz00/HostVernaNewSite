@@ -10,11 +10,14 @@
   import About from './lib/pages/About.svelte';
   import Careers from './lib/pages/Careers.svelte';
   import Faq from './lib/pages/Faq.svelte';
+  import Resources from './lib/pages/Resources.svelte';
   import Pricing from './lib/pages/Pricing.svelte';
-  import LockedPlaceholder from './lib/components/LockedPlaceholder.svelte';
+  import Qualification from './lib/pages/Qualification.svelte';
+  import LegalPage from './lib/pages/LegalPage.svelte';
   import ServeSegment from './lib/pages/ServeSegment.svelte';
   import Pacman from './lib/pages/Pacman.svelte';
   import { getPageMeta } from './lib/data/pageMeta';
+  import { getAudienceSegment } from './lib/data/audienceSegments';
 
   function normalizePathname(path: string): string {
     if (path.length > 1 && path.endsWith('/')) return path.slice(0, -1);
@@ -35,7 +38,13 @@
     return rest || null;
   }
 
+  function audienceSlugFromPath(p: string): string | null {
+    const slug = p.startsWith('/') ? p.slice(1) : p;
+    return getAudienceSegment(slug) ? slug : null;
+  }
+
   $: serviceSlug = serviceSlugFromPath(path);
+  $: audienceSlug = audienceSlugFromPath(path);
   $: pageMeta = getPageMeta(path);
 
   $: if (typeof window !== 'undefined') {
@@ -73,8 +82,8 @@
 
 {#if path === '/portal'}
   <Portal />
-{:else if path === '/accounting-tax-firms'}
-  <ServeSegment slug={path.slice(1)} />
+{:else if audienceSlug !== null}
+  <ServeSegment slug={audienceSlug} />
 {:else if path === '/support'}
   <Support />
 {:else if path === '/quick-contact'}
@@ -89,28 +98,20 @@
   <Pacman />
 {:else if path === '/faq'}
   <Faq />
+{:else if path === '/resources'}
+  <Resources />
 {:else if path === '/pricing'}
   <Pricing />
+{:else if path === '/qualification'}
+  <Qualification />
 {:else if path === '/privacy'}
-  <LockedPlaceholder
-    heading="Privacy Policy is locked"
-    lead="This page is not open to visitors. If you need our privacy practices in writing or have questions, call or email us."
-  />
+  <LegalPage slug="privacy" />
 {:else if path === '/terms'}
-  <LockedPlaceholder
-    heading="Terms of Service are locked"
-    lead="This page is not open to visitors. If you need our terms in writing or have questions, call or email us."
-  />
+  <LegalPage slug="terms" />
 {:else if path === '/cookies'}
-  <LockedPlaceholder
-    heading="Cookie Policy is locked"
-    lead="This page is not open to visitors. If you need cookie policy details or have questions, call or email us."
-  />
+  <LegalPage slug="cookies" />
 {:else if path === '/sla'}
-  <LockedPlaceholder
-    heading="SLA is locked"
-    lead="This page is not open to visitors. If you need SLA details or have questions, call or email us."
-  />
+  <LegalPage slug="sla" />
 {:else if serviceSlug !== null}
   <ServicePage slug={serviceSlug} />
 {:else}

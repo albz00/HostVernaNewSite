@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { servicePages } from '../src/lib/data/servicePages';
+import { audienceSegments } from '../src/lib/data/audienceSegments';
 import { BOOKING_ORIGIN, getSitemapPaths, SITE_ORIGIN } from '../src/lib/data/siteUrls';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -25,7 +26,7 @@ const urlEntries = urls
   .map((path) => {
     const loc = canonicalLoc(path);
     const priority =
-      path === '/' ? '1.0' : path.startsWith('/learn/') ? '0.65' : path.startsWith('/services/') ? '0.85' : '0.8';
+      path === '/' ? '1.0' : path.startsWith('/services/') ? '0.85' : '0.8';
     const changefreq = path === '/' ? 'weekly' : 'monthly';
     return `  <url>
     <loc>${escapeXml(loc)}</loc>
@@ -49,12 +50,8 @@ Allow: /
 
 # Locked / non-public surfaces (see site routing)
 Disallow: /portal
-Disallow: /privacy
-Disallow: /terms
-Disallow: /cookies
-Disallow: /sla
 Disallow: /blog
-Disallow: /labyrinth
+Disallow: /pacman
 
 # LLM and AI assistant context
 # See ${SITE_ORIGIN}/llms.txt
@@ -66,6 +63,23 @@ Sitemap: ${SITE_ORIGIN}/sitemap.xml
 writeFileSync(join(publicDir, 'robots.txt'), robots, 'utf8');
 
 const serviceList = servicePages.map((p) => `- ${mdLink(p.title, `${SITE_ORIGIN}/services/${p.slug}`)}`).join('\n');
+const audienceList = audienceSegments
+  .map((segment) => `- ${mdLink(segment.navTitle, `${SITE_ORIGIN}/${segment.slug}`)}`)
+  .join('\n');
+const mainPageList = [
+  ['Home', '/'],
+  ['About', '/about'],
+  ['Pricing', '/pricing'],
+  ['Firm qualification', '/qualification'],
+  ['Security and compliance resources', '/resources'],
+  ['Frequently asked questions', '/faq'],
+  ['Careers', '/careers'],
+  ['Contact', '/contact'],
+  ['Quick contact', '/quick-contact'],
+  ['Client support', '/support'],
+]
+  .map(([label, path]) => `- ${mdLink(label, `${SITE_ORIGIN}${path}`)}`)
+  .join('\n');
 
 const llms = `# HostVerna
 
@@ -74,18 +88,13 @@ HostVerna provides managed IT support for CPAs, accounting firms, tax preparers,
 Primary geography: West Virginia and beyond. Primary contact channels: consultation form and phone.
 Last updated: ${lastmod}
 
-## Contact
-- Site: ${mdLink('Contact page', `${SITE_ORIGIN}/contact`)}
-- Quick contact: ${mdLink('Quick contact', `${SITE_ORIGIN}/quick-contact`)}
-- Phone: 304-992-6568
+## Public pages
+${mainPageList}
 
-## Main entry points
-- ${mdLink('Home', `${SITE_ORIGIN}/`)}
-- ${mdLink('About', `${SITE_ORIGIN}/about`)}
-- ${mdLink('Support', `${SITE_ORIGIN}/support`)}
+Phone: 304-992-6568
 
 ## Who HostVerna serves
-- ${mdLink('Accounting and tax firms', `${SITE_ORIGIN}/accounting-tax-firms`)}
+${audienceList}
 
 ## Services (detail pages)
 ${serviceList}
@@ -94,8 +103,13 @@ ${serviceList}
 - ${mdLink('sitemap.xml', `${SITE_ORIGIN}/sitemap.xml`)}
 - ${mdLink('robots.txt', `${SITE_ORIGIN}/robots.txt`)}
 
-## Policies and locked sections
-Legal policy pages may be locked for public visitors; do not assume content at /privacy, /terms, /cookies, or /sla is publicly available. The blog at /blog is not published yet; treat it as inactive.
+## Policies
+- ${mdLink('Privacy Policy', `${SITE_ORIGIN}/privacy`)}
+- ${mdLink('Terms of Service', `${SITE_ORIGIN}/terms`)}
+- ${mdLink('Cookie Policy', `${SITE_ORIGIN}/cookies`)}
+- ${mdLink('Service Level Framework', `${SITE_ORIGIN}/sla`)}
+
+The blog at /blog is not published yet; treat it as inactive.
 
 ## Not indexed (separate subdomain)
 - Appointment booking (${BOOKING_ORIGIN}/) is internal scheduling only. It is not part of the public marketing site and should not appear in search results. Crawlers: disallow all paths on that host.
@@ -110,6 +124,22 @@ const redirectRules = urls
 
 const redirects = `# Prerendered routes (unique meta per URL for crawlers)
 ${redirectRules}
+
+# Retired website-development and local web-design pages
+/connect  /contact  301
+/services/web-design  /services/it-solutions  301
+/services/managed-web-services  /services/it-solutions  301
+/services/business-software-crm  /services/it-solutions  301
+/services/custom-software-solutions  /services/it-solutions  301
+/services/web-hosting  /services/it-solutions  301
+/services/software-solutions  /services/it-solutions  301
+/solutions/*  /services/it-solutions  301
+/learn  /resources  301
+/learn/*  /resources  301
+/areas-served  /accounting-tax-firms  301
+/areas-served/*  /accounting-tax-firms  301
+/greenbrier-county-wv  /accounting-tax-firms  301
+/greenbrier-county-wv/*  /accounting-tax-firms  301
 
 # SPA fallback for unmatched paths
 /*  /index.html  200

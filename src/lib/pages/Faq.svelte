@@ -1,6 +1,7 @@
 <script lang="ts">
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
+  import ComplianceResources from '../components/ComplianceResources.svelte';
 
   const faqs: { question: string; answer: string[] }[] = [
     {
@@ -45,6 +46,13 @@
       question: 'Does Security Six mean we are fully compliant?',
       answer: [
         'No. The Security Six is a baseline checklist, not a complete security or compliance program. HostVerna provides technology implementation and documentation assistance. Your firm remains responsible for its legal, regulatory, and professional obligations.',
+      ],
+    },
+    {
+      question: 'What is a Written Information Security Plan (WISP)?',
+      answer: [
+        'A WISP documents how a firm protects customer information through administrative, technical, and physical safeguards. The FTC Safeguards Rule requires covered financial institutions, including tax preparation firms, to maintain a written information security program appropriate to their circumstances.',
+        'The IRS provides a sample WISP and guidance for tax and accounting practices in Publications 5708 and 5709. Those official references are linked below.',
       ],
     },
     {
@@ -115,6 +123,8 @@
       </div>
     </aside>
   </div>
+
+  <ComplianceResources />
 </main>
 
 <Footer />

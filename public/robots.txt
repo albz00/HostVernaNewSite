@@ -3,12 +3,8 @@ Allow: /
 
 # Locked / non-public surfaces (see site routing)
 Disallow: /portal
-Disallow: /privacy
-Disallow: /terms
-Disallow: /cookies
-Disallow: /sla
 Disallow: /blog
-Disallow: /labyrinth
+Disallow: /pacman
 
 # LLM and AI assistant context
 # See https://hostverna.com/llms.txt

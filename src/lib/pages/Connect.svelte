@@ -27,7 +27,6 @@
 
     <article class="business-card" aria-labelledby="connect-card-heading">
       <div class="business-card-top">
-        <p class="business-card-kicker">Digital business card</p>
         <h1 id="connect-card-heading" class="connect-h1">HostVerna</h1>
         <p class="business-card-role">Web design, software, and managed IT for businesses that need reliable delivery.</p>
       </div>
@@ -146,15 +145,6 @@
     border-bottom: 1px solid rgb(148 163 184 / 0.35);
     margin-bottom: 20px;
     padding-bottom: 20px;
-  }
-
-  .business-card-kicker {
-    margin: 0 0 10px;
-    font-size: 11px;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
   }
 
   .connect-h1 {

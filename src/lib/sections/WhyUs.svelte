@@ -125,14 +125,14 @@
     font-size: clamp(28px, 4vw, 44px);
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #0f172a;
+    color: var(--text-primary);
     line-height: 1.12;
     margin-top: 14px;
   }
 
   .split-sub {
     font-size: 15px;
-    color: #475569;
+    color: var(--text-secondary);
     line-height: 1.7;
     max-width: 400px;
     align-self: end;
@@ -396,7 +396,7 @@
 
   .why-sub {
     font-size: 15px;
-    color: #475569;
+    color: var(--text-secondary);
     line-height: 1.7;
     max-width: 360px;
   }
@@ -424,7 +424,7 @@
 
   .pillar {
     padding: 24px 0;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border);
     transition: background 0.15s;
   }
 
@@ -436,24 +436,19 @@
     font-family: 'Space Grotesk', sans-serif;
     font-size: 16px;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--text-primary);
     letter-spacing: -0.02em;
     margin-bottom: 5px;
   }
 
   .pillar-desc {
     font-size: 14px;
-    color: #475569;
+    color: var(--text-secondary);
     line-height: 1.6;
   }
 
   .inline-quote {
     margin-top: 24px;
-    padding: 20px 24px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-tile);
-    box-shadow: var(--shadow-tile);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -461,7 +456,7 @@
 
   .iq-text {
     font-size: 15px;
-    color: #374151;
+    color: var(--primary);
     font-style: italic;
     line-height: 1.6;
   }
@@ -579,10 +574,6 @@
 
     .pillar {
       padding: 20px 0;
-    }
-
-    .inline-quote {
-      padding: 18px 16px;
     }
 
     .whyus-left .btn {

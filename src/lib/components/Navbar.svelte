@@ -20,7 +20,7 @@
   };
 
   const utilityBadges: UtilityBadge[] = [
-    { id: 'google', href: GOOGLE_REVIEWS_URL, count: 13, platform: 'Google', kind: 'reviews' },
+    { id: 'google', href: GOOGLE_REVIEWS_URL, count: 14, platform: 'Google', kind: 'reviews' },
     { id: 'facebook', href: FACEBOOK_REVIEWS_URL, count: 5, platform: 'Facebook', kind: 'reviews' },
     {
       id: 'cloudflare',
@@ -74,6 +74,12 @@
   let navInnerElement: HTMLElement;
   let mobileMenuMaxHeight = 'calc(100dvh - 88px - env(safe-area-inset-bottom))';
   const MOBILE_BREAKPOINT = 900;
+  let currentPath = typeof window === 'undefined' ? '/' : window.location.pathname.replace(/\/$/, '') || '/';
+
+  $: activeService = serviceNavItems.find((item) => item.href === currentPath);
+  $: servicesNavLabel = activeService?.title ?? 'IT Services';
+  $: activeWhoWeServe = whoWeServeNavItems.find((item) => item.href === currentPath);
+  $: whoWeServeNavLabel = activeWhoWeServe?.title ?? 'Who we serve';
 
   type MobileAccordionId = 'services' | 'whoWeServe';
 
@@ -172,6 +178,9 @@
   onMount(() => {
     prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setDocumentMenuState(mobileOpen);
+    const syncCurrentPath = () => {
+      currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+    };
 
     const handler = () => {
       scrolled = window.scrollY > 24;
@@ -196,6 +205,7 @@
     window.addEventListener('scroll', handler, { passive: true });
     window.addEventListener('resize', resizeHandler, { passive: true });
     window.addEventListener('keydown', keydownHandler);
+    window.addEventListener('popstate', syncCurrentPath);
     window.visualViewport?.addEventListener('resize', resizeHandler, { passive: true });
     window.visualViewport?.addEventListener('scroll', resizeHandler, { passive: true });
 
@@ -209,6 +219,7 @@
       window.removeEventListener('scroll', handler);
       window.removeEventListener('resize', resizeHandler);
       window.removeEventListener('keydown', keydownHandler);
+      window.removeEventListener('popstate', syncCurrentPath);
       window.visualViewport?.removeEventListener('resize', resizeHandler);
       window.visualViewport?.removeEventListener('scroll', resizeHandler);
     };
@@ -298,14 +309,27 @@
 
       <ul class="nav-links">
         <li class="nav-dropdown">
-          <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
-            IT Services
+          <button
+            type="button"
+            class="nav-link nav-dropdown-btn"
+            class:nav-dropdown-btn--current={activeService}
+            aria-label={`${servicesNavLabel} service menu`}
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {servicesNavLabel}
             <span class="nav-dropdown-caret" aria-hidden="true"></span>
           </button>
           <ul class="nav-dropdown-menu" role="menu">
             {#each serviceNavItems as item}
               <li role="none">
-                <a href={item.href} class="nav-dropdown-link" role="menuitem">{item.title}</a>
+                <a
+                  href={item.href}
+                  class="nav-dropdown-link"
+                  class:nav-dropdown-link--current={item.href === currentPath}
+                  role="menuitem"
+                  aria-current={item.href === currentPath ? 'page' : undefined}>{item.title}</a
+                >
               </li>
             {/each}
             <li role="none" class="nav-dropdown-footer">
@@ -316,14 +340,27 @@
           </ul>
         </li>
         <li class="nav-dropdown">
-          <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
-            Who we serve
+          <button
+            type="button"
+            class="nav-link nav-dropdown-btn"
+            class:nav-dropdown-btn--current={activeWhoWeServe}
+            aria-label={`${whoWeServeNavLabel} audience menu`}
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {whoWeServeNavLabel}
             <span class="nav-dropdown-caret" aria-hidden="true"></span>
           </button>
           <ul class="nav-dropdown-menu nav-dropdown-menu--solutions-cols" role="menu">
             {#each whoWeServeNavItems as item}
               <li role="none" class="nav-dropdown-solution-cell">
-                <a href={item.href} class="nav-dropdown-link" role="menuitem">{item.title}</a>
+                <a
+                  href={item.href}
+                  class="nav-dropdown-link"
+                  class:nav-dropdown-link--current={item === activeWhoWeServe}
+                  role="menuitem"
+                  aria-current={item === activeWhoWeServe ? 'page' : undefined}>{item.title}</a
+                >
               </li>
             {/each}
           </ul>
@@ -344,7 +381,7 @@
           <span class="nav-phone-compact-text">{phoneDisplay}</span>
         </a>
         <a href={CLIENT_PORTAL_LOGIN_URL} class="btn btn-secondary nav-btn">Portal</a>
-        <a href="/contact" class="btn btn-primary nav-btn">Schedule a Consultation</a>
+        <a href="/pricing" class="btn btn-primary nav-btn">See Pricing</a>
       </div>
 
       <button
@@ -367,10 +404,10 @@
       <div id="site-mobile-nav" class="mobile-menu" style:max-height={mobileMenuMaxHeight}>
         <div class="mobile-actions mobile-actions--top">
           <a
-            href="/contact"
+            href="/pricing"
             class="btn btn-primary"
             style="width:100%;justify-content:center"
-            on:click={closeMobileMenu}>Schedule a Consultation</a
+            on:click={closeMobileMenu}>See Pricing</a
           >
           <a
             href={CLIENT_PORTAL_LOGIN_URL}
@@ -396,7 +433,10 @@
             id="mobile-accordion-trigger-services"
             on:click={() => toggleMobileAccordion('services')}
           >
-            <span class="mobile-group-trigger-label">IT Services</span>
+            <span
+              class="mobile-group-trigger-label"
+              class:mobile-group-trigger-label--current={activeService}>{servicesNavLabel}</span
+            >
             <span
               class="mobile-group-caret"
               class:mobile-group-caret--open={mobileAccordionOpen.services}
@@ -411,7 +451,12 @@
               aria-labelledby="mobile-accordion-trigger-services"
             >
               {#each serviceNavItems as item}
-                <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
+                <a
+                  href={item.href}
+                  class="mobile-link mobile-sublink"
+                  class:mobile-sublink--current={item.href === currentPath}
+                  aria-current={item.href === currentPath ? 'page' : undefined}
+                  on:click={closeMobileMenu}
                   >{item.title}</a
                 >
               {/each}
@@ -431,7 +476,10 @@
             id="mobile-accordion-trigger-who-we-serve"
             on:click={() => toggleMobileAccordion('whoWeServe')}
           >
-            <span class="mobile-group-trigger-label">Who we serve</span>
+            <span
+              class="mobile-group-trigger-label"
+              class:mobile-group-trigger-label--current={activeWhoWeServe}>{whoWeServeNavLabel}</span
+            >
             <span
               class="mobile-group-caret"
               class:mobile-group-caret--open={mobileAccordionOpen.whoWeServe}
@@ -446,7 +494,12 @@
               aria-labelledby="mobile-accordion-trigger-who-we-serve"
             >
               {#each whoWeServeNavItems as item}
-                <a href={item.href} class="mobile-link mobile-sublink" on:click={closeMobileMenu}
+                <a
+                  href={item.href}
+                  class="mobile-link mobile-sublink"
+                  class:mobile-sublink--current={item === activeWhoWeServe}
+                  aria-current={item === activeWhoWeServe ? 'page' : undefined}
+                  on:click={closeMobileMenu}
                   >{item.title}</a
                 >
               {/each}
@@ -733,6 +786,10 @@
     background: rgba(3, 105, 161, 0.06);
   }
 
+  .nav-dropdown-btn--current {
+    color: var(--primary);
+  }
+
   .nav-dropdown-caret {
     width: 0;
     height: 0;
@@ -802,6 +859,10 @@
   .nav-dropdown-link:hover {
     background: var(--bg-subtle);
     color: var(--text-primary);
+  }
+
+  .nav-dropdown-link--current {
+    color: var(--primary);
   }
 
   .nav-dropdown-menu--solutions-cols {
@@ -1068,6 +1129,10 @@
     color: #94a3b8;
   }
 
+  .mobile-group-trigger-label--current {
+    color: var(--primary);
+  }
+
   .mobile-group-caret {
     width: 0;
     height: 0;
@@ -1125,6 +1190,10 @@
     min-height: 40px;
     padding: 9px 12px 9px 18px;
     color: #64748b;
+  }
+
+  .mobile-sublink--current {
+    color: var(--primary);
   }
 
   .mobile-sublink-all {

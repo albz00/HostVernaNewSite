@@ -1,16 +1,41 @@
 # Prerendered routes (unique meta per URL for crawlers)
 /about  /about/index.html  200
 /accounting-tax-firms  /accounting-tax-firms/index.html  200
+/bookkeeping-firms  /bookkeeping-firms/index.html  200
 /careers  /careers/index.html  200
-/connect  /connect/index.html  200
 /contact  /contact/index.html  200
+/cookies  /cookies/index.html  200
+/cpa-firms  /cpa-firms/index.html  200
 /faq  /faq/index.html  200
+/payroll-providers  /payroll-providers/index.html  200
 /pricing  /pricing/index.html  200
+/privacy  /privacy/index.html  200
+/qualification  /qualification/index.html  200
 /quick-contact  /quick-contact/index.html  200
+/resources  /resources/index.html  200
 /services/irs-security-six  /services/irs-security-six/index.html  200
 /services/it-solutions  /services/it-solutions/index.html  200
 /services/wisp-services  /services/wisp-services/index.html  200
+/sla  /sla/index.html  200
 /support  /support/index.html  200
+/tax-preparers-enrolled-agents  /tax-preparers-enrolled-agents/index.html  200
+/terms  /terms/index.html  200
+
+# Retired website-development and local web-design pages
+/connect  /contact  301
+/services/web-design  /services/it-solutions  301
+/services/managed-web-services  /services/it-solutions  301
+/services/business-software-crm  /services/it-solutions  301
+/services/custom-software-solutions  /services/it-solutions  301
+/services/web-hosting  /services/it-solutions  301
+/services/software-solutions  /services/it-solutions  301
+/solutions/*  /services/it-solutions  301
+/learn  /resources  301
+/learn/*  /resources  301
+/areas-served  /accounting-tax-firms  301
+/areas-served/*  /accounting-tax-firms  301
+/greenbrier-county-wv  /accounting-tax-firms  301
+/greenbrier-county-wv/*  /accounting-tax-firms  301
 
 # SPA fallback for unmatched paths
 /*  /index.html  200

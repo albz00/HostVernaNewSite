@@ -1,7 +1,7 @@
 <script lang="ts">
   import Navbar from '../components/Navbar.svelte';
   import Footer from '../components/Footer.svelte';
-  import { learnDocs } from '../data/learnPages';
+  import ComplianceResources from '../components/ComplianceResources.svelte';
 </script>
 
 <Navbar />
@@ -17,40 +17,28 @@
     <header class="res-header">
       <h1 class="res-h1">Resources</h1>
       <p class="res-lede">
-        Articles, documentation, and practical notes on web hosting and web development. Start with the blog or jump into
-        a specific guide.
+        Practical guidance for accounting and tax firms evaluating security safeguards, written plans, and their
+        responsibilities for protecting taxpayer information.
       </p>
     </header>
 
     <div class="res-grid">
-      <a href="/blog" class="res-tile">
-        <span class="res-tile-label">Blog</span>
-        <span class="res-tile-title">Ideas &amp; updates</span>
-        <span class="res-tile-desc">Practical updates on delivery, performance, and operational improvements.</span>
+      <a href="/services/irs-security-six" class="res-tile">
+        <span class="res-tile-title">IRS Security Six</span>
+        <span class="res-tile-desc">Review the six baseline safeguards and how HostVerna helps implement them.</span>
       </a>
-      <a href="/learn" class="res-tile">
-        <span class="res-tile-label">Learn</span>
-        <span class="res-tile-title">Documentation</span>
-        <span class="res-tile-desc">Domains, images &amp; CDN, and how solutions stay tailored to you.</span>
+      <a href="/services/wisp-services" class="res-tile">
+        <span class="res-tile-title">WISP services</span>
+        <span class="res-tile-desc">Understand the process for creating or updating a firm-specific written plan.</span>
       </a>
       <a href="/faq" class="res-tile">
-        <span class="res-tile-label">FAQ</span>
         <span class="res-tile-title">Common questions</span>
-        <span class="res-tile-desc">Quick answers on timelines, ownership, support, and how projects start.</span>
+        <span class="res-tile-desc">Straight answers about Security Six, WISPs, managed IT, and how projects start.</span>
       </a>
     </div>
-
-    <section class="res-docs">
-      <h2 class="res-h2">Guides</h2>
-      <ul class="res-doc-list">
-        {#each learnDocs as doc}
-          <li>
-            <a href={`/learn/${doc.slug}`} class="res-doc-link">{doc.title}</a>
-          </li>
-        {/each}
-      </ul>
-    </section>
   </div>
+
+  <ComplianceResources />
 </main>
 
 <Footer />
@@ -150,14 +138,6 @@
     background: var(--bg);
   }
 
-  .res-tile-label {
-    font-size: 11px;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--primary);
-  }
-
   .res-tile-title {
     font-family: var(--font-display);
     font-size: 19px;
@@ -172,31 +152,4 @@
     line-height: 1.5;
   }
 
-  .res-h2 {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0 0 14px;
-  }
-
-  .res-doc-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .res-doc-link {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--primary);
-    text-decoration: none;
-  }
-
-  .res-doc-link:hover {
-    text-decoration: underline;
-  }
 </style>

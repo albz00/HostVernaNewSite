@@ -23,7 +23,7 @@ export const CLOUDFLARE_PAGE_VIEWS_URL = 'https://share.google/lmAC6lH1PqvElrUJo
 export const BOOKING_ORIGIN = 'https://booking.hostverna.com';
 
 /**
- * Indexable paths for sitemap.xml. Excludes locked placeholders (/portal, legal stubs, etc.).
+ * Indexable paths for sitemap.xml. Excludes private and utility surfaces such as /portal.
  * Keep in sync with `App.svelte` routing.
  */
 export function getSitemapPaths(): string[] {
@@ -31,12 +31,17 @@ export function getSitemapPaths(): string[] {
     '/',
     '/about',
     '/careers',
-    '/connect',
     '/contact',
     '/quick-contact',
     '/faq',
+    '/resources',
     '/pricing',
+    '/qualification',
     '/support',
+    '/privacy',
+    '/terms',
+    '/cookies',
+    '/sla',
     ...audienceSegments.map((s) => `/${s.slug}`),
   ];
 

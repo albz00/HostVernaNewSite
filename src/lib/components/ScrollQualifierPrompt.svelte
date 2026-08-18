@@ -38,11 +38,7 @@
 
   function goToQualifier() {
     close();
-    const el = document.getElementById('who-we-serve');
-    el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    requestAnimationFrame(() => {
-      el?.querySelector<HTMLElement>('button, a')?.focus();
-    });
+    window.location.href = '/qualification';
   }
 
   $: if (typeof document !== 'undefined') {
@@ -93,10 +89,9 @@
       <button type="button" class="sqp-close" on:click={close} aria-label="Close">
         ×
       </button>
-      <p class="sqp-kicker">Still browsing?</p>
       <h2 id="sqp-heading" class="sqp-title">Before you continue</h2>
       <p class="sqp-body">
-        Take one minute to complete the fit check before continuing. Five quick questions and a direct recommendation.
+        Review the qualification checklist and give HostVerna the context needed for a focused discovery meeting.
       </p>
       <div class="sqp-actions">
         <button
@@ -105,7 +100,7 @@
           bind:this={primaryBtn}
           on:click={goToQualifier}
         >
-          Start fit check
+          Start qualification
         </button>
         <button type="button" class="btn btn-secondary" on:click={close}>Not now</button>
       </div>
@@ -170,15 +165,6 @@
   .sqp-close:hover {
     color: var(--text-primary);
     background: var(--bg-muted);
-  }
-
-  .sqp-kicker {
-    font-size: 11px;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    margin-bottom: 10px;
   }
 
   .sqp-title {

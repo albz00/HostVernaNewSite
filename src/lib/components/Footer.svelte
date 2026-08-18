@@ -6,10 +6,10 @@
       { label: 'WISP Services', href: '/services/wisp-services' },
     ],
     'Who We Serve': [
-      { label: 'CPA Firms', href: '/accounting-tax-firms' },
-      { label: 'Tax Preparers & EAs', href: '/accounting-tax-firms' },
-      { label: 'Bookkeeping Firms', href: '/accounting-tax-firms' },
-      { label: 'Payroll Providers', href: '/accounting-tax-firms' },
+      { label: 'CPA Firms', href: '/cpa-firms' },
+      { label: 'Tax Preparers & EAs', href: '/tax-preparers-enrolled-agents' },
+      { label: 'Bookkeeping Firms', href: '/bookkeeping-firms' },
+      { label: 'Payroll Providers', href: '/payroll-providers' },
     ],
     'Get Started': [
       { label: 'Schedule a Consultation', href: '/contact' },
@@ -38,8 +38,17 @@
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="/" class="logo">
-          <span class="logo-host">Host</span><span class="logo-verna">Verna</span>
+        <a href="/" class="logo" aria-label="HostVerna home">
+          <img
+            src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/520d3037-a29a-41e4-b52e-93dd51a9e700/public"
+            width="64"
+            height="58"
+            alt=""
+            class="logo-mark"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="logo-word">HostVerna</span>
         </a>
         <p class="brand-desc">
           West Virginia-based managed IT support for CPAs, accounting firms, tax preparers,
@@ -70,16 +79,6 @@
           </div>
         {/each}
       </nav>
-    </div>
-
-    <div class="footer-trust">
-      <span class="ft-item">West Virginia-based</span>
-      <span class="ft-sep">/</span>
-      <span class="ft-item">Managed IT Support</span>
-      <span class="ft-sep">/</span>
-      <span class="ft-item">IRS Security Six</span>
-      <span class="ft-sep">/</span>
-      <span class="ft-item">WISP Creation &amp; Updates</span>
     </div>
 
     <div class="footer-bottom">
@@ -116,18 +115,26 @@
   }
 
   .logo {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 9px;
     font-size: 18px;
     font-weight: 800;
     letter-spacing: -0.03em;
     text-decoration: none;
   }
 
-  .logo-host {
-    color: #38bdf8;
+  .logo-mark {
+    display: block;
+    width: 30px;
+    height: auto;
+    flex-shrink: 0;
+    filter: brightness(0) invert(1);
   }
 
-  .logo-verna {
-    color: #2dd4bf;
+  .logo-word {
+    color: #ffffff;
   }
 
   .brand-desc {
@@ -188,27 +195,6 @@
 
   .footer-link:hover {
     color: #ffffff;
-  }
-
-  .footer-trust {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    flex-wrap: wrap;
-  }
-
-  .ft-item {
-    font-size: 11px;
-    color: #94a3b8;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.04em;
-  }
-
-  .ft-sep {
-    color: #1e293b;
-    font-size: 11px;
   }
 
   .footer-bottom {

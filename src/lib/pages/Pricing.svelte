@@ -41,7 +41,6 @@
         <span>Pricing</span>
       </nav>
 
-      <div class="eyebrow">Managed IT package</div>
       <h1>IT support built around your firm.</h1>
       <p class="hero-lede">
         Our managed IT package combines everyday support with the ongoing administration and planning needed to keep
@@ -57,7 +56,6 @@
   <section class="package-section" aria-labelledby="package-heading">
     <div class="container package-layout">
       <div class="package-intro">
-        <div class="section-label">What is included</div>
         <h2 id="package-heading">One accountable IT relationship</h2>
         <p>
           Instead of piecing together help only when something breaks, you get a team that learns your environment and
@@ -82,11 +80,10 @@
   <section class="quote-section">
     <div class="container quote-card">
       <div>
-        <div class="section-label">A plan that fits</div>
         <h2>Pricing starts with a conversation.</h2>
         <p>
           Every firm has a different number of people, devices, locations, applications, and support needs. We learn
-          how your firm works, define the right scope, and provide a clear proposal—without forcing you into a generic
+          how your firm works, define the right scope, and provide a clear proposal without forcing you into a generic
           tier.
         </p>
       </div>
@@ -133,17 +130,6 @@
 
   .breadcrumb a:hover {
     color: var(--primary);
-  }
-
-  .eyebrow,
-  .section-label {
-    margin-bottom: 14px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--teal);
   }
 
   h1 {

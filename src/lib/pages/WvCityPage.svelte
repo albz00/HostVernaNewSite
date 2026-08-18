@@ -150,11 +150,8 @@
     margin-bottom: 24px;
   }
 
-  .city-block--highlight {
-    padding: 20px;
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-tile);
+  .city-block--highlight .city-h2 {
+    color: var(--primary);
   }
 
   .city-h2 {

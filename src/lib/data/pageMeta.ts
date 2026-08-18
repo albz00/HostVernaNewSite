@@ -41,10 +41,20 @@ const staticMeta: Record<string, Omit<PageMeta, 'canonical'>> = {
     description:
       'Answers to common questions about HostVerna services, pricing, timelines, support, and how to get started.',
   },
+  '/resources': {
+    title: 'Security & Compliance Resources | HostVerna',
+    description:
+      'Official IRS and FTC resources for tax professionals covering the Security Six, Written Information Security Plans, and the Safeguards Rule.',
+  },
   '/pricing': {
     title: 'Managed IT Package & Pricing | HostVerna',
     description:
       'See what is included in HostVerna managed IT support and contact us for a clear proposal built around your accounting or tax firm.',
+  },
+  '/qualification': {
+    title: 'Accounting Firm IT Qualification | HostVerna',
+    description:
+      'Complete HostVerna’s CPA technology and security qualification checklist before a discovery meeting about IRS Security Six or managed IT services.',
   },
   '/support': {
     title: 'Support | HostVerna',
@@ -67,24 +77,24 @@ const staticMeta: Record<string, Omit<PageMeta, 'canonical'>> = {
     robots: 'noindex, follow',
   },
   '/privacy': {
-    title: 'Privacy Policy (locked) | HostVerna',
-    description: 'The HostVerna privacy policy is not available for public access right now.',
-    robots: 'noindex, follow',
+    title: 'Privacy Policy | HostVerna',
+    description:
+      'Learn what information HostVerna collects through its website, how it is used, and the privacy choices available to visitors and clients.',
   },
   '/terms': {
-    title: 'Terms of Service (locked) | HostVerna',
-    description: 'The HostVerna terms of service are not available for public access right now.',
-    robots: 'noindex, follow',
+    title: 'Terms of Service | HostVerna',
+    description:
+      'Review the terms governing use of the HostVerna website and baseline terms for interactions not covered by a separate signed agreement.',
   },
   '/cookies': {
-    title: 'Cookie Policy (locked) | HostVerna',
-    description: 'The HostVerna cookie policy is not available for public access right now.',
-    robots: 'noindex, follow',
+    title: 'Cookie Policy | HostVerna',
+    description:
+      'Learn how HostVerna uses cookies, analytics, local browser storage, and security technologies on hostverna.com.',
   },
   '/sla': {
-    title: 'SLA (locked) | HostVerna',
-    description: 'The HostVerna service level agreement is not available for public access right now.',
-    robots: 'noindex, follow',
+    title: 'Service Level Framework | HostVerna',
+    description:
+      'See how HostVerna receives, prioritizes, communicates, and escalates client support requests and service incidents.',
   },
   '/pacman': {
     title: 'First-person Pac-Man | HostVerna',

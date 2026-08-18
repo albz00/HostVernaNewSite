@@ -87,28 +87,16 @@
 <section class="cta-section" id="contact">
   <div class="container cta-content">
     <div class="cta-inner">
-      <span class="cta-eyebrow">West Virginia Managed IT</span>
       <h2 class="cta-title">
         Need your firm's IT cleaned up<br />before the next filing deadline?
       </h2>
       <p class="cta-sub">
         Start with an IT review, a Security Six implementation project,
-        <ContentHighlight tone="accent">a WISP update, or a managed support plan.</ContentHighlight>
+        <span class="cta-highlight">a WISP update, or a managed support plan.</span>
       </p>
       <div class="cta-actions">
         <a href="/contact" class="btn btn-white btn-lg">How We Support Accounting Firms</a>
         <a href="mailto:info@hostverna.com" class="btn btn-ghost btn-lg">See Our Pricing</a>
-      </div>
-      <div class="cta-proof">
-        <span class="cp-item">West Virginia-based</span>
-        <span class="cp-dot"></span>
-        <span class="cp-item">Tax-season ready</span>
-        <span class="cp-dot"></span>
-        <span class="cp-item">Plain-English support</span>
-        <span class="cp-dot"></span>
-        <span class="cp-item">Serving clients beyond WV</span>
-        <span class="cp-dot"></span>
-        <span class="cp-item">Managed IT is our core service</span>
       </div>
     </div>
   </div>
@@ -281,7 +269,7 @@
 
   .cta-section {
     position: relative;
-    background: var(--primary);
+    background: var(--gradient);
     padding: 80px 0;
   }
 
@@ -295,14 +283,6 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-  }
-
-  .cta-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.92);
   }
 
   .cta-title {
@@ -320,6 +300,11 @@
     color: rgba(255, 255, 255, 0.92);
     max-width: 440px;
     line-height: 1.7;
+  }
+
+  .cta-highlight {
+    color: #cffafe;
+    font-weight: 700;
   }
 
   .cta-actions {
@@ -372,43 +357,12 @@
     box-shadow: none;
   }
 
-  .cta-proof {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 4px;
-  }
-
-  .cp-item {
-    font-size: 12px;
-    color: rgba(255,255,255,0.9);
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.04em;
-  }
-
-  .cp-dot {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.7);
-    flex-shrink: 0;
-  }
-
   @media (max-width: 768px) {
     .testimonials-grid {
       grid-template-columns: 1fr;
     }
     .cta-section {
       padding: 56px 0;
-    }
-    .cta-proof {
-      flex-direction: column;
-      gap: 6px;
-    }
-    .cp-dot {
-      display: none;
     }
   }
 

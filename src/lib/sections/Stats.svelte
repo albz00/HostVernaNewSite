@@ -273,7 +273,7 @@
   .mq-text {
     font-size: 13px;
     font-style: italic;
-    color: #1f2937;
+    color: var(--text-secondary);
   }
 
   .mq-divider {
@@ -283,7 +283,7 @@
 
   .mq-author {
     font-size: 11px;
-    color: #64748b;
+    color: var(--text-muted);
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.03em;
   }

@@ -12,8 +12,6 @@
       visualLabel: 'Managed IT collaboration and support',
       description: `Your IT department, without building one in-house. Help desk, user support, device administration, patching, Microsoft 365 or Google Workspace, vendor coordination, backups, and ongoing technology management.`,
       placeholder: 'Managed IT Services',
-      quote: '"A real person picked up."',
-      quoteName: 'R. Patel',
       flip: false,
     },
     {
@@ -24,8 +22,6 @@
       visualLabel: 'Laptop showing a secured connection and lock symbol',
       description: `Practical implementation of anti-malware, firewall review, multi-factor authentication, backups, drive encryption, and secure remote access for tax professionals.`,
       placeholder: 'IRS Security Six',
-      quote: '"The safeguards are configured and clearly documented."',
-      quoteName: 'Security Six project',
       flip: true,
     },
     {
@@ -34,10 +30,8 @@
       learnMoreHref: '/services/wisp-services',
       visualUrl: '/images/wisp-documentation.jpg',
       visualLabel: 'Professionals reviewing a written security plan together',
-      description: `A firm-specific Written Information Security Plan that reflects your systems, staff, vendors, safeguards, and review process—not a generic template with your name pasted in.`,
+      description: `A firm-specific Written Information Security Plan that reflects your systems, staff, vendors, safeguards, and review process, not a generic template with your name pasted in.`,
       placeholder: 'WISP Documentation',
-      quote: '"The plan now matches how the firm actually operates."',
-      quoteName: 'WISP project',
       flip: false,
     },
   ];
@@ -127,8 +121,12 @@
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <circle class="svc-check-circle" cx="26" cy="26" r="22" />
-                  <path class="svc-check-path" d="M14.5 26.5 L23 35 L38 18.5" />
+                  <path
+                    class="svc-check-shield"
+                    d="M26 2.5 L46 10.5 V24.5 C46 38.5 38.2 47 26 51 C13.8 47 6 38.5 6 24.5 V10.5 Z"
+                  />
+                  <circle class="svc-check-circle" cx="26" cy="26" r="16" />
+                  <path class="svc-check-path" d="M18 26.5 L24 32.5 L35 20.5" />
                 </svg>
               </span>
               <h3 class="svc-title">{svc.title}</h3>
@@ -138,10 +136,6 @@
                 <p>{para}</p>
               {/each}
             </div>
-            <blockquote class="svc-quote">
-              <p class="quote-text">{svc.quote}</p>
-              <cite class="quote-cite">{svc.quoteName}</cite>
-            </blockquote>
             <a
               href={svc.learnMoreHref}
               class="btn btn-outline-primary"
@@ -178,7 +172,7 @@
     font-size: clamp(28px, 4vw, 44px);
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #0f172a;
+    color: var(--text-primary);
     line-height: 1.15;
   }
 
@@ -395,7 +389,7 @@
     font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(20px, 2.5vw, 28px);
     font-weight: 700;
-    color: #0f172a;
+    color: var(--text-primary);
     letter-spacing: -0.03em;
     line-height: 1.2;
     margin: 0;
@@ -413,8 +407,8 @@
     border-radius: 999px;
     background: radial-gradient(
       circle at 50% 50%,
-      rgb(3 105 161 / 0.08) 0%,
-      rgb(13 148 136 / 0.04) 60%,
+      rgb(3 105 161 / 0.04) 0%,
+      rgb(13 148 136 / 0.02) 60%,
       transparent 100%
     );
   }
@@ -425,18 +419,25 @@
     overflow: visible;
   }
 
+  .svc-check-shield,
   .svc-check-circle,
   .svc-check-path {
-    fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
+  .svc-check-shield {
+    fill: rgb(3 105 161 / 0.065);
+    stroke: rgb(3 105 161 / 0.28);
+    stroke-width: 1.5;
+  }
+
   .svc-check-circle {
+    fill: var(--bg);
     stroke: rgb(3 105 161 / 0.45);
     stroke-width: 2.25;
-    stroke-dasharray: 138.23;
-    stroke-dashoffset: 138.23;
+    stroke-dasharray: 100.53;
+    stroke-dashoffset: 100.53;
     transform-origin: 26px 26px;
     transform: rotate(-90deg);
     transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1);
@@ -444,11 +445,11 @@
 
   .svc-check-path {
     stroke: #0369a1;
-    stroke-width: 3.5;
+    stroke-width: 3;
     stroke-dasharray: 44;
     stroke-dashoffset: 44;
     transition: stroke-dashoffset 0.45s cubic-bezier(0.65, 0, 0.45, 1) 0.4s;
-    filter: drop-shadow(0 1px 4px rgb(3 105 161 / 0.18));
+    filter: drop-shadow(0 1px 2px rgb(3 105 161 / 0.1));
   }
 
   .service-row.in-view .svc-check-circle {
@@ -462,8 +463,8 @@
   :global([data-theme='dark']) .svc-check {
     background: radial-gradient(
       circle at 50% 50%,
-      rgb(56 189 248 / 0.12) 0%,
-      rgb(45 212 191 / 0.06) 60%,
+      rgb(56 189 248 / 0.07) 0%,
+      rgb(45 212 191 / 0.03) 60%,
       transparent 100%
     );
   }
@@ -472,9 +473,14 @@
     stroke: rgb(125 211 252 / 0.55);
   }
 
+  :global([data-theme='dark']) .svc-check-shield {
+    fill: rgb(56 189 248 / 0.08);
+    stroke: rgb(125 211 252 / 0.32);
+  }
+
   :global([data-theme='dark']) .svc-check-path {
     stroke: #7dd3fc;
-    filter: drop-shadow(0 1px 6px rgb(56 189 248 / 0.35));
+    filter: drop-shadow(0 1px 3px rgb(56 189 248 / 0.18));
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -504,35 +510,8 @@
 
   .svc-desc p {
     font-size: 14.5px;
-    color: #475569;
+    color: var(--text-secondary);
     line-height: 1.75;
-  }
-
-  .svc-quote {
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-tile);
-    padding: 12px 16px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .quote-text {
-    font-size: 13.5px;
-    color: #374151;
-    font-style: italic;
-    line-height: 1.5;
-  }
-
-  .quote-cite {
-    font-size: 11px;
-    color: #94a3b8;
-    font-style: normal;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.04em;
   }
 
   @media (max-width: 820px) {
@@ -580,14 +559,6 @@
     .svc-desc p {
       font-size: 14px;
       line-height: 1.65;
-    }
-
-    .svc-quote {
-      padding: 12px 14px;
-    }
-
-    .quote-text {
-      font-size: 13px;
     }
 
     .service-text .btn {

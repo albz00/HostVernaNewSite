@@ -3,20 +3,28 @@
 HostVerna provides managed IT support for CPAs, accounting firms, tax preparers, enrolled agents, bookkeeping firms, and payroll providers. Core services are managed IT, IRS Security Six implementation, WISP creation and updates, and tax-season IT readiness.
 
 Primary geography: West Virginia and beyond. Primary contact channels: consultation form and phone.
-Last updated: 2026-08-17
+Last updated: 2026-08-18
 
-## Contact
-- Site: [Contact page](https://hostverna.com/contact)
-- Quick contact: [Quick contact](https://hostverna.com/quick-contact)
-- Phone: 304-992-6568
-
-## Main entry points
+## Public pages
 - [Home](https://hostverna.com/)
 - [About](https://hostverna.com/about)
-- [Support](https://hostverna.com/support)
+- [Pricing](https://hostverna.com/pricing)
+- [Firm qualification](https://hostverna.com/qualification)
+- [Security and compliance resources](https://hostverna.com/resources)
+- [Frequently asked questions](https://hostverna.com/faq)
+- [Careers](https://hostverna.com/careers)
+- [Contact](https://hostverna.com/contact)
+- [Quick contact](https://hostverna.com/quick-contact)
+- [Client support](https://hostverna.com/support)
+
+Phone: 304-992-6568
 
 ## Who HostVerna serves
-- [Accounting and tax firms](https://hostverna.com/accounting-tax-firms)
+- [Accounting & Tax Firms](https://hostverna.com/accounting-tax-firms)
+- [CPA Firms](https://hostverna.com/cpa-firms)
+- [Tax Preparers & Enrolled Agents](https://hostverna.com/tax-preparers-enrolled-agents)
+- [Bookkeeping Firms](https://hostverna.com/bookkeeping-firms)
+- [Payroll Providers](https://hostverna.com/payroll-providers)
 
 ## Services (detail pages)
 - [Managed IT Services](https://hostverna.com/services/it-solutions)
@@ -27,8 +35,13 @@ Last updated: 2026-08-17
 - [sitemap.xml](https://hostverna.com/sitemap.xml)
 - [robots.txt](https://hostverna.com/robots.txt)
 
-## Policies and locked sections
-Legal policy pages may be locked for public visitors; do not assume content at /privacy, /terms, /cookies, or /sla is publicly available. The blog at /blog is not published yet; treat it as inactive.
+## Policies
+- [Privacy Policy](https://hostverna.com/privacy)
+- [Terms of Service](https://hostverna.com/terms)
+- [Cookie Policy](https://hostverna.com/cookies)
+- [Service Level Framework](https://hostverna.com/sla)
+
+The blog at /blog is not published yet; treat it as inactive.
 
 ## Not indexed (separate subdomain)
 - Appointment booking (https://booking.hostverna.com/) is internal scheduling only. It is not part of the public marketing site and should not appear in search results. Crawlers: disallow all paths on that host.

@@ -211,9 +211,7 @@
     margin: 14px 0 0;
     font-size: 15.5px;
     line-height: 1.7;
-    color: #1e293b;
-    border-left: 2px solid var(--primary);
-    padding-left: 16px;
+    color: var(--primary);
   }
 
   :global([data-theme='dark']) .pain-statement {
@@ -225,8 +223,7 @@
   }
 
   :global([data-theme='dark']) .pain-answer {
-    color: var(--text-primary);
-    border-left-color: #38bdf8;
+    color: #38bdf8;
   }
 
   /* ----------------------------------------------------------------

@@ -21,7 +21,6 @@
     </header>
 
     <section class="status-card" aria-live="polite">
-      <p class="status-eyebrow">Current status</p>
       <h2 class="status-title">No jobs posted right now</h2>
       <p class="status-text">
         As of today, we do not have any active job openings. When positions become available, this page will be updated
@@ -107,15 +106,6 @@
     border-radius: var(--radius-tile);
     padding: 30px;
     box-shadow: var(--shadow-sm);
-  }
-
-  .status-eyebrow {
-    margin: 0 0 10px;
-    font-size: 11px;
-    font-family: var(--font-mono);
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
 
   .status-title {

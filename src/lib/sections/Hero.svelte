@@ -432,13 +432,7 @@
 </script>
 
 <section class="hero">
-  <!-- Soft brand “spots” only; no grids/maps; stays behind copy -->
   <div class="hero-spots" aria-hidden="true"></div>
-  <div class="hero-dot-wave" aria-hidden="true">
-    <div class="hero-grid-3d-scene">
-      <div class="hero-grid-3d"></div>
-    </div>
-  </div>
 
   <div class="hero-stripe"></div>
 
@@ -447,18 +441,18 @@
       <div class="hero-copy">
         <h1 class="hero-title">
           IT that keeps your<br />
-          <span class="gradient-text">accounting firm working.</span>
+          <span class="gradient-text">accounting firm secure.</span>
         </h1>
 
         <p class="hero-sub">
-          Managed IT support built around the way CPAs, accounting firms, and tax preparers work.
-          <ContentHighlight tone="keyword">Tax-season ready.</ContentHighlight>
-          Get help with <ContentHighlight tone="string">Microsoft 365, backups, and device management</ContentHighlight>,
+          Secure, managed IT support built around the way CPAs, accounting firms, and tax preparers work.
+          <ContentHighlight tone="keyword">Protect client data and stay tax-season ready.</ContentHighlight>
+          Get help with <ContentHighlight tone="string">account security, backups, and device management</ContentHighlight>,
           plus <ContentHighlight tone="comment">plain-English support when your team needs it</ContentHighlight>.
         </p>
 
         <div class="hero-actions">
-          <a href="/contact" class="btn btn-primary btn-lg">See Our Pricing</a>
+          <a href="/#services" class="btn btn-primary btn-lg">Learn More</a>
         </div>
       </div>
 
@@ -485,7 +479,6 @@
       </figure>
 
       <div class="hero-proof">
-        <span class="proof-label">West Virginia-based · Serving clients in West Virginia and beyond</span>
         <div class="proof-list">
           <div class="proof-track" aria-label="Partner businesses">
             <div class="proof-set">
@@ -551,60 +544,14 @@
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background:
-      radial-gradient(ellipse 58% 48% at 10% 16%, rgb(3 105 161 / 0.09), transparent 58%),
-      radial-gradient(ellipse 52% 44% at 92% 20%, rgb(13 148 136 / 0.075), transparent 56%),
-      radial-gradient(ellipse 72% 58% at 82% 78%, rgb(3 105 161 / 0.055), transparent 62%),
-      radial-gradient(ellipse 46% 40% at 18% 82%, rgb(13 148 136 / 0.065), transparent 55%),
-      radial-gradient(ellipse 90% 70% at 48% 42%, rgb(3 105 161 / 0.035), transparent 68%);
-  }
-
-  /* Perspective floor grid (static, no motion) */
-  .hero-dot-wave {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
     overflow: hidden;
-    -webkit-mask-image: radial-gradient(ellipse 125% 92% at 50% 14%, rgb(0 0 0 / 0.98) 0%, rgb(0 0 0 / 0.42) 48%, transparent 76%);
-    mask-image: radial-gradient(ellipse 125% 92% at 50% 14%, rgb(0 0 0 / 0.98) 0%, rgb(0 0 0 / 0.42) 48%, transparent 76%);
-  }
-
-  .hero-grid-3d-scene {
-    position: absolute;
-    inset: 0;
-    perspective: min(1200px, 140vw);
-    perspective-origin: 50% 26%;
-    transform-style: preserve-3d;
-  }
-
-  .hero-grid-3d {
-    position: absolute;
-    left: 50%;
-    top: 30%;
-    width: 320%;
-    height: 160%;
-    margin-left: -160%;
-    transform-origin: 50% 0%;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    background-repeat: repeat;
-    /* Lines + node dots: reads as a 3D lattice receding toward the horizon */
-    background-image:
-      linear-gradient(to right, rgb(3 105 161 / 0.38) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(13 148 136 / 0.28) 1px, transparent 1px),
-      radial-gradient(circle, rgb(3 105 161 / 0.42) 1.15px, transparent 1.75px);
-    background-size: 56px 56px, 56px 56px, 56px 56px;
-    background-position: 0 0, 0 0, 28px 28px;
-    opacity: 0.52;
-    transform: rotateX(70deg) translate3d(0, 0, -50px);
-  }
-
-  :global([data-theme='dark']) .hero-grid-3d {
-    background-image:
-      linear-gradient(to right, rgb(56 189 248 / 0.22) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(45 212 191 / 0.16) 1px, transparent 1px),
-      radial-gradient(circle, rgb(56 189 248 / 0.28) 1.1px, transparent 1.65px);
+    background:
+      radial-gradient(circle at 10% 18%, rgb(3 105 161 / 0.16), transparent 32%),
+      radial-gradient(circle at 90% 20%, rgb(13 148 136 / 0.14), transparent 29%),
+      radial-gradient(circle at 78% 82%, rgb(3 105 161 / 0.1), transparent 34%),
+      radial-gradient(circle at 20% 86%, rgb(13 148 136 / 0.09), transparent 31%),
+      radial-gradient(circle at 52% 48%, rgb(3 105 161 / 0.045), transparent 43%),
+      linear-gradient(180deg, transparent 42%, rgb(3 105 161 / 0.035) 100%);
   }
 
   @media (min-width: 901px) {
@@ -850,15 +797,6 @@
     width: 100%;
     box-sizing: border-box;
     min-width: 0;
-  }
-
-  .proof-label {
-    font-size: 11px;
-    color: #94a3b8;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-family: 'DM Mono', monospace;
   }
 
   /* Seamless marquee on every breakpoint: track holds two identical

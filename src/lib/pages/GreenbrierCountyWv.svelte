@@ -136,11 +136,8 @@
     margin-bottom: 28px;
   }
 
-  .gb-block--highlight {
-    padding: 22px 20px;
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-tile);
+  .gb-block--highlight .gb-h2 {
+    color: var(--primary);
   }
 
   .gb-h2 {
