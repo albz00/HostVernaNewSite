@@ -69,7 +69,7 @@
             <p class="stat-more-text">{stat.detail}</p>
           </details>
           {#if stat.id === 'response'}
-            <a href="/quick-contact" class="btn btn-outline-primary stat-prove-it">Contact support</a>
+            <a href="/support" class="btn btn-outline-primary stat-prove-it">Contact support</a>
           {/if}
         </div>
       {/each}

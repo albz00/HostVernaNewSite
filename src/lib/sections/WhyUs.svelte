@@ -81,7 +81,7 @@
             decoding="async"
           />
         </figure>
-        <a href="/contact" class="btn btn-primary">How We Support Accounting Firms</a>
+        <a href="/services/it-solutions" class="btn btn-primary">How We Support Accounting Firms</a>
       </div>
 
       <div class="whyus-right">

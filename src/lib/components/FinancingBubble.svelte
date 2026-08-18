@@ -66,7 +66,7 @@
         <li>Discussed upfront before anything is signed</li>
         <li>Project scope and payment terms are documented upfront</li>
       </ul>
-      <a href="/contact" class="btn btn-primary ff-cta" on:click={close}>See Our Pricing</a>
+      <a href="/pricing" class="btn btn-primary ff-cta" on:click={close}>See Our Pricing</a>
     </div>
   {/if}
 

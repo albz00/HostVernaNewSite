@@ -95,8 +95,8 @@
         <span class="cta-highlight">a WISP update, or a managed support plan.</span>
       </p>
       <div class="cta-actions">
-        <a href="/contact" class="btn btn-white btn-lg">How We Support Accounting Firms</a>
-        <a href="mailto:info@hostverna.com" class="btn btn-ghost btn-lg">See Our Pricing</a>
+        <a href="/services/it-solutions" class="btn btn-white btn-lg">How We Support Accounting Firms</a>
+        <a href="/pricing" class="btn btn-ghost btn-lg">See Our Pricing</a>
       </div>
     </div>
   </div>
