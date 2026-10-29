@@ -2,6 +2,33 @@
   import ContentHighlight from '../components/ContentHighlight.svelte';
   import { SEASON } from '../season';
 
+  type HeroLeaf = {
+    id: number;
+    x: string;
+    duration: string;
+    delay: string;
+    sway: string;
+    size: string;
+    flutter: string;
+    opacity: string;
+    color: string;
+    kind: 'maple' | 'oval';
+  };
+
+  /** Slow background drift. Hidden unless data-season="halloween" (see season.ts). */
+  const heroLeaves: HeroLeaf[] = [
+    { id: 1, x: '4%', duration: '23s', delay: '-3s', sway: '26px', size: '28px', flutter: '3.6s', opacity: '0.55', color: '#c2410c', kind: 'maple' },
+    { id: 2, x: '12%', duration: '19s', delay: '-11s', sway: '-22px', size: '22px', flutter: '2.8s', opacity: '0.42', color: '#d97706', kind: 'oval' },
+    { id: 3, x: '21%', duration: '26s', delay: '-7s', sway: '18px', size: '34px', flutter: '4.1s', opacity: '0.38', color: '#9a3412', kind: 'maple' },
+    { id: 4, x: '33%', duration: '21s', delay: '-16s', sway: '-28px', size: '24px', flutter: '3.1s', opacity: '0.36', color: '#ea580c', kind: 'oval' },
+    { id: 5, x: '46%', duration: '24s', delay: '-2s', sway: '16px', size: '20px', flutter: '3.8s', opacity: '0.32', color: '#b45309', kind: 'maple' },
+    { id: 6, x: '58%', duration: '18s', delay: '-9s', sway: '-20px', size: '26px', flutter: '2.6s', opacity: '0.34', color: '#c2410c', kind: 'oval' },
+    { id: 7, x: '69%', duration: '27s', delay: '-14s', sway: '24px', size: '32px', flutter: '4.4s', opacity: '0.46', color: '#d97706', kind: 'maple' },
+    { id: 8, x: '78%', duration: '20s', delay: '-5s', sway: '-14px', size: '22px', flutter: '3.2s', opacity: '0.4', color: '#ea580c', kind: 'oval' },
+    { id: 9, x: '86%', duration: '25s', delay: '-18s', sway: '20px', size: '30px', flutter: '3.5s', opacity: '0.5', color: '#9a3412', kind: 'maple' },
+    { id: 10, x: '93%', duration: '17s', delay: '-8s', sway: '-22px', size: '20px', flutter: '2.9s', opacity: '0.4', color: '#b45309', kind: 'oval' },
+  ];
+
   /** LCP candidate: preloaded in index.html + fetchpriority="high" on the img */
   const founderPortraitUrl =
     'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/895c60d8-8b2b-4b97-96d9-add7a9432300/public';
@@ -454,6 +481,40 @@
 <section class="hero">
   <div class="hero-spots" aria-hidden="true"></div>
 
+  {#if SEASON === 'halloween'}
+    <div class="hero-leaves" aria-hidden="true">
+      {#each heroLeaves as leaf (leaf.id)}
+        <span
+          class="hero-leaf"
+          style="--x:{leaf.x};--d:{leaf.duration};--delay:{leaf.delay};--sway:{leaf.sway};--size:{leaf.size};--flutter:{leaf.flutter};--o:{leaf.opacity};color:{leaf.color}"
+        >
+          <svg class="hero-leaf-shape" viewBox="0 0 32 32">
+            {#if leaf.kind === 'maple'}
+              <path
+                fill="currentColor"
+                d="M16 2c1.1 3.2 4.4 5 6.8 6 2.1.9 4.6 1.2 6 2.5-1.5 1-2.3 2.6-2.5 4.4-.2 2.1.6 4 1.1 5.9-2.3-.4-4.4-1.5-6.3-2.1-1.5-.5-3-.4-4.5.2.4 2.5.2 5.1-.8 7.4-1 0-1.9 0-2.8.1-1-2.3-1.2-4.9-.8-7.5-1.5-.6-3-.7-4.5-.2-1.9.6-4 1.7-6.3 2.1.5-1.9 1.3-3.8 1.1-5.9-.2-1.8-1-3.4-2.5-4.4 1.4-1.3 3.9-1.6 6-2.5C11.6 7 14.9 5.2 16 2z"
+              />
+              <path fill="currentColor" opacity="0.45" d="M15.2 11.5h1.6V27h-1.6z" />
+            {:else}
+              <path
+                fill="currentColor"
+                d="M16 3c3.6 4.6 8.2 7.4 8.2 14.2C24.2 23.6 20.6 28 16 28S7.8 23.6 7.8 17.2C7.8 10.4 12.4 7.6 16 3z"
+              />
+              <path
+                d="M16 9.5v15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.15"
+                stroke-linecap="round"
+                opacity="0.5"
+              />
+            {/if}
+          </svg>
+        </span>
+      {/each}
+    </div>
+  {/if}
+
   <div class="hero-stripe"></div>
 
   <div class="container hero-content">
@@ -572,6 +633,68 @@
       radial-gradient(circle at 20% 86%, rgb(var(--teal-rgb) / 0.09), transparent 31%),
       radial-gradient(circle at 52% 48%, rgb(var(--primary-rgb) / 0.045), transparent 43%),
       linear-gradient(180deg, transparent 42%, rgb(var(--primary-rgb) / 0.035) 100%);
+  }
+
+  /* Falling leaves stay off until the Halloween flag is set. */
+  .hero-leaves {
+    display: none;
+  }
+
+  :global(html[data-season='halloween']) .hero-leaves {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .hero-leaf {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: var(--size);
+    height: var(--size);
+    opacity: var(--o);
+    animation: hero-leaf-fall var(--d) linear var(--delay) infinite;
+  }
+
+  .hero-leaf-shape {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 1px 1px rgb(120 53 15 / 0.18));
+    animation: hero-leaf-flutter var(--flutter) ease-in-out var(--delay) infinite;
+  }
+
+  @keyframes hero-leaf-fall {
+    0% {
+      transform: translate3d(0, -14vh, 0);
+    }
+    100% {
+      transform: translate3d(0, 108vh, 0);
+    }
+  }
+
+  @keyframes hero-leaf-flutter {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(-18deg);
+    }
+    35% {
+      transform: translate3d(var(--sway), 8px, 0) rotate(28deg);
+    }
+    70% {
+      transform: translate3d(calc(var(--sway) * -0.65), -6px, 0) rotate(96deg);
+    }
+    100% {
+      transform: translate3d(calc(var(--sway) * 0.25), 4px, 0) rotate(168deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html[data-season='halloween']) .hero-leaves {
+      display: none;
+    }
   }
 
   @media (min-width: 901px) {

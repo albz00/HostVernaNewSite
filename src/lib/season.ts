@@ -7,6 +7,7 @@
  *    and set the theme-color meta back to #0369a1.
  *
  * CSS lives in src/halloween.css and only applies while data-season="halloween".
+ * The hero's falling leaves use the same flag and disappear with it.
  */
 export const SEASON = 'halloween' as 'halloween' | null;
 
