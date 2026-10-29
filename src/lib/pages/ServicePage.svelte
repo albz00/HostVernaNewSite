@@ -146,7 +146,7 @@
     padding: calc(132px + var(--hv-promo-h)) 0 84px;
     border-bottom: 1px solid var(--border);
     background:
-      radial-gradient(ellipse 58% 65% at 12% 30%, rgb(3 105 161 / 0.08), transparent 68%),
+      radial-gradient(ellipse 58% 65% at 12% 30%, rgb(var(--primary-rgb) / 0.08), transparent 68%),
       var(--bg);
   }
 
@@ -232,7 +232,7 @@
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, transparent 55%, rgb(2 15 32 / 0.28)),
+      linear-gradient(180deg, transparent 55%, rgb(var(--night-rgb) / 0.28)),
       radial-gradient(80% 70% at 15% 0%, rgb(255 255 255 / 0.18), transparent 58%);
     pointer-events: none;
   }
@@ -295,7 +295,7 @@
 
   .check-item:hover {
     transform: translateY(-2px);
-    border-color: rgb(3 105 161 / 0.35);
+    border-color: rgb(var(--primary-rgb) / 0.35);
     background: var(--bg);
   }
 
@@ -442,7 +442,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-tile);
     background:
-      radial-gradient(ellipse 80% 90% at 100% 0%, rgb(13 148 136 / 0.08), transparent 66%),
+      radial-gradient(ellipse 80% 90% at 100% 0%, rgb(var(--teal-rgb) / 0.08), transparent 66%),
       var(--bg);
     box-shadow: var(--shadow-md);
   }
@@ -495,14 +495,14 @@
   .service-cta .btn-white {
     background: #fff;
     border-color: #fff;
-    color: #0369a1;
+    color: var(--primary);
     font-weight: 700;
   }
 
   .service-cta .btn-white:hover {
     background: #f8fafc;
     border-color: #f8fafc;
-    color: #075985;
+    color: var(--primary-dark);
   }
 
   .service-page--missing .service-lede {

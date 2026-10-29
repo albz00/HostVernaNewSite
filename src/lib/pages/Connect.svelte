@@ -95,8 +95,8 @@
     height: 320px;
     background: radial-gradient(
       ellipse 70% 60% at 50% 0%,
-      rgb(3 105 161 / 0.14) 0%,
-      rgb(13 148 136 / 0.08) 45%,
+      rgb(var(--primary-rgb) / 0.14) 0%,
+      rgb(var(--teal-rgb) / 0.08) 45%,
       transparent 70%
     );
     filter: blur(2px);
@@ -133,7 +133,7 @@
 
   .business-card {
     background: linear-gradient(158deg, rgb(255 255 255 / 0.98) 0%, rgb(248 250 252 / 0.96) 100%);
-    border: 1px solid rgb(3 105 161 / 0.2);
+    border: 1px solid rgb(var(--primary-rgb) / 0.2);
     border-radius: 22px;
     box-shadow:
       0 24px 48px rgb(2 6 23 / 0.08),

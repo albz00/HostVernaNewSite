@@ -116,7 +116,7 @@
   }
 
   .official-resource:hover {
-    border-color: rgb(3 105 161 / 0.4);
+    border-color: rgb(var(--primary-rgb) / 0.4);
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
   }

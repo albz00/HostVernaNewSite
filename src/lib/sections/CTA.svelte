@@ -303,7 +303,7 @@
   }
 
   .cta-highlight {
-    color: #cffafe;
+    color: var(--ink-wash);
     font-weight: 700;
   }
 
@@ -317,7 +317,7 @@
 
   .btn-white {
     background: #fff;
-    color: #0369a1;
+    color: var(--primary);
     border-color: #fff;
     font-weight: 700;
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
@@ -329,7 +329,7 @@
     border-color: #fff;
     box-shadow:
       0 6px 20px rgb(0 0 0 / 0.14),
-      0 2px 8px rgb(3 105 161 / 0.12);
+      0 2px 8px rgb(var(--primary-rgb) / 0.12);
     filter: brightness(1.02);
   }
 

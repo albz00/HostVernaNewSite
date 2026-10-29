@@ -56,11 +56,11 @@
   }
 
   .logo-host {
-    color: #0369a1;
+    color: var(--primary);
   }
 
   .logo-verna {
-    color: #0d9488;
+    color: var(--teal);
   }
 
   .locked-placeholder-contact {

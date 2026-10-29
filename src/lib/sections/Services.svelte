@@ -210,7 +210,7 @@
     background:
       radial-gradient(
         ellipse 55% 90% at 0% 50%,
-        rgb(3 105 161 / 0.08),
+        rgb(var(--primary-rgb) / 0.08),
         transparent 65%
       );
     transition: opacity 0.3s ease;
@@ -230,8 +230,8 @@
     background: linear-gradient(
       180deg,
       transparent 0%,
-      rgb(3 105 161 / 0.45) 30%,
-      rgb(13 148 136 / 0.45) 70%,
+      rgb(var(--primary-rgb) / 0.45) 30%,
+      rgb(var(--teal-rgb) / 0.45) 70%,
       transparent 100%
     );
     border-radius: 0 3px 3px 0;
@@ -242,7 +242,7 @@
     background:
       radial-gradient(
         ellipse 55% 90% at 100% 50%,
-        rgb(13 148 136 / 0.08),
+        rgb(var(--teal-rgb) / 0.08),
         transparent 65%
       );
   }
@@ -253,8 +253,8 @@
     background: linear-gradient(
       180deg,
       transparent 0%,
-      rgb(13 148 136 / 0.45) 30%,
-      rgb(3 105 161 / 0.45) 70%,
+      rgb(var(--teal-rgb) / 0.45) 30%,
+      rgb(var(--primary-rgb) / 0.45) 70%,
       transparent 100%
     );
     border-radius: 3px 0 0 3px;
@@ -273,7 +273,7 @@
     background:
       radial-gradient(
         ellipse 55% 90% at 0% 50%,
-        rgb(56 189 248 / 0.1),
+        rgb(var(--primary-rgb) / 0.1),
         transparent 65%
       );
   }
@@ -282,7 +282,7 @@
     background:
       radial-gradient(
         ellipse 55% 90% at 100% 50%,
-        rgb(45 212 191 / 0.1),
+        rgb(var(--teal-rgb) / 0.1),
         transparent 65%
       );
   }
@@ -363,7 +363,7 @@
   .ph-label {
     font-size: 12px;
     font-family: 'DM Mono', monospace;
-    color: #0369a1;
+    color: var(--primary);
     text-align: center;
     padding: 16px;
     letter-spacing: 0.04em;
@@ -407,8 +407,8 @@
     border-radius: 999px;
     background: radial-gradient(
       circle at 50% 50%,
-      rgb(3 105 161 / 0.04) 0%,
-      rgb(13 148 136 / 0.02) 60%,
+      rgb(var(--primary-rgb) / 0.04) 0%,
+      rgb(var(--teal-rgb) / 0.02) 60%,
       transparent 100%
     );
   }
@@ -427,14 +427,14 @@
   }
 
   .svc-check-shield {
-    fill: rgb(3 105 161 / 0.065);
-    stroke: rgb(3 105 161 / 0.28);
+    fill: rgb(var(--primary-rgb) / 0.065);
+    stroke: rgb(var(--primary-rgb) / 0.28);
     stroke-width: 1.5;
   }
 
   .svc-check-circle {
     fill: var(--bg);
-    stroke: rgb(3 105 161 / 0.45);
+    stroke: rgb(var(--primary-rgb) / 0.45);
     stroke-width: 2.25;
     stroke-dasharray: 100.53;
     stroke-dashoffset: 100.53;
@@ -444,12 +444,12 @@
   }
 
   .svc-check-path {
-    stroke: #0369a1;
+    stroke: var(--primary);
     stroke-width: 3;
     stroke-dasharray: 44;
     stroke-dashoffset: 44;
     transition: stroke-dashoffset 0.45s cubic-bezier(0.65, 0, 0.45, 1) 0.4s;
-    filter: drop-shadow(0 1px 2px rgb(3 105 161 / 0.1));
+    filter: drop-shadow(0 1px 2px rgb(var(--primary-rgb) / 0.1));
   }
 
   .service-row.in-view .svc-check-circle {
@@ -463,24 +463,24 @@
   :global([data-theme='dark']) .svc-check {
     background: radial-gradient(
       circle at 50% 50%,
-      rgb(56 189 248 / 0.07) 0%,
-      rgb(45 212 191 / 0.03) 60%,
+      rgb(var(--primary-rgb) / 0.07) 0%,
+      rgb(var(--teal-rgb) / 0.03) 60%,
       transparent 100%
     );
   }
 
   :global([data-theme='dark']) .svc-check-circle {
-    stroke: rgb(125 211 252 / 0.55);
+    stroke: rgb(var(--ink-bright-2-rgb) / 0.55);
   }
 
   :global([data-theme='dark']) .svc-check-shield {
-    fill: rgb(56 189 248 / 0.08);
-    stroke: rgb(125 211 252 / 0.32);
+    fill: rgb(var(--primary-rgb) / 0.08);
+    stroke: rgb(var(--ink-bright-2-rgb) / 0.32);
   }
 
   :global([data-theme='dark']) .svc-check-path {
-    stroke: #7dd3fc;
-    filter: drop-shadow(0 1px 3px rgb(56 189 248 / 0.18));
+    stroke: var(--ink-bright-2);
+    filter: drop-shadow(0 1px 3px rgb(var(--primary-rgb) / 0.18));
   }
 
   @media (prefers-reduced-motion: reduce) {

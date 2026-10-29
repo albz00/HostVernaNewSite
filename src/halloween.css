@@ -1,0 +1,83 @@
+/*
+ * Halloween palette. Applies only while <html data-season="halloween">.
+ * To restore brand blue, follow the revert notes in src/lib/season.ts.
+ * Do not edit component colors for the holiday — override the tokens here.
+ */
+
+html[data-season='halloween'] {
+  --primary: #c2410c;
+  --primary-rgb: 194 65 12;
+  --primary-dark: #9a3412;
+  --primary-dark-rgb: 154 52 18;
+  --teal: #d97706;
+  --teal-rgb: 217 119 6;
+  --teal-dark: #b45309;
+  --teal-dark-rgb: 180 83 9;
+
+  --tone-1: #f97316;
+  --tone-1-rgb: 249 115 22;
+  --tone-1-deep: #ea580c;
+  --tone-2: #f59e0b;
+  --tone-2-rgb: 245 158 11;
+  --tone-2-deep: #d97706;
+  --tone-3: #fbbf24;
+  --tone-3-rgb: 251 191 36;
+  --tone-3-deep: #d97706;
+
+  --ink-bright: #fdba74;
+  --ink-bright-rgb: 253 186 116;
+  --ink-bright-2: #fed7aa;
+  --ink-bright-2-rgb: 254 215 170;
+  --ink-bright-soft: #ffedd5;
+  --ink-pair: #fcd34d;
+  --ink-pair-rgb: 252 211 77;
+  --ink-ice: #fdba74;
+  --ink-mint: #fde68a;
+  --ink-wash: #ffedd5;
+  --ink-deep: #9a3412;
+  --ink-line-rgb: 253 186 116;
+
+  --night: #1c1008;
+  --night-rgb: 28 16 8;
+  --night-raised: #2a160c;
+
+  --mail-send: #ea580c;
+  --mail-send-rgb: 234 88 12;
+
+  --gradient: linear-gradient(135deg, #c2410c 0%, #ea580c 42%, #f59e0b 100%);
+  --gradient-soft: linear-gradient(135deg, #ffedd5 0%, #fef3c7 100%);
+  --gradient-text: linear-gradient(135deg, #c2410c 0%, #d97706 100%);
+}
+
+html[data-season='halloween'][data-theme='dark'] {
+  --primary: #fb923c;
+  --primary-rgb: 251 146 60;
+  --primary-dark: #f97316;
+  --primary-dark-rgb: 249 115 22;
+  --teal: #fbbf24;
+  --teal-rgb: 251 191 36;
+  --teal-dark: #f59e0b;
+  --teal-dark-rgb: 245 158 11;
+
+  --gradient: linear-gradient(135deg, #ea580c 0%, #f59e0b 58%, #fbbf24 100%);
+  --gradient-soft: linear-gradient(135deg, rgb(124 45 18 / 0.5) 0%, rgb(120 53 15 / 0.38) 100%);
+  --gradient-text: linear-gradient(135deg, #fdba74 0%, #fcd34d 100%);
+}
+
+/* Headline and stat accents: solid brand blue becomes the orange gradient. */
+html[data-season='halloween'] .gradient-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Prism keyword blue on learn/code blocks */
+html[data-season='halloween'] .token.atrule,
+html[data-season='halloween'] .token.attr-value,
+html[data-season='halloween'] .token.keyword,
+html[data-season='halloween'] .token.function,
+html[data-season='halloween'] .token.class-name {
+  color: #ea580c;
+}

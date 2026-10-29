@@ -61,7 +61,7 @@
   }
 
   .theme-toggle:hover {
-    border-color: rgb(3 105 161 / 0.35);
+    border-color: rgb(var(--primary-rgb) / 0.35);
     box-shadow: 0 1px 4px rgb(15 23 42 / 0.08);
   }
 

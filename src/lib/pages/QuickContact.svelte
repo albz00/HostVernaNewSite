@@ -268,7 +268,7 @@
   }
 
   .field-input:focus {
-    outline: 2px solid rgb(3 105 161 / 0.25);
+    outline: 2px solid rgb(var(--primary-rgb) / 0.25);
     border-color: var(--primary);
   }
 

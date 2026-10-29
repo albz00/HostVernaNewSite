@@ -153,14 +153,14 @@
 
   .contact-link {
     font-size: 13px;
-    color: #38bdf8;
+    color: var(--ink-bright);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.15s;
   }
 
   .contact-link:hover {
-    color: #2dd4bf;
+    color: var(--ink-pair);
   }
 
   .footer-nav {

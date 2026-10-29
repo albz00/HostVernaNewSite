@@ -105,8 +105,8 @@
   .pricing-hero {
     padding: calc(132px + var(--hv-promo-h)) 0 80px;
     background:
-      radial-gradient(circle at 80% 20%, rgb(13 148 136 / 0.1), transparent 30%),
-      radial-gradient(circle at 15% 10%, rgb(3 105 161 / 0.08), transparent 34%),
+      radial-gradient(circle at 80% 20%, rgb(var(--teal-rgb) / 0.1), transparent 30%),
+      radial-gradient(circle at 15% 10%, rgb(var(--primary-rgb) / 0.08), transparent 34%),
       var(--bg-subtle);
     border-bottom: 1px solid var(--border);
   }
@@ -214,7 +214,7 @@
     height: 24px;
     flex: 0 0 24px;
     border-radius: 50%;
-    background: rgb(13 148 136 / 0.12);
+    background: rgb(var(--teal-rgb) / 0.12);
     color: var(--teal);
     font-size: 13px;
     font-weight: 800;

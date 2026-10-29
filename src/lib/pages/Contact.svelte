@@ -302,14 +302,14 @@
 
   .quick-options button.active {
     color: var(--primary);
-    background: rgb(3 105 161 / 0.08);
+    background: rgb(var(--primary-rgb) / 0.08);
     border-color: var(--primary);
     font-weight: 600;
   }
 
   input:focus,
   textarea:focus {
-    outline: 2px solid rgb(3 105 161 / 0.2);
+    outline: 2px solid rgb(var(--primary-rgb) / 0.2);
     border-color: var(--primary);
   }
 

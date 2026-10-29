@@ -188,14 +188,14 @@
 
   .stat-more[open] .stat-more-btn {
     background: var(--bg, #fff);
-    color: var(--primary, #0ea5e9);
-    border-color: var(--primary, #0ea5e9);
+    color: var(--primary);
+    border-color: var(--primary);
   }
 
   .stat-more-btn:hover,
   .stat-more-btn:focus-visible {
-    color: var(--primary, #0ea5e9);
-    border-color: rgb(14 165 233 / 0.45);
+    color: var(--primary);
+    border-color: rgb(var(--tone-1-rgb) / 0.45);
     outline: none;
   }
 

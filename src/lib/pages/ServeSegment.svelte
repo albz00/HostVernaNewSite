@@ -218,7 +218,7 @@
   .service-panel {
     margin-top: 52px;
     background:
-      radial-gradient(ellipse 70% 120% at 100% 0%, rgb(3 105 161 / 0.09), transparent 70%),
+      radial-gradient(ellipse 70% 120% at 100% 0%, rgb(var(--primary-rgb) / 0.09), transparent 70%),
       var(--bg-subtle);
   }
 

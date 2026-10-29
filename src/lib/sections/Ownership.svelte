@@ -223,7 +223,7 @@
   }
 
   :global([data-theme='dark']) .pain-answer {
-    color: #38bdf8;
+    color: var(--primary);
   }
 
   /* ----------------------------------------------------------------

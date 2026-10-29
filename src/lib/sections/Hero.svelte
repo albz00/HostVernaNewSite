@@ -1,5 +1,6 @@
 <script lang="ts">
   import ContentHighlight from '../components/ContentHighlight.svelte';
+  import { SEASON } from '../season';
 
   /** LCP candidate: preloaded in index.html + fetchpriority="high" on the img */
   const founderPortraitUrl =
@@ -96,6 +97,25 @@
     muted: string;
   };
 
+  /** Demo-site blues inside the homepage reel. Real client colors stay when SEASON is null. */
+  const halloweenSwatch: Record<string, string> = {
+    '#38bdf8': '#fb923c',
+    '#0e7490': '#c2410c',
+    '#0b2239': '#431407',
+    '#eef2f7': '#fff7ed',
+    '#f1f8fb': '#fff7ed',
+  };
+
+  function seasonize(palette: SitePalette): SitePalette {
+    if (SEASON !== 'halloween') return palette;
+    const next = { ...palette };
+    (Object.keys(next) as (keyof SitePalette)[]).forEach((key) => {
+      const swapped = halloweenSwatch[next[key]];
+      if (swapped) next[key] = swapped;
+    });
+    return next;
+  }
+
   type Hero = {
     title: string;
     titleEmphasis?: string;
@@ -126,14 +146,14 @@
       url: 'pacificaviation.com',
       logo: { mark: 'PACIFIC', tag: 'Aviation', style: 'serif' },
       nav: ['Fleet', 'Charters', 'Training', 'Contact'],
-      palette: {
+      palette: seasonize({
         bg: '#eef2f7',
         surface: '#ffffff',
         primary: '#0b2239',
         accent: '#38bdf8',
         text: '#0f172a',
         muted: '#94a3b8',
-      },
+      }),
       brief: {
         toName: 'Marcus Alder',
         toEmail: 'marcus@pacificaviation.com',
@@ -203,14 +223,14 @@
       url: 'ironcrestmech.com',
       logo: { mark: 'IRONCREST', tag: 'Mechanical Co.', style: 'sans' },
       nav: ['Services', 'Projects', 'Estimates', '24/7'],
-      palette: {
+      palette: seasonize({
         bg: '#f1f2f4',
         surface: '#ffffff',
         primary: '#27313d',
         accent: '#f97316',
         text: '#1f2937',
         muted: '#94a3b8',
-      },
+      }),
       brief: {
         toName: 'Dave Halverson',
         toEmail: 'dave@ironcrestmech.com',
@@ -281,14 +301,14 @@
       url: 'northlinedental.com',
       logo: { mark: 'Northline', tag: 'Dental Care', style: 'sans' },
       nav: ['Services', 'Team', 'Reviews', 'Book'],
-      palette: {
+      palette: seasonize({
         bg: '#f1f8fb',
         surface: '#ffffff',
         primary: '#0e7490',
         accent: '#10b981',
         text: '#0f172a',
         muted: '#94a3b8',
-      },
+      }),
       brief: {
         toName: 'Dr. Priya Rao',
         toEmail: 'priya@northlinedental.com',
@@ -354,14 +374,14 @@
       url: 'branford.ma.gov',
       logo: { mark: 'BRANFORD, MA', tag: 'Official Town Site', style: 'serif' },
       nav: ['Services', 'Departments', 'News', 'Events'],
-      palette: {
+      palette: seasonize({
         bg: '#f6f4ea',
         surface: '#ffffff',
         primary: '#14532d',
         accent: '#ca8a04',
         text: '#1c1917',
         muted: '#a8a29e',
-      },
+      }),
       brief: {
         toName: 'Alicia Brennan, Town Clerk',
         toEmail: 'a.brennan@branford.ma.gov',
@@ -546,12 +566,12 @@
     pointer-events: none;
     overflow: hidden;
     background:
-      radial-gradient(circle at 10% 18%, rgb(3 105 161 / 0.16), transparent 32%),
-      radial-gradient(circle at 90% 20%, rgb(13 148 136 / 0.14), transparent 29%),
-      radial-gradient(circle at 78% 82%, rgb(3 105 161 / 0.1), transparent 34%),
-      radial-gradient(circle at 20% 86%, rgb(13 148 136 / 0.09), transparent 31%),
-      radial-gradient(circle at 52% 48%, rgb(3 105 161 / 0.045), transparent 43%),
-      linear-gradient(180deg, transparent 42%, rgb(3 105 161 / 0.035) 100%);
+      radial-gradient(circle at 10% 18%, rgb(var(--primary-rgb) / 0.16), transparent 32%),
+      radial-gradient(circle at 90% 20%, rgb(var(--teal-rgb) / 0.14), transparent 29%),
+      radial-gradient(circle at 78% 82%, rgb(var(--primary-rgb) / 0.1), transparent 34%),
+      radial-gradient(circle at 20% 86%, rgb(var(--teal-rgb) / 0.09), transparent 31%),
+      radial-gradient(circle at 52% 48%, rgb(var(--primary-rgb) / 0.045), transparent 43%),
+      linear-gradient(180deg, transparent 42%, rgb(var(--primary-rgb) / 0.035) 100%);
   }
 
   @media (min-width: 901px) {
@@ -629,7 +649,7 @@
     z-index: 0;
     pointer-events: none;
     box-sizing: border-box;
-    background: linear-gradient(135deg, rgb(3 105 161 / 0.58), rgb(13 148 136 / 0.46));
+    background: linear-gradient(135deg, rgb(var(--primary-rgb) / 0.58), rgb(var(--teal-rgb) / 0.46));
     -webkit-mask-image: var(--hero-portrait-mask);
     mask-image: var(--hero-portrait-mask);
     -webkit-mask-size: contain;
@@ -651,12 +671,12 @@
 
   .hero-shock--2 {
     animation-delay: 1.42s;
-    background: linear-gradient(135deg, rgb(13 148 136 / 0.5), rgb(3 105 161 / 0.38));
+    background: linear-gradient(135deg, rgb(var(--teal-rgb) / 0.5), rgb(var(--primary-rgb) / 0.38));
   }
 
   .hero-shock--3 {
     animation-delay: 2.84s;
-    background: linear-gradient(135deg, rgb(3 105 161 / 0.42), rgb(13 148 136 / 0.34));
+    background: linear-gradient(135deg, rgb(var(--primary-rgb) / 0.42), rgb(var(--teal-rgb) / 0.34));
   }
 
   @keyframes hero-shockwave-fill {
@@ -685,19 +705,19 @@
 
   @keyframes hero-portrait-pulse {
     0% {
-      filter: drop-shadow(0 0 0 rgb(3 105 161 / 0.55)) drop-shadow(0 0 0 rgb(13 148 136 / 0.35));
+      filter: drop-shadow(0 0 0 rgb(var(--primary-rgb) / 0.55)) drop-shadow(0 0 0 rgb(var(--teal-rgb) / 0.35));
     }
     40% {
-      filter: drop-shadow(0 0 12px rgb(3 105 161 / 0.22)) drop-shadow(0 0 18px rgb(13 148 136 / 0.14));
+      filter: drop-shadow(0 0 12px rgb(var(--primary-rgb) / 0.22)) drop-shadow(0 0 18px rgb(var(--teal-rgb) / 0.14));
     }
     62% {
-      filter: drop-shadow(0 0 18px rgb(3 105 161 / 0.12)) drop-shadow(0 0 26px rgb(13 148 136 / 0.08));
+      filter: drop-shadow(0 0 18px rgb(var(--primary-rgb) / 0.12)) drop-shadow(0 0 26px rgb(var(--teal-rgb) / 0.08));
     }
     72% {
-      filter: drop-shadow(0 0 20px rgb(3 105 161 / 0.07)) drop-shadow(0 0 28px rgb(13 148 136 / 0.05));
+      filter: drop-shadow(0 0 20px rgb(var(--primary-rgb) / 0.07)) drop-shadow(0 0 28px rgb(var(--teal-rgb) / 0.05));
     }
     100% {
-      filter: drop-shadow(0 0 26px rgb(3 105 161 / 0)) drop-shadow(0 0 36px rgb(13 148 136 / 0));
+      filter: drop-shadow(0 0 26px rgb(var(--primary-rgb) / 0)) drop-shadow(0 0 36px rgb(var(--teal-rgb) / 0));
     }
   }
 
@@ -1158,24 +1178,24 @@
   }
 
   .phase-node--current .phase-icon {
-    background: var(--gradient, linear-gradient(135deg, #0369a1, #0d9488));
+    background: var(--gradient);
     border-color: rgb(255 255 255 / 0.2);
     box-shadow:
-      0 0 0 3px rgb(13 148 136 / 0.22),
-      0 6px 18px rgb(3 105 161 / 0.35);
+      0 0 0 3px rgb(var(--teal-rgb) / 0.22),
+      0 6px 18px rgb(var(--primary-rgb) / 0.35);
     animation: phase-current-pulse 2.4s ease-in-out infinite;
   }
 
   @keyframes phase-current-pulse {
     0%, 100% {
       box-shadow:
-        0 0 0 3px rgb(13 148 136 / 0.22),
-        0 6px 18px rgb(3 105 161 / 0.35);
+        0 0 0 3px rgb(var(--teal-rgb) / 0.22),
+        0 6px 18px rgb(var(--primary-rgb) / 0.35);
     }
     50% {
       box-shadow:
-        0 0 0 7px rgb(13 148 136 / 0.04),
-        0 6px 18px rgb(3 105 161 / 0.4);
+        0 0 0 7px rgb(var(--teal-rgb) / 0.04),
+        0 6px 18px rgb(var(--primary-rgb) / 0.4);
     }
   }
 
@@ -1216,7 +1236,7 @@
     border: 1px solid rgb(226 232 240 / 0.6);
     box-shadow:
       0 24px 56px rgb(0 0 0 / 0.45),
-      0 0 0 1px rgb(56 189 248 / 0.1);
+      0 0 0 1px rgb(var(--ink-bright-rgb) / 0.1);
     overflow: hidden;
     opacity: 0;
     transform: translateY(10px);
@@ -1398,22 +1418,22 @@
     gap: 5px;
     padding: 6px 14px;
     border-radius: 4px;
-    background: #2563eb;
+    background: var(--mail-send);
     color: #ffffff;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.01em;
-    box-shadow: 0 2px 8px rgb(37 99 235 / 0.3);
+    box-shadow: 0 2px 8px rgb(var(--mail-send-rgb) / 0.3);
     /* Send button pulses right before the email "sends" (~18-22% of cycle) */
     animation: email-send-pulse 15s ease forwards;
   }
 
   @keyframes email-send-pulse {
-    0%, 17% { transform: scale(1); box-shadow: 0 2px 8px rgb(37 99 235 / 0.3); }
-    18% { transform: scale(1.06); box-shadow: 0 4px 18px rgb(37 99 235 / 0.6); }
-    20% { transform: scale(0.94); box-shadow: 0 1px 4px rgb(37 99 235 / 0.4); }
-    21% { transform: scale(1); box-shadow: 0 2px 8px rgb(37 99 235 / 0.3); }
+    0%, 17% { transform: scale(1); box-shadow: 0 2px 8px rgb(var(--mail-send-rgb) / 0.3); }
+    18% { transform: scale(1.06); box-shadow: 0 4px 18px rgb(var(--mail-send-rgb) / 0.6); }
+    20% { transform: scale(0.94); box-shadow: 0 1px 4px rgb(var(--mail-send-rgb) / 0.4); }
+    21% { transform: scale(1); box-shadow: 0 2px 8px rgb(var(--mail-send-rgb) / 0.3); }
     22% { opacity: 0; transform: scale(0.9); }
     26%, 100% { opacity: 0; transform: scale(0.9); }
   }
@@ -2130,7 +2150,7 @@
   .reel-annot em {
     font-style: normal;
     font-weight: 700;
-    background: var(--gradient, linear-gradient(135deg, #0369a1, #0d9488));
+    background: var(--gradient);
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
@@ -2203,7 +2223,7 @@
     gap: 7px;
     padding: 9px 15px 9px 16px;
     border-radius: 999px;
-    background: var(--gradient, linear-gradient(135deg, #0369a1, #0d9488));
+    background: var(--gradient);
     color: #ffffff;
     text-decoration: none;
     font-family: 'Space Grotesk', sans-serif;
@@ -2211,8 +2231,8 @@
     font-weight: 600;
     letter-spacing: 0.01em;
     box-shadow:
-      0 2px 4px rgb(3 105 161 / 0.28),
-      0 10px 28px rgb(13 148 136 / 0.24);
+      0 2px 4px rgb(var(--primary-rgb) / 0.28),
+      0 10px 28px rgb(var(--teal-rgb) / 0.24);
     opacity: 0;
     transform: translateY(6px) scale(0.96);
     transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
@@ -2222,8 +2242,8 @@
   .reel-cta:hover {
     transform: translateY(-1px) scale(1);
     box-shadow:
-      0 4px 10px rgb(3 105 161 / 0.34),
-      0 14px 34px rgb(13 148 136 / 0.32);
+      0 4px 10px rgb(var(--primary-rgb) / 0.34),
+      0 14px 34px rgb(var(--teal-rgb) / 0.32);
     filter: brightness(1.05);
   }
 

@@ -334,7 +334,7 @@
     padding: calc(132px + var(--hv-promo-h)) 0 84px;
     border-bottom: 1px solid var(--border);
     background:
-      radial-gradient(ellipse 58% 65% at 12% 30%, rgb(3 105 161 / 0.08), transparent 68%),
+      radial-gradient(ellipse 58% 65% at 12% 30%, rgb(var(--primary-rgb) / 0.08), transparent 68%),
       var(--bg);
   }
 
@@ -390,9 +390,9 @@
     overflow: hidden;
     aspect-ratio: 4 / 3;
     margin: 0;
-    border: 1px solid rgb(3 105 161 / 0.22);
+    border: 1px solid rgb(var(--primary-rgb) / 0.22);
     border-radius: var(--radius-tile);
-    box-shadow: 0 26px 70px -26px rgb(2 15 32 / 0.65);
+    box-shadow: 0 26px 70px -26px rgb(var(--night-rgb) / 0.65);
   }
 
   .hero-visual img {
@@ -411,7 +411,7 @@
     padding: 11px 14px;
     border-radius: var(--radius-tile-sm);
     color: #fff;
-    background: rgb(2 15 32 / 0.76);
+    background: rgb(var(--night-rgb) / 0.76);
     font-size: 12px;
     line-height: 1.4;
     backdrop-filter: blur(8px);
@@ -578,7 +578,7 @@
   select:focus,
   textarea:focus {
     border-color: var(--primary);
-    outline: 3px solid rgb(3 105 161 / 0.12);
+    outline: 3px solid rgb(var(--primary-rgb) / 0.12);
   }
 
   textarea {

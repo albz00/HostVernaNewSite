@@ -1,5 +1,7 @@
 /* Prism syntax highlighting (default light theme; swap file under prismjs/themes/ if needed) */
 @import 'prismjs/themes/prism.css';
+/* Seasonal overrides. No effect until <html data-season="halloween">. See src/lib/season.ts. */
+@import './halloween.css';
 
 /* Defined before universal * so `var(--cursor-retro)` resolves everywhere */
 :root {
@@ -38,9 +40,47 @@ textarea,
 
 :root {
   --primary: #0369a1;
+  --primary-rgb: 3 105 161;
   --primary-dark: #075985;
+  --primary-dark-rgb: 7 89 133;
   --teal: #0d9488;
+  --teal-rgb: 13 148 136;
   --teal-dark: #0f766e;
+  --teal-dark-rgb: 15 118 110;
+
+  /* Sky → cyan → teal ramp used by diagrams. The last process step stays green. */
+  --tone-1: #0ea5e9;
+  --tone-1-rgb: 14 165 233;
+  --tone-1-deep: #0284c7;
+  --tone-2: #06b6d4;
+  --tone-2-rgb: 6 182 212;
+  --tone-2-deep: #0e7490;
+  --tone-3: #14b8a6;
+  --tone-3-rgb: 20 184 166;
+  --tone-3-deep: #0f766e;
+
+  /* Accents drawn on dark panels (footer, preview). Independent of light/dark theme. */
+  --ink-bright: #38bdf8;
+  --ink-bright-rgb: 56 189 248;
+  --ink-bright-2: #7dd3fc;
+  --ink-bright-2-rgb: 125 211 252;
+  --ink-bright-soft: #bae6fd;
+  --ink-pair: #2dd4bf;
+  --ink-pair-rgb: 45 212 191;
+  --ink-ice: #67e8f9;
+  --ink-mint: #5eead4;
+  --ink-wash: #cffafe;
+  --ink-deep: #155e75;
+  --ink-line-rgb: 148 196 255;
+
+  --night: #061933;
+  --night-rgb: 2 15 32;
+  --night-raised: #0b1322;
+
+  /* Homepage reel "Send" button (Gmail-style blue). */
+  --mail-send: #2563eb;
+  --mail-send-rgb: 37 99 235;
+
   --gradient: linear-gradient(135deg, #0369a1 0%, #0d9488 100%);
   --gradient-soft: linear-gradient(135deg, #e0f2fe 0%, #ccfbf1 100%);
   --gradient-text: linear-gradient(135deg, #0369a1 0%, #0d9488 100%);
@@ -94,9 +134,13 @@ textarea,
 [data-theme='dark'] {
   color-scheme: dark;
   --primary: #38bdf8;
+  --primary-rgb: 56 189 248;
   --primary-dark: #0ea5e9;
+  --primary-dark-rgb: 14 165 233;
   --teal: #2dd4bf;
+  --teal-rgb: 45 212 191;
   --teal-dark: #14b8a6;
+  --teal-dark-rgb: 20 184 166;
   --gradient: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
   --gradient-soft: linear-gradient(135deg, rgb(8 47 73 / 0.45) 0%, rgb(15 83 70 / 0.35) 100%);
   --gradient-text: linear-gradient(135deg, #38bdf8 0%, #2dd4bf 100%);
@@ -123,11 +167,11 @@ textarea,
 }
 
 [data-theme='dark'] .content-hl.ch-keyword {
-  color: #7dd3fc;
+  color: var(--ink-bright-2);
 }
 
 [data-theme='dark'] .content-hl.ch-string {
-  color: #5eead4;
+  color: var(--ink-mint);
 }
 
 [data-theme='dark'] .content-hl.ch-comment {
@@ -135,7 +179,7 @@ textarea,
 }
 
 [data-theme='dark'] .content-hl.ch-accent {
-  color: #67e8f9;
+  color: var(--ink-ice);
 }
 
 html {
@@ -259,23 +303,23 @@ p {
   color: #fff;
   border-color: transparent;
   box-shadow:
-    0 1px 2px rgb(3 105 161 / 0.2),
-    0 2px 8px rgb(13 148 136 / 0.12);
+    0 1px 2px rgb(var(--primary-rgb) / 0.2),
+    0 2px 8px rgb(var(--teal-rgb) / 0.12);
 }
 
 .btn-primary:hover:not(:disabled):not([aria-disabled='true']) {
   transform: translateY(-2px);
   box-shadow:
-    0 4px 14px rgb(3 105 161 / 0.38),
-    0 8px 24px rgb(13 148 136 / 0.18);
+    0 4px 14px rgb(var(--primary-rgb) / 0.38),
+    0 8px 24px rgb(var(--teal-rgb) / 0.18);
   filter: brightness(1.04);
 }
 
 .btn-primary:active:not(:disabled):not([aria-disabled='true']) {
   transform: translateY(0);
   box-shadow:
-    0 1px 3px rgb(3 105 161 / 0.25),
-    0 2px 6px rgb(13 148 136 / 0.12);
+    0 1px 3px rgb(var(--primary-rgb) / 0.25),
+    0 2px 6px rgb(var(--teal-rgb) / 0.12);
   filter: brightness(0.98);
 }
 
@@ -309,12 +353,12 @@ p {
   transform: translateY(-2px);
   background: var(--primary);
   color: #fff;
-  box-shadow: 0 4px 16px rgb(3 105 161 / 0.35);
+  box-shadow: 0 4px 16px rgb(var(--primary-rgb) / 0.35);
 }
 
 .btn-outline-primary:active:not(:disabled):not([aria-disabled='true']) {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgb(3 105 161 / 0.25);
+  box-shadow: 0 2px 8px rgb(var(--primary-rgb) / 0.25);
 }
 
 .btn-lg {
@@ -366,11 +410,11 @@ a.content-hl:hover {
 }
 
 .content-hl.ch-keyword {
-  color: #075985;
+  color: var(--primary-dark);
 }
 
 .content-hl.ch-string {
-  color: #0f766e;
+  color: var(--teal-dark);
 }
 
 .content-hl.ch-comment {
@@ -381,7 +425,7 @@ a.content-hl:hover {
 
 /* Fourth scan tone: cyan between keyword (sky) and string (teal); no warm highlights */
 .content-hl.ch-accent {
-  color: #155e75;
+  color: var(--ink-deep);
 }
 
 @media (max-width: 768px) {

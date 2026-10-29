@@ -42,7 +42,7 @@
     overflow: hidden;
     padding: 112px 0;
     color: #f8fafc;
-    background: #061933;
+    background: var(--night);
     isolation: isolate;
   }
 
@@ -51,8 +51,8 @@
     inset: 0;
     z-index: -2;
     background:
-      linear-gradient(90deg, rgb(2 15 32 / 0.9), rgb(2 15 32 / 0.38)),
-      linear-gradient(180deg, rgb(2 15 32 / 0.15), rgb(2 15 32 / 0.75)),
+      linear-gradient(90deg, rgb(var(--night-rgb) / 0.9), rgb(var(--night-rgb) / 0.38)),
+      linear-gradient(180deg, rgb(var(--night-rgb) / 0.15), rgb(var(--night-rgb) / 0.75)),
       url('/images/it-finance-security-background.png') center right / cover no-repeat;
   }
 
@@ -60,7 +60,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(800px 520px at 15% 20%, rgb(56 189 248 / 0.14), transparent 68%);
+    background: radial-gradient(800px 520px at 15% 20%, rgb(var(--ink-bright-rgb) / 0.14), transparent 68%);
   }
 
   .preview-grid {
@@ -84,7 +84,7 @@
   }
 
   .title-accent {
-    color: #67e8f9;
+    color: var(--ink-ice);
   }
 
   .preview-copy p {
@@ -97,9 +97,9 @@
 
   .checklist-card {
     padding: clamp(26px, 4vw, 38px);
-    border: 1px solid rgb(148 196 255 / 0.28);
+    border: 1px solid rgb(var(--ink-line-rgb) / 0.28);
     border-radius: var(--radius-tile);
-    background: rgb(2 15 32 / 0.76);
+    background: rgb(var(--night-rgb) / 0.76);
     box-shadow: 0 24px 70px rgb(2 6 23 / 0.42);
     backdrop-filter: blur(12px);
   }
@@ -128,7 +128,7 @@
   }
 
   li span {
-    color: #5eead4;
+    color: var(--ink-mint);
     font-weight: 800;
   }
 
@@ -152,7 +152,7 @@
 
     .image-layer {
       background:
-        linear-gradient(180deg, rgb(2 15 32 / 0.68), rgb(2 15 32 / 0.9)),
+        linear-gradient(180deg, rgb(var(--night-rgb) / 0.68), rgb(var(--night-rgb) / 0.9)),
         url('/images/it-finance-security-background.png') 68% center / cover no-repeat;
     }
   }

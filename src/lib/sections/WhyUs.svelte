@@ -195,8 +195,8 @@
     transform: translateY(-50%);
     background: linear-gradient(
       90deg,
-      rgb(3 105 161 / 0.18),
-      rgb(13 148 136 / 0.35)
+      rgb(var(--primary-rgb) / 0.18),
+      rgb(var(--teal-rgb) / 0.35)
     );
     border-radius: 2px;
   }
@@ -218,17 +218,17 @@
   /* Tint the connectors with a gradient that shifts across the path. */
   .process-item[data-step='1'] .process-connector--out,
   .process-item[data-step='2'] .process-connector--in {
-    background: linear-gradient(90deg, rgb(14 165 233 / 0.45), rgb(6 182 212 / 0.5));
+    background: linear-gradient(90deg, rgb(var(--tone-1-rgb) / 0.45), rgb(var(--tone-2-rgb) / 0.5));
   }
 
   .process-item[data-step='2'] .process-connector--out,
   .process-item[data-step='3'] .process-connector--in {
-    background: linear-gradient(90deg, rgb(6 182 212 / 0.5), rgb(20 184 166 / 0.5));
+    background: linear-gradient(90deg, rgb(var(--tone-2-rgb) / 0.5), rgb(var(--tone-3-rgb) / 0.5));
   }
 
   .process-item[data-step='3'] .process-connector--out,
   .process-item[data-step='4'] .process-connector--in {
-    background: linear-gradient(90deg, rgb(20 184 166 / 0.5), rgb(16 185 129 / 0.5));
+    background: linear-gradient(90deg, rgb(var(--tone-3-rgb) / 0.5), rgb(16 185 129 / 0.5));
   }
 
   .process-node {
@@ -241,7 +241,7 @@
     align-items: center;
     justify-content: center;
     background: var(--bg);
-    border: 1.5px solid rgb(3 105 161 / 0.2);
+    border: 1.5px solid rgb(var(--primary-rgb) / 0.2);
     box-shadow: 0 2px 6px rgb(15 23 42 / 0.06), 0 0 0 4px var(--bg);
   }
 
@@ -250,16 +250,16 @@
     position: absolute;
     inset: 3px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    background: linear-gradient(135deg, var(--tone-1), var(--tone-1-deep));
     z-index: 0;
   }
 
   .process-item[data-step='2'] .process-node::after {
-    background: linear-gradient(135deg, #06b6d4, #0e7490);
+    background: linear-gradient(135deg, var(--tone-2), var(--tone-2-deep));
   }
 
   .process-item[data-step='3'] .process-node::after {
-    background: linear-gradient(135deg, #14b8a6, #0f766e);
+    background: linear-gradient(135deg, var(--tone-3), var(--tone-3-deep));
   }
 
   .process-item[data-step='4'] .process-node::after {
@@ -299,7 +299,7 @@
     font-size: 10.5px;
     font-weight: 600;
     letter-spacing: 0.12em;
-    color: #0369a1;
+    color: var(--primary);
     opacity: 0.8;
   }
 
@@ -364,13 +364,13 @@
   }
 
   :global([data-theme='dark']) .process-node {
-    background: #0b1322;
+    background: var(--night-raised);
     box-shadow: 0 2px 6px rgb(0 0 0 / 0.35), 0 0 0 4px var(--bg);
-    border-color: rgb(56 189 248 / 0.24);
+    border-color: rgb(var(--primary-rgb) / 0.24);
   }
 
   :global([data-theme='dark']) .process-kicker {
-    color: #7dd3fc;
+    color: var(--ink-bright-2);
   }
 
   .whyus-section {

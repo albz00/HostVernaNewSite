@@ -105,8 +105,8 @@
   .legal-hero {
     padding: calc(132px + var(--hv-promo-h)) 0 70px;
     background:
-      radial-gradient(circle at 80% 15%, rgb(13 148 136 / 0.1), transparent 30%),
-      radial-gradient(circle at 10% 15%, rgb(3 105 161 / 0.08), transparent 34%),
+      radial-gradient(circle at 80% 15%, rgb(var(--teal-rgb) / 0.1), transparent 30%),
+      radial-gradient(circle at 10% 15%, rgb(var(--primary-rgb) / 0.08), transparent 34%),
       var(--bg-subtle);
     border-bottom: 1px solid var(--border);
   }
@@ -260,7 +260,7 @@
     gap: 13px;
     margin-top: 20px;
     padding: 18px 20px;
-    background: rgb(3 105 161 / 0.06);
+    background: rgb(var(--primary-rgb) / 0.06);
     border-left: 3px solid var(--primary);
     border-radius: var(--radius-tile-quote);
   }
@@ -272,7 +272,7 @@
     height: 22px;
     flex: 0 0 22px;
     margin-top: 2px;
-    border: 1px solid rgb(3 105 161 / 0.28);
+    border: 1px solid rgb(var(--primary-rgb) / 0.28);
     border-radius: 50%;
     color: var(--primary);
     font-family: var(--font-mono);

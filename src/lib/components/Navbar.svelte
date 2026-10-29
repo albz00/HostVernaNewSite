@@ -727,11 +727,11 @@
   }
 
   .logo-host {
-    color: #0369a1;
+    color: var(--primary);
   }
 
   .logo-verna {
-    color: #0d9488;
+    color: var(--teal);
   }
 
   .nav-links {
@@ -814,7 +814,7 @@
 
   .nav-solution-star {
     flex-shrink: 0;
-    color: var(--primary, #0369a1);
+    color: var(--primary);
   }
 
   .nav-dropdown-menu {
@@ -937,11 +937,11 @@
   }
 
   :global([data-theme='dark']) .nav-phone-compact {
-    color: #7dd3fc;
+    color: var(--ink-bright-2);
   }
 
   :global([data-theme='dark']) .nav-phone-compact:hover {
-    color: #bae6fd;
+    color: var(--ink-bright-soft);
   }
 
   /* Chamfered tile (top-left + bottom-right) to match site's button/card language */
@@ -1014,8 +1014,8 @@
     background: var(--gradient);
     border-color: transparent;
     box-shadow:
-      0 4px 14px rgb(3 105 161 / 0.22),
-      0 4px 14px rgb(13 148 136 / 0.12);
+      0 4px 14px rgb(var(--primary-rgb) / 0.22),
+      0 4px 14px rgb(var(--teal-rgb) / 0.12);
   }
 
   .mobile-toggle:hover .mobile-toggle__text {
@@ -1039,8 +1039,8 @@
     background: var(--gradient);
     border-color: transparent;
     box-shadow:
-      0 4px 14px rgb(3 105 161 / 0.22),
-      0 4px 14px rgb(13 148 136 / 0.12);
+      0 4px 14px rgb(var(--primary-rgb) / 0.22),
+      0 4px 14px rgb(var(--teal-rgb) / 0.12);
   }
 
   .mobile-toggle--open .mobile-toggle__text {
@@ -1346,8 +1346,8 @@
     background: var(--gradient);
     border-color: transparent;
     box-shadow:
-      0 4px 14px rgb(56 189 248 / 0.22),
-      0 4px 14px rgb(45 212 191 / 0.12);
+      0 4px 14px rgb(var(--primary-rgb) / 0.22),
+      0 4px 14px rgb(var(--teal-rgb) / 0.12);
   }
 
   :global([data-theme='dark']) .mobile-toggle:hover .mobile-toggle__text,
